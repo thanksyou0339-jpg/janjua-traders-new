@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>JANJUA - Product Manager</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:20px;
+    background:#f3f5f8;
+    color:#17202a;
+    font-family:Arial,sans-serif;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+}
+
+.header{
+    background:#17202a;
+    color:white;
+    padding:22px;
+    border-radius:15px;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.header h1{
+    margin:0 0 8px;
+}
+
+.header p{
+    margin:0;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:18px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin:14px 0 7px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccd3da;
+    border-radius:9px;
+    font-size:16px;
+    background:white;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+button{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.primary{
+    background:#17202a;
+    color:white;
+}
+
+.secondary{
+    background:#e8edf2;
+    color:#17202a;
+}
+
+.danger{
+    background:#d63031;
+    color:white;
+}
+
+.success{
+    background:#16834b;
+    color:white;
+}
+
+.preview{
+    text-align:center;
+    margin-top:15px;
+}
+
+.preview img{
+    max-width:220px;
+    max-height:220px;
+    border-radius:12px;
+    object-fit:contain;
+    border:1px solid #ddd;
+}
+
+.product-list{
+    margin-top:10px;
+}
+
+.product-item{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+    background:#fafafa;
+}
+
+.product-item strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.small{
+    font-size:13px;
+    color:#666;
+    word-break:break-all;
+}
+
+.notice{
+    background:#fff7d6;
+    border:1px solid #ead37b;
+    padding:12px;
+    border-radius:10px;
+    line-height:1.7;
+}
+
+.hidden{
+    display:none;
+}
+
+.status{
+    padding:12px;
+    border-radius:9px;
+    margin-top:12px;
+    display:none;
+    line-height:1.6;
+}
+
+.status.show{
+    display:block;
+}
+
+.status.success{
+    background:#e7f7ee;
+    color:#17643c;
+}
+
+.status.error{
+    background:#ffe9e9;
+    color:#9d2222;
+}
+
+@media(max-width:600px){
+
+    body{
+        padding:10px;
+    }
+
+    .row{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            JANJUA
+        </h1>
+
+        <p>
+            PRODUCT MANAGER
+        </p>
+
+    </div>
+
+
+    <!-- NOTICE -->
+
+    <div class="card">
+
+        <div class="notice">
+
+            <strong>
+                طریقہ:
+            </strong>
+
+            <br>
+
+            1. Product کی معلومات بھریں۔
+
+            <br>
+
+            2. Product Image URL ڈالیں۔
+
+            <br>
+
+            3. Add Product دبائیں۔
+
+            <br>
+
+            4. آخر میں DOWNLOAD products.js دبائیں۔
+
+            <br>
+
+            5. GitHub میں پرانی
+            <b>products.js</b>
+            کی جگہ نئی فائل ڈال دیں۔
+
+        </div>
+
+    </div>
+
+
+    <!-- PRODUCT FORM -->
+
+    <div class="card">
+
+        <h2>
+            ➕ نئی Product
+        </h2>
+
+
+        <label>
+            Product ID
+        </label>
+
+        <input
+            type="text"
+            id="productId"
+            readonly
+            placeholder="Automatic"
+        >
+
+
+        <label>
+            Product Name
+        </label>
+
+        <input
+            type="text"
+            id="productName"
+            placeholder="مثلاً Ladies Shoes"
+        >
+
+
+        <label>
+            Product Description
+        </label>
+
+        <textarea
+            id="productDescription"
+            placeholder="Product کی تفصیل"
+        ></textarea>
+
+
+        <div class="row">
+
+            <div>
+
+                <label>
+                    Sale Price
+                </label>
+
+                <input
+                    type="number"
+                    id="productPrice"
+                    placeholder="2000"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Old Price
+                </label>
+
+                <input
+                    type="number"
+                    id="oldPrice"
+                    placeholder="2500"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+
+        <label>
+            Category
+        </label>
+
+        <input
+            type="text"
+            id="category"
+            placeholder="Beauty / Shoes / Clothes / Electronics"
+        >
+
+
+        <label>
+            Product Image URL
+        </label>
+
+        <input
+            type="url"
+            id="imageUrl"
+            placeholder="https://..."
+        >
+
+
+        <div
+            id="imagePreview"
+            class="preview hidden"
+        >
+
+            <img
+                id="previewImage"
+                src=""
+                alt="Preview"
+            >
+
+        </div>
+
+
+        <label>
+            Delivery
+        </label>
+
+        <select id="deliveryType">
+
+            <option value="FREE">
+                FREE DELIVERY
+            </option>
+
+            <option value="PAID">
+                PAID DELIVERY
+            </option>
+
+        </select>
+
+
+        <div
+            id="deliveryChargesBox"
+            class="hidden"
+        >
+
+            <label>
+                Delivery Charges
+            </label>
+
+            <input
+                type="number"
+                id="deliveryCharges"
+                value="0"
+                min="0"
+            >
+
+        </div>
+
+
+        <label>
+            Original Supplier Link
+        </label>
+
+        <input
+            type="url"
+            id="supplierLink"
+            placeholder="Markaz / Daraz original link"
+        >
+
+
+        <label>
+            Social Media Link
+        </label>
+
+        <input
+            type="url"
+            id="socialLink"
+            placeholder="TikTok / Facebook link"
+        >
+
+
+        <button
+            type="button"
+            class="primary"
+            id="addProductBtn"
+        >
+            ➕ ADD PRODUCT
+        </button>
+
+
+        <button
+            type="button"
+            class="secondary"
+            id="clearFormBtn"
+        >
+            CLEAR FORM
+        </button>
+
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+    </div>
+
+
+    <!-- PRODUCT LIST -->
+
+    <div class="card">
+
+        <h2>
+            📦 Products List
+        </h2>
+
+
+        <div
+            id="productCount"
+            class="small"
+        >
+            ابھی کوئی نئی Product نہیں۔
+        </div>
+
+
+        <div
+            id="productList"
+            class="product-list"
+        ></div>
+
+
+        <button
+            type="button"
+            class="success"
+            id="downloadBtn"
+        >
+            ⬇️ DOWNLOAD products.js
+        </button>
+
+
+        <button
+            type="button"
+            class="danger"
+            id="clearAllBtn"
+        >
+            🗑️ CLEAR ALL PRODUCTS
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+// =====================================================
+// DATA
+// =====================================================
+
+let products = [];
+
+
+// =====================================================
+// ELEMENTS
+// =====================================================
+
+const productId =
+    document.getElementById("productId");
+
+const productName =
+    document.getElementById("productName");
+
+const productDescription =
+    document.getElementById("productDescription");
+
+const productPrice =
+    document.getElementById("productPrice");
+
+const oldPrice =
+    document.getElementById("oldPrice");
+
+const category =
+    document.getElementById("category");
+
+const imageUrl =
+    document.getElementById("imageUrl");
+
+const previewImage =
+    document.getElementById("previewImage");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
+const deliveryType =
+    document.getElementById("deliveryType");
+
+const deliveryCharges =
+    document.getElementById("deliveryCharges");
+
+const deliveryChargesBox =
+    document.getElementById(
+        "deliveryChargesBox"
+    );
+
+const supplierLink =
+    document.getElementById("supplierLink");
+
+const socialLink =
+    document.getElementById("socialLink");
+
+const addProductBtn =
+    document.getElementById("addProductBtn");
+
+const clearFormBtn =
+    document.getElementById("clearFormBtn");
+
+const downloadBtn =
+    document.getElementById("downloadBtn");
+
+const clearAllBtn =
+    document.getElementById("clearAllBtn");
+
+const productList =
+    document.getElementById("productList");
+
+const productCount =
+    document.getElementById("productCount");
+
+const statusBox =
+    document.getElementById("status");
+
+
+// =====================================================
+// PRODUCT ID
+// =====================================================
+
+function getNextProductId(){
+
+    let highest = 0;
+
+    products.forEach(product => {
+
+        const match =
+            String(product.id || "")
+                .match(
+                    /JT\.PRODUCT\.(\d+)/
+                );
+
+        if(match){
+
+            const number =
+                Number(match[1]);
+
+            if(number > highest){
+
+                highest = number;
+
+            }
+
+        }
+
+    });
+
+
+    const next =
+        highest + 1;
+
+
+    return (
+        "JT.PRODUCT." +
+        String(next).padStart(4,"0")
+    );
+}
+
+
+// =====================================================
+// UPDATE PRODUCT ID
+// =====================================================
+
+function updateProductId(){
+
+    productId.value =
+        getNextProductId();
+}
+
+
+// =====================================================
+// STATUS
+// =====================================================
+
+function showStatus(
+    message,
+    type = "success"
+){
+
+    statusBox.textContent =
+        message;
+
+    statusBox.className =
+        "status show " +
+        type;
+
+}
+
+
+// =====================================================
+// CLEAR STATUS
+// =====================================================
+
+function clearStatus(){
+
+    statusBox.textContent =
+        "";
+
+    statusBox.className =
+        "status";
+
+}
+
+
+// =====================================================
+// IMAGE PREVIEW
+// =====================================================
+
+imageUrl.addEventListener(
+    "input",
+    function(){
+
+        const url =
+            imageUrl.value.trim();
+
+
+        if(!url){
+
+            imagePreview.classList.add(
+                "hidden"
+            );
+
+            return;
+        }
+
+
+        previewImage.src =
+            url;
+
+
+        imagePreview.classList.remove(
+            "hidden"
+        );
+
+    }
+);
+
+
+previewImage.addEventListener(
+    "error",
+    function(){
+
+        imagePreview.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+// =====================================================
+// DELIVERY
+// =====================================================
+
+deliveryType.addEventListener(
+    "change",
+    function(){
+
+        if(
+            deliveryType.value ===
+            "PAID"
+        ){
+
+            deliveryChargesBox.classList.remove(
+                "hidden"
+            );
+
+        }else{
+
+            deliveryChargesBox.classList.add(
+                "hidden"
+            );
+
+            deliveryCharges.value =
+                "0";
+        }
+
+    }
+);
+
+
+// =====================================================
+// CLEAR FORM
+// =====================================================
+
+function clearForm(){
+
+    productName.value =
+        "";
+
+    productDescription.value =
+        "";
+
+    productPrice.value =
+        "";
+
+    oldPrice.value =
+        "";
+
+    category.value =
+        "";
+
+    imageUrl.value =
+        "";
+
+    deliveryType.value =
+        "FREE";
+
+    deliveryCharges.value =
+        "0";
+
+    supplierLink.value =
+        "";
+
+    socialLink.value =
+        "";
+
+    imagePreview.classList.add(
+        "hidden"
+    );
+
+    clearStatus();
+
+    updateProductId();
+
+    productName.focus();
+
+}
+
+
+// =====================================================
+// ADD PRODUCT
+// =====================================================
+
+addProductBtn.addEventListener(
+    "click",
+    function(){
+
+        clearStatus();
+
+
+        const name =
+            productName.value.trim();
+
+
+        const description =
+            productDescription.value.trim();
+
+
+        const price =
+            Number(
+                productPrice.value
+            );
+
+
+        const old =
+            Number(
+                oldPrice.value || 0
+            );
+
+
+        const cat =
+            category.value.trim();
+
+
+        const image =
+            imageUrl.value.trim();
+
+
+        const delivery =
+            deliveryType.value;
+
+
+        const charges =
+            delivery === "PAID"
+                ? Number(
+                    deliveryCharges.value || 0
+                  )
+                : 0;
+
+
+        const supplier =
+            supplierLink.value.trim();
+
+
+        const social =
+            socialLink.value.trim();
+
+
+        // =============================================
+        // VALIDATION
+        // =============================================
+
+        if(!name){
+
+            showStatus(
+                "❌ Product Name لکھیں۔",
+                "error"
+            );
+
+            productName.focus();
+
+            return;
+        }
+
+
+        if(!price || price <= 0){
+
+            showStatus(
+                "❌ Product Price درست لکھیں۔",
+                "error"
+            );
+
+            productPrice.focus();
+
+            return;
+        }
+
+
+        if(!cat){
+
+            showStatus(
+                "❌ Category لکھیں۔",
+                "error"
+            );
+
+            category.focus();
+
+            return;
+        }
+
+
+        if(!image){
+
+            showStatus(
+                "❌ Product Image URL ڈالیں۔",
+                "error"
+            );
+
+            imageUrl.focus();
+
+            return;
+        }
+
+
+        // =============================================
+        // CREATE PRODUCT
+        // =============================================
+
+        const newProduct = {
+
+            id:
+                getNextProductId(),
+
+            name:
+                name,
+
+            description:
+                description,
+
+            price:
+                price,
+
+            oldPrice:
+                old,
+
+            category:
+                cat,
+
+            image:
+                image,
+
+            deliveryType:
+                delivery,
+
+            deliveryCharges:
+                charges,
+
+            supplierLink:
+                supplier,
+
+            socialLink:
+                social
+
+        };
+
+
+        products.push(
+            newProduct
+        );
+
+
+        renderProducts();
+
+        clearForm();
+
+
+        showStatus(
+            "✅ Product شامل ہو گئی۔ اب آپ مزید Products شامل کر سکتے ہیں۔",
+            "success"
+        );
+
+    }
+);
+
+
+// =====================================================
+// RENDER PRODUCTS
+// =====================================================
+
+function renderProducts(){
+
+    productList.innerHTML =
+        "";
+
+
+    productCount.textContent =
+        "Total Products: " +
+        products.length;
+
+
+    if(products.length === 0){
+
+        productCount.textContent =
+            "ابھی کوئی نئی Product نہیں۔";
+
+        updateProductId();
+
+        return;
+    }
+
+
+    products.forEach(
+        (product,index) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "product-item";
+
+
+            item.innerHTML = `
+
+                <strong>
+                    ${index + 1}. ${escapeHTML(product.name)}
+                </strong>
+
+                <div class="small">
+                    ID: ${escapeHTML(product.id)}
+                </div>
+
+                <div class="small">
+                    Category: ${escapeHTML(product.category)}
+                </div>
+
+                <div class="small">
+                    Price: Rs. ${Number(product.price).toLocaleString("en-PK")}
+                </div>
+
+                <button
+                    type="button"
+                    class="danger"
+                    data-index="${index}"
+                >
+                    DELETE
+                </button>
+
+            `;
+
+
+            const deleteButton =
+                item.querySelector(
+                    "button"
+                );
+
+
+            deleteButton.addEventListener(
+                "click",
+                function(){
+
+                    if(
+                        confirm(
+                            "کیا آپ یہ Product delete کرنا چاہتے ہیں؟"
+                        )
+                    ){
+
+                        products.splice(
+                            index,
+                            1
+                        );
+
+                        renderProducts();
+
+                        showStatus(
+                            "Product delete ہو گئی۔",
+                            "success"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            productList.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    updateProductId();
+}
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+// =====================================================
+// DOWNLOAD PRODUCTS.JS
+// =====================================================
+
+downloadBtn.addEventListener(
+    "click",
+    function(){
+
+        if(
+            products.length === 0
+        ){
+
+            showStatus(
+                "❌ پہلے کم از کم ایک Product شامل کریں۔",
+                "error"
+            );
+
+            return;
+        }
+
+
+        let output =
+`// =====================================================
+// JANJUA TRADERS - PRODUCTS DATABASE
+// Generated by Product Manager
+// =====================================================
+
+export const JANJUA_PRODUCTS = [
+
+`;
+
+
+        products.forEach(
+            product => {
+
+                output +=
+`    {
+        id: ${JSON.stringify(product.id)},
+
+        name: ${JSON.stringify(product.name)},
+
+        description: ${JSON.stringify(product.description)},
+
+        price: ${Number(product.price) || 0},
+
+        oldPrice: ${Number(product.oldPrice) || 0},
+
+        category: ${JSON.stringify(product.category)},
+
+        image: ${JSON.stringify(product.image)},
+
+        deliveryType: ${JSON.stringify(product.deliveryType)},
+
+        deliveryCharges: ${Number(product.deliveryCharges) || 0},
+
+        supplierLink: ${JSON.stringify(product.supplierLink || "")},
+
+        socialLink: ${JSON.stringify(product.socialLink || "")}
+    },
+
+`;
+
+            }
+        );
+
+
+        output +=
+`];
+
+`;
+
+
+        const blob =
+            new Blob(
+                [output],
+                {
+                    type:
+                        "text/javascript;charset=utf-8"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            "products.js";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+
+        showStatus(
+            "✅ products.js تیار ہو گئی۔ اب اسے GitHub میں upload کریں۔",
+            "success"
+        );
+
+    }
+);
+
+
+// =====================================================
+// CLEAR ALL
+// =====================================================
+
+clearAllBtn.addEventListener(
+    "click",
+    function(){
+
+        if(
+            products.length === 0
+        ){
+
+            return;
+        }
+
+
+        if(
+            !confirm(
+                "کیا آپ تمام Products ختم کرنا چاہتے ہیں؟"
+            )
+        ){
+
+            return;
+        }
+
+
+        products =
+            [];
+
+
+        renderProducts();
+
+
+        showStatus(
+            "تمام Products صاف ہو گئی ہیں۔",
+            "success"
+        );
+
+    }
+);
+
+
+// =====================================================
+// CLEAR BUTTON
+// =====================================================
+
+clearFormBtn.addEventListener(
+    "click",
+    clearForm
+);
+
+
+// =====================================================
+// START
+// =====================================================
+
+updateProductId();
+
+renderProducts();
+
+</script>
+
+</body>
+
+</html>
