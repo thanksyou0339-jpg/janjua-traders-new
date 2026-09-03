@@ -14,22 +14,16 @@ body{
 }
 
 
-/* =========================================
+/* =========================
    HEADER
-========================================= */
+========================= */
 
 .shop-header{
-
     position:relative;
-
     min-height:275px;
-
     padding:35px 15px 30px;
-
     text-align:center;
-
     overflow:hidden;
-
     color:white;
 
     background:
@@ -47,25 +41,19 @@ body{
 
     border-bottom:1px solid
     rgba(255,255,255,.12);
-
 }
 
 
-/* =========================================
+/* =========================
    BRAND
-========================================= */
+========================= */
 
 .brand-area{
-
     position:relative;
-
     z-index:5;
-
 }
 
-
 .brand-title{
-
     display:inline-block;
 
     font-size:
@@ -84,12 +72,9 @@ body{
     animation:
         janjuaFloat 3.5s ease-in-out infinite,
         janjuaGlow 2.5s ease-in-out infinite alternate;
-
 }
 
-
 .brand-line{
-
     margin-top:12px;
 
     font-size:
@@ -101,12 +86,9 @@ body{
 
     animation:
         softFloat 4s ease-in-out infinite;
-
 }
 
-
 .brand-subtitle{
-
     margin-top:8px;
 
     font-size:13px;
@@ -114,7 +96,6 @@ body{
     letter-spacing:2px;
 
     opacity:.82;
-
 }
 
 
@@ -131,7 +112,6 @@ body{
         translateY(-6px)
         scale(1.015);
     }
-
 }
 
 
@@ -144,7 +124,6 @@ body{
     to{
         filter:brightness(1.25);
     }
-
 }
 
 
@@ -157,29 +136,21 @@ body{
     50%{
         transform:translateY(3px);
     }
-
 }
 
 
-/* =========================================
+/* =========================
    BIRDS
-========================================= */
+========================= */
 
 .nature-layer{
-
     position:absolute;
-
     inset:0;
-
     pointer-events:none;
-
     z-index:1;
-
 }
 
-
 .bird{
-
     position:absolute;
 
     font-size:25px;
@@ -191,14 +162,11 @@ body{
             0 3px 5px
             rgba(0,0,0,.25)
         );
-
 }
 
 
 .bird-1{
-
     top:30px;
-
     left:-60px;
 
     animation:
@@ -206,18 +174,14 @@ body{
         15s
         linear
         infinite;
-
 }
 
 
 .bird-2{
-
     top:85px;
-
     left:-70px;
 
     font-size:20px;
-
     opacity:.3;
 
     animation:
@@ -226,18 +190,14 @@ body{
         linear
         infinite
         4s;
-
 }
 
 
 .bird-3{
-
     top:145px;
-
     right:-60px;
 
     font-size:22px;
-
     opacity:.35;
 
     animation:
@@ -246,18 +206,14 @@ body{
         linear
         infinite
         2s;
-
 }
 
 
 .bird-4{
-
     top:45px;
-
     right:-60px;
 
     font-size:18px;
-
     opacity:.28;
 
     animation:
@@ -266,7 +222,6 @@ body{
         linear
         infinite
         7s;
-
 }
 
 
@@ -289,7 +244,6 @@ body{
         translateX(115vw)
         translateY(5px);
     }
-
 }
 
 
@@ -312,16 +266,14 @@ body{
         translateX(-115vw)
         translateY(-3px);
     }
-
 }
 
 
-/* =========================================
+/* =========================
    SPARKS
-========================================= */
+========================= */
 
 .nature-spark{
-
     position:absolute;
 
     opacity:.3;
@@ -331,7 +283,6 @@ body{
         3s
         ease-in-out
         infinite;
-
 }
 
 
@@ -365,16 +316,14 @@ body{
         opacity:.8;
         transform:scale(1.25);
     }
-
 }
 
 
-/* =========================================
+/* =========================
    SEARCH
-========================================= */
+========================= */
 
 .search-box{
-
     position:relative;
 
     z-index:6;
@@ -385,12 +334,10 @@ body{
         23px
         auto
         0;
-
 }
 
 
 .search-box input{
-
     width:100%;
 
     padding:
@@ -423,7 +370,6 @@ body{
         rgba(0,0,0,.22);
 
     transition:.25s ease;
-
 }
 
 
@@ -434,7 +380,6 @@ body{
         rgba(125,211,252,.2),
         0 12px 35px
         rgba(0,0,0,.25);
-
 }
 
 
@@ -454,13 +399,12 @@ body{
     font-size:19px;
 
     pointer-events:none;
-
 }
 
 
-/* =========================================
-   CATEGORY
-========================================= */
+/* =========================
+   CATEGORIES
+========================= */
 
 .category-bar{
 
@@ -487,7 +431,6 @@ body{
     scrollbar-width:none;
 
     direction:ltr;
-
 }
 
 
@@ -526,15 +469,12 @@ body{
     box-shadow:
         0 2px 8px
         rgba(0,0,0,.05);
-
 }
 
 
 .category-btn:hover{
-
     transform:
         translateY(-2px);
-
 }
 
 
@@ -549,13 +489,12 @@ body{
     box-shadow:
         0 7px 18px
         rgba(17,24,39,.22);
-
 }
 
 
-/* =========================================
-   CONTAINER
-========================================= */
+/* =========================
+   PRODUCTS
+========================= */
 
 .shop-container{
 
@@ -566,13 +505,8 @@ body{
         45px;
 
     min-height:300px;
-
 }
 
-
-/* =========================================
-   PRODUCTS
-========================================= */
 
 .product-grid{
 
@@ -582,7 +516,6 @@ body{
         repeat(4,1fr);
 
     gap:20px;
-
 }
 
 
@@ -606,7 +539,6 @@ body{
     transition:
         transform .25s ease,
         box-shadow .25s ease;
-
 }
 
 
@@ -618,7 +550,6 @@ body{
     box-shadow:
         0 15px 35px
         rgba(0,0,0,.13);
-
 }
 
 
@@ -629,7 +560,6 @@ body{
     overflow:hidden;
 
     background:#eef1f4;
-
 }
 
 
@@ -645,7 +575,6 @@ body{
 
     transition:
         transform .4s ease;
-
 }
 
 
@@ -653,13 +582,12 @@ body{
 
     transform:
         scale(1.045);
-
 }
 
 
-/* =========================================
+/* =========================
    NEW ITEM
-========================================= */
+========================= */
 
 .new-badge{
 
@@ -696,7 +624,6 @@ body{
         1.4s
         ease-in-out
         infinite;
-
 }
 
 
@@ -713,18 +640,15 @@ body{
             scale(1.09)
             rotate(2deg);
     }
-
 }
 
 
-/* =========================================
+/* =========================
    PRODUCT INFO
-========================================= */
+========================= */
 
 .product-info{
-
     padding:15px;
-
 }
 
 
@@ -742,7 +666,6 @@ body{
     direction:auto;
 
     unicode-bidi:plaintext;
-
 }
 
 
@@ -764,13 +687,12 @@ body{
     direction:auto;
 
     unicode-bidi:plaintext;
-
 }
 
 
-/* =========================================
+/* =========================
    PRICE
-========================================= */
+========================= */
 
 .price-row{
 
@@ -785,7 +707,6 @@ body{
     direction:ltr;
 
     justify-content:flex-end;
-
 }
 
 
@@ -794,7 +715,6 @@ body{
     font-size:20px;
 
     font-weight:1000;
-
 }
 
 
@@ -803,13 +723,12 @@ body{
     color:#969da6;
 
     font-size:14px;
-
 }
 
 
-/* =========================================
-   ORDER BUTTON
-========================================= */
+/* =========================
+   ORDER
+========================= */
 
 .order-btn{
 
@@ -832,7 +751,6 @@ body{
     cursor:pointer;
 
     transition:.22s ease;
-
 }
 
 
@@ -846,21 +764,17 @@ body{
     box-shadow:
         0 8px 18px
         rgba(17,24,39,.18);
-
 }
 
 
 .order-btn:active{
-
-    transform:
-        scale(.98);
-
+    transform:scale(.98);
 }
 
 
-/* =========================================
+/* =========================
    LOADING
-========================================= */
+========================= */
 
 .loading-message{
 
@@ -877,7 +791,6 @@ body{
     font-size:17px;
 
     font-weight:700;
-
 }
 
 
@@ -897,7 +810,6 @@ body{
 
     animation:
         spin .8s linear infinite;
-
 }
 
 
@@ -906,13 +818,12 @@ body{
     to{
         transform:rotate(360deg);
     }
-
 }
 
 
-/* =========================================
+/* =========================
    FOOTER
-========================================= */
+========================= */
 
 .shop-footer{
 
@@ -927,7 +838,6 @@ body{
     background:#111827;
 
     color:white;
-
 }
 
 
@@ -940,7 +850,6 @@ body{
     letter-spacing:5px;
 
     margin-bottom:4px;
-
 }
 
 
@@ -949,20 +858,17 @@ body{
     margin:7px 0;
 
     opacity:.75;
-
 }
 
 
 .shop-footer small{
-
     opacity:.55;
-
 }
 
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:1000px){
 
