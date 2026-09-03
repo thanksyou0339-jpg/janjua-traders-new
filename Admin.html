@@ -430,7 +430,6 @@ body{
     line-height:1.7;
 
     text-align:center;
-
 }
 
 
@@ -739,6 +738,8 @@ body{
     font-weight:bold;
 
     line-height:1.6;
+
+    white-space:pre-line;
 }
 
 .message.success{
@@ -957,9 +958,11 @@ body{
 
 
     <div class="login-help">
+
         Admin Email اور Password وہی استعمال کریں جو
         <b>Firebase Authentication → Users</b>
         میں بنایا گیا ہے۔
+
     </div>
 
 </section>
@@ -1374,7 +1377,7 @@ from
 const firebaseConfig = {
 
     apiKey:
-    "AIzaSyA8_4ArKXAdfKWZ5miDa5T9qiayL3h_Yzw",
+    "AIzaSyA8_4ArKXAdfKWZ5miDaT9qiayL3h_Yzw",
 
     authDomain:
     "janjua-traders.firebaseapp.com",
@@ -1427,90 +1430,85 @@ document.getElementById(
     "loginSection"
 );
 
-
 const adminSection =
 document.getElementById(
     "adminSection"
 );
-
 
 const loginBtn =
 document.getElementById(
     "loginBtn"
 );
 
-
 const logoutBtn =
 document.getElementById(
     "logoutBtn"
 );
-
 
 const resetPasswordBtn =
 document.getElementById(
     "resetPasswordBtn"
 );
 
-
 const passwordToggle =
 document.getElementById(
     "passwordToggle"
 );
-
 
 const passwordInput =
 document.getElementById(
     "password"
 );
 
-
 const emailInput =
 document.getElementById(
     "email"
 );
-
 
 const saveProductBtn =
 document.getElementById(
     "saveProductBtn"
 );
 
-
 const productImageInput =
 document.getElementById(
     "productImage"
 );
-
 
 const imagePreview =
 document.getElementById(
     "imagePreview"
 );
 
-
 const uploadStatus =
 document.getElementById(
     "uploadStatus"
 );
-
 
 const productList =
 document.getElementById(
     "productList"
 );
 
-
 const productsLoading =
 document.getElementById(
     "productsLoading"
 );
-
 
 const productsSearch =
 document.getElementById(
     "productsSearch"
 );
 
+const loginMessage =
+document.getElementById(
+    "loginMessage"
+);
+
+const adminMessage =
+document.getElementById(
+    "adminMessage"
+);
 
 let allProducts = [];
 
@@ -1609,7 +1607,8 @@ function showMessage(
 
 
 /* =========================================
-   FIREBASE ERROR MESSAGE
+   FIREBASE ERROR
+   SHOW EXACT CODE + MESSAGE
 ========================================= */
 
 function getFirebaseErrorMessage(
@@ -1620,74 +1619,35 @@ function getFirebaseErrorMessage(
         error &&
         error.code
         ? error.code
-        : "";
+        : "unknown";
 
 
-    switch(code){
-
-        case "auth/invalid-email":
-
-            return(
-                "❌ Email کا format درست نہیں ہے۔"
-            );
+    const message =
+        error &&
+        error.message
+        ? error.message
+        : "No Firebase error message";
 
 
-        case "auth/user-not-found":
-
-            return(
-                "❌ یہ Email Firebase Authentication میں موجود نہیں ہے۔"
-            );
-
-
-        case "auth/wrong-password":
-
-            return(
-                "❌ Password غلط ہے۔"
-            );
+    console.error(
+        "FIREBASE ERROR CODE:",
+        code
+    );
 
 
-        case "auth/invalid-credential":
-
-            return(
-                "❌ Email یا Password غلط ہے۔"
-            );
-
-
-        case "auth/too-many-requests":
-
-            return(
-                "⚠️ بہت زیادہ کوششیں ہو چکی ہیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔"
-            );
+    console.error(
+        "FIREBASE ERROR MESSAGE:",
+        message
+    );
 
 
-        case "auth/network-request-failed":
-
-            return(
-                "❌ Internet connection کا مسئلہ ہے۔"
-            );
-
-
-        case "auth/user-disabled":
-
-            return(
-                "❌ یہ Admin account disabled ہے۔"
-            );
-
-
-        case "auth/operation-not-allowed":
-
-            return(
-                "❌ Firebase میں Email/Password Login فعال نہیں ہے۔"
-            );
-
-
-        default:
-
-            return(
-                "❌ Login ناکام ہوا۔ Firebase Authentication میں Admin Email اور Password چیک کریں۔"
-            );
-
-    }
+    return (
+        "❌ Firebase Error: " +
+        code +
+        "\n\n" +
+        "Details: " +
+        message
+    );
 
 }
 
@@ -1708,9 +1668,7 @@ async function doLogin(){
     if(!email){
 
         showMessage(
-            document.getElementById(
-                "loginMessage"
-            ),
+            loginMessage,
             "❌ پہلے Admin Email درج کریں۔",
             "error"
         );
@@ -1725,9 +1683,7 @@ async function doLogin(){
     if(!password){
 
         showMessage(
-            document.getElementById(
-                "loginMessage"
-            ),
+            loginMessage,
             "❌ پہلے Password درج کریں۔",
             "error"
         );
@@ -1749,9 +1705,7 @@ async function doLogin(){
 
 
         showMessage(
-            document.getElementById(
-                "loginMessage"
-            ),
+            loginMessage,
             "Login ہو رہا ہے...",
             "success"
         );
@@ -1761,6 +1715,13 @@ async function doLogin(){
             auth,
             email,
             password
+        );
+
+
+        showMessage(
+            loginMessage,
+            "✅ Login کامیاب!",
+            "success"
         );
 
 
@@ -1775,9 +1736,7 @@ async function doLogin(){
 
 
         showMessage(
-            document.getElementById(
-                "loginMessage"
-            ),
+            loginMessage,
             getFirebaseErrorMessage(
                 error
             ),
@@ -1862,9 +1821,7 @@ resetPasswordBtn.addEventListener(
         if(!email){
 
             showMessage(
-                document.getElementById(
-                    "loginMessage"
-                ),
+                loginMessage,
                 "❌ پہلے اوپر اپنا Admin Gmail لکھیں، پھر Forgot Password دبائیں۔",
                 "error"
             );
@@ -1892,9 +1849,7 @@ resetPasswordBtn.addEventListener(
 
 
             showMessage(
-                document.getElementById(
-                    "loginMessage"
-                ),
+                loginMessage,
                 "✅ Password reset email بھیج دی گئی ہے۔ اپنے Gmail Inbox اور Spam/Junk folder دونوں چیک کریں۔",
                 "success"
             );
@@ -1910,46 +1865,26 @@ resetPasswordBtn.addEventListener(
             );
 
 
-            let message =
-                "❌ Password reset نہیں ہو سکا۔";
+            const code =
+                error &&
+                error.code
+                ? error.code
+                : "unknown";
 
 
-            if(
-                error.code ===
-                "auth/user-not-found"
-            ){
-
-                message =
-                    "❌ یہ Gmail Firebase Authentication میں موجود نہیں ہے۔";
-
-            }
-
-            else if(
-                error.code ===
-                "auth/invalid-email"
-            ){
-
-                message =
-                    "❌ Gmail کا format درست نہیں ہے۔";
-
-            }
-
-            else if(
-                error.code ===
-                "auth/network-request-failed"
-            ){
-
-                message =
-                    "❌ Internet connection کا مسئلہ ہے۔";
-
-            }
+            const errorMessage =
+                error &&
+                error.message
+                ? error.message
+                : "No Firebase error message";
 
 
             showMessage(
-                document.getElementById(
-                    "loginMessage"
-                ),
-                message,
+                loginMessage,
+                "❌ Password Reset Error: " +
+                code +
+                "\n\nDetails: " +
+                errorMessage,
                 "error"
             );
 
@@ -1988,6 +1923,7 @@ logoutBtn.addEventListener(
         catch(error){
 
             console.error(
+                "LOGOUT ERROR:",
                 error
             );
 
@@ -2060,9 +1996,7 @@ productImageInput.addEventListener(
         ){
 
             showMessage(
-                document.getElementById(
-                    "adminMessage"
-                ),
+                adminMessage,
                 "❌ Image 5MB سے زیادہ نہیں ہونی چاہیے۔",
                 "error"
             );
@@ -2160,8 +2094,12 @@ async function uploadImage(
 
     if(!response.ok){
 
+        const errorText =
+            await response.text();
+
         throw new Error(
-            "Image upload failed."
+            "Image upload failed: " +
+            errorText
         );
 
     }
@@ -2327,12 +2265,6 @@ async function generateProductId(){
 saveProductBtn.addEventListener(
     "click",
     async function(){
-
-        const message =
-            document.getElementById(
-                "adminMessage"
-            );
-
 
         try{
 
@@ -2575,7 +2507,7 @@ saveProductBtn.addEventListener(
 
 
             showMessage(
-                message,
+                adminMessage,
                 "✅ Product کامیابی سے save ہوگیا۔ Product ID: " +
                 productId,
                 "success"
@@ -2599,7 +2531,7 @@ saveProductBtn.addEventListener(
 
 
             showMessage(
-                message,
+                adminMessage,
                 error.message ||
                 "Product save نہیں ہو سکا۔",
                 "error"
@@ -2775,6 +2707,7 @@ async function loadProducts(){
     catch(error){
 
         console.error(
+            "LOAD PRODUCTS ERROR:",
             error
         );
 
@@ -2783,7 +2716,12 @@ async function loadProducts(){
             "block";
 
         productsLoading.textContent =
-            "Products load نہیں ہو سکے۔";
+            "Products load نہیں ہو سکے: " +
+            (
+                error.code ||
+                error.message ||
+                "Unknown error"
+            );
 
     }
 
@@ -3097,15 +3035,19 @@ function renderProducts(
                     catch(error){
 
                         console.error(
+                            "DELETE PRODUCT ERROR:",
                             error
                         );
 
 
                         showMessage(
-                            document.getElementById(
-                                "adminMessage"
+                            adminMessage,
+                            "Product delete نہیں ہو سکا: " +
+                            (
+                                error.code ||
+                                error.message ||
+                                "Unknown error"
                             ),
-                            "Product delete نہیں ہو سکا۔",
                             "error"
                         );
 
