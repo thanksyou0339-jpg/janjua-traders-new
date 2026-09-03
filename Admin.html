@@ -5,9 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>JANJUA — Admin Panel</title>
+<title>JANJUA - Admin Panel</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -35,6 +36,7 @@ body{
     font-weight:900;
     letter-spacing:5px;
     color:#f4c542;
+    z-index:2;
 }
 
 .subtitle{
@@ -42,6 +44,8 @@ body{
     font-size:14px;
     color:#fff;
     letter-spacing:2px;
+    position:relative;
+    z-index:2;
 }
 
 .orbit{
@@ -69,12 +73,15 @@ body{
 }
 
 @keyframes orbit{
+
     from{
         transform:rotate(0deg) translateX(62px) rotate(0deg);
     }
+
     to{
         transform:rotate(360deg) translateX(62px) rotate(-360deg);
     }
+
 }
 
 .container{
@@ -161,6 +168,11 @@ textarea{
 
 .btn:hover{
     opacity:.9;
+}
+
+.btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .button-row{
@@ -320,7 +332,15 @@ textarea{
     border:1px solid #ddd;
 }
 
+.file-note{
+    color:#666;
+    font-size:13px;
+    display:block;
+    margin-top:5px;
+}
+
 @media(max-width:700px){
+
     .grid{
         grid-template-columns:1fr;
     }
@@ -337,11 +357,15 @@ textarea{
         width:100%;
         height:200px;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -349,7 +373,9 @@ textarea{
         <div class="satellite"></div>
     </div>
 
-    <div class="logo">JANJUA</div>
+    <div class="logo">
+        JANJUA
+    </div>
 
     <div class="subtitle">
         DIGITAL MARKETING ONLINE PLATFORM
@@ -358,7 +384,10 @@ textarea{
 </header>
 
 
-<!-- LOGIN -->
+
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div id="loginSection" class="container">
 
@@ -366,7 +395,10 @@ textarea{
 
         <h2>🔐 Admin Login</h2>
 
-        <label>👤 Admin Username / Email</label>
+
+        <label>
+            👤 Admin Username / Email
+        </label>
 
         <input
             type="email"
@@ -375,7 +407,10 @@ textarea{
             autocomplete="username"
         >
 
-        <label>🔑 Admin Password</label>
+
+        <label>
+            🔑 Admin Password
+        </label>
 
         <div class="password-wrap">
 
@@ -390,9 +425,12 @@ textarea{
                 type="button"
                 class="eye"
                 id="eyeBtn"
-            >👁️</button>
+            >
+                👁️
+            </button>
 
         </div>
+
 
         <div class="button-row">
 
@@ -412,16 +450,27 @@ textarea{
 
         </div>
 
-        <div id="loginStatus" class="status"></div>
+
+        <div
+            id="loginStatus"
+            class="status"
+        ></div>
 
     </div>
 
 </div>
 
 
-<!-- ADMIN -->
 
-<div id="adminSection" class="container hidden">
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div
+    id="adminSection"
+    class="container hidden"
+>
+
 
     <div class="card">
 
@@ -432,14 +481,24 @@ textarea{
             LOGOUT
         </button>
 
-        <h2>📦 JANJUA Product Admin</h2>
+
+        <h2>
+            📦 JANJUA Product Admin
+        </h2>
+
 
         <p>
-            یہاں Product کی تمام معلومات درج کریں۔
+            یہاں Product کی معلومات درج کریں۔
             Customer کو Original Supplier Link نہیں دکھایا جائے گا۔
         </p>
 
-        <label>Product Name</label>
+
+
+        <!-- PRODUCT NAME -->
+
+        <label>
+            Product Name
+        </label>
 
         <input
             id="productName"
@@ -448,48 +507,89 @@ textarea{
         >
 
 
+
+        <!-- CATEGORY + SUPPLIER -->
+
         <div class="grid">
+
 
             <div>
 
-                <label>Category</label>
+                <label>
+                    Category
+                </label>
 
                 <select id="category">
 
-                    <option value="Shoes">Shoes</option>
-                    <option value="Clothes">Clothes</option>
-                    <option value="Beauty">Beauty</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Other">Other</option>
+                    <option value="Shoes">
+                        Shoes
+                    </option>
+
+                    <option value="Clothes">
+                        Clothes
+                    </option>
+
+                    <option value="Beauty">
+                        Beauty
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
 
                 </select>
 
             </div>
+
 
 
             <div>
 
-                <label>Supplier</label>
+                <label>
+                    Supplier
+                </label>
 
                 <select id="supplier">
 
-                    <option value="Markaz">Markaz</option>
-                    <option value="Daraz">Daraz</option>
-                    <option value="Naveed">Naveed</option>
-                    <option value="Other">Other</option>
+                    <option value="Markaz">
+                        Markaz
+                    </option>
+
+                    <option value="Daraz">
+                        Daraz
+                    </option>
+
+                    <option value="Naveed">
+                        Naveed
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
 
                 </select>
 
             </div>
+
 
         </div>
 
 
+
+        <!-- PRICE -->
+
         <div class="grid">
+
 
             <div>
 
-                <label>Selling Price</label>
+                <label>
+                    Selling Price
+                </label>
 
                 <input
                     id="price"
@@ -500,9 +600,12 @@ textarea{
             </div>
 
 
+
             <div>
 
-                <label>Old Price</label>
+                <label>
+                    Old Price
+                </label>
 
                 <input
                     id="oldPrice"
@@ -512,14 +615,21 @@ textarea{
 
             </div>
 
+
         </div>
 
 
+
+        <!-- DELIVERY -->
+
         <div class="grid">
+
 
             <div>
 
-                <label>Delivery Type</label>
+                <label>
+                    Delivery Type
+                </label>
 
                 <select id="deliveryType">
 
@@ -536,9 +646,12 @@ textarea{
             </div>
 
 
+
             <div>
 
-                <label>Delivery Charges</label>
+                <label>
+                    Delivery Charges
+                </label>
 
                 <input
                     id="deliveryCharges"
@@ -549,10 +662,16 @@ textarea{
 
             </div>
 
+
         </div>
 
 
-        <label>Product Description</label>
+
+        <!-- DESCRIPTION -->
+
+        <label>
+            Product Description
+        </label>
 
         <textarea
             id="description"
@@ -560,7 +679,12 @@ textarea{
         ></textarea>
 
 
-        <label>Product Image</label>
+
+        <!-- IMAGE -->
+
+        <label>
+            Product Image
+        </label>
 
         <input
             id="productImage"
@@ -568,20 +692,20 @@ textarea{
             accept="image/jpeg,image/png,image/webp"
         >
 
-        <small>
+        <span class="file-note">
             JPG / PNG / WebP — Maximum 5MB
-        </small>
+        </span>
 
-        <br>
 
         <img
             id="imagePreview"
             class="preview"
-            alt="Preview"
+            alt="Product Preview"
         >
 
 
-        <!-- ORIGINAL LINK -->
+
+        <!-- ORIGINAL SUPPLIER LINK -->
 
         <label>
             🔗 Original Markaz / Daraz Link
@@ -593,6 +717,7 @@ textarea{
             placeholder="https://..."
             dir="ltr"
         >
+
 
 
         <!-- SOCIAL LINK -->
@@ -609,7 +734,8 @@ textarea{
         >
 
 
-        <!-- GENERATED LINK WILL APPEAR HERE -->
+
+        <!-- GENERATED JANJUA LINK -->
 
         <div
             id="generatedLinkBox"
@@ -620,10 +746,12 @@ textarea{
                 🔗 آپ کا JANJUA Auto-Generated Product Link
             </div>
 
+
             <div
                 id="generatedLink"
                 class="auto-link"
             ></div>
+
 
             <button
                 type="button"
@@ -636,6 +764,9 @@ textarea{
         </div>
 
 
+
+        <!-- BUTTONS -->
+
         <div class="button-row">
 
             <button
@@ -644,6 +775,7 @@ textarea{
             >
                 💾 SAVE PRODUCT
             </button>
+
 
             <button
                 id="clearBtn"
@@ -655,16 +787,27 @@ textarea{
         </div>
 
 
-        <div id="saveStatus" class="status"></div>
+
+        <div
+            id="saveStatus"
+            class="status"
+        ></div>
+
 
     </div>
 
 
-    <!-- SEARCH -->
+
+    <!-- =========================
+         SAVED PRODUCTS
+    ========================= -->
 
     <div class="card">
 
-        <h2>🔎 Saved Products</h2>
+        <h2>
+            🔎 Saved Products
+        </h2>
+
 
         <input
             id="searchInput"
@@ -672,18 +815,27 @@ textarea{
             placeholder="Product Name / Product ID / Category"
         >
 
+
         <div id="productsList"></div>
 
     </div>
 
+
 </div>
+
 
 
 <script type="module">
 
+
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
+
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
     getAuth,
@@ -695,12 +847,12 @@ import {
     browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
 import {
     getFirestore,
     collection,
     doc,
     getDocs,
-    getDoc,
     setDoc,
     deleteDoc,
     query,
@@ -709,9 +861,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-/* =========================
-   FIREBASE
-========================= */
+
+/* =========================================
+   FIREBASE CONFIG
+   THIS IS YOUR CORRECT CONFIG
+========================================= */
 
 const firebaseConfig = {
 
@@ -736,101 +890,179 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
 
-const db = getFirestore(app);
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
 
-/* =========================
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* =========================================
    CLOUDINARY
-========================= */
+========================================= */
 
 const CLOUDINARY_URL =
-"https://api.cloudinary.com/v1_1/r6brgbd8/image/upload";
+    "https://api.cloudinary.com/v1_1/r6brgbd8/image/upload";
+
 
 const CLOUDINARY_PRESET =
-"janjua_traders";
+    "janjua_traders";
 
 
-/* =========================
-   WEBSITE
-========================= */
+
+/* =========================================
+   JANJUA WEBSITE
+========================================= */
 
 const WEBSITE_BASE =
-"https://thanksyou0339-jpg.github.io/janjua-traders-new/";
+    "https://thanksyou0339-jpg.github.io/janjua-traders-new/";
 
 
-/* =========================
+
+/* =========================================
    ELEMENTS
-========================= */
+========================================= */
 
 const loginSection =
-document.getElementById("loginSection");
+    document.getElementById(
+        "loginSection"
+    );
+
 
 const adminSection =
-document.getElementById("adminSection");
+    document.getElementById(
+        "adminSection"
+    );
+
 
 const loginEmail =
-document.getElementById("loginEmail");
+    document.getElementById(
+        "loginEmail"
+    );
+
 
 const loginPassword =
-document.getElementById("loginPassword");
+    document.getElementById(
+        "loginPassword"
+    );
+
 
 const loginBtn =
-document.getElementById("loginBtn");
+    document.getElementById(
+        "loginBtn"
+    );
+
 
 const forgotBtn =
-document.getElementById("forgotBtn");
+    document.getElementById(
+        "forgotBtn"
+    );
+
 
 const eyeBtn =
-document.getElementById("eyeBtn");
+    document.getElementById(
+        "eyeBtn"
+    );
+
 
 const logoutBtn =
-document.getElementById("logoutBtn");
+    document.getElementById(
+        "logoutBtn"
+    );
+
 
 const loginStatus =
-document.getElementById("loginStatus");
+    document.getElementById(
+        "loginStatus"
+    );
+
 
 const saveStatus =
-document.getElementById("saveStatus");
+    document.getElementById(
+        "saveStatus"
+    );
+
 
 const saveBtn =
-document.getElementById("saveBtn");
+    document.getElementById(
+        "saveBtn"
+    );
+
 
 const clearBtn =
-document.getElementById("clearBtn");
+    document.getElementById(
+        "clearBtn"
+    );
+
 
 const productsList =
-document.getElementById("productsList");
+    document.getElementById(
+        "productsList"
+    );
+
 
 const searchInput =
-document.getElementById("searchInput");
+    document.getElementById(
+        "searchInput"
+    );
+
 
 const imageInput =
-document.getElementById("productImage");
+    document.getElementById(
+        "productImage"
+    );
+
 
 const imagePreview =
-document.getElementById("imagePreview");
+    document.getElementById(
+        "imagePreview"
+    );
+
 
 const generatedLinkBox =
-document.getElementById("generatedLinkBox");
+    document.getElementById(
+        "generatedLinkBox"
+    );
+
 
 const generatedLink =
-document.getElementById("generatedLink");
+    document.getElementById(
+        "generatedLink"
+    );
+
 
 const copyGeneratedLinkBtn =
-document.getElementById("copyGeneratedLinkBtn");
+    document.getElementById(
+        "copyGeneratedLinkBtn"
+    );
 
 
-/* =========================
-   HELPERS
-========================= */
 
-function showStatus(element, message, type){
+/* =========================================
+   STATUS
+========================================= */
 
-    element.textContent = message;
+function showStatus(
+    element,
+    message,
+    type
+){
+
+    element.textContent =
+        message;
 
     element.className =
         "status " + type;
@@ -838,47 +1070,101 @@ function showStatus(element, message, type){
 }
 
 
-function escapeHTML(value){
 
-    if(value === undefined || value === null){
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(
+    value
+){
+
+    if(
+        value === undefined ||
+        value === null
+    ){
+
         return "";
+
     }
 
+
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* =========================
-   PERSISTENCE
-========================= */
 
-await setPersistence(
-    auth,
-    browserSessionPersistence
-);
+/* =========================================
+   AUTH PERSISTENCE
+========================================= */
+
+try{
+
+    await setPersistence(
+        auth,
+        browserSessionPersistence
+    );
+
+}catch(error){
+
+    console.error(
+        "Persistence Error:",
+        error
+    );
+
+}
 
 
-/* =========================
+
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
 loginBtn.addEventListener(
     "click",
-    async () => {
+    async function(){
 
         const email =
-            loginEmail.value.trim();
+            loginEmail
+            .value
+            .trim();
+
 
         const password =
-            loginPassword.value;
+            loginPassword
+            .value;
 
-        if(!email || !password){
+
+        if(
+            !email ||
+            !password
+        ){
 
             showStatus(
                 loginStatus,
@@ -887,12 +1173,17 @@ loginBtn.addEventListener(
             );
 
             return;
+
         }
 
-        loginBtn.disabled = true;
+
+        loginBtn.disabled =
+            true;
+
 
         loginBtn.textContent =
             "⏳ LOGGING IN...";
+
 
         try{
 
@@ -902,25 +1193,49 @@ loginBtn.addEventListener(
                 password
             );
 
+
             showStatus(
                 loginStatus,
                 "Login کامیاب ہو گیا۔",
                 "success"
             );
 
+
         }catch(error){
 
-            console.error(error);
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
+
+
+            let message =
+                error.message;
+
+
+            if(
+                error.code ===
+                "auth/api-key-not-valid"
+            ){
+
+                message =
+                    "Firebase API Key درست نہیں ہے۔";
+
+            }
+
 
             showStatus(
                 loginStatus,
-                "Login Failed: " + error.message,
+                "Login Failed: " + message,
                 "error"
             );
 
+
         }finally{
 
-            loginBtn.disabled = false;
+            loginBtn.disabled =
+                false;
+
 
             loginBtn.textContent =
                 "🔐 LOGIN";
@@ -931,15 +1246,19 @@ loginBtn.addEventListener(
 );
 
 
-/* =========================
-   PASSWORD EYE
-========================= */
+
+/* =========================================
+   PASSWORD SHOW / HIDE
+========================================= */
 
 eyeBtn.addEventListener(
     "click",
-    () => {
+    function(){
 
-        if(loginPassword.type === "password"){
+        if(
+            loginPassword.type ===
+            "password"
+        ){
 
             loginPassword.type =
                 "text";
@@ -961,27 +1280,33 @@ eyeBtn.addEventListener(
 );
 
 
-/* =========================
+
+/* =========================================
    FORGOT PASSWORD
-========================= */
+========================================= */
 
 forgotBtn.addEventListener(
     "click",
-    async () => {
+    async function(){
 
         const email =
-            loginEmail.value.trim();
+            loginEmail
+            .value
+            .trim();
+
 
         if(!email){
 
             showStatus(
                 loginStatus,
-                "پہلے اپنا Admin Email لکھیں۔",
+                "پہلے Admin Email لکھیں۔",
                 "error"
             );
 
             return;
+
         }
+
 
         try{
 
@@ -990,19 +1315,25 @@ forgotBtn.addEventListener(
                 email
             );
 
+
             showStatus(
                 loginStatus,
                 "Password reset email بھیج دی گئی ہے۔ Gmail چیک کریں۔",
                 "success"
             );
 
+
         }catch(error){
 
-            console.error(error);
+            console.error(
+                error
+            );
+
 
             showStatus(
                 loginStatus,
-                "Reset Failed: " + error.message,
+                "Reset Failed: " +
+                error.message,
                 "error"
             );
 
@@ -1012,48 +1343,25 @@ forgotBtn.addEventListener(
 );
 
 
-/* =========================
+
+/* =========================================
    LOGOUT
-========================= */
+========================================= */
 
 logoutBtn.addEventListener(
     "click",
-    async () => {
+    async function(){
 
-        await signOut(auth);
+        try{
 
-    }
-);
-
-
-/* =========================
-   AUTH STATE
-========================= */
-
-onAuthStateChanged(
-    auth,
-    async (user) => {
-
-        if(user){
-
-            loginSection.classList.add(
-                "hidden"
+            await signOut(
+                auth
             );
 
-            adminSection.classList.remove(
-                "hidden"
-            );
+        }catch(error){
 
-            await loadProducts();
-
-        }else{
-
-            loginSection.classList.remove(
-                "hidden"
-            );
-
-            adminSection.classList.add(
-                "hidden"
+            console.error(
+                error
             );
 
         }
@@ -1062,16 +1370,59 @@ onAuthStateChanged(
 );
 
 
-/* =========================
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(user){
+
+            loginSection
+                .classList
+                .add("hidden");
+
+
+            adminSection
+                .classList
+                .remove("hidden");
+
+
+            await loadProducts();
+
+
+        }else{
+
+            loginSection
+                .classList
+                .remove("hidden");
+
+
+            adminSection
+                .classList
+                .add("hidden");
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
    IMAGE PREVIEW
-========================= */
+========================================= */
 
 imageInput.addEventListener(
     "change",
-    () => {
+    function(){
 
         const file =
             imageInput.files[0];
+
 
         if(!file){
 
@@ -1079,9 +1430,14 @@ imageInput.addEventListener(
                 "none";
 
             return;
+
         }
 
-        if(file.size > 5 * 1024 * 1024){
+
+        if(
+            file.size >
+            5 * 1024 * 1024
+        ){
 
             showStatus(
                 saveStatus,
@@ -1089,21 +1445,36 @@ imageInput.addEventListener(
                 "error"
             );
 
-            imageInput.value = "";
+
+            imageInput.value =
+                "";
+
 
             imagePreview.style.display =
                 "none";
 
+
             return;
+
         }
 
-        const allowed = [
+
+        const allowedTypes = [
+
             "image/jpeg",
+
             "image/png",
+
             "image/webp"
+
         ];
 
-        if(!allowed.includes(file.type)){
+
+        if(
+            !allowedTypes.includes(
+                file.type
+            )
+        ){
 
             showStatus(
                 saveStatus,
@@ -1111,34 +1482,45 @@ imageInput.addEventListener(
                 "error"
             );
 
-            imageInput.value = "";
+
+            imageInput.value =
+                "";
+
 
             return;
+
         }
+
 
         const reader =
             new FileReader();
 
+
         reader.onload =
-            function(e){
+            function(event){
 
                 imagePreview.src =
-                    e.target.result;
+                    event.target.result;
+
 
                 imagePreview.style.display =
                     "block";
 
             };
 
-        reader.readAsDataURL(file);
+
+        reader.readAsDataURL(
+            file
+        );
 
     }
 );
 
 
-/* =========================
-   PRODUCT ID
-========================= */
+
+/* =========================================
+   CREATE PRODUCT ID
+========================================= */
 
 async function createProductId(){
 
@@ -1149,84 +1531,113 @@ async function createProductId(){
             "counters"
         );
 
-    const newNumber =
+
+    const number =
         await runTransaction(
             db,
-            async (transaction) => {
+            async function(
+                transaction
+            ){
 
-                const counterSnap =
+                const snapshot =
                     await transaction.get(
                         counterRef
                     );
 
-                let current = 0;
 
-                if(counterSnap.exists()){
+                let current =
+                    0;
+
+
+                if(
+                    snapshot.exists()
+                ){
 
                     current =
                         Number(
-                            counterSnap.data().productNumber || 0
+                            snapshot.data()
+                            .productNumber || 0
                         );
 
                 }
 
+
                 const next =
                     current + 1;
+
 
                 transaction.set(
                     counterRef,
                     {
-                        productNumber: next
+                        productNumber:
+                            next
                     },
                     {
                         merge:true
                     }
                 );
 
+
                 return next;
 
             }
         );
 
-    return "JT.PRODUCT." +
-        String(newNumber)
-        .padStart(4,"0");
+
+    return (
+        "JT.PRODUCT." +
+        String(number)
+        .padStart(4,"0")
+    );
 
 }
 
 
-/* =========================
-   CLOUDINARY UPLOAD
-========================= */
 
-async function uploadImage(file){
+/* =========================================
+   CLOUDINARY UPLOAD
+========================================= */
+
+async function uploadImage(
+    file
+){
 
     const formData =
         new FormData();
+
 
     formData.append(
         "file",
         file
     );
 
+
     formData.append(
         "upload_preset",
         CLOUDINARY_PRESET
     );
 
+
     const response =
         await fetch(
             CLOUDINARY_URL,
             {
-                method:"POST",
-                body:formData
+                method:
+                    "POST",
+
+                body:
+                    formData
             }
         );
+
 
     const data =
         await response.json();
 
-    if(!response.ok){
+
+    if(
+        !response.ok
+    ){
 
         throw new Error(
             data.error?.message ||
@@ -1235,82 +1646,117 @@ async function uploadImage(file){
 
     }
 
+
     return data.secure_url;
 
 }
 
 
-/* =========================
+
+/* =========================================
    SAVE PRODUCT
-========================= */
+========================================= */
 
 saveBtn.addEventListener(
     "click",
-    async () => {
+    async function(){
 
         const name =
             document
-            .getElementById("productName")
+            .getElementById(
+                "productName"
+            )
             .value
             .trim();
 
+
         const category =
             document
-            .getElementById("category")
+            .getElementById(
+                "category"
+            )
             .value;
+
 
         const supplier =
             document
-            .getElementById("supplier")
+            .getElementById(
+                "supplier"
+            )
             .value;
+
 
         const price =
             Number(
                 document
-                .getElementById("price")
+                .getElementById(
+                    "price"
+                )
                 .value
             );
+
 
         const oldPrice =
             Number(
                 document
-                .getElementById("oldPrice")
+                .getElementById(
+                    "oldPrice"
+                )
                 .value || 0
             );
 
+
         const deliveryType =
             document
-            .getElementById("deliveryType")
+            .getElementById(
+                "deliveryType"
+            )
             .value;
+
 
         const deliveryCharges =
             Number(
                 document
-                .getElementById("deliveryCharges")
+                .getElementById(
+                    "deliveryCharges"
+                )
                 .value || 0
             );
 
+
         const description =
             document
-            .getElementById("description")
+            .getElementById(
+                "description"
+            )
             .value
             .trim();
+
 
         const supplierLink =
             document
-            .getElementById("supplierLink")
+            .getElementById(
+                "supplierLink"
+            )
             .value
             .trim();
 
+
         const socialLink =
             document
-            .getElementById("socialLink")
+            .getElementById(
+                "socialLink"
+            )
             .value
             .trim();
+
 
         const imageFile =
             imageInput.files[0];
 
+
+
+        /* VALIDATION */
 
         if(!name){
 
@@ -1321,10 +1767,14 @@ saveBtn.addEventListener(
             );
 
             return;
+
         }
 
 
-        if(!price || price <= 0){
+        if(
+            !price ||
+            price <= 0
+        ){
 
             showStatus(
                 saveStatus,
@@ -1333,6 +1783,7 @@ saveBtn.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1345,6 +1796,7 @@ saveBtn.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -1357,16 +1809,23 @@ saveBtn.addEventListener(
             );
 
             return;
+
         }
 
 
-        saveBtn.disabled = true;
+
+        saveBtn.disabled =
+            true;
+
 
         saveBtn.textContent =
             "⏳ SAVING...";
 
 
         try{
+
+
+            /* PRODUCT ID */
 
             showStatus(
                 saveStatus,
@@ -1375,13 +1834,12 @@ saveBtn.addEventListener(
             );
 
 
-            /* CREATE ID */
-
             const productId =
                 await createProductId();
 
 
-            /* UPLOAD IMAGE */
+
+            /* IMAGE */
 
             showStatus(
                 saveStatus,
@@ -1389,13 +1847,15 @@ saveBtn.addEventListener(
                 "success"
             );
 
+
             const imageUrl =
                 await uploadImage(
                     imageFile
                 );
 
 
-            /* CUSTOMER LINK */
+
+            /* JANJUA LINK */
 
             const orderLink =
                 WEBSITE_BASE +
@@ -1405,49 +1865,69 @@ saveBtn.addEventListener(
                 );
 
 
+
             /* PUBLIC PRODUCT */
 
             const productData = {
 
-                id:productId,
+                id:
+                    productId,
 
-                name:name,
+                name:
+                    name,
 
-                category:category,
+                category:
+                    category,
 
-                price:price,
+                price:
+                    price,
 
-                oldPrice:oldPrice,
+                oldPrice:
+                    oldPrice,
 
-                description:description,
+                description:
+                    description,
 
-                image:imageUrl,
+                image:
+                    imageUrl,
 
-                deliveryType:deliveryType,
+                deliveryType:
+                    deliveryType,
 
-                deliveryCharges:deliveryCharges,
+                deliveryCharges:
+                    deliveryCharges,
 
-                createdAt:new Date()
+                createdAt:
+                    new Date()
+
             };
+
 
 
             /* PRIVATE SOURCE */
 
             const sourceData = {
 
-                productId:productId,
+                productId:
+                    productId,
 
-                supplier:supplier,
+                supplier:
+                    supplier,
 
-                ordinaryLink:orderLink,
+                ordinaryLink:
+                    orderLink,
 
-                supplierLink:supplierLink,
+                supplierLink:
+                    supplierLink,
 
-                socialLink:socialLink,
+                socialLink:
+                    socialLink,
 
-                createdAt:new Date()
+                createdAt:
+                    new Date()
 
             };
+
 
 
             showStatus(
@@ -1455,6 +1935,7 @@ saveBtn.addEventListener(
                 "Product Database میں Save ہو رہا ہے...",
                 "success"
             );
+
 
 
             await setDoc(
@@ -1467,6 +1948,7 @@ saveBtn.addEventListener(
             );
 
 
+
             await setDoc(
                 doc(
                     db,
@@ -1477,14 +1959,19 @@ saveBtn.addEventListener(
             );
 
 
-            /* SHOW GENERATED LINK */
+
+            /* SHOW LINK */
 
             generatedLink.textContent =
                 orderLink;
 
-            generatedLinkBox.classList.remove(
-                "hidden"
-            );
+
+            generatedLinkBox
+                .classList
+                .remove(
+                    "hidden"
+                );
+
 
 
             showStatus(
@@ -1498,15 +1985,13 @@ saveBtn.addEventListener(
             await loadProducts();
 
 
-            /*
-             * IMPORTANT:
-             * Form clear نہیں کیا جا رہا،
-             * تاکہ آپ فوراً Auto Link Copy کر سکیں۔
-             */
-
         }catch(error){
 
-            console.error(error);
+            console.error(
+                "SAVE ERROR:",
+                error
+            );
+
 
             showStatus(
                 saveStatus,
@@ -1515,9 +2000,12 @@ saveBtn.addEventListener(
                 "error"
             );
 
+
         }finally{
 
-            saveBtn.disabled = false;
+            saveBtn.disabled =
+                false;
+
 
             saveBtn.textContent =
                 "💾 SAVE PRODUCT";
@@ -1528,21 +2016,27 @@ saveBtn.addEventListener(
 );
 
 
-/* =========================
-   COPY GENERATED LINK
-========================= */
+
+/* =========================================
+   COPY NEW LINK
+========================================= */
 
 copyGeneratedLinkBtn.addEventListener(
     "click",
-    async () => {
+    async function(){
 
         const link =
-            generatedLink.textContent.trim();
+            generatedLink
+            .textContent
+            .trim();
+
 
         if(!link){
 
             return;
+
         }
+
 
         try{
 
@@ -1550,112 +2044,135 @@ copyGeneratedLinkBtn.addEventListener(
                 link
             );
 
-            copyGeneratedLinkBtn.textContent =
-                "✅ LINK COPIED";
-
-            setTimeout(
-                () => {
-
-                    copyGeneratedLinkBtn.textContent =
-                        "📋 COPY JANJUA LINK";
-
-                },
-                1800
-            );
 
         }catch(error){
 
-            /*
-             * Fallback
-             */
-
             const temp =
-                document.createElement("textarea");
+                document.createElement(
+                    "textarea"
+                );
+
 
             temp.value =
                 link;
+
 
             document.body.appendChild(
                 temp
             );
 
+
             temp.select();
+
 
             document.execCommand(
                 "copy"
             );
 
+
             temp.remove();
 
-            copyGeneratedLinkBtn.textContent =
-                "✅ LINK COPIED";
-
-            setTimeout(
-                () => {
-
-                    copyGeneratedLinkBtn.textContent =
-                        "📋 COPY JANJUA LINK";
-
-                },
-                1800
-            );
-
         }
+
+
+        copyGeneratedLinkBtn.textContent =
+            "✅ LINK COPIED";
+
+
+        setTimeout(
+            function(){
+
+                copyGeneratedLinkBtn.textContent =
+                    "📋 COPY JANJUA LINK";
+
+            },
+            1800
+        );
 
     }
 );
 
 
-/* =========================
+
+/* =========================================
    CLEAR FORM
-========================= */
+========================================= */
 
 clearBtn.addEventListener(
     "click",
-    () => {
+    function(){
 
         document
-        .getElementById("productName")
+        .getElementById(
+            "productName"
+        )
         .value = "";
 
-        document
-        .getElementById("price")
-        .value = "";
 
         document
-        .getElementById("oldPrice")
+        .getElementById(
+            "price"
+        )
         .value = "";
 
+
         document
-        .getElementById("deliveryCharges")
+        .getElementById(
+            "oldPrice"
+        )
+        .value = "";
+
+
+        document
+        .getElementById(
+            "deliveryCharges"
+        )
         .value = "0";
 
-        document
-        .getElementById("description")
-        .value = "";
 
         document
-        .getElementById("supplierLink")
+        .getElementById(
+            "description"
+        )
         .value = "";
+
 
         document
-        .getElementById("socialLink")
+        .getElementById(
+            "supplierLink"
+        )
         .value = "";
 
-        imageInput.value = "";
+
+        document
+        .getElementById(
+            "socialLink"
+        )
+        .value = "";
+
+
+        imageInput.value =
+            "";
+
 
         imagePreview.style.display =
             "none";
 
+
         generatedLink.textContent =
             "";
 
-        generatedLinkBox.classList.add(
-            "hidden"
-        );
+
+        generatedLinkBox
+            .classList
+            .add(
+                "hidden"
+            );
+
 
         saveStatus.className =
             "status";
+
 
         saveStatus.textContent =
             "";
@@ -1664,18 +2181,20 @@ clearBtn.addEventListener(
 );
 
 
-/* =========================
+
+/* =========================================
    LOAD PRODUCTS
-========================= */
+========================================= */
 
 async function loadProducts(){
 
     productsList.innerHTML =
         "<p>⏳ Products loading...</p>";
 
+
     try{
 
-        const q =
+        const productsQuery =
             query(
                 collection(
                     db,
@@ -1687,33 +2206,51 @@ async function loadProducts(){
                 )
             );
 
-        const snapshot =
-            await getDocs(q);
 
-        window.allProducts = [];
+        const snapshot =
+            await getDocs(
+                productsQuery
+            );
+
+
+        window.allProducts =
+            [];
+
 
         snapshot.forEach(
-            docSnap => {
+            function(docSnap){
 
                 window.allProducts.push({
+
                     ...docSnap.data(),
-                    firestoreId:docSnap.id
+
+                    firestoreId:
+                        docSnap.id
+
                 });
 
             }
         );
 
+
         renderProducts(
             window.allProducts
         );
 
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "LOAD PRODUCTS ERROR:",
+            error
+        );
+
 
         productsList.innerHTML =
             "<p style='color:red'>Products load نہیں ہوئے: " +
-            escapeHTML(error.message) +
+            escapeHTML(
+                error.message
+            ) +
             "</p>";
 
     }
@@ -1721,24 +2258,32 @@ async function loadProducts(){
 }
 
 
-/* =========================
+
+/* =========================================
    RENDER PRODUCTS
-========================= */
+========================================= */
 
-function renderProducts(products){
+function renderProducts(
+    products
+){
 
-    if(!products.length){
+    if(
+        !products.length
+    ){
 
         productsList.innerHTML =
             "<p>ابھی کوئی Product موجود نہیں۔</p>";
 
         return;
+
     }
 
 
     productsList.innerHTML =
-        products.map(
-            product => {
+
+        products
+        .map(
+            function(product){
 
                 const orderLink =
                     WEBSITE_BASE +
@@ -1750,109 +2295,123 @@ function renderProducts(products){
 
                 return `
 
-                <div
-                    class="product"
-                    data-product-id="${escapeHTML(product.id)}"
-                >
+<div class="product">
 
-                    <div class="product-top">
+    <div class="product-top">
 
-                        <img
-                            src="${escapeHTML(product.image)}"
-                            alt="${escapeHTML(product.name)}"
-                        >
-
-                        <div class="product-info">
-
-                            <div class="product-name">
-                                ${escapeHTML(product.name)}
-                            </div>
-
-                            <div class="product-id">
-                                ${escapeHTML(product.id)}
-                            </div>
-
-                            <div>
-                                Category:
-                                ${escapeHTML(product.category)}
-                            </div>
-
-                            <div class="price">
-                                Rs. ${escapeHTML(product.price)}
-                            </div>
-
-                            ${
-                                product.oldPrice
-                                ?
-                                `<div>
-                                    Old Price:
-                                    Rs. ${escapeHTML(product.oldPrice)}
-                                </div>`
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    </div>
+        <img
+            src="${escapeHTML(product.image)}"
+            alt="${escapeHTML(product.name)}"
+        >
 
 
-                    <div class="link-row">
+        <div class="product-info">
 
-                        <div class="link-label">
-                            🔗 JANJUA Customer Link
-                        </div>
-
-                        <div class="small-link">
-                            ${escapeHTML(orderLink)}
-                        </div>
-
-                        <div class="button-row">
-
-                            <button
-                                class="btn btn-copy"
-                                onclick="copyProductLink('${encodeURIComponent(orderLink)}', this)"
-                            >
-                                📋 COPY LINK
-                            </button>
-
-                        </div>
-
-                    </div>
+            <div class="product-name">
+                ${escapeHTML(product.name)}
+            </div>
 
 
-                    <div class="button-row">
+            <div class="product-id">
+                ${escapeHTML(product.id)}
+            </div>
 
-                        <button
-                            class="btn btn-danger"
-                            onclick="deleteProduct('${encodeURIComponent(product.id)}')"
-                        >
-                            🗑️ DELETE PRODUCT
-                        </button>
 
-                    </div>
+            <div>
+                Category:
+                ${escapeHTML(product.category)}
+            </div>
 
+
+            <div class="price">
+                Rs. ${escapeHTML(product.price)}
+            </div>
+
+
+            ${
+                product.oldPrice
+                ?
+                `
+                <div>
+                    Old Price:
+                    Rs. ${escapeHTML(product.oldPrice)}
                 </div>
+                `
+                :
+                ""
+            }
 
-                `;
+        </div>
+
+    </div>
+
+
+
+    <div class="link-row">
+
+        <div class="link-label">
+            🔗 JANJUA Customer Link
+        </div>
+
+
+        <div class="small-link">
+            ${escapeHTML(orderLink)}
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="btn btn-copy"
+                onclick="copyProductLink('${encodeURIComponent(orderLink)}', this)"
+            >
+                📋 COPY LINK
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="button-row">
+
+        <button
+            class="btn btn-danger"
+            onclick="deleteProduct('${encodeURIComponent(product.id)}')"
+        >
+            🗑️ DELETE PRODUCT
+        </button>
+
+    </div>
+
+</div>
+
+`;
 
             }
-        ).join("");
+        )
+        .join("");
 
 }
 
 
-/* =========================
-   COPY PRODUCT LINK
-========================= */
+
+/* =========================================
+   COPY SAVED PRODUCT LINK
+========================================= */
 
 window.copyProductLink =
-async function(encodedLink, button){
+async function(
+    encodedLink,
+    button
+){
 
     const link =
         decodeURIComponent(
             encodedLink
         );
+
 
     try{
 
@@ -1860,36 +2419,47 @@ async function(encodedLink, button){
             link
         );
 
+
     }catch(error){
 
         const temp =
-            document.createElement("textarea");
+            document.createElement(
+                "textarea"
+            );
+
 
         temp.value =
             link;
+
 
         document.body.appendChild(
             temp
         );
 
+
         temp.select();
+
 
         document.execCommand(
             "copy"
         );
 
+
         temp.remove();
 
     }
 
+
     const oldText =
         button.textContent;
+
 
     button.textContent =
         "✅ LINK COPIED";
 
+
     setTimeout(
-        () => {
+        function(){
 
             button.textContent =
                 oldText;
@@ -1901,12 +2471,15 @@ async function(encodedLink, button){
 };
 
 
-/* =========================
+
+/* =========================================
    DELETE PRODUCT
-========================= */
+========================================= */
 
 window.deleteProduct =
-async function(encodedId){
+async function(
+    encodedId
+){
 
     const productId =
         decodeURIComponent(
@@ -1926,6 +2499,7 @@ async function(encodedId){
     if(!confirmDelete){
 
         return;
+
     }
 
 
@@ -1959,7 +2533,11 @@ async function(encodedId){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "DELETE ERROR:",
+            error
+        );
+
 
         alert(
             "❌ Delete Failed: " +
@@ -1971,16 +2549,18 @@ async function(encodedId){
 };
 
 
-/* =========================
+
+/* =========================================
    SEARCH
-========================= */
+========================================= */
 
 searchInput.addEventListener(
     "input",
-    () => {
+    function(){
 
         const term =
-            searchInput.value
+            searchInput
+            .value
             .trim()
             .toLowerCase();
 
@@ -1992,13 +2572,16 @@ searchInput.addEventListener(
             );
 
             return;
+
         }
 
 
         const filtered =
-            (window.allProducts || [])
+            (
+                window.allProducts || []
+            )
             .filter(
-                product => {
+                function(product){
 
                     return (
 
