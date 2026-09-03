@@ -70,19 +70,11 @@ let products = [];
 
 
 /* =========================================
-   NEW ITEM SETTINGS
+   NEW ITEM
 ========================================= */
-
-/*
-   نئی product 7 دن تک NEW دکھائی جائے گی۔
-*/
 
 const NEW_ITEM_DAYS = 7;
 
-
-/* =========================================
-   RUPEES
-========================================= */
 
 function rupees(value){
 
@@ -92,10 +84,6 @@ function rupees(value){
 
 }
 
-
-/* =========================================
-   NEW PRODUCT CHECK
-========================================= */
 
 function isNewProduct(product){
 
@@ -222,18 +210,20 @@ async function loadProducts(){
 
 
         /*
-         * Newest products first
+         * Latest products first
          */
 
         products.sort(
             function(a,b){
 
-                return new Date(
-                    b.createdAt || 0
-                ) -
+                return(
+                    new Date(
+                        b.createdAt || 0
+                    ) -
 
-                new Date(
-                    a.createdAt || 0
+                    new Date(
+                        a.createdAt || 0
+                    )
                 );
 
             }
@@ -286,7 +276,7 @@ async function loadProducts(){
 
 
 /* =========================================
-   BUILD CATEGORIES
+   CATEGORIES
 ========================================= */
 
 function buildCategories(){
@@ -342,7 +332,8 @@ function buildCategories(){
             function(product){
 
                 return String(
-                    product.category || ""
+                    product.category ||
+                    ""
                 ).trim();
 
             }
@@ -356,7 +347,7 @@ function buildCategories(){
     existingCategories.forEach(
         function(category){
 
-            const alreadyExists =
+            const exists =
             categories.some(
                 function(item){
 
@@ -369,7 +360,7 @@ function buildCategories(){
             );
 
 
-            if(!alreadyExists){
+            if(!exists){
 
                 categories.push({
 
@@ -401,13 +392,17 @@ function buildCategories(){
                         : ""
                     }"
                     data-category="${
-                        escapeAttribute(item.name)
+                        escapeAttribute(
+                            item.name
+                        )
                     }"
                 >
 
                     ${item.icon}
 
-                    ${escapeHtml(item.name)}
+                    ${escapeHtml(
+                        item.name
+                    )}
 
                 </button>
 
@@ -531,7 +526,9 @@ function showProducts(
 
             `
 
-                <div class="new-badge">
+                <div
+                    class="new-badge"
+                >
                     ✨ NEW ITEM
                 </div>
 
@@ -548,7 +545,6 @@ function showProducts(
                     class="product-card"
                 >
 
-
                     <div
                         class="product-image-wrap"
                     >
@@ -558,13 +554,17 @@ function showProducts(
 
                         <img
 
-                            src="${escapeAttribute(
-                                image
-                            )}"
+                            src="${
+                                escapeAttribute(
+                                    image
+                                )
+                            }"
 
-                            alt="${escapeAttribute(
-                                product.name
-                            )}"
+                            alt="${
+                                escapeAttribute(
+                                    product.name
+                                )
+                            }"
 
                             loading="lazy"
 
@@ -580,7 +580,6 @@ function showProducts(
                     <div
                         class="product-info"
                     >
-
 
                         <h3 dir="auto">
 
@@ -658,9 +657,7 @@ function showProducts(
 
                         </button>
 
-
                     </div>
-
 
                 </article>
 
@@ -698,7 +695,7 @@ function showProducts(
 
 
 /* =========================================
-   ORDER PRODUCT
+   ORDER
 ========================================= */
 
 function orderProduct(
@@ -770,13 +767,9 @@ function orderProduct(
 
 
     /*
-     * IMPORTANT:
-     *
      * Supplier / Markaz / Daraz
      * information is NOT sent
-     * to the customer order form.
-     *
-     * It remains internal.
+     * to customer.
      */
 
 
@@ -815,7 +808,8 @@ function(category){
             return(
 
                 String(
-                    product.category || ""
+                    product.category ||
+                    ""
                 )
                 .toLowerCase()
 
@@ -919,7 +913,7 @@ if(searchBox){
 
 
 /* =========================================
-   SECURITY / HTML ESCAPE
+   ESCAPE
 ========================================= */
 
 function escapeHtml(value){
