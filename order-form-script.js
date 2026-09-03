@@ -1,500 +1,242 @@
-/* =========================================================
-   JANJUA TRADERS
-   ORDER FORM SCRIPT
-   Firebase Product ID Auto Loader
-   ========================================================= */
-
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-import {
-    getFirestore,
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+// =====================================================
+// JANJUA TRADERS - ORDER FORM
+// Firebase Free Version
+// FormSubmit Gmail System
+// =====================================================
 
 
-/* =========================================================
-   FIREBASE CONFIG
-   ========================================================= */
+// =====================================================
+// ELEMENTS
+// =====================================================
 
-const firebaseConfig = {
-    apiKey: "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
-    authDomain: "janjua-traders.firebaseapp.com",
-    projectId: "janjua-traders",
-    storageBucket: "janjua-traders.firebasestorage.app",
-    messagingSenderId: "154904774188",
-    appId: "1:154904774188:web:1830f9d533e77dae6a7389"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
 
-/* =========================================================
-   FORM SUBMIT
-   ========================================================= */
-
-const FORM_URL =
-    "https://formsubmit.co/ajax/thanksyou0339@gmail.com";
-
-
-/* =========================================================
-   URL PARAMETERS
-   ========================================================= */
-
-const params = new URLSearchParams(window.location.search);
-
-let productName =
-    params.get("Product") || "";
-
-let productDescription =
-    params.get("Product_Description") || "";
-
-let productPrice =
-    params.get("Product_Price") || "";
-
-let oldPrice =
-    params.get("Old_Price") || "";
-
-let productId =
-    params.get("Product_ID") || "";
-
-let productImage =
-    params.get("Product_Image") || "";
-
-let deliveryType =
-    params.get("Delivery_Type") || "Free Delivery";
-
-let deliveryCharges =
-    params.get("Delivery_Charges") || "0";
-
-
-/* =========================================================
-   DOM ELEMENTS
-   ========================================================= */
-
-const productImageEl =
+const productImage =
     document.getElementById("productImage");
 
-const productNameEl =
+const productName =
     document.getElementById("productName");
 
-const productPriceEl =
-    document.getElementById("productPrice");
-
-const oldPriceEl =
-    document.getElementById("oldPrice");
-
-const productDescriptionEl =
+const productDescription =
     document.getElementById("productDescription");
 
-const deliveryBadgeEl =
+const productPrice =
+    document.getElementById("productPrice");
+
+const oldPrice =
+    document.getElementById("oldPrice");
+
+const deliveryBadge =
     document.getElementById("deliveryBadge");
 
-const deliveryNoteEl =
+const deliveryNote =
     document.getElementById("deliveryNote");
-
-const productTotalEl =
-    document.getElementById("productTotal");
-
-const deliveryTotalEl =
-    document.getElementById("deliveryTotal");
-
-const totalAmountEl =
-    document.getElementById("totalAmount");
 
 const orderForm =
     document.getElementById("orderForm");
 
-const orderSection =
-    document.getElementById("orderSection");
-
-const receiptSection =
-    document.getElementById("receiptSection");
+const submitBtn =
+    document.getElementById("submitBtn");
 
 
-/* =========================================================
-   SAFE NUMBER
-   ========================================================= */
+// =====================================================
+// PRODUCT DATA FROM URL
+// =====================================================
 
-function numberValue(value) {
+const product = {
 
-    const n =
-        parseFloat(
-            String(value || "")
-                .replace(/,/g, "")
-                .replace(/[^\d.]/g, "")
-        );
+    id:
+        params.get("Product_ID") || "",
 
-    return isNaN(n) ? 0 : n;
+    name:
+        params.get("Product") || "JANJUA Product",
+
+    description:
+        params.get("Product_Description") || "",
+
+    price:
+        Number(
+            params.get("Product_Price") || 0
+        ),
+
+    oldPrice:
+        Number(
+            params.get("Old_Price") || 0
+        ),
+
+    image:
+        params.get("Product_Image") || "",
+
+    category:
+        params.get("Category") || "",
+
+    deliveryType:
+        params.get("Delivery_Type") ||
+        "FREE",
+
+    deliveryCharges:
+        Number(
+            params.get("Delivery_Charges") || 0
+        )
+};
+
+
+// =====================================================
+// FORMAT PRICE
+// =====================================================
+
+function formatPrice(value) {
+
+    return (
+        Number(value) || 0
+    ).toLocaleString("en-PK");
 }
 
 
-/* =========================================================
-   FORMAT RUPEES
-   ========================================================= */
+// =====================================================
+// SET TEXT SAFELY
+// =====================================================
 
-function rupees(value) {
+function setText(id, value) {
 
-    return "Rs. " +
-        Number(value || 0)
-            .toLocaleString("en-PK");
-}
+    const element =
+        document.getElementById(id);
 
+    if (element) {
 
-/* =========================================================
-   FIREBASE PRODUCT LOADER
-   ========================================================= */
-
-async function loadProductFromFirebase() {
-
-    if (!productId) {
-        return;
-    }
-
-    try {
-
-        console.log(
-            "Loading Product ID:",
-            productId
-        );
-
-        const productRef =
-            doc(
-                db,
-                "products",
-                productId
-            );
-
-        const snapshot =
-            await getDoc(productRef);
-
-        if (!snapshot.exists()) {
-
-            console.warn(
-                "Product not found:",
-                productId
-            );
-
-            return;
-        }
-
-        const data =
-            snapshot.data();
-
-        /* -----------------------------------------
-           Firebase values overwrite URL defaults
-           ----------------------------------------- */
-
-        productName =
-            data.name || productName;
-
-        productDescription =
-            data.description || productDescription;
-
-        productPrice =
-            data.price ?? productPrice;
-
-        oldPrice =
-            data.oldPrice ?? oldPrice;
-
-        productImage =
-            data.image || productImage;
-
-        deliveryType =
-            data.deliveryType ||
-            deliveryType ||
-            "Free Delivery";
-
-        deliveryCharges =
-            data.deliveryCharges ??
-            deliveryCharges ??
-            0;
-
-        /* -----------------------------------------
-           Update screen
-           ----------------------------------------- */
-
-        displayProduct();
-
-        calculateTotals();
-
-        console.log(
-            "Product loaded successfully:",
-            data
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Firebase product loading error:",
-            error
-        );
-
-        /*
-           If Firebase loading fails, URL data
-           will still be used if available.
-        */
-
-        displayProduct();
-
-        calculateTotals();
+        element.textContent =
+            value;
     }
 }
 
 
-/* =========================================================
-   DISPLAY PRODUCT
-   ========================================================= */
+// =====================================================
+// SHOW PRODUCT
+// =====================================================
 
-function displayProduct() {
+function showProduct() {
 
-    if (productNameEl) {
+    if (productImage) {
 
-        productNameEl.textContent =
-            productName ||
-            "Product";
+        productImage.src =
+            product.image;
+
+        productImage.alt =
+            product.name;
+
+        productImage.onerror =
+            function () {
+
+                this.src =
+                    "https://via.placeholder.com/600x600.png?text=JANJUA";
+
+            };
     }
 
 
-    if (productDescriptionEl) {
+    if (productName) {
 
-        productDescriptionEl.textContent =
-            productDescription ||
-            "";
+        productName.textContent =
+            product.name;
     }
 
 
-    if (productPriceEl) {
+    if (productDescription) {
 
-        productPriceEl.textContent =
-            rupees(
-                numberValue(productPrice)
-            );
+        productDescription.textContent =
+            product.description;
     }
 
 
-    if (oldPriceEl) {
+    if (productPrice) {
 
-        const old =
-            numberValue(oldPrice);
+        productPrice.textContent =
+            "Rs. " +
+            formatPrice(product.price);
+    }
 
-        if (old > 0) {
 
-            oldPriceEl.textContent =
-                rupees(old);
+    if (oldPrice) {
 
-            oldPriceEl.style.display =
+        if (
+            product.oldPrice >
+            product.price
+        ) {
+
+            oldPrice.textContent =
+                "Rs. " +
+                formatPrice(
+                    product.oldPrice
+                );
+
+            oldPrice.style.display =
                 "inline";
-        }
 
-        else {
+        } else {
 
-            oldPriceEl.textContent =
-                "";
-
-            oldPriceEl.style.display =
+            oldPrice.style.display =
                 "none";
         }
     }
 
 
-    if (productImageEl) {
+    if (deliveryBadge) {
 
-        if (productImage) {
+        if (
+            product.deliveryType ===
+                "FREE" ||
+            product.deliveryCharges === 0
+        ) {
 
-            productImageEl.src =
-                productImage;
+            deliveryBadge.textContent =
+                "🚚 FREE DELIVERY";
 
-            productImageEl.alt =
-                productName ||
-                "JANJUA Product";
+        } else {
 
-            productImageEl.style.display =
-                "block";
-        }
-
-        else {
-
-            productImageEl.style.display =
-                "none";
-        }
-    }
-
-
-    /* -----------------------------------------
-       Delivery
-       ----------------------------------------- */
-
-    const charge =
-        numberValue(deliveryCharges);
-
-    const isPaid =
-        String(deliveryType)
-            .toLowerCase()
-            .includes("paid");
-
-
-    if (deliveryBadgeEl) {
-
-        if (isPaid && charge > 0) {
-
-            deliveryBadgeEl.textContent =
-                "Paid Delivery — " +
-                rupees(charge);
-
-        }
-
-        else {
-
-            deliveryBadgeEl.textContent =
-                "Free Delivery";
+            deliveryBadge.textContent =
+                "🚚 Delivery Rs. " +
+                formatPrice(
+                    product.deliveryCharges
+                );
         }
     }
 
 
-    if (deliveryNoteEl) {
+    if (deliveryNote) {
 
-        if (isPaid && charge > 0) {
+        if (
+            product.deliveryType ===
+                "FREE" ||
+            product.deliveryCharges === 0
+        ) {
 
-            deliveryNoteEl.textContent =
-                "📦 Delivery Charges: " +
-                rupees(charge) +
-                " — Total amount delivery کے وقت ادا کرنا ہوگا۔";
-        }
+            deliveryNote.textContent =
+                "Free Delivery Available";
 
-        else {
+        } else {
 
-            deliveryNoteEl.textContent =
-                "📦 Free Delivery — Delivery Charges: Rs. 0";
+            deliveryNote.textContent =
+                "Delivery Charges: Rs. " +
+                formatPrice(
+                    product.deliveryCharges
+                );
         }
     }
 }
 
 
-/* =========================================================
-   QUANTITY
-   ========================================================= */
+// =====================================================
+// HIDDEN FIELDS
+// =====================================================
 
-function getQuantity() {
-
-    const quantityEl =
-        document.getElementById("quantity");
-
-    if (!quantityEl) {
-        return 1;
-    }
-
-    const q =
-        parseInt(quantityEl.value);
-
-    return isNaN(q) || q < 1
-        ? 1
-        : q;
-}
-
-
-/* =========================================================
-   CALCULATE TOTALS
-   ========================================================= */
-
-function calculateTotals() {
-
-    const price =
-        numberValue(productPrice);
-
-    const quantity =
-        getQuantity();
-
-    const delivery =
-        numberValue(deliveryCharges);
-
-    const productTotal =
-        price * quantity;
-
-    const totalAmount =
-        productTotal + delivery;
-
-
-    if (productTotalEl) {
-
-        productTotalEl.textContent =
-            rupees(productTotal);
-    }
-
-
-    if (deliveryTotalEl) {
-
-        deliveryTotalEl.textContent =
-            rupees(delivery);
-    }
-
-
-    if (totalAmountEl) {
-
-        totalAmountEl.textContent =
-            rupees(totalAmount);
-    }
-
-
-    /* -----------------------------------------
-       Hidden fields
-       ----------------------------------------- */
-
-    setValue(
-        "Product_Total",
-        productTotal
-    );
-
-    setValue(
-        "Delivery_Charges",
-        delivery
-    );
-
-    setValue(
-        "Total_Amount",
-        totalAmount
-    );
-
-    setValue(
-        "Product_Price",
-        price
-    );
-
-    setValue(
-        "Product",
-        productName
-    );
-
-    setValue(
-        "Product_Description",
-        productDescription
-    );
-
-    setValue(
-        "Product_ID",
-        productId
-    );
-
-    setValue(
-        "Product_Image",
-        productImage
-    );
-
-    setValue(
-        "Delivery_Status",
-        deliveryType
-    );
-}
-
-
-/* =========================================================
-   SET INPUT VALUE
-   ========================================================= */
-
-function setValue(id, value) {
+function setHiddenField(
+    id,
+    value
+) {
 
     const element =
         document.getElementById(id);
@@ -507,42 +249,49 @@ function setValue(id, value) {
 }
 
 
-/* =========================================================
-   ORDER ID
-   ========================================================= */
+// =====================================================
+// ORDER ID
+// =====================================================
 
-function createOrderId() {
+function generateOrderId() {
 
     const now =
         new Date();
 
+
     const year =
         now.getFullYear();
+
 
     const month =
         String(
             now.getMonth() + 1
         ).padStart(2, "0");
 
+
     const day =
         String(
             now.getDate()
         ).padStart(2, "0");
+
 
     const hours =
         String(
             now.getHours()
         ).padStart(2, "0");
 
+
     const minutes =
         String(
             now.getMinutes()
         ).padStart(2, "0");
 
+
     const seconds =
         String(
             now.getSeconds()
         ).padStart(2, "0");
+
 
     return (
         "JT-" +
@@ -557,111 +306,394 @@ function createOrderId() {
 }
 
 
-/* =========================================================
-   QUANTITY CHANGE
-   ========================================================= */
+// =====================================================
+// INITIALIZE HIDDEN FIELDS
+// =====================================================
 
-const quantityEl =
-    document.getElementById("quantity");
+function initializeForm() {
 
-if (quantityEl) {
+    const orderId =
+        generateOrderId();
 
-    quantityEl.addEventListener(
-        "change",
-        calculateTotals
+
+    setHiddenField(
+        "hiddenOrderId",
+        orderId
     );
 
-    quantityEl.addEventListener(
-        "input",
-        calculateTotals
+
+    setHiddenField(
+        "hiddenProduct",
+        product.name
     );
+
+
+    setHiddenField(
+        "hiddenDescription",
+        product.description
+    );
+
+
+    setHiddenField(
+        "hiddenPrice",
+        "Rs. " +
+        formatPrice(
+            product.price
+        )
+    );
+
+
+    setHiddenField(
+        "hiddenOldPrice",
+        product.oldPrice > product.price
+            ? "Rs. " +
+              formatPrice(
+                  product.oldPrice
+              )
+            : ""
+    );
+
+
+    setHiddenField(
+        "hiddenProductId",
+        product.id
+    );
+
+
+    setHiddenField(
+        "hiddenProductImage",
+        product.image
+    );
+
+
+    setHiddenField(
+        "hiddenDeliveryStatus",
+        product.deliveryType === "FREE" ||
+        product.deliveryCharges === 0
+            ? "FREE DELIVERY"
+            : "PAID DELIVERY"
+    );
+
+
+    setHiddenField(
+        "hiddenDeliveryCharges",
+        "Rs. " +
+        formatPrice(
+            product.deliveryCharges
+        )
+    );
+
+
+    // =================================================
+    // CURRENT JANJUA PRODUCT LINK
+    // =================================================
+
+    setHiddenField(
+        "formUrl",
+        window.location.href
+    );
+
+
+    // =================================================
+    // TOTAL CALCULATION
+    // =================================================
+
+    const quantity =
+        document.getElementById(
+            "quantity"
+        );
+
+
+    function updateTotal() {
+
+        const qty =
+            Number(
+                quantity?.value || 1
+            );
+
+
+        const subtotal =
+            product.price * qty;
+
+
+        const delivery =
+            product.deliveryCharges;
+
+
+        const total =
+            subtotal + delivery;
+
+
+        setHiddenField(
+            "hiddenTotal",
+            "Rs. " +
+            formatPrice(total)
+        );
+    }
+
+
+    if (quantity) {
+
+        quantity.addEventListener(
+            "change",
+            updateTotal
+        );
+
+        quantity.addEventListener(
+            "input",
+            updateTotal
+        );
+    }
+
+
+    updateTotal();
 }
 
 
-/* =========================================================
-   FORM SUBMIT
-   ========================================================= */
+// =====================================================
+// CREATE EXTRA GMAIL FIELDS
+// =====================================================
+
+function createExtraField(
+    name,
+    value
+) {
+
+    let field =
+        orderForm.querySelector(
+            `input[name="${name}"]`
+        );
+
+
+    if (!field) {
+
+        field =
+            document.createElement(
+                "input"
+            );
+
+        field.type =
+            "hidden";
+
+        field.name =
+            name;
+
+        orderForm.appendChild(
+            field
+        );
+    }
+
+
+    field.value =
+        value ?? "";
+}
+
+
+// =====================================================
+// FORM SUBMISSION
+// =====================================================
 
 if (orderForm) {
 
     orderForm.addEventListener(
         "submit",
-        async function(event) {
+        async function (event) {
 
             event.preventDefault();
 
 
-            /* -------------------------------------
-               Latest totals
-               ------------------------------------- */
+            if (submitBtn) {
 
-            calculateTotals();
+                submitBtn.disabled =
+                    true;
+
+                submitBtn.textContent =
+                    "ORDER PROCESSING...";
+            }
 
 
-            /* -------------------------------------
-               Generate Order ID
-               ------------------------------------- */
+            // =========================================
+            // CUSTOMER DATA
+            // =========================================
+
+            const customerName =
+                document.getElementById(
+                    "customerName"
+                )?.value || "";
+
+
+            const mobile =
+                document.getElementById(
+                    "mobile"
+                )?.value || "";
+
+
+            const address =
+                document.getElementById(
+                    "address"
+                )?.value || "";
+
+
+            const quantity =
+                Number(
+                    document.getElementById(
+                        "quantity"
+                    )?.value || 1
+                );
+
+
+            const platform =
+                document.getElementById(
+                    "platform"
+                )?.value || "";
+
+
+            const color =
+                document.getElementById(
+                    "color"
+                )?.value || "";
+
+
+            const size =
+                document.getElementById(
+                    "size"
+                )?.value || "";
+
 
             const orderId =
-                createOrderId();
+                document.getElementById(
+                    "hiddenOrderId"
+                )?.value ||
+                generateOrderId();
 
 
-            setValue(
+            const subtotal =
+                product.price *
+                quantity;
+
+
+            const delivery =
+                product.deliveryCharges;
+
+
+            const total =
+                subtotal +
+                delivery;
+
+
+            // =========================================
+            // EXTRA GMAIL INFORMATION
+            // =========================================
+
+            createExtraField(
+                "Janjua_Product_Link",
+                window.location.href
+            );
+
+
+            createExtraField(
                 "Order_ID",
                 orderId
             );
 
 
-            /* -------------------------------------
-               Date / Time
-               ------------------------------------- */
+            createExtraField(
+                "Product_ID",
+                product.id
+            );
 
-            const orderDate =
-                new Date();
 
-            setValue(
-                "Order_Date",
-                orderDate.toLocaleString(
-                    "en-PK",
-                    {
-                        timeZone:
-                            "Asia/Karachi"
-                    }
+            createExtraField(
+                "Customer_Name",
+                customerName
+            );
+
+
+            createExtraField(
+                "Mobile_WhatsApp",
+                mobile
+            );
+
+
+            createExtraField(
+                "Delivery_Address",
+                address
+            );
+
+
+            createExtraField(
+                "Quantity",
+                quantity
+            );
+
+
+            createExtraField(
+                "Platform",
+                platform
+            );
+
+
+            createExtraField(
+                "Color",
+                color
+            );
+
+
+            createExtraField(
+                "Size",
+                size
+            );
+
+
+            createExtraField(
+                "Product_Price",
+                "Rs. " +
+                formatPrice(
+                    product.price
                 )
             );
 
 
-            /* -------------------------------------
-               Button
-               ------------------------------------- */
+            createExtraField(
+                "Delivery_Charges",
+                "Rs. " +
+                formatPrice(
+                    delivery
+                )
+            );
 
-            const submitButton =
-                orderForm.querySelector(
-                    'button[type="submit"]'
+
+            createExtraField(
+                "Total_Amount",
+                "Rs. " +
+                formatPrice(
+                    total
+                )
+            );
+
+
+            // =========================================
+            // FORM DATA
+            // =========================================
+
+            const formData =
+                new FormData(
+                    orderForm
                 );
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.textContent =
-                    "Order Sending...";
-            }
 
 
             try {
 
-                const formData =
-                    new FormData(orderForm);
-
-
                 const response =
                     await fetch(
-                        FORM_URL,
+                        orderForm.action,
                         {
-                            method: "POST",
-                            body: formData,
+                            method:
+                                "POST",
+
+                            body:
+                                formData,
+
                             headers: {
                                 Accept:
                                     "application/json"
@@ -675,345 +707,243 @@ if (orderForm) {
 
 
                 if (
-                    result.success === true ||
-                    result.success === "true"
+                    !response.ok ||
+                    result.success === false
                 ) {
 
-                    showReceipt(
-                        orderId,
-                        orderDate
-                    );
-
-                }
-
-                else {
-
                     throw new Error(
-                        "FormSubmit rejected the order."
+                        "Order submission failed"
                     );
                 }
+
+
+                showReceipt({
+
+                    orderId,
+
+                    customerName,
+
+                    mobile,
+
+                    address,
+
+                    quantity,
+
+                    platform,
+
+                    color,
+
+                    size,
+
+                    subtotal,
+
+                    delivery,
+
+                    total
+
+                });
+
+
+                saveLastOrder({
+
+                    orderId,
+
+                    customerName,
+
+                    mobile,
+
+                    address,
+
+                    quantity,
+
+                    platform,
+
+                    color,
+
+                    size,
+
+                    product,
+
+                    subtotal,
+
+                    delivery,
+
+                    total
+
+                });
 
 
             } catch (error) {
 
                 console.error(
-                    "Order submit error:",
                     error
                 );
 
+
                 alert(
-                    "آرڈر بھیجنے میں مسئلہ آیا ہے۔ براہِ کرم دوبارہ کوشش کریں۔"
+                    "❌ Order submit نہیں ہو سکا۔\n\nبراہِ کرم دوبارہ کوشش کریں۔"
                 );
 
 
-                if (submitButton) {
+                if (submitBtn) {
 
-                    submitButton.disabled =
+                    submitBtn.disabled =
                         false;
 
-                    submitButton.textContent =
+                    submitBtn.textContent =
                         "PLACE ORDER";
                 }
             }
-
         }
     );
 }
 
 
-/* =========================================================
-   SHOW RECEIPT
-   ========================================================= */
+// =====================================================
+// RECEIPT
+// =====================================================
 
-function showReceipt(
-    orderId,
-    orderDate
-) {
+function showReceipt(data) {
 
-    const name =
-        getValue("customerName");
-
-    const mobile =
-        getValue("mobile");
-
-    const address =
-        getValue("address");
-
-    const platform =
-        getValue("platform");
-
-    const color =
-        getValue("color");
-
-    const size =
-        getValue("size");
-
-    const quantity =
-        getQuantity();
-
-    const price =
-        numberValue(productPrice);
-
-    const delivery =
-        numberValue(deliveryCharges);
-
-    const productTotal =
-        price * quantity;
-
-    const total =
-        productTotal + delivery;
+    const receiptSection =
+        document.getElementById(
+            "receiptSection"
+        );
 
 
-    /* -----------------------------------------
-       Receipt Product
-       ----------------------------------------- */
+    if (!receiptSection) {
+        return;
+    }
 
-    setText(
+
+    // =========================================
+    // PRODUCT
+    // =========================================
+
+    setReceiptText(
         "receiptProductName",
-        productName
+        product.name
     );
 
-    setText(
-        "receiptOrderDate",
-        orderDate.toLocaleString(
-            "en-PK",
-            {
-                timeZone:
-                    "Asia/Karachi"
-            }
+
+    setReceiptText(
+        "receiptDate",
+        new Date().toLocaleString(
+            "en-PK"
         )
     );
 
-    setText(
+
+    setReceiptText(
         "receiptOrderId",
-        orderId
+        data.orderId
     );
 
-    setText(
-        "receiptProductId",
-        productId
+
+    setReceiptText(
+        "receiptCustomer",
+        data.customerName
     );
 
-    setText(
-        "receiptCustomerName",
-        name
-    );
 
-    setText(
+    setReceiptText(
         "receiptMobile",
-        mobile
+        data.mobile
     );
 
-    setText(
-        "receiptAddress",
-        address
-    );
 
-    setText(
+    setReceiptText(
         "receiptQuantity",
-        quantity
-    );
-
-    setText(
-        "receiptProductTotal",
-        rupees(productTotal)
-    );
-
-    setText(
-        "receiptDeliveryCharges",
-        rupees(delivery)
-    );
-
-    setText(
-        "receiptTotalAmount",
-        rupees(total)
+        data.quantity
     );
 
 
-    /* -----------------------------------------
-       Optional fields
-       ----------------------------------------- */
-
-    setText(
-        "receiptPlatform",
-        platform
-    );
-
-    setText(
-        "receiptColor",
-        color
-    );
-
-    setText(
-        "receiptSize",
-        size
+    setReceiptText(
+        "receiptPrice",
+        "Rs. " +
+        formatPrice(
+            data.subtotal
+        )
     );
 
 
-    /* -----------------------------------------
-       Receipt Image
-       ----------------------------------------- */
+    setReceiptText(
+        "receiptDelivery",
+        product.deliveryCharges === 0
+            ? "FREE"
+            : "Rs. " +
+              formatPrice(
+                  data.delivery
+              )
+    );
+
+
+    setReceiptText(
+        "receiptTotal",
+        "Rs. " +
+        formatPrice(
+            data.total
+        )
+    );
+
+
+    // =========================================
+    // RECEIPT IMAGE
+    // =========================================
 
     const receiptImage =
         document.getElementById(
-            "receiptProductImage"
+            "receiptImage"
         );
 
-    if (receiptImage && productImage) {
+
+    if (receiptImage) {
 
         receiptImage.src =
-            productImage;
+            product.image;
 
         receiptImage.alt =
-            productName;
+            product.name;
     }
 
 
-    /* -----------------------------------------
-       Receipt Delivery Message
-       ----------------------------------------- */
+    // =========================================
+    // DELIVERY MESSAGE
+    // =========================================
 
-    const receiptDelivery =
-        document.getElementById(
-            "receiptDeliveryMessage"
-        );
-
-    if (receiptDelivery) {
-
-        receiptDelivery.textContent =
-            "📦 آپ کا آرڈر 3 سے 4 دن کے اندر آپ کو ڈیلیور کر دیا جائے گا۔ براہِ کرم اپنا موبائل نمبر آن رکھیں تاکہ Delivery کے وقت آپ سے رابطہ کیا جا سکے۔";
-    }
-
-
-    /* -----------------------------------------
-       Payment Message
-       ----------------------------------------- */
-
-    const receiptPayment =
-        document.getElementById(
-            "receiptPaymentMessage"
-        );
-
-    if (receiptPayment) {
-
-        if (delivery > 0) {
-
-            receiptPayment.textContent =
-                "💰 Delivery Charges " +
-                rupees(delivery) +
-                " ہیں۔ کل قابلِ ادائیگی رقم " +
-                rupees(total) +
-                " ہوگی۔ رقم Delivery کے وقت ادا کریں۔";
-        }
-
-        else {
-
-            receiptPayment.textContent =
-                "💰 Free Delivery ہے۔ Delivery Charges Rs. 0 ہیں۔ کل قابلِ ادائیگی رقم " +
-                rupees(total) +
-                " ہوگی۔ رقم Delivery کے وقت ادا کریں۔";
-        }
-    }
-
-
-    /* -----------------------------------------
-       Save Last Order
-       ----------------------------------------- */
-
-    const lastOrder = {
-
-        orderId,
-
-        orderDate:
-            orderDate.toISOString(),
-
-        productName,
-
-        productId,
-
-        productImage,
-
-        price,
-
-        oldPrice,
-
-        quantity,
-
-        deliveryType,
-
-        deliveryCharges:
-            delivery,
-
-        productTotal,
-
-        total,
-
-        customerName:
-            name,
-
-        mobile,
-
-        address,
-
-        platform,
-
-        color,
-
-        size
-    };
-
-
-    localStorage.setItem(
-        "janjua_last_order",
-        JSON.stringify(lastOrder)
+    setReceiptText(
+        "receiptDeliveryInstruction",
+        "آپ کا آرڈر موصول ہو گیا ہے۔ ہماری ٹیم آپ سے رابطہ کرے گی۔"
     );
 
 
-    /* -----------------------------------------
-       Hide Form / Show Receipt
-       ----------------------------------------- */
+    // =========================================
+    // HIDE FORM
+    // =========================================
 
-    if (orderSection) {
+    orderForm.style.display =
+        "none";
 
-        orderSection.style.display =
-            "none";
-    }
 
-    if (receiptSection) {
+    receiptSection.style.display =
+        "block";
 
-        receiptSection.style.display =
-            "block";
 
-        receiptSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
+    receiptSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
 
 
-/* =========================================================
-   GET VALUE
-   ========================================================= */
+// =====================================================
+// RECEIPT TEXT
+// =====================================================
 
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) {
-        return "";
-    }
-
-    return element.value || "";
-}
-
-
-/* =========================================================
-   SET TEXT
-   ========================================================= */
-
-function setText(id, value) {
+function setReceiptText(
+    id,
+    value
+) {
 
     const element =
         document.getElementById(id);
@@ -1026,251 +956,44 @@ function setText(id, value) {
 }
 
 
-/* =========================================================
-   DOWNLOAD RECEIPT
-   ========================================================= */
+// =====================================================
+// SAVE LAST ORDER
+// =====================================================
 
-const downloadButton =
-    document.getElementById(
-        "downloadReceipt"
-    );
+function saveLastOrder(data) {
 
-if (downloadButton) {
+    try {
 
-    downloadButton.addEventListener(
-        "click",
-        function() {
+        localStorage.setItem(
+            "janjua_last_order",
+            JSON.stringify(data)
+        );
 
-            const receipt =
-                document.getElementById(
-                    "receiptSection"
-                );
+    } catch (error) {
 
-            if (!receipt) {
-                return;
-            }
-
-
-            const html =
-                `
-<!DOCTYPE html>
-<html lang="ur" dir="rtl">
-
-<head>
-
-<meta charset="UTF-8">
-
-<title>JANJUA Order Receipt</title>
-
-<style>
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    padding:20px;
-}
-
-.receipt{
-    max-width:700px;
-    margin:auto;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-}
-
-img{
-    max-width:220px;
-    display:block;
-    margin:auto;
-}
-
-h1,h2{
-    text-align:center;
-}
-
-.row{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    border-bottom:1px solid #ddd;
-}
-
-.total{
-    font-size:22px;
-    font-weight:bold;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="receipt">
-
-${receipt.innerHTML}
-
-</div>
-
-</body>
-
-</html>
-`;
-
-
-            const blob =
-                new Blob(
-                    [html],
-                    {
-                        type:
-                            "text/html"
-                    }
-                );
-
-
-            const url =
-                URL.createObjectURL(
-                    blob
-                );
-
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-            link.href =
-                url;
-
-            link.download =
-                "JANJUA-Order-Receipt.html";
-
-            document.body.appendChild(
-                link
-            );
-
-            link.click();
-
-            link.remove();
-
-            URL.revokeObjectURL(
-                url
-            );
-
-        }
-    );
-}
-
-
-/* =========================================================
-   SHARE RECEIPT
-   ========================================================= */
-
-const shareButton =
-    document.getElementById(
-        "shareReceipt"
-    );
-
-if (shareButton) {
-
-    shareButton.addEventListener(
-        "click",
-        async function() {
-
-            const orderId =
-                getText(
-                    "receiptOrderId"
-                );
-
-            const total =
-                getText(
-                    "receiptTotalAmount"
-                );
-
-            const text =
-                "JANJUA ORDER RECEIPT\n\n" +
-                "Product: " +
-                productName +
-                "\nProduct ID: " +
-                productId +
-                "\nOrder ID: " +
-                orderId +
-                "\nQuantity: " +
-                getQuantity() +
-                "\nTotal: " +
-                total +
-                "\n\n" +
-                "آپ کا آرڈر 3 سے 4 دن کے اندر ڈیلیور کر دیا جائے گا۔";
-
-
-            try {
-
-                if (
-                    navigator.share
-                ) {
-
-                    await navigator.share({
-                        title:
-                            "JANJUA Order Receipt",
-                        text
-                    });
-
-                }
-
-                else {
-
-                    await navigator.clipboard.writeText(
-                        text
-                    );
-
-                    alert(
-                        "Receipt details copy ہو گئے ہیں۔"
-                    );
-                }
-
-            } catch (error) {
-
-                console.log(
-                    "Share cancelled."
-                );
-            }
-
-        }
-    );
-}
-
-
-/* =========================================================
-   GET TEXT
-   ========================================================= */
-
-function getText(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) {
-        return "";
+        console.warn(
+            "Could not save order locally",
+            error
+        );
     }
-
-    return element.textContent || "";
 }
 
 
-/* =========================================================
-   PRINT RECEIPT
-   ========================================================= */
+// =====================================================
+// DOWNLOAD RECEIPT
+// =====================================================
 
-const printButton =
+const downloadReceiptBtn =
     document.getElementById(
-        "printReceipt"
+        "downloadReceiptBtn"
     );
 
-if (printButton) {
 
-    printButton.addEventListener(
+if (downloadReceiptBtn) {
+
+    downloadReceiptBtn.addEventListener(
         "click",
-        function() {
+        () => {
 
             window.print();
 
@@ -1279,20 +1002,122 @@ if (printButton) {
 }
 
 
-/* =========================================================
-   NEW ORDER
-   ========================================================= */
+// =====================================================
+// SHARE RECEIPT
+// =====================================================
 
-const newOrderButton =
+const shareReceiptBtn =
     document.getElementById(
-        "newOrder"
+        "shareReceiptBtn"
     );
 
-if (newOrderButton) {
 
-    newOrderButton.addEventListener(
+if (shareReceiptBtn) {
+
+    shareReceiptBtn.addEventListener(
         "click",
-        function() {
+        async () => {
+
+            const orderId =
+                document.getElementById(
+                    "receiptOrderId"
+                )?.textContent || "";
+
+
+            const total =
+                document.getElementById(
+                    "receiptTotal"
+                )?.textContent || "";
+
+
+            const text =
+                `JANJUA ORDER\n\n` +
+                `Order ID: ${orderId}\n` +
+                `Product: ${product.name}\n` +
+                `Total: ${total}`;
+
+
+            if (
+                navigator.share
+            ) {
+
+                try {
+
+                    await navigator.share({
+                        title:
+                            "JANJUA Order",
+                        text
+                    });
+
+                } catch (error) {
+
+                    console.log(
+                        "Share cancelled"
+                    );
+                }
+
+            } else {
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        text
+                    );
+
+                    alert(
+                        "Order information copy ہو گئی ہے۔"
+                    );
+
+                } catch (error) {
+
+                    alert(
+                        text
+                    );
+                }
+            }
+        }
+    );
+}
+
+
+// =====================================================
+// PRINT RECEIPT
+// =====================================================
+
+const printReceiptBtn =
+    document.getElementById(
+        "printReceiptBtn"
+    );
+
+
+if (printReceiptBtn) {
+
+    printReceiptBtn.addEventListener(
+        "click",
+        () => {
+
+            window.print();
+
+        }
+    );
+}
+
+
+// =====================================================
+// NEW ORDER
+// =====================================================
+
+const newOrderBtn =
+    document.getElementById(
+        "newOrderBtn"
+    );
+
+
+if (newOrderBtn) {
+
+    newOrderBtn.addEventListener(
+        "click",
+        () => {
 
             window.location.href =
                 "shop.html";
@@ -1302,18 +1127,10 @@ if (newOrderButton) {
 }
 
 
-/* =========================================================
-   START
-   ========================================================= */
+// =====================================================
+// START
+// =====================================================
 
-displayProduct();
+showProduct();
 
-calculateTotals();
-
-/*
-   IMPORTANT:
-   Firebase loads product information using
-   Product_ID generated by Admin.html.
-*/
-
-loadProductFromFirebase();
+initializeForm();
