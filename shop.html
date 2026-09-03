@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Janjua Traders - Online Shop</title>
+
+<link
+    rel="stylesheet"
+    href="shop-style.css"
+>
+
+</head>
+
+<body>
+
+<header class="shop-header">
+
+    <div class="shop-logo">
+        JANJUA TRADERS
+    </div>
+
+    <div class="shop-subtitle">
+        Online Shopping Store
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="search"
+            id="searchBox"
+            placeholder="🔍 Product تلاش کریں"
+        >
+
+    </div>
+
+</header>
+
+
+<nav class="category-bar">
+
+    <button
+        type="button"
+        onclick="showCategory('All')"
+    >
+        All
+    </button>
+
+    <button
+        type="button"
+        onclick="showCategory('Shoes')"
+    >
+        Shoes
+    </button>
+
+    <button
+        type="button"
+        onclick="showCategory('Clothes')"
+    >
+        Clothes
+    </button>
+
+    <button
+        type="button"
+        onclick="showCategory('Beauty')"
+    >
+        Beauty
+    </button>
+
+    <button
+        type="button"
+        onclick="showCategory('Electronics')"
+    >
+        Electronics
+    </button>
+
+</nav>
+
+
+<main class="shop-container">
+
+    <div
+        id="productGrid"
+        class="product-grid"
+    ></div>
+
+</main>
+
+
+<footer class="shop-footer">
+
+    <strong>
+        JANJUA TRADERS
+    </strong>
+
+    <p>
+        Online Shopping Store
+    </p>
+
+</footer>
+
+
+<script src="products.js"></script>
+
+<script src="shop-script.js"></script>
+
+</body>
+
+</html>
