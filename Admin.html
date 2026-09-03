@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,14 +20,10 @@ body {
     color: #222;
 }
 
-/* MAIN CONTAINER */
-
 .container {
     width: min(700px, 94%);
     margin: 25px auto;
 }
-
-/* HEADER */
 
 .header {
     background: #111827;
@@ -45,8 +42,6 @@ body {
     margin-bottom: 0;
 }
 
-/* CARD */
-
 .card {
     background: white;
     padding: 20px;
@@ -59,16 +54,12 @@ h2 {
     margin-top: 0;
 }
 
-/* LABEL */
-
 label {
     display: block;
     margin-top: 14px;
     margin-bottom: 6px;
     font-weight: bold;
 }
-
-/* INPUTS */
 
 input,
 select,
@@ -81,17 +72,10 @@ textarea {
     font-family: Arial, sans-serif;
 }
 
-/*
-   NUMBER FIELDS
-   Numbers will move LEFT to RIGHT
-*/
-
 input[type="number"] {
     direction: ltr;
     text-align: left;
 }
-
-/* URL / EMAIL / TEXT NUMERIC-LIKE FIELDS */
 
 input[type="url"],
 input[type="email"],
@@ -104,8 +88,6 @@ textarea {
     min-height: 90px;
     resize: vertical;
 }
-
-/* BUTTON */
 
 button {
     border: 0;
@@ -121,8 +103,6 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* PRIMARY */
-
 .primary {
     width: 100%;
     margin-top: 20px;
@@ -134,27 +114,19 @@ button:disabled {
     opacity: .92;
 }
 
-/* SECONDARY */
-
 .secondary {
     background: #e5e7eb;
     color: #111827;
 }
-
-/* DANGER */
 
 .danger {
     background: #dc2626;
     color: white;
 }
 
-/* HIDDEN */
-
 .hidden {
     display: none;
 }
-
-/* MESSAGE */
 
 .message {
     padding: 12px;
@@ -173,7 +145,38 @@ button:disabled {
     color: #991b1b;
 }
 
-/* PRODUCT ITEM */
+/* IMAGE UPLOAD */
+
+.image-upload-box {
+    border: 2px dashed #9ca3af;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 10px;
+    background: #fafafa;
+}
+
+.image-upload-box input[type="file"] {
+    border: 0;
+    padding: 10px;
+    background: white;
+}
+
+.image-preview {
+    width: 100%;
+    max-height: 280px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: none;
+    background: #eee;
+}
+
+.upload-status {
+    margin-top: 10px;
+    font-weight: bold;
+    display: none;
+}
 
 .product-item {
     border: 1px solid #ddd;
@@ -186,6 +189,15 @@ button:disabled {
     font-size: 18px;
 }
 
+.product-thumb {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #eee;
+    margin-bottom: 10px;
+}
+
 .product-actions {
     display: flex;
     gap: 8px;
@@ -195,8 +207,6 @@ button:disabled {
 .product-actions button {
     flex: 1;
 }
-
-/* MOBILE */
 
 @media (max-width: 500px) {
 
@@ -217,267 +227,267 @@ button:disabled {
 
 <div class="container">
 
-    <!-- HEADER -->
+<div class="header">
 
-    <div class="header">
+<h1>JANJUA TRADERS</h1>
 
-        <h1>JANJUA TRADERS</h1>
+<p>Admin Panel</p>
 
-        <p>Admin Panel</p>
+</div>
 
-    </div>
 
+<!-- LOGIN -->
 
-    <!-- LOGIN -->
+<div id="loginSection" class="card">
 
-    <div id="loginSection" class="card">
+<h2>Admin Login</h2>
 
-        <h2>Admin Login</h2>
+<label>Email</label>
 
-        <label>Email</label>
+<input
+    type="email"
+    id="loginEmail"
+    placeholder="Admin Email"
+>
 
-        <input
-            type="email"
-            id="loginEmail"
-            placeholder="Admin Email"
-        >
 
+<label>Password</label>
 
-        <label>Password</label>
+<input
+    type="password"
+    id="loginPassword"
+    placeholder="Password"
+>
 
-        <input
-            type="password"
-            id="loginPassword"
-            placeholder="Password"
-        >
 
+<button
+    class="primary"
+    id="loginBtn"
+>
+LOGIN
+</button>
 
-        <button
-            class="primary"
-            id="loginBtn"
-        >
-            LOGIN
-        </button>
 
+<div
+    id="loginMessage"
+    class="message"
+></div>
 
-        <div
-            id="loginMessage"
-            class="message"
-        ></div>
+</div>
 
-    </div>
 
+<!-- ADMIN -->
 
-    <!-- ADMIN PANEL -->
+<div
+    id="adminSection"
+    class="hidden"
+>
 
-    <div
-        id="adminSection"
-        class="hidden"
-    >
 
-        <!-- ADD PRODUCT -->
+<div class="card">
 
-        <div class="card">
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+"
+>
 
-            <div
-                style="
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-                gap:10px;
-                "
-            >
+<h2>Product Add کریں</h2>
 
-                <h2>Product Add کریں</h2>
+<button
+    class="secondary"
+    id="logoutBtn"
+>
+Logout
+</button>
 
-                <button
-                    class="secondary"
-                    id="logoutBtn"
-                >
-                    Logout
-                </button>
+</div>
 
-            </div>
 
+<label>Product Name</label>
 
-            <!-- PRODUCT NAME -->
+<input
+    type="text"
+    id="productName"
+    placeholder="مثلاً Men's Shoes"
+>
 
-            <label>Product Name</label>
 
-            <input
-                type="text"
-                id="productName"
-                placeholder="مثلاً Men's Shoes"
-            >
+<label>Category</label>
 
+<select id="productCategory">
 
-            <!-- CATEGORY -->
+<option value="Shoes">
+Shoes
+</option>
 
-            <label>Category</label>
+<option value="Clothes">
+Clothes
+</option>
 
-            <select id="productCategory">
+<option value="Beauty">
+Beauty
+</option>
 
-                <option value="Shoes">
-                    Shoes
-                </option>
+<option value="Electronics">
+Electronics
+</option>
 
-                <option value="Clothes">
-                    Clothes
-                </option>
+<option value="Other">
+Other
+</option>
 
-                <option value="Beauty">
-                    Beauty
-                </option>
+</select>
 
-                <option value="Electronics">
-                    Electronics
-                </option>
 
-                <option value="Other">
-                    Other
-                </option>
+<label>Selling Price</label>
 
-            </select>
+<input
+    type="number"
+    id="productPrice"
+    placeholder="2000"
+    min="0"
+>
 
 
-            <!-- SELLING PRICE -->
+<label>Old Price</label>
 
-            <label>Selling Price</label>
+<input
+    type="number"
+    id="productOldPrice"
+    placeholder="2500"
+    min="0"
+>
 
-            <input
-                type="number"
-                id="productPrice"
-                placeholder="2000"
-                min="0"
-            >
 
+<label>Description</label>
 
-            <!-- OLD PRICE -->
+<textarea
+    id="productDescription"
+    placeholder="Product کی تفصیل"
+></textarea>
 
-            <label>Old Price</label>
 
-            <input
-                type="number"
-                id="productOldPrice"
-                placeholder="2500"
-                min="0"
-            >
+<!-- IMAGE -->
 
+<label>Product Image</label>
 
-            <!-- DESCRIPTION -->
+<div class="image-upload-box">
 
-            <label>Description</label>
+<p>
+📱 Gallery سے Product Image منتخب کریں
+</p>
 
-            <textarea
-                id="productDescription"
-                placeholder="Product کی تفصیل"
-            ></textarea>
+<input
+    type="file"
+    id="productImageFile"
+    accept="image/jpeg,image/png,image/webp"
+>
 
+<img
+    id="imagePreview"
+    class="image-preview"
+    alt="Image Preview"
+>
 
-            <!-- IMAGE -->
+<div
+    id="uploadStatus"
+    class="upload-status"
+></div>
 
-            <label>Product Image Link</label>
+</div>
 
-            <input
-                type="url"
-                id="productImage"
-                placeholder="https://example.com/image.jpg"
-            >
 
+<label>Supplier</label>
 
-            <!-- SUPPLIER -->
+<select id="productSupplier">
 
-            <label>Supplier</label>
+<option value="Markaz">
+Markaz
+</option>
 
-            <select id="productSupplier">
+<option value="Daraz">
+Daraz
+</option>
 
-                <option value="Markaz">
-                    Markaz
-                </option>
+<option value="Naveed">
+Naveed
+</option>
 
-                <option value="Daraz">
-                    Daraz
-                </option>
+<option value="Other">
+Other
+</option>
 
-                <option value="Naveed">
-                    Naveed
-                </option>
+</select>
 
-                <option value="Other">
-                    Other
-                </option>
 
-            </select>
+<label>Supplier Product Link</label>
 
+<input
+    type="url"
+    id="supplierLink"
+    placeholder="Supplier کا اصل product link"
+>
 
-            <!-- SUPPLIER LINK -->
 
-            <label>Supplier Product Link</label>
+<label>Facebook / TikTok Link</label>
 
-            <input
-                type="url"
-                id="supplierLink"
-                placeholder="Supplier کا اصل product link"
-            >
+<input
+    type="url"
+    id="socialLink"
+    placeholder="Facebook یا TikTok post link"
+>
 
 
-            <!-- SOCIAL LINK -->
+<button
+    class="primary"
+    id="saveProductBtn"
+>
+SAVE PRODUCT
+</button>
 
-            <label>Facebook / TikTok Link</label>
 
-            <input
-                type="url"
-                id="socialLink"
-                placeholder="Facebook یا TikTok post link"
-            >
+<div
+    id="productMessage"
+    class="message"
+></div>
 
+</div>
 
-            <!-- SAVE -->
 
-            <button
-                class="primary"
-                id="saveProductBtn"
-            >
-                SAVE PRODUCT
-            </button>
+<!-- PRODUCTS -->
 
+<div class="card">
 
-            <div
-                id="productMessage"
-                class="message"
-            ></div>
+<h2>
+Saved Products
+</h2>
 
-        </div>
+<div id="productList">
+Products loading...
+</div>
 
+</div>
 
-        <!-- SAVED PRODUCTS -->
-
-        <div class="card">
-
-            <h2>Saved Products</h2>
-
-            <div id="productList">
-                Products loading...
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
 <script type="module">
 
-
-/* =========================
-   FIREBASE IMPORTS
-========================= */
+/* =========================================
+   FIREBASE
+========================================= */
 
 import {
     initializeApp
 }
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
 import {
@@ -486,7 +496,8 @@ import {
     onAuthStateChanged,
     signOut
 }
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
 import {
@@ -497,101 +508,95 @@ import {
     deleteDoc,
     doc
 }
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-
-/* =========================
-   FIREBASE CONFIG
-========================= */
 
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+    "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
 
     authDomain:
-        "janjua-traders.firebaseapp.com",
+    "janjua-traders.firebaseapp.com",
 
     projectId:
-        "janjua-traders",
+    "janjua-traders",
 
     storageBucket:
-        "janjua-traders.firebasestorage.app",
+    "janjua-traders.firebasestorage.app",
 
     messagingSenderId:
-        "154904774188",
+    "154904774188",
 
     appId:
-        "1:154904774188:web:1830f9d533e77dae6a7389"
+    "1:154904774188:web:1830f9d533e77dae6a7389"
 
 };
 
 
-/* =========================
-   INITIALIZE FIREBASE
-========================= */
-
 const app =
-    initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 
 const auth =
-    getAuth(app);
+getAuth(app);
 
 
 const db =
-    getFirestore(app);
+getFirestore(app);
 
 
-/* =========================
+/* =========================================
+   CLOUDINARY
+========================================= */
+
+const CLOUDINARY_CLOUD_NAME =
+"r6brgbd8";
+
+
+const CLOUDINARY_UPLOAD_PRESET =
+"janjua_traders";
+
+
+/* =========================================
    ELEMENTS
-========================= */
+========================================= */
 
 const loginSection =
-    document.getElementById(
-        "loginSection"
-    );
-
+document.getElementById("loginSection");
 
 const adminSection =
-    document.getElementById(
-        "adminSection"
-    );
-
+document.getElementById("adminSection");
 
 const loginBtn =
-    document.getElementById(
-        "loginBtn"
-    );
-
+document.getElementById("loginBtn");
 
 const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
-
+document.getElementById("logoutBtn");
 
 const loginMessage =
-    document.getElementById(
-        "loginMessage"
-    );
-
+document.getElementById("loginMessage");
 
 const productMessage =
-    document.getElementById(
-        "productMessage"
-    );
-
+document.getElementById("productMessage");
 
 const productList =
-    document.getElementById(
-        "productList"
-    );
+document.getElementById("productList");
+
+const imageFile =
+document.getElementById("productImageFile");
+
+const imagePreview =
+document.getElementById("imagePreview");
+
+const uploadStatus =
+document.getElementById("uploadStatus");
 
 
-/* =========================
-   MESSAGE FUNCTION
-========================= */
+/* =========================================
+   MESSAGE
+========================================= */
 
 function showMessage(
     element,
@@ -599,8 +604,7 @@ function showMessage(
     type
 ) {
 
-    element.textContent =
-        text;
+    element.textContent = text;
 
     element.className =
         "message " + type;
@@ -611,9 +615,152 @@ function showMessage(
 }
 
 
-/* =========================
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+imageFile.addEventListener(
+    "change",
+    function () {
+
+        const file =
+            this.files[0];
+
+        if (!file) {
+
+            imagePreview.style.display =
+                "none";
+
+            return;
+        }
+
+
+        if (!file.type.startsWith("image/")) {
+
+            alert(
+                "براہِ کرم صرف JPG, PNG یا WebP تصویر منتخب کریں۔"
+            );
+
+            this.value = "";
+
+            return;
+        }
+
+
+        const maxSize =
+            5 * 1024 * 1024;
+
+
+        if (file.size > maxSize) {
+
+            alert(
+                "تصویر کا سائز 5MB سے کم ہونا چاہیے۔"
+            );
+
+            this.value = "";
+
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function (event) {
+
+                imagePreview.src =
+                    event.target.result;
+
+                imagePreview.style.display =
+                    "block";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =========================================
+   CLOUDINARY UPLOAD
+========================================= */
+
+async function uploadImageToCloudinary(file) {
+
+    const url =
+        "https://api.cloudinary.com/v1_1/" +
+        CLOUDINARY_CLOUD_NAME +
+        "/image/upload";
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        file
+    );
+
+
+    formData.append(
+        "upload_preset",
+        CLOUDINARY_UPLOAD_PRESET
+    );
+
+
+    uploadStatus.style.display =
+        "block";
+
+    uploadStatus.textContent =
+        "☁️ Image upload ہو رہی ہے...";
+
+
+    const response =
+        await fetch(
+            url,
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+
+    const result =
+        await response.json();
+
+
+    if (!response.ok) {
+
+        console.error(
+            "CLOUDINARY ERROR:",
+            result
+        );
+
+        throw new Error(
+            result.error?.message ||
+            "Cloudinary upload failed"
+        );
+
+    }
+
+
+    uploadStatus.textContent =
+        "✅ Image upload ہو گئی۔";
+
+
+    return result.secure_url;
+
+}
+
+
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
 loginBtn.addEventListener(
     "click",
@@ -621,18 +768,14 @@ loginBtn.addEventListener(
 
         const email =
             document
-            .getElementById(
-                "loginEmail"
-            )
+            .getElementById("loginEmail")
             .value
             .trim();
 
 
         const password =
             document
-            .getElementById(
-                "loginPassword"
-            )
+            .getElementById("loginPassword")
             .value;
 
 
@@ -645,7 +788,6 @@ loginBtn.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -665,12 +807,9 @@ loginBtn.addEventListener(
             );
 
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(error);
-
 
             showMessage(
                 loginMessage,
@@ -678,9 +817,8 @@ loginBtn.addEventListener(
                 "error"
             );
 
-        }
 
-        finally {
+        } finally {
 
             loginBtn.disabled =
                 false;
@@ -694,9 +832,9 @@ loginBtn.addEventListener(
 );
 
 
-/* =========================
+/* =========================================
    AUTH STATE
-========================= */
+========================================= */
 
 onAuthStateChanged(
     auth,
@@ -708,22 +846,17 @@ onAuthStateChanged(
                 .classList
                 .add("hidden");
 
-
             adminSection
                 .classList
                 .remove("hidden");
 
-
             loadProducts();
 
-        }
-
-        else {
+        } else {
 
             loginSection
                 .classList
                 .remove("hidden");
-
 
             adminSection
                 .classList
@@ -735,9 +868,9 @@ onAuthStateChanged(
 );
 
 
-/* =========================
+/* =========================================
    LOGOUT
-========================= */
+========================================= */
 
 logoutBtn.addEventListener(
     "click",
@@ -749,294 +882,294 @@ logoutBtn.addEventListener(
 );
 
 
-/* =========================
+/* =========================================
    SAVE PRODUCT
-========================= */
+========================================= */
 
 document
-    .getElementById(
-        "saveProductBtn"
-    )
-    .addEventListener(
-        "click",
-        async function () {
+.getElementById("saveProductBtn")
+.addEventListener(
+    "click",
+    async function () {
 
-            const name =
+        const name =
+            document
+            .getElementById("productName")
+            .value
+            .trim();
+
+
+        const category =
+            document
+            .getElementById("productCategory")
+            .value;
+
+
+        const price =
+            Number(
                 document
-                .getElementById(
-                    "productName"
-                )
+                .getElementById("productPrice")
                 .value
-                .trim();
+            );
 
 
-            const category =
+        const oldPrice =
+            Number(
                 document
-                .getElementById(
-                    "productCategory"
-                )
-                .value;
+                .getElementById("productOldPrice")
+                .value
+            ) || 0;
 
 
-            const price =
-                Number(
-                    document
-                    .getElementById(
-                        "productPrice"
-                    )
-                    .value
+        const description =
+            document
+            .getElementById("productDescription")
+            .value
+            .trim();
+
+
+        const supplier =
+            document
+            .getElementById("productSupplier")
+            .value;
+
+
+        const supplierLink =
+            document
+            .getElementById("supplierLink")
+            .value
+            .trim();
+
+
+        const socialLink =
+            document
+            .getElementById("socialLink")
+            .value
+            .trim();
+
+
+        const file =
+            imageFile.files[0];
+
+
+        /* REQUIRED */
+
+        if (!name) {
+
+            showMessage(
+                productMessage,
+                "Product Name ضروری ہے۔",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!price) {
+
+            showMessage(
+                productMessage,
+                "Selling Price ضروری ہے۔",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!file) {
+
+            showMessage(
+                productMessage,
+                "براہِ کرم Gallery سے Product Image منتخب کریں۔",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!supplierLink) {
+
+            showMessage(
+                productMessage,
+                "Supplier Link ضروری ہے۔",
+                "error"
+            );
+
+            return;
+        }
+
+
+        const saveBtn =
+            document
+            .getElementById("saveProductBtn");
+
+
+        try {
+
+            saveBtn.disabled =
+                true;
+
+            saveBtn.textContent =
+                "Image Upload ہو رہی ہے...";
+
+
+            /* IMAGE UPLOAD */
+
+            const imageUrl =
+                await uploadImageToCloudinary(
+                    file
                 );
 
 
-            const oldPrice =
-                Number(
-                    document
-                    .getElementById(
-                        "productOldPrice"
-                    )
-                    .value
-                ) || 0;
+            saveBtn.textContent =
+                "Product Save ہو رہا ہے...";
 
 
-            const description =
-                document
-                .getElementById(
-                    "productDescription"
-                )
-                .value
-                .trim();
+            /* PRODUCT ID */
 
+            const productId =
+                "JT-" + Date.now();
 
-            const image =
-                document
-                .getElementById(
-                    "productImage"
-                )
-                .value
-                .trim();
 
+            /* FIREBASE */
 
-            const supplier =
-                document
-                .getElementById(
-                    "productSupplier"
-                )
-                .value;
+            await addDoc(
+                collection(
+                    db,
+                    "products"
+                ),
+                {
 
+                    id:
+                        productId,
 
-            const supplierLink =
-                document
-                .getElementById(
-                    "supplierLink"
-                )
-                .value
-                .trim();
+                    name:
+                        name,
 
+                    category:
+                        category,
 
-            const socialLink =
-                document
-                .getElementById(
-                    "socialLink"
-                )
-                .value
-                .trim();
+                    price:
+                        price,
 
+                    oldPrice:
+                        oldPrice,
 
-            /* VALIDATION */
+                    description:
+                        description,
 
-            if (
-                !name ||
-                !price ||
-                !image ||
-                !supplierLink
-            ) {
+                    image:
+                        imageUrl,
 
-                showMessage(
-                    productMessage,
-                    "Product Name، Price، Image Link اور Supplier Link ضروری ہیں۔",
-                    "error"
-                );
+                    supplier:
+                        supplier,
 
-                return;
+                    supplierLink:
+                        supplierLink,
 
-            }
+                    socialLink:
+                        socialLink,
 
+                    createdAt:
+                        new Date()
+                        .toISOString()
 
-            try {
+                }
+            );
 
-                const saveBtn =
-                    document
-                    .getElementById(
-                        "saveProductBtn"
-                    );
 
+            showMessage(
+                productMessage,
+                "✅ Product اور Image کامیابی سے save ہو گئے۔",
+                "success"
+            );
 
-                saveBtn.disabled =
-                    true;
 
+            /* RESET */
 
-                saveBtn.textContent =
-                    "Saving...";
+            document
+            .getElementById("productName")
+            .value = "";
 
 
-                /* PRODUCT ID */
+            document
+            .getElementById("productPrice")
+            .value = "";
 
-                const productId =
-                    "JT-" +
-                    Date.now();
 
+            document
+            .getElementById("productOldPrice")
+            .value = "";
 
-                /* SAVE TO FIRESTORE */
 
-                await addDoc(
-                    collection(
-                        db,
-                        "products"
-                    ),
-                    {
+            document
+            .getElementById("productDescription")
+            .value = "";
 
-                        id:
-                            productId,
 
-                        name:
-                            name,
+            document
+            .getElementById("supplierLink")
+            .value = "";
 
-                        category:
-                            category,
 
-                        price:
-                            price,
+            document
+            .getElementById("socialLink")
+            .value = "";
 
-                        oldPrice:
-                            oldPrice,
 
-                        description:
-                            description,
+            imageFile.value = "";
 
-                        image:
-                            image,
 
-                        supplier:
-                            supplier,
+            imagePreview.src = "";
 
-                        supplierLink:
-                            supplierLink,
 
-                        socialLink:
-                            socialLink,
+            imagePreview.style.display =
+                "none";
 
-                        createdAt:
-                            new Date()
-                            .toISOString()
 
-                    }
-                );
+            uploadStatus.style.display =
+                "none";
 
 
-                /* SUCCESS */
+            loadProducts();
 
-                showMessage(
-                    productMessage,
-                    "Product کامیابی سے Firebase میں save ہو گیا۔",
-                    "success"
-                );
 
+        } catch (error) {
 
-                /* CLEAR FIELDS */
+            console.error(
+                "SAVE PRODUCT ERROR:",
+                error
+            );
 
-                document
-                    .getElementById(
-                        "productName"
-                    )
-                    .value = "";
 
+            showMessage(
+                productMessage,
+                "❌ Product save نہیں ہو سکا: " +
+                error.message,
+                "error"
+            );
 
-                document
-                    .getElementById(
-                        "productPrice"
-                    )
-                    .value = "";
 
+        } finally {
 
-                document
-                    .getElementById(
-                        "productOldPrice"
-                    )
-                    .value = "";
+            saveBtn.disabled =
+                false;
 
-
-                document
-                    .getElementById(
-                        "productDescription"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "productImage"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "supplierLink"
-                    )
-                    .value = "";
-
-
-                document
-                    .getElementById(
-                        "socialLink"
-                    )
-                    .value = "";
-
-
-                /* RELOAD PRODUCTS */
-
-                loadProducts();
-
-            }
-
-            catch (error) {
-
-                console.error(error);
-
-
-                showMessage(
-                    productMessage,
-                    "Product save نہیں ہو سکا۔",
-                    "error"
-                );
-
-            }
-
-            finally {
-
-                const saveBtn =
-                    document
-                    .getElementById(
-                        "saveProductBtn"
-                    );
-
-
-                saveBtn.disabled =
-                    false;
-
-
-                saveBtn.textContent =
-                    "SAVE PRODUCT";
-
-            }
+            saveBtn.textContent =
+                "SAVE PRODUCT";
 
         }
-    );
+
+    }
+);
 
 
-/* =========================
+/* =========================================
    LOAD PRODUCTS
-========================= */
+========================================= */
 
 async function loadProducts() {
 
@@ -1061,7 +1194,6 @@ async function loadProducts() {
                 "ابھی کوئی Product موجود نہیں۔";
 
             return;
-
         }
 
 
@@ -1078,9 +1210,7 @@ async function loadProducts() {
 
                 const div =
                     document
-                    .createElement(
-                        "div"
-                    );
+                    .createElement("div");
 
 
                 div.className =
@@ -1089,24 +1219,33 @@ async function loadProducts() {
 
                 div.innerHTML = `
 
+                    ${
+                        product.image
+                        ?
+                        `
+                        <img
+                            src="${escapeHtml(product.image)}"
+                            class="product-thumb"
+                            alt="${escapeHtml(product.name || "")}"
+                        >
+                        `
+                        :
+                        ""
+                    }
+
                     <strong>
-                        ${escapeHtml(
-                            product.name || ""
-                        )}
+                        ${escapeHtml(product.name || "")}
                     </strong>
 
                     <br>
 
                     Rs.
-                    ${Number(
-                        product.price || 0
-                    ).toLocaleString("en-PK")}
+                    ${Number(product.price || 0)
+                        .toLocaleString("en-PK")}
 
                     <br>
 
-                    ${escapeHtml(
-                        product.category || ""
-                    )}
+                    ${escapeHtml(product.category || "")}
 
                     <div class="product-actions">
 
@@ -1122,43 +1261,39 @@ async function loadProducts() {
                 `;
 
 
-                productList
-                    .appendChild(
-                        div
-                    );
+                productList.appendChild(
+                    div
+                );
 
             }
         );
 
 
-        /* DELETE BUTTONS */
-
         document
-            .querySelectorAll(
-                "[data-delete]"
-            )
-            .forEach(
-                function (button) {
+        .querySelectorAll(
+            "[data-delete]"
+        )
+        .forEach(
+            function (button) {
 
-                    button.addEventListener(
-                        "click",
-                        function () {
+                button.addEventListener(
+                    "click",
+                    function () {
 
-                            deleteProduct(
-                                this.getAttribute(
-                                    "data-delete"
-                                )
-                            );
+                        deleteProduct(
+                            this.getAttribute(
+                                "data-delete"
+                            )
+                        );
 
-                        }
-                    );
+                    }
+                );
 
-                }
-            );
+            }
+        );
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
@@ -1170,9 +1305,9 @@ async function loadProducts() {
 }
 
 
-/* =========================
-   DELETE PRODUCT
-========================= */
+/* =========================================
+   DELETE
+========================================= */
 
 async function deleteProduct(
     documentId
@@ -1183,9 +1318,7 @@ async function deleteProduct(
             "کیا آپ یہ Product delete کرنا چاہتے ہیں؟"
         )
     ) {
-
         return;
-
     }
 
 
@@ -1202,12 +1335,10 @@ async function deleteProduct(
 
         loadProducts();
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
-
 
         alert(
             "Product delete نہیں ہو سکا۔"
@@ -1218,13 +1349,11 @@ async function deleteProduct(
 }
 
 
-/* =========================
-   SECURITY FOR DISPLAY TEXT
-========================= */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
-function escapeHtml(
-    value
-) {
+function escapeHtml(value) {
 
     return String(value)
 
