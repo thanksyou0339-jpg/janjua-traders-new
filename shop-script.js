@@ -1,5 +1,5 @@
 /* =========================================
-   DIGITAL JANJUA TRADING
+   JANJUA DIGITAL MARKETING
    PUBLIC SHOP SCRIPT
 ========================================= */
 
@@ -22,7 +22,7 @@ from
 const firebaseConfig = {
 
     apiKey:
-    "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+    "AIzaSyA8_4ArKXAdfKWZ5miDa5T9qiayL3h_Yzw",
 
     authDomain:
     "janjua-traders.firebaseapp.com",
@@ -62,12 +62,27 @@ const loadingMessage =
 document.getElementById("loadingMessage");
 
 
+const categoryBar =
+document.getElementById("categoryBar");
+
+
 let products = [];
 
 
-/* =========================
+/* =========================================
+   NEW ITEM SETTINGS
+========================================= */
+
+/*
+   نئی product 7 دن تک NEW دکھائی جائے گی۔
+*/
+
+const NEW_ITEM_DAYS = 7;
+
+
+/* =========================================
    RUPEES
-========================= */
+========================================= */
 
 function rupees(value){
 
@@ -78,9 +93,55 @@ function rupees(value){
 }
 
 
-/* =========================
+/* =========================================
+   NEW PRODUCT CHECK
+========================================= */
+
+function isNewProduct(product){
+
+    if(!product.createdAt){
+
+        return false;
+
+    }
+
+
+    const created =
+    new Date(
+        product.createdAt
+    ).getTime();
+
+
+    if(Number.isNaN(created)){
+
+        return false;
+
+    }
+
+
+    const age =
+    Date.now() - created;
+
+
+    return(
+
+        age >= 0 &&
+
+        age <=
+        NEW_ITEM_DAYS *
+        24 *
+        60 *
+        60 *
+        1000
+
+    );
+
+}
+
+
+/* =========================================
    LOAD PRODUCTS
-========================= */
+========================================= */
 
 async function loadProducts(){
 
@@ -89,10 +150,7 @@ async function loadProducts(){
         if(loadingMessage){
 
             loadingMessage.style.display =
-            "block";
-
-            loadingMessage.textContent =
-            "Products loading...";
+            "flex";
 
         }
 
@@ -135,12 +193,14 @@ async function loadProducts(){
 
                     price:
                     Number(
-                        product.price || 0
+                        product.price ||
+                        0
                     ),
 
                     oldPrice:
                     Number(
-                        product.oldPrice || 0
+                        product.oldPrice ||
+                        0
                     ),
 
                     description:
@@ -149,12 +209,38 @@ async function loadProducts(){
 
                     image:
                     product.image ||
-                    ""
+                    "",
+
+                    createdAt:
+                    product.createdAt ||
+                    null
 
                 });
 
             }
         );
+
+
+        /*
+         * Newest products first
+         */
+
+        products.sort(
+            function(a,b){
+
+                return new Date(
+                    b.createdAt || 0
+                ) -
+
+                new Date(
+                    a.createdAt || 0
+                );
+
+            }
+        );
+
+
+        buildCategories();
 
 
         if(loadingMessage){
@@ -165,7 +251,9 @@ async function loadProducts(){
         }
 
 
-        showProducts(products);
+        showProducts(
+            products
+        );
 
 
     }catch(error){
@@ -179,10 +267,16 @@ async function loadProducts(){
         if(loadingMessage){
 
             loadingMessage.style.display =
-            "block";
+            "flex";
 
-            loadingMessage.textContent =
-            "Products load نہیں ہو سکے۔ براہِ کرم دوبارہ کوشش کریں۔";
+            loadingMessage.innerHTML = `
+
+                <span>
+                    Products load نہیں ہو سکے۔
+                    براہِ کرم دوبارہ کوشش کریں۔
+                </span>
+
+            `;
 
         }
 
@@ -191,9 +285,186 @@ async function loadProducts(){
 }
 
 
-/* =========================
+/* =========================================
+   BUILD CATEGORIES
+========================================= */
+
+function buildCategories(){
+
+    if(!categoryBar){
+
+        return;
+
+    }
+
+
+    const categories = [
+
+        {
+            name:"All",
+            icon:"✨"
+        },
+
+        {
+            name:"Shoes",
+            icon:"👟"
+        },
+
+        {
+            name:"Clothes",
+            icon:"👕"
+        },
+
+        {
+            name:"Beauty",
+            icon:"💄"
+        },
+
+        {
+            name:"Electronics",
+            icon:"📱"
+        },
+
+        {
+            name:"Other",
+            icon:"🛍️"
+        }
+
+    ];
+
+
+    const existingCategories =
+    new Set(
+
+        products
+
+        .map(
+            function(product){
+
+                return String(
+                    product.category || ""
+                ).trim();
+
+            }
+        )
+
+        .filter(Boolean)
+
+    );
+
+
+    existingCategories.forEach(
+        function(category){
+
+            const alreadyExists =
+            categories.some(
+                function(item){
+
+                    return(
+                        item.name.toLowerCase() ===
+                        category.toLowerCase()
+                    );
+
+                }
+            );
+
+
+            if(!alreadyExists){
+
+                categories.push({
+
+                    name:category,
+
+                    icon:"🏷️"
+
+                });
+
+            }
+
+        }
+    );
+
+
+    categoryBar.innerHTML =
+
+    categories
+    .map(
+        function(item){
+
+            return `
+
+                <button
+                    type="button"
+                    class="category-btn ${
+                        item.name === "All"
+                        ? "active"
+                        : ""
+                    }"
+                    data-category="${
+                        escapeAttribute(item.name)
+                    }"
+                >
+
+                    ${item.icon}
+
+                    ${escapeHtml(item.name)}
+
+                </button>
+
+            `;
+
+        }
+    )
+    .join("");
+
+
+    categoryBar
+    .querySelectorAll(
+        ".category-btn"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    categoryBar
+                    .querySelectorAll(
+                        ".category-btn"
+                    )
+                    .forEach(
+                        function(btn){
+
+                            btn.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    showCategory(
+                        this.dataset.category
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
    SHOW PRODUCTS
-========================= */
+========================================= */
 
 function showProducts(
     productList
@@ -214,13 +485,23 @@ function showProducts(
                 style="
                 grid-column:1/-1;
                 text-align:center;
-                padding:40px;
+                padding:50px 20px;
+                background:white;
+                border-radius:18px;
                 "
             >
 
                 <h3>
                     Product نہیں ملا
                 </h3>
+
+                <p
+                    style="
+                    color:#6b7280;
+                    "
+                >
+                    دوسری category یا search استعمال کریں۔
+                </p>
 
             </div>
 
@@ -239,66 +520,149 @@ function showProducts(
 
             const image =
             product.image ||
+
             "https://via.placeholder.com/500x500?text=Product";
+
+
+            const newBadge =
+            isNewProduct(product)
+
+            ?
+
+            `
+
+                <div class="new-badge">
+                    ✨ NEW ITEM
+                </div>
+
+            `
+
+            :
+
+            "";
 
 
             return `
 
-                <div class="product-card">
+                <article
+                    class="product-card"
+                >
 
-                    <img
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(product.name)}"
-                        loading="lazy"
-                        onerror="
-                        this.src='https://via.placeholder.com/500x500?text=Product'
-                        "
+
+                    <div
+                        class="product-image-wrap"
                     >
 
-                    <div class="product-info">
+                        ${newBadge}
+
+
+                        <img
+
+                            src="${escapeAttribute(
+                                image
+                            )}"
+
+                            alt="${escapeAttribute(
+                                product.name
+                            )}"
+
+                            loading="lazy"
+
+                            onerror="
+                            this.src='https://via.placeholder.com/500x500?text=Product'
+                            "
+
+                        >
+
+                    </div>
+
+
+                    <div
+                        class="product-info"
+                    >
+
 
                         <h3 dir="auto">
-                            ${escapeHtml(product.name)}
+
+                            ${escapeHtml(
+                                product.name
+                            )}
+
                         </h3>
 
+
                         <p dir="auto">
+
                             ${escapeHtml(
-                                product.description || ""
+                                product.description ||
+                                ""
                             )}
+
                         </p>
 
-                        <div class="price-row">
+
+                        <div
+                            class="price-row"
+                        >
 
                             <strong>
-                                ${rupees(product.price)}
+
+                                ${rupees(
+                                    product.price
+                                )}
+
                             </strong>
+
 
                             ${
                                 product.oldPrice > 0
+
                                 ?
+
                                 `
+
                                 <del>
-                                    ${rupees(product.oldPrice)}
+
+                                    ${rupees(
+                                        product.oldPrice
+                                    )}
+
                                 </del>
+
                                 `
+
                                 :
+
                                 ""
+
                             }
 
                         </div>
 
 
                         <button
+
                             class="order-btn"
+
                             type="button"
-                            data-product-id="${escapeHtml(product.id)}"
+
+                            data-product-id="${
+                                escapeAttribute(
+                                    product.id
+                                )
+                            }"
+
                         >
+
                             ORDER NOW
+
                         </button>
+
 
                     </div>
 
-                </div>
+
+                </article>
 
             `;
 
@@ -307,8 +671,10 @@ function showProducts(
     .join("");
 
 
-    document
-    .querySelectorAll(".order-btn")
+    productGrid
+    .querySelectorAll(
+        ".order-btn"
+    )
     .forEach(
         function(button){
 
@@ -316,14 +682,10 @@ function showProducts(
                 "click",
                 function(){
 
-                    const productId =
-                    this.getAttribute(
-                        "data-product-id"
-                    );
-
-
                     orderProduct(
-                        productId
+                        this.getAttribute(
+                            "data-product-id"
+                        )
                     );
 
                 }
@@ -335,9 +697,9 @@ function showProducts(
 }
 
 
-/* =========================
+/* =========================================
    ORDER PRODUCT
-========================= */
+========================================= */
 
 function orderProduct(
     productId
@@ -347,8 +709,10 @@ function orderProduct(
     products.find(
         function(p){
 
-            return String(p.id) ===
-            String(productId);
+            return(
+                String(p.id) ===
+                String(productId)
+            );
 
         }
     );
@@ -406,19 +770,26 @@ function orderProduct(
 
 
     /*
-     * Supplier links intentionally NOT sent.
+     * IMPORTANT:
+     *
+     * Supplier / Markaz / Daraz
+     * information is NOT sent
+     * to the customer order form.
+     *
+     * It remains internal.
      */
 
+
     window.location.href =
-    "order-form.html?" +
-    params.toString();
+        "order-form.html?" +
+        params.toString();
 
 }
 
 
-/* =========================
-   CATEGORY
-========================= */
+/* =========================================
+   CATEGORY FILTER
+========================================= */
 
 window.showCategory =
 function(category){
@@ -441,13 +812,21 @@ function(category){
     products.filter(
         function(product){
 
-            return String(
-                product.category || ""
-            )
-            .toLowerCase() ===
+            return(
 
-            String(category)
-            .toLowerCase();
+                String(
+                    product.category || ""
+                )
+                .toLowerCase()
+
+                ===
+
+                String(
+                    category
+                )
+                .toLowerCase()
+
+            );
 
         }
     );
@@ -460,9 +839,9 @@ function(category){
 };
 
 
-/* =========================
+/* =========================================
    SEARCH
-========================= */
+========================================= */
 
 if(searchBox){
 
@@ -493,21 +872,24 @@ if(searchBox){
 
                     const name =
                     String(
-                        product.name || ""
+                        product.name ||
+                        ""
                     )
                     .toLowerCase();
 
 
                     const description =
                     String(
-                        product.description || ""
+                        product.description ||
+                        ""
                     )
                     .toLowerCase();
 
 
                     const category =
                     String(
-                        product.category || ""
+                        product.category ||
+                        ""
                     )
                     .toLowerCase();
 
@@ -536,9 +918,9 @@ if(searchBox){
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* =========================================
+   SECURITY / HTML ESCAPE
+========================================= */
 
 function escapeHtml(value){
 
@@ -572,8 +954,17 @@ function escapeHtml(value){
 }
 
 
-/* =========================
+function escapeAttribute(value){
+
+    return escapeHtml(
+        value
+    );
+
+}
+
+
+/* =========================================
    START
-========================= */
+========================================= */
 
 loadProducts();
