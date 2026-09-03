@@ -118,7 +118,6 @@ body{
         1px solid #e8ebef;
 }
 
-
 .admin-card h2{
 
     margin:
@@ -144,11 +143,137 @@ body{
 }
 
 
+/* =========================
+   LOGIN LTR
+========================= */
+
+.login-ltr{
+
+    direction:ltr !important;
+
+    text-align:left !important;
+
+    unicode-bidi:plaintext;
+
+}
+
+
+/* Email / Password specifically */
+
+#email,
+#password{
+
+    direction:ltr !important;
+
+    text-align:left !important;
+
+    unicode-bidi:plaintext;
+
+    writing-mode:horizontal-tb;
+
+}
+
+
+/* Password wrapper */
+
+.password-wrapper{
+
+    position:relative;
+
+    width:100%;
+
+    direction:ltr;
+
+}
+
+.password-wrapper input{
+
+    width:100%;
+
+    padding:
+        12px
+        52px
+        12px
+        13px;
+
+}
+
+
+/* Show / Hide button */
+
+.password-toggle{
+
+    position:absolute;
+
+    right:8px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:38px;
+
+    height:38px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#eef2f7;
+
+    color:#17202a;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.2s ease;
+
+    direction:ltr;
+
+}
+
+.password-toggle:hover{
+
+    background:#dfe5ec;
+
+}
+
+.password-toggle:active{
+
+    transform:
+        translateY(-50%)
+        scale(.95);
+
+}
+
+
+/* Login labels */
+
+.login-label{
+
+    direction:rtl;
+
+    text-align:right;
+
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
 .input-group{
 
     margin-bottom:14px;
 }
-
 
 .input-group label{
 
@@ -160,7 +285,6 @@ body{
 
     font-size:14px;
 }
-
 
 .input-group input,
 .input-group select,
@@ -182,7 +306,6 @@ body{
     background:white;
 }
 
-
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus{
@@ -193,7 +316,6 @@ body{
         0 0 0 3px
         rgba(17,24,39,.08);
 }
-
 
 .input-group textarea{
 
@@ -228,13 +350,20 @@ body{
     transition:.2s ease;
 }
 
-
 .btn:hover{
 
     transform:
         translateY(-1px);
 }
 
+.btn:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
 
 .btn-primary{
 
@@ -245,14 +374,12 @@ body{
     color:white;
 }
 
-
 .btn-secondary{
 
     background:#e5e7eb;
 
     color:#111827;
 }
-
 
 .btn-danger{
 
@@ -261,14 +388,12 @@ body{
     color:white;
 }
 
-
 .btn-copy{
 
     background:#2563eb;
 
     color:white;
 }
-
 
 .btn-logout{
 
@@ -285,6 +410,31 @@ body{
 
 
 /* =========================
+   LOGIN HELP
+========================= */
+
+.login-help{
+
+    margin-top:12px;
+
+    padding:10px;
+
+    border-radius:9px;
+
+    background:#f8fafc;
+
+    color:#667085;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    text-align:center;
+
+}
+
+
+/* =========================
    DASHBOARD
 ========================= */
 
@@ -292,7 +442,6 @@ body{
 
     display:none;
 }
-
 
 .top-bar{
 
@@ -308,7 +457,6 @@ body{
 
     margin-bottom:18px;
 }
-
 
 .admin-status{
 
@@ -344,7 +492,6 @@ body{
         15px;
 }
 
-
 .full-width{
 
     grid-column:
@@ -374,7 +521,6 @@ body{
         1px solid #ddd;
 }
 
-
 .upload-status{
 
     margin-top:8px;
@@ -401,7 +547,6 @@ body{
 
     flex-wrap:wrap;
 }
-
 
 .products-search{
 
@@ -436,7 +581,6 @@ body{
     margin-top:18px;
 }
 
-
 .product-item{
 
     position:relative;
@@ -451,7 +595,6 @@ body{
     overflow:hidden;
 }
 
-
 .product-image{
 
     width:100%;
@@ -465,12 +608,10 @@ body{
     background:#eee;
 }
 
-
 .product-details{
 
     padding:14px;
 }
-
 
 .product-details h3{
 
@@ -485,7 +626,6 @@ body{
 
     unicode-bidi:plaintext;
 }
-
 
 .product-id{
 
@@ -508,7 +648,6 @@ body{
     direction:ltr;
 }
 
-
 .product-price{
 
     margin-top:10px;
@@ -522,7 +661,6 @@ body{
     text-align:right;
 }
 
-
 .product-category{
 
     margin-top:6px;
@@ -531,7 +669,6 @@ body{
 
     font-size:13px;
 }
-
 
 .product-links{
 
@@ -543,7 +680,6 @@ body{
 
     margin-top:13px;
 }
-
 
 .product-links button{
 
@@ -563,7 +699,6 @@ body{
 
     cursor:pointer;
 }
-
 
 .order-link-box{
 
@@ -602,8 +737,9 @@ body{
     font-size:14px;
 
     font-weight:bold;
-}
 
+    line-height:1.6;
+}
 
 .message.success{
 
@@ -613,7 +749,6 @@ body{
 
     color:#047857;
 }
-
 
 .message.error{
 
@@ -748,15 +883,20 @@ body{
 
     <div class="input-group">
 
-        <label>
+        <label class="login-label">
             Email
         </label>
 
         <input
             type="email"
             id="email"
+            class="login-ltr"
+            dir="ltr"
             autocomplete="username"
-            placeholder="Admin Email"
+            inputmode="email"
+            spellcheck="false"
+            autocapitalize="none"
+            placeholder="admin@gmail.com"
         >
 
     </div>
@@ -764,16 +904,32 @@ body{
 
     <div class="input-group">
 
-        <label>
+        <label class="login-label">
             Password
         </label>
 
-        <input
-            type="password"
-            id="password"
-            autocomplete="current-password"
-            placeholder="Password"
-        >
+        <div class="password-wrapper">
+
+            <input
+                type="password"
+                id="password"
+                class="login-ltr"
+                dir="ltr"
+                autocomplete="current-password"
+                placeholder="Password"
+            >
+
+            <button
+                id="passwordToggle"
+                class="password-toggle"
+                type="button"
+                aria-label="Show Password"
+                title="Show Password"
+            >
+                👁️
+            </button>
+
+        </div>
 
     </div>
 
@@ -798,6 +954,13 @@ body{
     >
         Forgot Password?
     </button>
+
+
+    <div class="login-help">
+        Admin Email اور Password وہی استعمال کریں جو
+        <b>Firebase Authentication → Users</b>
+        میں بنایا گیا ہے۔
+    </div>
 
 </section>
 
@@ -1194,14 +1357,11 @@ from
 import {
     getFirestore,
     collection,
-    addDoc,
     setDoc,
     doc,
     getDocs,
     deleteDoc,
-    runTransaction,
-    query,
-    orderBy
+    runTransaction
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
@@ -1292,6 +1452,24 @@ document.getElementById(
 );
 
 
+const passwordToggle =
+document.getElementById(
+    "passwordToggle"
+);
+
+
+const passwordInput =
+document.getElementById(
+    "password"
+);
+
+
+const emailInput =
+document.getElementById(
+    "email"
+);
+
+
 const saveProductBtn =
 document.getElementById(
     "saveProductBtn"
@@ -1344,6 +1522,69 @@ let allProducts = [];
 setPersistence(
     auth,
     browserSessionPersistence
+)
+.catch(
+    function(error){
+
+        console.error(
+            "Persistence error:",
+            error
+        );
+
+    }
+);
+
+
+/* =========================================
+   PASSWORD SHOW / HIDE
+========================================= */
+
+passwordToggle.addEventListener(
+    "click",
+    function(){
+
+        if(
+            passwordInput.type ===
+            "password"
+        ){
+
+            passwordInput.type =
+                "text";
+
+            passwordToggle.textContent =
+                "🙈";
+
+            passwordToggle.title =
+                "Hide Password";
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Hide Password"
+            );
+
+        }
+
+        else{
+
+            passwordInput.type =
+                "password";
+
+            passwordToggle.textContent =
+                "👁️";
+
+            passwordToggle.title =
+                "Show Password";
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                "Show Password"
+            );
+
+        }
+
+        passwordInput.focus();
+
+    }
 );
 
 
@@ -1364,16 +1605,89 @@ function showMessage(
         "message " +
         type;
 
+}
 
-    setTimeout(
-        function(){
 
-            element.className =
-                "message";
+/* =========================================
+   FIREBASE ERROR MESSAGE
+========================================= */
 
-        },
-        5000
-    );
+function getFirebaseErrorMessage(
+    error
+){
+
+    const code =
+        error &&
+        error.code
+        ? error.code
+        : "";
+
+
+    switch(code){
+
+        case "auth/invalid-email":
+
+            return(
+                "❌ Email کا format درست نہیں ہے۔"
+            );
+
+
+        case "auth/user-not-found":
+
+            return(
+                "❌ یہ Email Firebase Authentication میں موجود نہیں ہے۔"
+            );
+
+
+        case "auth/wrong-password":
+
+            return(
+                "❌ Password غلط ہے۔"
+            );
+
+
+        case "auth/invalid-credential":
+
+            return(
+                "❌ Email یا Password غلط ہے۔"
+            );
+
+
+        case "auth/too-many-requests":
+
+            return(
+                "⚠️ بہت زیادہ کوششیں ہو چکی ہیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔"
+            );
+
+
+        case "auth/network-request-failed":
+
+            return(
+                "❌ Internet connection کا مسئلہ ہے۔"
+            );
+
+
+        case "auth/user-disabled":
+
+            return(
+                "❌ یہ Admin account disabled ہے۔"
+            );
+
+
+        case "auth/operation-not-allowed":
+
+            return(
+                "❌ Firebase میں Email/Password Login فعال نہیں ہے۔"
+            );
+
+
+        default:
+
+            return(
+                "❌ Login ناکام ہوا۔ Firebase Authentication میں Admin Email اور Password چیک کریں۔"
+            );
+
+    }
 
 }
 
@@ -1382,78 +1696,150 @@ function showMessage(
    LOGIN
 ========================================= */
 
+async function doLogin(){
+
+    const email =
+        emailInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+
+    if(!email){
+
+        showMessage(
+            document.getElementById(
+                "loginMessage"
+            ),
+            "❌ پہلے Admin Email درج کریں۔",
+            "error"
+        );
+
+        emailInput.focus();
+
+        return;
+
+    }
+
+
+    if(!password){
+
+        showMessage(
+            document.getElementById(
+                "loginMessage"
+            ),
+            "❌ پہلے Password درج کریں۔",
+            "error"
+        );
+
+        passwordInput.focus();
+
+        return;
+
+    }
+
+
+    try{
+
+        loginBtn.disabled =
+            true;
+
+        loginBtn.textContent =
+            "LOGGING IN...";
+
+
+        showMessage(
+            document.getElementById(
+                "loginMessage"
+            ),
+            "Login ہو رہا ہے...",
+            "success"
+        );
+
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "LOGIN ERROR:",
+            error
+        );
+
+
+        showMessage(
+            document.getElementById(
+                "loginMessage"
+            ),
+            getFirebaseErrorMessage(
+                error
+            ),
+            "error"
+        );
+
+    }
+
+    finally{
+
+        loginBtn.disabled =
+            false;
+
+        loginBtn.textContent =
+            "LOGIN";
+
+    }
+
+}
+
+
 loginBtn.addEventListener(
     "click",
-    async function(){
-
-        const email =
-        document.getElementById(
-            "email"
-        )
-        .value
-        .trim();
+    doLogin
+);
 
 
-        const password =
-        document.getElementById(
-            "password"
-        )
-        .value;
+/* =========================================
+   ENTER KEY LOGIN
+========================================= */
 
+emailInput.addEventListener(
+    "keydown",
+    function(event){
 
-        if(!email || !password){
+        if(
+            event.key ===
+            "Enter"
+        ){
 
-            showMessage(
-                document.getElementById(
-                    "loginMessage"
-                ),
-                "Email اور Password دونوں درج کریں۔",
-                "error"
-            );
+            event.preventDefault();
 
-            return;
+            doLogin();
 
         }
 
-
-        try{
-
-            loginBtn.disabled =
-                true;
-
-            loginBtn.textContent =
-                "LOGINING...";
+    }
+);
 
 
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+passwordInput.addEventListener(
+    "keydown",
+    function(event){
 
+        if(
+            event.key ===
+            "Enter"
+        ){
 
-        }catch(error){
+            event.preventDefault();
 
-            console.error(
-                error
-            );
-
-
-            showMessage(
-                document.getElementById(
-                    "loginMessage"
-                ),
-                "Login ناکام۔ Email یا Password چیک کریں۔",
-                "error"
-            );
-
-        }finally{
-
-            loginBtn.disabled =
-                false;
-
-            loginBtn.textContent =
-                "LOGIN";
+            doLogin();
 
         }
 
@@ -1470,11 +1856,7 @@ resetPasswordBtn.addEventListener(
     async function(){
 
         const email =
-        document.getElementById(
-            "email"
-        )
-        .value
-        .trim();
+            emailInput.value.trim();
 
 
         if(!email){
@@ -1483,9 +1865,11 @@ resetPasswordBtn.addEventListener(
                 document.getElementById(
                     "loginMessage"
                 ),
-                "پہلے Email درج کریں۔",
+                "❌ پہلے اوپر اپنا Admin Gmail لکھیں، پھر Forgot Password دبائیں۔",
                 "error"
             );
+
+            emailInput.focus();
 
             return;
 
@@ -1493,6 +1877,13 @@ resetPasswordBtn.addEventListener(
 
 
         try{
+
+            resetPasswordBtn.disabled =
+                true;
+
+            resetPasswordBtn.textContent =
+                "SENDING...";
+
 
             await sendPasswordResetEmail(
                 auth,
@@ -1504,25 +1895,73 @@ resetPasswordBtn.addEventListener(
                 document.getElementById(
                     "loginMessage"
                 ),
-                "Password reset email بھیج دی گئی ہے۔",
+                "✅ Password reset email بھیج دی گئی ہے۔ اپنے Gmail Inbox اور Spam/Junk folder دونوں چیک کریں۔",
                 "success"
             );
 
 
-        }catch(error){
+        }
+
+        catch(error){
 
             console.error(
+                "RESET PASSWORD ERROR:",
                 error
             );
+
+
+            let message =
+                "❌ Password reset نہیں ہو سکا۔";
+
+
+            if(
+                error.code ===
+                "auth/user-not-found"
+            ){
+
+                message =
+                    "❌ یہ Gmail Firebase Authentication میں موجود نہیں ہے۔";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/invalid-email"
+            ){
+
+                message =
+                    "❌ Gmail کا format درست نہیں ہے۔";
+
+            }
+
+            else if(
+                error.code ===
+                "auth/network-request-failed"
+            ){
+
+                message =
+                    "❌ Internet connection کا مسئلہ ہے۔";
+
+            }
 
 
             showMessage(
                 document.getElementById(
                     "loginMessage"
                 ),
-                "Password reset نہیں ہو سکا۔",
+                message,
                 "error"
             );
+
+        }
+
+        finally{
+
+            resetPasswordBtn.disabled =
+                false;
+
+            resetPasswordBtn.textContent =
+                "Forgot Password?";
 
         }
 
@@ -1538,9 +1977,21 @@ logoutBtn.addEventListener(
     "click",
     async function(){
 
-        await signOut(
-            auth
-        );
+        try{
+
+            await signOut(
+                auth
+            );
+
+        }
+
+        catch(error){
+
+            console.error(
+                error
+            );
+
+        }
 
     }
 );
@@ -1562,9 +2013,12 @@ onAuthStateChanged(
             adminSection.style.display =
                 "block";
 
+
             await loadProducts();
 
-        }else{
+        }
+
+        else{
 
             loginSection.style.display =
                 "block";
@@ -1587,7 +2041,7 @@ productImageInput.addEventListener(
     function(){
 
         const file =
-        this.files[0];
+            this.files[0];
 
 
         if(!file){
@@ -1600,13 +2054,16 @@ productImageInput.addEventListener(
         }
 
 
-        if(file.size > 5 * 1024 * 1024){
+        if(
+            file.size >
+            5 * 1024 * 1024
+        ){
 
             showMessage(
                 document.getElementById(
                     "adminMessage"
                 ),
-                "Image 5MB سے زیادہ نہیں ہونی چاہیے۔",
+                "❌ Image 5MB سے زیادہ نہیں ہونی چاہیے۔",
                 "error"
             );
 
@@ -1619,19 +2076,19 @@ productImageInput.addEventListener(
 
 
         const reader =
-        new FileReader();
+            new FileReader();
 
 
         reader.onload =
-        function(event){
+            function(event){
 
-            imagePreview.src =
-                event.target.result;
+                imagePreview.src =
+                    event.target.result;
 
-            imagePreview.style.display =
-                "block";
+                imagePreview.style.display =
+                    "block";
 
-        };
+            };
 
 
         reader.readAsDataURL(
@@ -1659,7 +2116,8 @@ async function uploadImage(
     }
 
 
-    if(file.size >
+    if(
+        file.size >
         5 * 1024 * 1024
     ){
 
@@ -1691,13 +2149,13 @@ async function uploadImage(
 
 
     const response =
-    await fetch(
-        CLOUDINARY_URL,
-        {
-            method:"POST",
-            body:formData
-        }
-    );
+        await fetch(
+            CLOUDINARY_URL,
+            {
+                method:"POST",
+                body:formData
+            }
+        );
 
 
     if(!response.ok){
@@ -1745,116 +2203,112 @@ async function generateProductId(){
 
 
     const number =
-    await runTransaction(
-        db,
-        async function(transaction){
+        await runTransaction(
+            db,
+            async function(transaction){
 
-            const counterSnap =
-                await transaction.get(
-                    counterRef
-                );
-
-
-            let currentNumber =
-                0;
-
-
-            if(counterSnap.exists()){
-
-                currentNumber =
-                    Number(
-                        counterSnap.data()
-                        .productNumber || 0
-                    );
-
-            }
-
-
-            /*
-             * First run:
-             * Check existing products
-             * so old IDs are not duplicated.
-             */
-
-            if(
-                currentNumber === 0 &&
-                !counterSnap.exists()
-            ){
-
-                const productsSnapshot =
-                    await getDocs(
-                        collection(
-                            db,
-                            "products"
-                        )
+                const counterSnap =
+                    await transaction.get(
+                        counterRef
                     );
 
 
-                productsSnapshot.forEach(
-                    function(item){
-
-                        const data =
-                            item.data();
+                let currentNumber =
+                    0;
 
 
-                        const id =
-                            String(
-                                data.id || ""
-                            );
+                if(
+                    counterSnap.exists()
+                ){
+
+                    currentNumber =
+                        Number(
+                            counterSnap.data()
+                            .productNumber || 0
+                        );
+
+                }
 
 
-                        const match =
-                            id.match(
-                                /^JT\.PRODUCT\.(\d+)$/
-                            );
+                if(
+                    currentNumber === 0 &&
+                    !counterSnap.exists()
+                ){
+
+                    const productsSnapshot =
+                        await getDocs(
+                            collection(
+                                db,
+                                "products"
+                            )
+                        );
 
 
-                        if(match){
+                    productsSnapshot.forEach(
+                        function(item){
 
-                            const number =
-                                Number(
-                                    match[1]
+                            const data =
+                                item.data();
+
+
+                            const id =
+                                String(
+                                    data.id || ""
                                 );
 
 
-                            if(
-                                number >
-                                currentNumber
-                            ){
+                            const match =
+                                id.match(
+                                    /^JT\.PRODUCT\.(\d+)$/
+                                );
 
-                                currentNumber =
-                                    number;
+
+                            if(match){
+
+                                const number =
+                                    Number(
+                                        match[1]
+                                    );
+
+
+                                if(
+                                    number >
+                                    currentNumber
+                                ){
+
+                                    currentNumber =
+                                        number;
+
+                                }
 
                             }
 
                         }
+                    );
 
+                }
+
+
+                const nextNumber =
+                    currentNumber + 1;
+
+
+                transaction.set(
+                    counterRef,
+                    {
+                        productNumber:
+                            nextNumber
+                    },
+                    {
+                        merge:true
                     }
                 );
 
+
+                return nextNumber;
+
             }
-
-
-            const nextNumber =
-                currentNumber + 1;
-
-
-            transaction.set(
-                counterRef,
-                {
-                    productNumber:
-                        nextNumber
-                },
-                {
-                    merge:true
-                }
-            );
-
-
-            return nextNumber;
-
-        }
-    );
+        );
 
 
     return(
@@ -1875,9 +2329,9 @@ saveProductBtn.addEventListener(
     async function(){
 
         const message =
-        document.getElementById(
-            "adminMessage"
-        );
+            document.getElementById(
+                "adminMessage"
+            );
 
 
         try{
@@ -1890,97 +2344,97 @@ saveProductBtn.addEventListener(
 
 
             const name =
-            document.getElementById(
-                "productName"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "productName"
+                )
+                .value
+                .trim();
 
 
             const category =
-            document.getElementById(
-                "category"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "category"
+                )
+                .value
+                .trim();
 
 
             const price =
-            Number(
-                document.getElementById(
-                    "sellingPrice"
-                )
-                .value
-            );
+                Number(
+                    document.getElementById(
+                        "sellingPrice"
+                    )
+                    .value
+                );
 
 
             const oldPrice =
-            Number(
-                document.getElementById(
-                    "oldPrice"
-                )
-                .value || 0
-            );
+                Number(
+                    document.getElementById(
+                        "oldPrice"
+                    )
+                    .value || 0
+                );
 
 
             const deliveryType =
-            document.getElementById(
-                "deliveryType"
-            )
-            .value;
+                document.getElementById(
+                    "deliveryType"
+                )
+                .value;
 
 
             const deliveryCharges =
-            Number(
-                document.getElementById(
-                    "deliveryCharges"
-                )
-                .value || 0
-            );
+                Number(
+                    document.getElementById(
+                        "deliveryCharges"
+                    )
+                    .value || 0
+                );
 
 
             const description =
-            document.getElementById(
-                "description"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "description"
+                )
+                .value
+                .trim();
 
 
             const imageFile =
-            productImageInput.files[0];
+                productImageInput.files[0];
 
 
             const ordinaryLink =
-            document.getElementById(
-                "ordinaryLink"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "ordinaryLink"
+                )
+                .value
+                .trim();
 
 
             const supplierLink =
-            document.getElementById(
-                "supplierLink"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "supplierLink"
+                )
+                .value
+                .trim();
 
 
             const socialLink =
-            document.getElementById(
-                "socialLink"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "socialLink"
+                )
+                .value
+                .trim();
 
 
             const supplier =
-            document.getElementById(
-                "supplier"
-            )
-            .value
-            .trim();
+                document.getElementById(
+                    "supplier"
+                )
+                .value
+                .trim();
 
 
             if(!name){
@@ -2034,27 +2488,15 @@ saveProductBtn.addEventListener(
             }
 
 
-            /* =========================
-               UPLOAD IMAGE
-            ========================= */
-
             const imageUrl =
                 await uploadImage(
                     imageFile
                 );
 
 
-            /* =========================
-               AUTOMATIC ID
-            ========================= */
-
             const productId =
                 await generateProductId();
 
-
-            /* =========================
-               CREATE PRODUCT
-            ========================= */
 
             const createdAt =
                 new Date().toISOString();
@@ -2102,11 +2544,6 @@ saveProductBtn.addEventListener(
             );
 
 
-            /* =========================
-               SAVE SOURCE INFO
-               ADMIN ONLY
-            ========================= */
-
             await setDoc(
                 doc(
                     db,
@@ -2139,7 +2576,7 @@ saveProductBtn.addEventListener(
 
             showMessage(
                 message,
-                "Product کامیابی سے save ہوگیا۔ Product ID: " +
+                "✅ Product کامیابی سے save ہوگیا۔ Product ID: " +
                 productId,
                 "success"
             );
@@ -2151,7 +2588,9 @@ saveProductBtn.addEventListener(
             await loadProducts();
 
 
-        }catch(error){
+        }
+
+        catch(error){
 
             console.error(
                 "SAVE PRODUCT ERROR:",
@@ -2166,7 +2605,9 @@ saveProductBtn.addEventListener(
                 "error"
             );
 
-        }finally{
+        }
+
+        finally{
 
             saveProductBtn.disabled =
                 false;
@@ -2272,12 +2713,12 @@ async function loadProducts(){
     try{
 
         const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "products"
-            )
-        );
+            await getDocs(
+                collection(
+                    db,
+                    "products"
+                )
+            );
 
 
         allProducts = [];
@@ -2329,7 +2770,9 @@ async function loadProducts(){
         );
 
 
-    }catch(error){
+    }
+
+    catch(error){
 
         console.error(
             error
@@ -2377,149 +2820,149 @@ function renderProducts(
 
     productList.innerHTML =
 
-    list
-    .map(
-        function(product){
+        list
+        .map(
+            function(product){
 
-            const image =
-                product.image ||
-                "https://via.placeholder.com/500x500?text=Product";
-
-
-            const orderLink =
-                "order-form.html?Product_ID=" +
-                encodeURIComponent(
-                    product.id ||
-                    product.firestoreId
-                );
+                const image =
+                    product.image ||
+                    "https://via.placeholder.com/500x500?text=Product";
 
 
-            return `
+                const orderLink =
+                    "order-form.html?Product_ID=" +
+                    encodeURIComponent(
+                        product.id ||
+                        product.firestoreId
+                    );
 
-                <div
-                    class="product-item"
-                >
 
-                    <img
-
-                        class="product-image"
-
-                        src="${
-                            escapeAttribute(
-                                image
-                            )
-                        }"
-
-                        alt="${
-                            escapeAttribute(
-                                product.name ||
-                                "Product"
-                            )
-                        }"
-
-                        onerror="
-                        this.src='https://via.placeholder.com/500x500?text=Product'
-                        "
-
-                    >
-
+                return `
 
                     <div
-                        class="product-details"
+                        class="product-item"
                     >
 
-                        <h3 dir="auto">
+                        <img
 
-                            ${escapeHtml(
-                                product.name ||
-                                "Product"
-                            )}
+                            class="product-image"
 
-                        </h3>
+                            src="${
+                                escapeAttribute(
+                                    image
+                                )
+                            }"
 
+                            alt="${
+                                escapeAttribute(
+                                    product.name ||
+                                    "Product"
+                                )
+                            }"
 
-                        <span
-                            class="product-id"
+                            onerror="
+                            this.src='https://via.placeholder.com/500x500?text=Product'
+                            "
+
                         >
-
-                            ${escapeHtml(
-                                product.id ||
-                                product.firestoreId
-                            )}
-
-                        </span>
 
 
                         <div
-                            class="product-price"
+                            class="product-details"
                         >
 
-                            Rs.
-                            ${Number(
-                                product.price || 0
-                            ).toLocaleString("en-PK")}
+                            <h3 dir="auto">
 
-                        </div>
+                                ${escapeHtml(
+                                    product.name ||
+                                    "Product"
+                                )}
 
-
-                        <div
-                            class="product-category"
-                        >
-
-                            Category:
-                            ${escapeHtml(
-                                product.category ||
-                                "Other"
-                            )}
-
-                        </div>
+                            </h3>
 
 
-                        <div
-                            class="product-links"
-                        >
-
-                            <button
-                                class="btn-copy"
-                                data-copy="${escapeAttribute(orderLink)}"
-                                type="button"
+                            <span
+                                class="product-id"
                             >
-                                Copy Order Link
-                            </button>
 
-
-                            <button
-                                class="btn-danger delete-btn"
-                                data-id="${escapeAttribute(
+                                ${escapeHtml(
+                                    product.id ||
                                     product.firestoreId
-                                )}"
-                                type="button"
+                                )}
+
+                            </span>
+
+
+                            <div
+                                class="product-price"
                             >
-                                Delete
-                            </button>
 
-                        </div>
+                                Rs.
+                                ${Number(
+                                    product.price || 0
+                                ).toLocaleString("en-PK")}
+
+                            </div>
 
 
-                        <div
-                            class="order-link-box"
-                        >
+                            <div
+                                class="product-category"
+                            >
 
-                            ${escapeHtml(
-                                orderLink
-                            )}
+                                Category:
+                                ${escapeHtml(
+                                    product.category ||
+                                    "Other"
+                                )}
+
+                            </div>
+
+
+                            <div
+                                class="product-links"
+                            >
+
+                                <button
+                                    class="btn-copy"
+                                    data-copy="${escapeAttribute(orderLink)}"
+                                    type="button"
+                                >
+                                    Copy Order Link
+                                </button>
+
+
+                                <button
+                                    class="btn-danger delete-btn"
+                                    data-id="${escapeAttribute(
+                                        product.firestoreId
+                                    )}"
+                                    type="button"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+
+                            <div
+                                class="order-link-box"
+                            >
+
+                                ${escapeHtml(
+                                    orderLink
+                                )}
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                </div>
+                `;
 
-            `;
-
-        }
-    )
-    .join("");
+            }
+        )
+        .join("");
 
 
     productList
@@ -2559,7 +3002,9 @@ function renderProducts(
                         );
 
 
-                    }catch(error){
+                    }
+
+                    catch(error){
 
                         prompt(
                             "Copy this link:",
@@ -2634,10 +3079,6 @@ function renderProducts(
                         );
 
 
-                        /*
-                         * Delete source information
-                         */
-
                         await deleteDoc(
                             doc(
                                 db,
@@ -2651,7 +3092,9 @@ function renderProducts(
                         await loadProducts();
 
 
-                    }catch(error){
+                    }
+
+                    catch(error){
 
                         console.error(
                             error
