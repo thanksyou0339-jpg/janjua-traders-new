@@ -1,89 +1,49 @@
 /* =========================================
    JANJUA DIGITAL MARKETING
    PUBLIC SHOP SCRIPT
+   FIREBASE FREE VERSION
 ========================================= */
 
 import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-import {
-    getFirestore,
-    collection,
-    getDocs
-}
-from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-const firebaseConfig = {
-
-    apiKey:
-    "AIzaSyA8_4ArKXAdfKWZ5miDa5T9qiayL3h_Yzw",
-
-    authDomain:
-    "janjua-traders.firebaseapp.com",
-
-    projectId:
-    "janjua-traders",
-
-    storageBucket:
-    "janjua-traders.firebasestorage.app",
-
-    messagingSenderId:
-    "154904774188",
-
-    appId:
-    "1:154904774188:web:1830f9d533e77dae6a7389"
-
-};
-
-
-const app =
-initializeApp(firebaseConfig);
-
-
-const db =
-getFirestore(app);
+    JANJUA_PRODUCTS
+} from "./products.js";
 
 
 const productGrid =
-document.getElementById("productGrid");
-
+    document.getElementById("productGrid");
 
 const searchBox =
-document.getElementById("searchBox");
-
+    document.getElementById("searchBox");
 
 const loadingMessage =
-document.getElementById("loadingMessage");
-
+    document.getElementById("loadingMessage");
 
 const categoryBar =
-document.getElementById("categoryBar");
+    document.getElementById("categoryBar");
 
 
 let products = [];
 
 
-/* =========================================
-   NEW ITEM
-========================================= */
-
 const NEW_ITEM_DAYS = 7;
 
+
+/* =========================================
+   RUPEES
+========================================= */
 
 function rupees(value){
 
     return "Rs. " +
-    Number(value || 0)
-    .toLocaleString("en-PK");
+        Number(value || 0)
+        .toLocaleString("en-PK");
 
 }
 
+
+/* =========================================
+   NEW PRODUCT
+========================================= */
 
 function isNewProduct(product){
 
@@ -93,12 +53,10 @@ function isNewProduct(product){
 
     }
 
-
     const created =
-    new Date(
-        product.createdAt
-    ).getTime();
-
+        new Date(
+            product.createdAt
+        ).getTime();
 
     if(Number.isNaN(created)){
 
@@ -106,22 +64,17 @@ function isNewProduct(product){
 
     }
 
-
     const age =
-    Date.now() - created;
-
+        Date.now() - created;
 
     return(
-
         age >= 0 &&
-
         age <=
         NEW_ITEM_DAYS *
         24 *
         60 *
         60 *
         1000
-
     );
 
 }
@@ -131,87 +84,27 @@ function isNewProduct(product){
    LOAD PRODUCTS
 ========================================= */
 
-async function loadProducts(){
+function loadProducts(){
 
     try{
 
         if(loadingMessage){
 
             loadingMessage.style.display =
-            "flex";
+                "flex";
 
         }
 
 
-        const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "products"
-            )
-        );
+        products =
+            Array.isArray(JANJUA_PRODUCTS)
+                ? JANJUA_PRODUCTS.map(
+                    product => ({
+                        ...product
+                    })
+                )
+                : [];
 
-
-        products = [];
-
-
-        snapshot.forEach(
-            function(document){
-
-                const product =
-                document.data();
-
-
-                products.push({
-
-                    firestoreId:
-                    document.id,
-
-                    id:
-                    product.id ||
-                    document.id,
-
-                    name:
-                    product.name ||
-                    "Product",
-
-                    category:
-                    product.category ||
-                    "Other",
-
-                    price:
-                    Number(
-                        product.price ||
-                        0
-                    ),
-
-                    oldPrice:
-                    Number(
-                        product.oldPrice ||
-                        0
-                    ),
-
-                    description:
-                    product.description ||
-                    "",
-
-                    image:
-                    product.image ||
-                    "",
-
-                    createdAt:
-                    product.createdAt ||
-                    null
-
-                });
-
-            }
-        );
-
-
-        /*
-         * Latest products first
-         */
 
         products.sort(
             function(a,b){
@@ -236,36 +129,28 @@ async function loadProducts(){
         if(loadingMessage){
 
             loadingMessage.style.display =
-            "none";
+                "none";
 
         }
 
 
-        showProducts(
-            products
-        );
+        showProducts(products);
 
 
     }catch(error){
 
         console.error(
-            "FIREBASE PRODUCTS ERROR:",
+            "PRODUCT ERROR:",
             error
         );
 
 
         if(loadingMessage){
 
-            loadingMessage.style.display =
-            "flex";
-
             loadingMessage.innerHTML = `
-
                 <span>
                     Products load نہیں ہو سکے۔
-                    براہِ کرم دوبارہ کوشش کریں۔
                 </span>
-
             `;
 
         }
@@ -324,49 +209,46 @@ function buildCategories(){
 
 
     const existingCategories =
-    new Set(
+        new Set(
 
-        products
+            products
+            .map(
+                function(product){
 
-        .map(
-            function(product){
+                    return String(
+                        product.category || ""
+                    ).trim();
 
-                return String(
-                    product.category ||
-                    ""
-                ).trim();
+                }
+            )
+            .filter(Boolean)
 
-            }
-        )
-
-        .filter(Boolean)
-
-    );
+        );
 
 
     existingCategories.forEach(
         function(category){
 
             const exists =
-            categories.some(
-                function(item){
+                categories.some(
+                    function(item){
 
-                    return(
-                        item.name.toLowerCase() ===
-                        category.toLowerCase()
-                    );
+                        return(
+                            item.name.toLowerCase() ===
+                            category.toLowerCase()
+                        );
 
-                }
-            );
+                    }
+                );
 
 
             if(!exists){
 
                 categories.push({
 
-                    name:category,
+                    name: category,
 
-                    icon:"🏷️"
+                    icon: "🏷️"
 
                 });
 
@@ -377,82 +259,75 @@ function buildCategories(){
 
 
     categoryBar.innerHTML =
+        categories
+        .map(
+            function(item){
 
-    categories
-    .map(
-        function(item){
+                return `
 
-            return `
+                    <button
+                        type="button"
+                        class="category-btn ${
+                            item.name === "All"
+                            ? "active"
+                            : ""
+                        }"
+                        data-category="${escapeAttribute(item.name)}"
+                    >
 
-                <button
-                    type="button"
-                    class="category-btn ${
-                        item.name === "All"
-                        ? "active"
-                        : ""
-                    }"
-                    data-category="${
-                        escapeAttribute(
-                            item.name
-                        )
-                    }"
-                >
+                        ${item.icon}
 
-                    ${item.icon}
+                        ${escapeHtml(item.name)}
 
-                    ${escapeHtml(
-                        item.name
-                    )}
+                    </button>
 
-                </button>
+                `;
 
-            `;
-
-        }
-    )
-    .join("");
+            }
+        )
+        .join("");
 
 
     categoryBar
-    .querySelectorAll(
-        ".category-btn"
-    )
-    .forEach(
-        function(button){
+        .querySelectorAll(
+            ".category-btn"
+        )
+        .forEach(
+            function(button){
 
-            button.addEventListener(
-                "click",
-                function(){
+                button.addEventListener(
+                    "click",
+                    function(){
 
-                    categoryBar
-                    .querySelectorAll(
-                        ".category-btn"
-                    )
-                    .forEach(
-                        function(btn){
+                        categoryBar
+                            .querySelectorAll(
+                                ".category-btn"
+                            )
+                            .forEach(
+                                function(btn){
 
-                            btn.classList.remove(
-                                "active"
+                                    btn.classList.remove(
+                                        "active"
+                                    );
+
+                                }
                             );
 
-                        }
-                    );
+
+                        this.classList.add(
+                            "active"
+                        );
 
 
-                    this.classList.add(
-                        "active"
-                    );
+                        showCategory(
+                            this.dataset.category
+                        );
 
+                    }
+                );
 
-                    showCategory(
-                        this.dataset.category
-                    );
-
-                }
-            );
-
-        }
-    );
+            }
+        );
 
 }
 
@@ -461,9 +336,7 @@ function buildCategories(){
    SHOW PRODUCTS
 ========================================= */
 
-function showProducts(
-    productList
-){
+function showProducts(productList){
 
     if(!productGrid){
 
@@ -490,11 +363,7 @@ function showProducts(
                     Product نہیں ملا
                 </h3>
 
-                <p
-                    style="
-                    color:#6b7280;
-                    "
-                >
+                <p style="color:#6b7280;">
                     دوسری category یا search استعمال کریں۔
                 </p>
 
@@ -509,210 +378,153 @@ function showProducts(
 
     productGrid.innerHTML =
 
-    productList
-    .map(
-        function(product){
+        productList
+        .map(
+            function(product){
 
-            const image =
-            product.image ||
-
-            "https://via.placeholder.com/500x500?text=Product";
-
-
-            const newBadge =
-            isNewProduct(product)
-
-            ?
-
-            `
-
-                <div
-                    class="new-badge"
-                >
-                    ✨ NEW ITEM
-                </div>
-
-            `
-
-            :
-
-            "";
+                const image =
+                    product.image ||
+                    "https://via.placeholder.com/500x500?text=Product";
 
 
-            return `
+                const newBadge =
+                    isNewProduct(product)
 
-                <article
-                    class="product-card"
-                >
+                    ?
 
-                    <div
-                        class="product-image-wrap"
-                    >
+                    `
+                        <div class="new-badge">
+                            ✨ NEW ITEM
+                        </div>
+                    `
 
-                        ${newBadge}
+                    :
 
-
-                        <img
-
-                            src="${
-                                escapeAttribute(
-                                    image
-                                )
-                            }"
-
-                            alt="${
-                                escapeAttribute(
-                                    product.name
-                                )
-                            }"
-
-                            loading="lazy"
-
-                            onerror="
-                            this.src='https://via.placeholder.com/500x500?text=Product'
-                            "
-
-                        >
-
-                    </div>
+                    "";
 
 
-                    <div
-                        class="product-info"
-                    >
+                return `
 
-                        <h3 dir="auto">
+                    <article class="product-card">
 
-                            ${escapeHtml(
-                                product.name
-                            )}
+                        <div class="product-image-wrap">
 
-                        </h3>
+                            ${newBadge}
 
-
-                        <p dir="auto">
-
-                            ${escapeHtml(
-                                product.description ||
-                                ""
-                            )}
-
-                        </p>
-
-
-                        <div
-                            class="price-row"
-                        >
-
-                            <strong>
-
-                                ${rupees(
-                                    product.price
-                                )}
-
-                            </strong>
-
-
-                            ${
-                                product.oldPrice > 0
-
-                                ?
-
-                                `
-
-                                <del>
-
-                                    ${rupees(
-                                        product.oldPrice
-                                    )}
-
-                                </del>
-
-                                `
-
-                                :
-
-                                ""
-
-                            }
+                            <img
+                                src="${escapeAttribute(image)}"
+                                alt="${escapeAttribute(product.name || "Product")}"
+                                loading="lazy"
+                                onerror="
+                                    this.src='https://via.placeholder.com/500x500?text=Product'
+                                "
+                            >
 
                         </div>
 
 
-                        <button
+                        <div class="product-info">
 
-                            class="order-btn"
+                            <h3 dir="auto">
+                                ${escapeHtml(
+                                    product.name || "Product"
+                                )}
+                            </h3>
 
-                            type="button"
 
-                            data-product-id="${
-                                escapeAttribute(
-                                    product.id
-                                )
-                            }"
+                            <p dir="auto">
+                                ${escapeHtml(
+                                    product.description || ""
+                                )}
+                            </p>
 
-                        >
 
-                            ORDER NOW
+                            <div class="price-row">
 
-                        </button>
+                                <strong>
+                                    ${rupees(product.price)}
+                                </strong>
 
-                    </div>
 
-                </article>
+                                ${
+                                    Number(product.oldPrice || 0) > 0
 
-            `;
+                                    ?
 
-        }
-    )
-    .join("");
+                                    `
+                                        <del>
+                                            ${rupees(product.oldPrice)}
+                                        </del>
+                                    `
+
+                                    :
+
+                                    ""
+                                }
+
+                            </div>
+
+
+                            <button
+                                class="order-btn"
+                                type="button"
+                                data-product-id="${escapeAttribute(product.id)}"
+                            >
+                                ORDER NOW
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        )
+        .join("");
 
 
     productGrid
-    .querySelectorAll(
-        ".order-btn"
-    )
-    .forEach(
-        function(button){
+        .querySelectorAll(".order-btn")
+        .forEach(
+            function(button){
 
-            button.addEventListener(
-                "click",
-                function(){
+                button.addEventListener(
+                    "click",
+                    function(){
 
-                    orderProduct(
-                        this.getAttribute(
-                            "data-product-id"
-                        )
-                    );
+                        orderProduct(
+                            this.getAttribute(
+                                "data-product-id"
+                            )
+                        );
 
-                }
-            );
+                    }
+                );
 
-        }
-    );
+            }
+        );
 
 }
 
 
 /* =========================================
-   ORDER
+   ORDER PRODUCT
 ========================================= */
 
-function orderProduct(
-    productId
-){
+function orderProduct(productId){
 
     const product =
-    products.find(
-        function(p){
+        products.find(
+            function(item){
 
-            return(
-                String(p.id) ===
-                String(productId)
-            );
+                return(
+                    String(item.id) ===
+                    String(productId)
+                );
 
-        }
-    );
+            }
+        );
 
 
     if(!product){
@@ -727,7 +539,7 @@ function orderProduct(
 
 
     const params =
-    new URLSearchParams();
+        new URLSearchParams();
 
 
     params.set(
@@ -766,11 +578,17 @@ function orderProduct(
     );
 
 
-    /*
-     * Supplier / Markaz / Daraz
-     * information is NOT sent
-     * to customer.
-     */
+    params.set(
+        "Delivery_Type",
+        product.deliveryType ||
+        "Free Delivery"
+    );
+
+
+    params.set(
+        "Delivery_Charges",
+        product.deliveryCharges || 0
+    );
 
 
     window.location.href =
@@ -781,20 +599,17 @@ function orderProduct(
 
 
 /* =========================================
-   CATEGORY FILTER
+   CATEGORY
 ========================================= */
 
-window.showCategory =
-function(category){
+function showCategory(category){
 
     if(
         !category ||
         category === "All"
     ){
 
-        showProducts(
-            products
-        );
+        showProducts(products);
 
         return;
 
@@ -802,35 +617,32 @@ function(category){
 
 
     const filtered =
-    products.filter(
-        function(product){
+        products.filter(
+            function(product){
 
-            return(
+                return(
+                    String(
+                        product.category || ""
+                    )
+                    .toLowerCase()
 
-                String(
-                    product.category ||
-                    ""
-                )
-                .toLowerCase()
+                    ===
 
-                ===
+                    String(category)
+                    .toLowerCase()
+                );
 
-                String(
-                    category
-                )
-                .toLowerCase()
-
-            );
-
-        }
-    );
+            }
+        );
 
 
-    showProducts(
-        filtered
-    );
+    showProducts(filtered);
 
-};
+}
+
+
+window.showCategory =
+    showCategory;
 
 
 /* =========================================
@@ -844,16 +656,14 @@ if(searchBox){
         function(){
 
             const text =
-            this.value
-            .trim()
-            .toLowerCase();
+                this.value
+                .trim()
+                .toLowerCase();
 
 
             if(!text){
 
-                showProducts(
-                    products
-                );
+                showProducts(products);
 
                 return;
 
@@ -861,50 +671,41 @@ if(searchBox){
 
 
             const filtered =
-            products.filter(
-                function(product){
+                products.filter(
+                    function(product){
 
-                    const name =
-                    String(
-                        product.name ||
-                        ""
-                    )
-                    .toLowerCase();
-
-
-                    const description =
-                    String(
-                        product.description ||
-                        ""
-                    )
-                    .toLowerCase();
+                        const name =
+                            String(
+                                product.name || ""
+                            )
+                            .toLowerCase();
 
 
-                    const category =
-                    String(
-                        product.category ||
-                        ""
-                    )
-                    .toLowerCase();
+                        const description =
+                            String(
+                                product.description || ""
+                            )
+                            .toLowerCase();
 
 
-                    return(
-
-                        name.includes(text) ||
-
-                        description.includes(text) ||
-
-                        category.includes(text)
-
-                    );
-
-                }
-            );
+                        const category =
+                            String(
+                                product.category || ""
+                            )
+                            .toLowerCase();
 
 
-            showProducts(
-                filtered
-            );
+                        return(
+                            name.includes(text) ||
+                            description.includes(text) ||
+                            category.includes(text)
+                        );
+
+                    }
+                );
+
+
+            showProducts(filtered);
 
         }
     );
@@ -913,46 +714,29 @@ if(searchBox){
 
 
 /* =========================================
-   ESCAPE
+   ESCAPE HTML
 ========================================= */
 
 function escapeHtml(value){
 
     return String(value)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+        .replace(/&/g, "&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+        .replace(/</g, "&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+        .replace(/>/g, "&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+        .replace(/"/g, "&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/'/g, "&#039;");
 
 }
 
 
 function escapeAttribute(value){
 
-    return escapeHtml(
-        value
-    );
+    return escapeHtml(value);
 
 }
 
