@@ -4,429 +4,231 @@
 ========================================= */
 
 
-/* =========================
-   URL PARAMETERS
-========================= */
+/* =========================================
+   GET URL PARAMETERS
+========================================= */
 
 const params =
-new URLSearchParams(
-    window.location.search
-);
+    new URLSearchParams(
+        window.location.search
+    );
 
 
 const productName =
-params.get("Product") ||
-"Product";
+    params.get("Product") || "Product";
 
 
 const productDescription =
-params.get("Product_Description") ||
-"";
+    params.get("Product_Description") || "";
 
 
 const productPrice =
-Number(
-    params.get("Product_Price") ||
-    0
-);
+    Number(
+        params.get("Product_Price") || 0
+    );
 
 
 const oldPrice =
-Number(
-    params.get("Old_Price") ||
-    0
-);
+    Number(
+        params.get("Old_Price") || 0
+    );
 
 
 const productId =
-params.get("Product_ID") ||
-"";
+    params.get("Product_ID") || "";
 
 
 const productImage =
-params.get("Product_Image") ||
-"https://via.placeholder.com/500x500?text=Product";
+    params.get("Product_Image") || "";
 
 
 const deliveryType =
-params.get("Delivery_Type") ||
-"free";
+    params.get("Delivery_Type") || "free";
 
 
 const deliveryCharges =
-Number(
-    params.get("Delivery_Charges") ||
-    0
-);
+    Number(
+        params.get("Delivery_Charges") || 0
+    );
 
 
-/* =========================
+/* =========================================
    ELEMENTS
-========================= */
+========================================= */
 
 const orderForm =
-document.getElementById(
-    "orderForm"
-);
-
-
-const submitBtn =
-document.getElementById(
-    "submitBtn"
-);
+    document.getElementById(
+        "orderForm"
+    );
 
 
 const quantityInput =
-document.getElementById(
-    "quantity"
-);
+    document.getElementById(
+        "quantity"
+    );
 
 
-const orderSection =
-document.getElementById(
-    "orderSection"
-);
+const productNameElement =
+    document.getElementById(
+        "productName"
+    );
 
 
-const receiptSection =
-document.getElementById(
-    "receiptSection"
-);
+const productDescriptionElement =
+    document.getElementById(
+        "productDescription"
+    );
 
 
-const formMessage =
-document.getElementById(
-    "formMessage"
-);
+const productPriceElement =
+    document.getElementById(
+        "productPrice"
+    );
 
 
-/* =========================
+const oldPriceElement =
+    document.getElementById(
+        "oldPrice"
+    );
+
+
+const productImageElement =
+    document.getElementById(
+        "productImage"
+    );
+
+
+const deliveryElement =
+    document.getElementById(
+        "delivery"
+    );
+
+
+const totalElement =
+    document.getElementById(
+        "total"
+    );
+
+
+/* =========================================
+   HIDDEN FORM FIELDS
+========================================= */
+
+const hiddenProduct =
+    document.getElementById(
+        "hiddenProduct"
+    );
+
+
+const hiddenDescription =
+    document.getElementById(
+        "hiddenDescription"
+    );
+
+
+const hiddenPrice =
+    document.getElementById(
+        "hiddenPrice"
+    );
+
+
+const hiddenOldPrice =
+    document.getElementById(
+        "hiddenOldPrice"
+    );
+
+
+const hiddenProductId =
+    document.getElementById(
+        "hiddenProductId"
+    );
+
+
+const hiddenProductImage =
+    document.getElementById(
+        "hiddenProductImage"
+    );
+
+
+const hiddenDeliveryStatus =
+    document.getElementById(
+        "hiddenDeliveryStatus"
+    );
+
+
+const hiddenDeliveryCharges =
+    document.getElementById(
+        "hiddenDeliveryCharges"
+    );
+
+
+const hiddenTotal =
+    document.getElementById(
+        "hiddenTotal"
+    );
+
+
+const hiddenOrderId =
+    document.getElementById(
+        "hiddenOrderId"
+    );
+
+
+const formUrl =
+    document.getElementById(
+        "formUrl"
+    );
+
+
+/* =========================================
    RUPEES
-========================= */
+========================================= */
 
 function rupees(value){
 
     return "Rs. " +
-    Number(value || 0)
-    .toLocaleString(
-        "en-PK"
-    );
+        Number(value || 0)
+        .toLocaleString("en-PK");
 
 }
 
 
-/* =========================
-   DATE
-========================= */
+/* =========================================
+   DELIVERY TEXT
+========================================= */
 
-function getPakistanDate(){
+function getDeliveryText(){
 
-    return new Intl.DateTimeFormat(
-        "en-PK",
-        {
-            timeZone:
-                "Asia/Karachi",
+    if(
+        deliveryType.toLowerCase() ===
+        "free"
+    ){
 
-            year:
-                "numeric",
-
-            month:
-                "2-digit",
-
-            day:
-                "2-digit",
-
-            hour:
-                "2-digit",
-
-            minute:
-                "2-digit",
-
-            second:
-                "2-digit",
-
-            hour12:
-                true
-
-        }
-    )
-    .format(
-        new Date()
-    );
-
-}
-
-
-/* =========================
-   ORDER ID
-========================= */
-
-function createOrderId(){
-
-    const now =
-        new Date();
-
-
-    const parts =
-        new Intl.DateTimeFormat(
-            "en-CA",
-            {
-                timeZone:
-                    "Asia/Karachi",
-
-                year:
-                    "numeric",
-
-                month:
-                    "2-digit",
-
-                day:
-                    "2-digit",
-
-                hour:
-                    "2-digit",
-
-                minute:
-                    "2-digit",
-
-                second:
-                    "2-digit",
-
-                hourCycle:
-                    "h23"
-
-            }
-        )
-        .formatToParts(now);
-
-
-    const get =
-        function(type){
-
-            const item =
-                parts.find(
-                    function(p){
-
-                        return(
-                            p.type ===
-                            type
-                        );
-
-                    }
-                );
-
-
-            return item
-                ? item.value
-                : "";
-
-        };
-
-
-    return(
-        "JT-" +
-
-        get("year") +
-
-        get("month") +
-
-        get("day") +
-
-        "-" +
-
-        get("hour") +
-
-        get("minute") +
-
-        get("second")
-
-    );
-
-}
-
-
-/* =========================
-   SET PRODUCT
-========================= */
-
-function setupProduct(){
-
-    const image =
-        document.getElementById(
-            "productImage"
-        );
-
-
-    image.src =
-        productImage;
-
-
-    image.onerror =
-        function(){
-
-            this.src =
-                "https://via.placeholder.com/500x500?text=Product";
-
-        };
-
-
-    document.getElementById(
-        "productName"
-    )
-    .textContent =
-        productName;
-
-
-    document.getElementById(
-        "productDescription"
-    )
-    .textContent =
-        productDescription;
-
-
-    document.getElementById(
-        "productPrice"
-    )
-    .textContent =
-        rupees(
-            productPrice
-        );
-
-
-    const oldPriceElement =
-        document.getElementById(
-            "oldPrice"
-        );
-
-
-    if(oldPrice > 0){
-
-        oldPriceElement.textContent =
-            rupees(
-                oldPrice
-            );
-
-        oldPriceElement.style.display =
-            "inline";
-
-    }else{
-
-        oldPriceElement.style.display =
-            "none";
+        return "FREE DELIVERY";
 
     }
-
-
-    const deliveryBadge =
-        document.getElementById(
-            "deliveryBadge"
-        );
-
-
-    const deliveryNote =
-        document.getElementById(
-            "deliveryNote"
-        );
 
 
     if(
-        deliveryType ===
-        "paid"
+        deliveryCharges > 0
     ){
 
-        deliveryBadge.textContent =
-            "🚚 Paid Delivery";
-
-
-        deliveryNote.textContent =
+        return (
             "Delivery Charges: " +
-            rupees(
-                deliveryCharges
-            ) +
-            " — آپ کا آرڈر 3 سے 4 دن کے اندر ڈیلیور کر دیا جائے گا۔";
-
-    }else{
-
-        deliveryBadge.textContent =
-            "🚚 FREE DELIVERY";
-
-
-        deliveryNote.textContent =
-            "آپ کا آرڈر 3 سے 4 دن کے اندر آپ کو ڈیلیور کر دیا جائے گا۔";
+            rupees(deliveryCharges)
+        );
 
     }
 
 
-    /* =========================
-       HIDDEN DATA
-    ========================= */
-
-    document.getElementById(
-        "hiddenProduct"
-    ).value =
-        productName;
-
-
-    document.getElementById(
-        "hiddenDescription"
-    ).value =
-        productDescription;
-
-
-    document.getElementById(
-        "hiddenPrice"
-    ).value =
-        productPrice;
-
-
-    document.getElementById(
-        "hiddenOldPrice"
-    ).value =
-        oldPrice;
-
-
-    /*
-     * Product ID remains internal.
-     * It is NOT displayed on receipt.
-     */
-
-    document.getElementById(
-        "hiddenProductId"
-    ).value =
-        productId;
-
-
-    document.getElementById(
-        "hiddenProductImage"
-    ).value =
-        productImage;
-
-
-    document.getElementById(
-        "hiddenDeliveryStatus"
-    ).value =
-        deliveryType === "paid"
-        ? "Paid Delivery"
-        : "Free Delivery";
-
-
-    document.getElementById(
-        "hiddenDeliveryCharges"
-    ).value =
-        deliveryCharges;
-
-
-    document.getElementById(
-        "formUrl"
-    ).value =
-        window.location.href;
+    return "Delivery charges will be confirmed.";
 
 }
 
 
-/* =========================
+/* =========================================
    TOTAL
-========================= */
+========================================= */
 
 function calculateTotal(){
 
@@ -434,14 +236,9 @@ function calculateTotal(){
         Math.max(
             1,
             Number(
-                quantityInput.value ||
-                1
+                quantityInput?.value || 1
             )
         );
-
-
-    quantityInput.value =
-        quantity;
 
 
     const productTotal =
@@ -450,73 +247,974 @@ function calculateTotal(){
 
 
     const deliveryTotal =
+        deliveryType.toLowerCase() ===
+        "free"
+
+        ?
+
+        0
+
+        :
+
         deliveryCharges;
 
 
-    const total =
+    return (
         productTotal +
-        deliveryTotal;
-
-
-    document.getElementById(
-        "hiddenTotal"
-    ).value =
-        total;
-
-
-    return{
-
-        quantity:
-            quantity,
-
-        productTotal:
-            productTotal,
-
-        deliveryTotal:
-            deliveryTotal,
-
-        total:
-            total
-
-    };
-
-}
-
-
-/* =========================
-   QUANTITY CHANGE
-========================= */
-
-if(quantityInput){
-
-    quantityInput.addEventListener(
-        "input",
-        calculateTotal
+        deliveryTotal
     );
 
 }
 
 
-/* =========================
-   SHOW MESSAGE
-========================= */
+/* =========================================
+   UPDATE TOTAL
+========================================= */
 
-function showFormError(
-    text
-){
+function updateTotal(){
 
-    formMessage.textContent =
-        text;
+    const total =
+        calculateTotal();
 
-    formMessage.className =
-        "message error";
+
+    if(totalElement){
+
+        totalElement.textContent =
+            rupees(total);
+
+    }
+
+
+    if(hiddenTotal){
+
+        hiddenTotal.value =
+            total;
+
+    }
 
 }
 
 
-/* =========================
+/* =========================================
+   SHOW PRODUCT
+========================================= */
+
+function showProduct(){
+
+    if(productNameElement){
+
+        productNameElement.textContent =
+            productName;
+
+    }
+
+
+    if(productDescriptionElement){
+
+        productDescriptionElement.textContent =
+            productDescription;
+
+    }
+
+
+    if(productPriceElement){
+
+        productPriceElement.textContent =
+            rupees(productPrice);
+
+    }
+
+
+    if(oldPriceElement){
+
+        if(oldPrice > 0){
+
+            oldPriceElement.textContent =
+                rupees(oldPrice);
+
+            oldPriceElement.style.display =
+                "inline";
+
+        }else{
+
+            oldPriceElement.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    if(productImageElement){
+
+        productImageElement.src =
+            productImage ||
+
+            "https://via.placeholder.com/500x500?text=Product";
+
+
+        productImageElement.onerror =
+            function(){
+
+                this.src =
+                    "https://via.placeholder.com/500x500?text=Product";
+
+            };
+
+    }
+
+
+    if(deliveryElement){
+
+        deliveryElement.textContent =
+            getDeliveryText();
+
+    }
+
+
+    /* =====================================
+       HIDDEN FIELDS
+    ===================================== */
+
+    if(hiddenProduct){
+
+        hiddenProduct.value =
+            productName;
+
+    }
+
+
+    if(hiddenDescription){
+
+        hiddenDescription.value =
+            productDescription;
+
+    }
+
+
+    if(hiddenPrice){
+
+        hiddenPrice.value =
+            productPrice;
+
+    }
+
+
+    if(hiddenOldPrice){
+
+        hiddenOldPrice.value =
+            oldPrice;
+
+    }
+
+
+    if(hiddenProductId){
+
+        hiddenProductId.value =
+            productId;
+
+    }
+
+
+    if(hiddenProductImage){
+
+        hiddenProductImage.value =
+            productImage;
+
+    }
+
+
+    if(hiddenDeliveryStatus){
+
+        hiddenDeliveryStatus.value =
+            getDeliveryText();
+
+    }
+
+
+    if(hiddenDeliveryCharges){
+
+        hiddenDeliveryCharges.value =
+            deliveryType.toLowerCase() ===
+            "free"
+
+            ?
+
+            0
+
+            :
+
+            deliveryCharges;
+
+    }
+
+
+    if(formUrl){
+
+        formUrl.value =
+            window.location.href;
+
+    }
+
+
+    updateTotal();
+
+}
+
+
+/* =========================================
+   ORDER ID
+========================================= */
+
+function generateOrderId(){
+
+    const now =
+        new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(2,"0");
+
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2,"0");
+
+
+    const random =
+        Math.floor(
+            1000 +
+            Math.random() *
+            9000
+        );
+
+
+    return (
+        "JT-" +
+        year +
+        month +
+        day +
+        "-" +
+        random
+    );
+
+}
+
+
+/* =========================================
+   QUANTITY
+========================================= */
+
+if(quantityInput){
+
+    quantityInput.addEventListener(
+        "input",
+        updateTotal
+    );
+
+}
+
+
+/* =========================================
+   LOCAL ORDER SAVE
+========================================= */
+
+function saveLocalOrder(
+    order
+){
+
+    try{
+
+        const orders =
+            JSON.parse(
+                localStorage.getItem(
+                    "janjua_orders"
+                ) || "[]"
+            );
+
+
+        orders.push(order);
+
+
+        localStorage.setItem(
+            "janjua_orders",
+            JSON.stringify(
+                orders
+            )
+        );
+
+    }catch(error){
+
+        console.error(
+            "LOCAL ORDER SAVE ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   RECEIPT
+========================================= */
+
+function showReceipt(
+    order
+){
+
+    const receipt =
+        document.getElementById(
+            "receipt"
+        );
+
+
+    if(!receipt){
+
+        return;
+
+    }
+
+
+    receipt.innerHTML = `
+
+        <div
+            class="receipt-card"
+            id="printReceipt"
+            style="
+                background:#fff;
+                padding:20px;
+                border-radius:16px;
+            "
+        >
+
+            <div
+                style="
+                    text-align:center;
+                    margin-bottom:15px;
+                "
+            >
+
+                <h2>
+                    JANJUA
+                </h2>
+
+                <p>
+                    Order Receipt
+                </p>
+
+            </div>
+
+
+            <div
+                style="
+                    text-align:center;
+                    margin-bottom:15px;
+                "
+            >
+
+                <img
+                    src="${escapeAttribute(
+                        productImage ||
+                        "https://via.placeholder.com/300x300?text=Product"
+                    )}"
+                    alt="Product"
+                    style="
+                        width:180px;
+                        max-width:100%;
+                        border-radius:12px;
+                    "
+                >
+
+            </div>
+
+
+            <h3 dir="auto">
+
+                ${escapeHtml(
+                    productName
+                )}
+
+            </h3>
+
+
+            <p dir="auto">
+
+                ${escapeHtml(
+                    productDescription
+                )}
+
+            </p>
+
+
+            <hr>
+
+
+            <p>
+                <b>Date:</b>
+                ${escapeHtml(
+                    order.date
+                )}
+            </p>
+
+
+            <p>
+                <b>Order ID:</b>
+                ${escapeHtml(
+                    order.orderId
+                )}
+            </p>
+
+
+            <p>
+                <b>Customer:</b>
+                ${escapeHtml(
+                    order.customerName
+                )}
+            </p>
+
+
+            <p>
+                <b>Mobile / WhatsApp:</b>
+                ${escapeHtml(
+                    order.mobile
+                )}
+            </p>
+
+
+            <p>
+                <b>Address:</b>
+                ${escapeHtml(
+                    order.address
+                )}
+            </p>
+
+
+            <p>
+                <b>Quantity:</b>
+                ${escapeHtml(
+                    order.quantity
+                )}
+            </p>
+
+
+            ${
+                order.color
+
+                ?
+
+                `
+                <p>
+                    <b>Color:</b>
+                    ${escapeHtml(
+                        order.color
+                    )}
+                </p>
+                `
+
+                :
+
+                ""
+            }
+
+
+            ${
+                order.size
+
+                ?
+
+                `
+                <p>
+                    <b>Size:</b>
+                    ${escapeHtml(
+                        order.size
+                    )}
+                </p>
+                `
+
+                :
+
+                ""
+            }
+
+
+            <p>
+                <b>Product Price:</b>
+                ${rupees(
+                    order.productPrice
+                )}
+            </p>
+
+
+            <p>
+                <b>Delivery:</b>
+                ${escapeHtml(
+                    order.delivery
+                )}
+            </p>
+
+
+            <hr>
+
+
+            <h3>
+
+                Total:
+                ${rupees(
+                    order.total
+                )}
+
+            </h3>
+
+
+            <div
+                style="
+                    margin-top:15px;
+                    padding:12px;
+                    background:#f3f4f6;
+                    border-radius:10px;
+                "
+            >
+
+                <b>
+                    Delivery Instruction
+                </b>
+
+                <p>
+                    آپ کا آرڈر 3 سے 4 دن کے اندر
+                    آپ کو ڈیلیور کر دیا جائے گا۔
+                </p>
+
+            </div>
+
+
+            <div
+                style="
+                    margin-top:12px;
+                    padding:12px;
+                    background:#f3f4f6;
+                    border-radius:10px;
+                "
+            >
+
+                <b>
+                    Cash on Delivery
+                </b>
+
+                <p>
+                    ادائیگی آرڈر کی ڈیلیوری کے وقت کی جائے گی۔
+                </p>
+
+            </div>
+
+
+            <!--
+                IMPORTANT:
+
+                Product ID
+                Supplier
+                Markaz Link
+                Daraz Link
+                Supplier Link
+                Social Link
+
+                are intentionally NOT displayed
+                on customer receipt.
+            -->
+
+        </div>
+
+
+        <div
+            style="
+                display:flex;
+                gap:8px;
+                flex-wrap:wrap;
+                margin-top:15px;
+            "
+        >
+
+            <button
+                type="button"
+                id="downloadReceiptBtn"
+            >
+                Download
+            </button>
+
+
+            <button
+                type="button"
+                id="shareReceiptBtn"
+            >
+                Share
+            </button>
+
+
+            <button
+                type="button"
+                id="printReceiptBtn"
+            >
+                Print
+            </button>
+
+        </div>
+
+    `;
+
+
+    const downloadButton =
+        document.getElementById(
+            "downloadReceiptBtn"
+        );
+
+
+    const shareButton =
+        document.getElementById(
+            "shareReceiptBtn"
+        );
+
+
+    const printButton =
+        document.getElementById(
+            "printReceiptBtn"
+        );
+
+
+    if(printButton){
+
+        printButton.addEventListener(
+            "click",
+            function(){
+
+                printReceipt();
+
+            }
+        );
+
+    }
+
+
+    if(shareButton){
+
+        shareButton.addEventListener(
+            "click",
+            function(){
+
+                shareReceipt(
+                    order
+                );
+
+            }
+        );
+
+    }
+
+
+    if(downloadButton){
+
+        downloadButton.addEventListener(
+            "click",
+            function(){
+
+                downloadReceipt();
+
+            }
+        );
+
+    }
+
+
+    receipt.scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================
+   PRINT
+========================================= */
+
+function printReceipt(){
+
+    const receipt =
+        document.getElementById(
+            "printReceipt"
+        );
+
+
+    if(!receipt){
+
+        return;
+
+    }
+
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    if(!printWindow){
+
+        alert(
+            "براہِ کرم Print کے لیے popup allow کریں۔"
+        );
+
+        return;
+
+    }
+
+
+    printWindow.document.write(`
+
+        <html>
+
+        <head>
+
+            <title>
+                JANJUA Order Receipt
+            </title>
+
+            <style>
+
+                body{
+                    font-family:Arial,sans-serif;
+                    padding:20px;
+                    color:#111;
+                }
+
+                img{
+                    max-width:250px;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${receipt.innerHTML}
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    printWindow.document.close();
+
+
+    printWindow.focus();
+
+
+    setTimeout(
+        function(){
+
+            printWindow.print();
+
+            printWindow.close();
+
+        },
+        500
+    );
+
+}
+
+
+/* =========================================
+   DOWNLOAD
+========================================= */
+
+function downloadReceipt(){
+
+    const receipt =
+        document.getElementById(
+            "printReceipt"
+        );
+
+
+    if(!receipt){
+
+        return;
+
+    }
+
+
+    const html =
+        `
+
+        <html>
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <title>
+                JANJUA Order Receipt
+            </title>
+
+            <style>
+
+                body{
+                    font-family:Arial,sans-serif;
+                    padding:20px;
+                }
+
+                img{
+                    max-width:250px;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            ${receipt.innerHTML}
+
+        </body>
+
+        </html>
+
+        `;
+
+
+    const blob =
+        new Blob(
+            [html],
+            {
+                type:"text/html"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href =
+        url;
+
+
+    link.download =
+        "JANJUA-Order-Receipt.html";
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    document.body.removeChild(
+        link
+    );
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+}
+
+
+/* =========================================
+   SHARE
+========================================= */
+
+async function shareReceipt(
+    order
+){
+
+    const text =
+
+        "JANJUA ORDER RECEIPT\n\n" +
+
+        "Order ID: " +
+        order.orderId +
+
+        "\nCustomer: " +
+        order.customerName +
+
+        "\nProduct: " +
+        productName +
+
+        "\nQuantity: " +
+        order.quantity +
+
+        "\nTotal: " +
+        rupees(order.total) +
+
+        "\nDelivery: " +
+        order.delivery +
+
+        "\n\nآپ کا آرڈر 3 سے 4 دن کے اندر ڈیلیور کر دیا جائے گا۔";
+
+
+    try{
+
+        if(
+            navigator.share
+        ){
+
+            await navigator.share({
+
+                title:
+                    "JANJUA Order Receipt",
+
+                text:
+                    text
+
+            });
+
+        }else{
+
+            await navigator.clipboard.writeText(
+                text
+            );
+
+
+            alert(
+                "Receipt details copy ہو گئے ہیں۔"
+            );
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "Share cancelled"
+        );
+
+    }
+
+}
+
+
+/* =========================================
    SUBMIT ORDER
-========================= */
+========================================= */
 
 if(orderForm){
 
@@ -527,82 +1225,21 @@ if(orderForm){
             event.preventDefault();
 
 
-            const name =
-                document.getElementById(
-                    "customerName"
-                )
-                .value
-                .trim();
-
-
-            const mobile =
-                document.getElementById(
-                    "mobile"
-                )
-                .value
-                .trim();
-
-
-            const address =
-                document.getElementById(
-                    "address"
-                )
-                .value
-                .trim();
-
-
-            if(!name){
-
-                showFormError(
-                    "براہِ کرم اپنا نام درج کریں۔"
+            const submitButton =
+                orderForm.querySelector(
+                    'button[type="submit"]'
                 );
 
-                return;
+
+            if(submitButton){
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.textContent =
+                    "Submitting...";
 
             }
-
-
-            if(!mobile){
-
-                showFormError(
-                    "براہِ کرم موبائل / WhatsApp نمبر درج کریں۔"
-                );
-
-                return;
-
-            }
-
-
-            if(!address){
-
-                showFormError(
-                    "براہِ کرم مکمل Delivery Address درج کریں۔"
-                );
-
-                return;
-
-            }
-
-
-            const totals =
-                calculateTotal();
-
-
-            const orderId =
-                createOrderId();
-
-
-            document.getElementById(
-                "hiddenOrderId"
-            ).value =
-                orderId;
-
-
-            submitBtn.disabled =
-                true;
-
-            submitBtn.textContent =
-                "ORDER SUBMIT ہو رہا ہے...";
 
 
             try{
@@ -613,106 +1250,203 @@ if(orderForm){
                     );
 
 
+                const orderId =
+                    generateOrderId();
+
+
+                if(hiddenOrderId){
+
+                    hiddenOrderId.value =
+                        orderId;
+
+                }
+
+
+                formData.set(
+                    "Order_ID",
+                    orderId
+                );
+
+
+                const quantity =
+                    Math.max(
+                        1,
+                        Number(
+                            formData.get(
+                                "Quantity"
+                            ) || 1
+                        )
+                    );
+
+
+                const customerName =
+                    formData.get(
+                        "Customer_Name"
+                    ) || "";
+
+
+                const mobile =
+                    formData.get(
+                        "Mobile_WhatsApp"
+                    ) || "";
+
+
+                const address =
+                    formData.get(
+                        "Delivery_Address"
+                    ) || "";
+
+
+                const platform =
+                    formData.get(
+                        "Platform"
+                    ) || "";
+
+
+                const color =
+                    formData.get(
+                        "Color"
+                    ) || "";
+
+
+                const size =
+                    formData.get(
+                        "Size"
+                    ) || "";
+
+
+                const total =
+                    calculateTotal();
+
+
+                formData.set(
+                    "Total_Amount",
+                    total
+                );
+
+
+                formData.set(
+                    "Delivery_Charges",
+                    deliveryType.toLowerCase() ===
+                    "free"
+
+                    ?
+
+                    0
+
+                    :
+
+                    deliveryCharges
+                );
+
+
+                /* =====================================
+                   FORM SUBMIT
+                   ONLY TO:
+                   thanksyou0339@gmail.com
+                ===================================== */
+
                 const response =
                     await fetch(
                         orderForm.action,
                         {
-                            method:
-                                "POST",
+                            method:"POST",
 
-                            body:
-                                formData,
+                            body:formData,
 
-                            headers:
-                            {
+                            headers:{
                                 Accept:
-                                    "application/json"
+                                "application/json"
                             }
-
                         }
                     );
 
 
-                if(!response.ok){
+                const result =
+                    await response.json();
+
+
+                if(
+                    !response.ok ||
+                    result.success === false
+                ){
 
                     throw new Error(
-                        "Order submission failed."
+                        "Order submission failed"
                     );
 
                 }
 
 
-                /*
-                 * Save order locally
-                 * for this device.
-                 */
+                const order = {
+
+                    orderId:
+                        orderId,
+
+                    date:
+                        new Date()
+                        .toLocaleString(
+                            "en-PK"
+                        ),
+
+                    customerName:
+                        customerName,
+
+                    mobile:
+                        mobile,
+
+                    address:
+                        address,
+
+                    platform:
+                        platform,
+
+                    color:
+                        color,
+
+                    size:
+                        size,
+
+                    quantity:
+                        quantity,
+
+                    product:
+                        productName,
+
+                    productPrice:
+                        productPrice,
+
+                    delivery:
+                        getDeliveryText(),
+
+                    deliveryCharges:
+                        deliveryCharges,
+
+                    total:
+                        total
+
+                };
+
 
                 saveLocalOrder(
-                    {
-                        orderId:
-                            orderId,
-
-                        product:
-                            productName,
-
-                        image:
-                            productImage,
-
-                        customer:
-                            name,
-
-                        mobile:
-                            mobile,
-
-                        address:
-                            address,
-
-                        quantity:
-                            totals.quantity,
-
-                        price:
-                            productPrice,
-
-                        delivery:
-                            totals.deliveryTotal,
-
-                        total:
-                            totals.total,
-
-                        date:
-                            getPakistanDate()
-
-                    }
+                    order
                 );
 
 
+                /* =================================
+                   HIDE ORDER FORM
+                ================================= */
+
+                orderForm.style.display =
+                    "none";
+
+
+                /* =================================
+                   SHOW RECEIPT
+                ================================= */
+
                 showReceipt(
-                    {
-                        orderId:
-                            orderId,
-
-                        customer:
-                            name,
-
-                        mobile:
-                            mobile,
-
-                        quantity:
-                            totals.quantity,
-
-                        productTotal:
-                            totals.productTotal,
-
-                        deliveryTotal:
-                            totals.deliveryTotal,
-
-                        total:
-                            totals.total,
-
-                        date:
-                            getPakistanDate()
-
-                    }
+                    order
                 );
 
 
@@ -724,661 +1458,63 @@ if(orderForm){
                 );
 
 
-                showFormError(
-                    "Order submit نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
-                );
-
-
-            }finally{
-
-                submitBtn.disabled =
-                    false;
-
-                submitBtn.textContent =
-                    "🛒 PLACE ORDER";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================
-   RECEIPT
-========================= */
-
-let lastReceipt =
-null;
-
-
-function showReceipt(
-    data
-){
-
-    lastReceipt =
-        data;
-
-
-    const receiptImage =
-        document.getElementById(
-            "receiptImage"
-        );
-
-
-    receiptImage.src =
-        productImage;
-
-
-    receiptImage.onerror =
-        function(){
-
-            this.src =
-                "https://via.placeholder.com/500x500?text=Product";
-
-        };
-
-
-    document.getElementById(
-        "receiptProductName"
-    ).textContent =
-        productName;
-
-
-    document.getElementById(
-        "receiptDate"
-    ).textContent =
-        data.date;
-
-
-    document.getElementById(
-        "receiptOrderId"
-    ).textContent =
-        "Order ID: " +
-        data.orderId;
-
-
-    document.getElementById(
-        "receiptCustomer"
-    ).textContent =
-        data.customer;
-
-
-    document.getElementById(
-        "receiptMobile"
-    ).textContent =
-        data.mobile;
-
-
-    document.getElementById(
-        "receiptQuantity"
-    ).textContent =
-        data.quantity;
-
-
-    document.getElementById(
-        "receiptPrice"
-    ).textContent =
-        rupees(
-            data.productTotal
-        );
-
-
-    document.getElementById(
-        "receiptDelivery"
-    ).textContent =
-        data.deliveryTotal > 0
-        ?
-        rupees(
-            data.deliveryTotal
-        )
-        :
-        "FREE";
-
-
-    document.getElementById(
-        "receiptTotal"
-    ).textContent =
-        rupees(
-            data.total
-        );
-
-
-    /*
-     * IMPORTANT:
-     * No Product ID is added here.
-     */
-
-
-    orderSection.style.display =
-        "none";
-
-
-    receiptSection.style.display =
-        "block";
-
-
-    window.scrollTo(
-        {
-            top:0,
-            behavior:"smooth"
-        }
-    );
-
-}
-
-
-/* =========================
-   LOCAL STORAGE
-========================= */
-
-function saveLocalOrder(
-    data
-){
-
-    try{
-
-        const oldOrders =
-            JSON.parse(
-                localStorage.getItem(
-                    "janjua_orders"
-                ) ||
-                "[]"
-            );
-
-
-        oldOrders.unshift(
-            data
-        );
-
-
-        localStorage.setItem(
-            "janjua_orders",
-            JSON.stringify(
-                oldOrders.slice(
-                    0,
-                    20
-                )
-            )
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "LOCAL STORAGE ERROR:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================
-   DOWNLOAD RECEIPT
-========================= */
-
-document.getElementById(
-    "downloadReceiptBtn"
-)
-.addEventListener(
-    "click",
-    function(){
-
-        if(!lastReceipt){
-
-            return;
-
-        }
-
-
-        const receiptHtml = `
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<meta charset="UTF-8">
-
-<title>JANJUA Order Receipt</title>
-
-<style>
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f3f5f8;
-    padding:20px;
-}
-
-.receipt{
-    max-width:650px;
-    margin:auto;
-    background:white;
-    padding:25px;
-    border:2px solid #111827;
-    border-radius:15px;
-}
-
-.header{
-    text-align:center;
-    border-bottom:1px dashed #aaa;
-    padding-bottom:15px;
-}
-
-.logo{
-    font-size:35px;
-    font-weight:bold;
-    letter-spacing:5px;
-}
-
-.product{
-    display:flex;
-    gap:15px;
-    align-items:center;
-    padding:15px 0;
-    border-bottom:1px dashed #ddd;
-}
-
-.product img{
-    width:100px;
-    height:100px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-.row{
-    display:flex;
-    justify-content:space-between;
-    padding:9px 0;
-    border-bottom:1px solid #eee;
-}
-
-.total{
-    font-size:20px;
-    font-weight:bold;
-    border-top:2px solid #111827;
-    margin-top:8px;
-    padding-top:12px;
-}
-
-.delivery{
-    margin-top:15px;
-    padding:13px;
-    background:#ecfdf5;
-    color:#065f46;
-    border-radius:9px;
-    line-height:1.7;
-    font-weight:bold;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="receipt">
-
-<div class="header">
-
-<div class="logo">
-JANJUA
-</div>
-
-<div>
-DIGITAL MARKETING ONLINE SHOPPING PLATFORM
-</div>
-
-<div style="margin-top:8px;">
-ORDER RECEIPT
-</div>
-
-</div>
-
-
-<div class="product">
-
-<img
-src="${escapeAttribute(productImage)}"
-alt="Product"
->
-
-<div>
-
-<strong>
-${escapeHtml(productName)}
-</strong>
-
-<div style="margin-top:7px;">
-${escapeHtml(lastReceipt.date)}
-</div>
-
-<div style="margin-top:5px;">
-Order ID:
-${escapeHtml(lastReceipt.orderId)}
-</div>
-
-</div>
-
-</div>
-
-
-<div class="row">
-
-<span>
-Customer Name
-</span>
-
-<strong>
-${escapeHtml(lastReceipt.customer)}
-</strong>
-
-</div>
-
-
-<div class="row">
-
-<span>
-Mobile / WhatsApp
-</span>
-
-<strong>
-${escapeHtml(lastReceipt.mobile)}
-</strong>
-
-</div>
-
-
-<div class="row">
-
-<span>
-Quantity
-</span>
-
-<strong>
-${lastReceipt.quantity}
-</strong>
-
-</div>
-
-
-<div class="row">
-
-<span>
-Product Price
-</span>
-
-<strong>
-${rupees(lastReceipt.productTotal)}
-</strong>
-
-</div>
-
-
-<div class="row">
-
-<span>
-Delivery Charges
-</span>
-
-<strong>
-${
-    lastReceipt.deliveryTotal > 0
-    ?
-    rupees(
-        lastReceipt.deliveryTotal
-    )
-    :
-    "FREE"
-}
-</strong>
-
-</div>
-
-
-<div class="row total">
-
-<span>
-Total Amount
-</span>
-
-<strong>
-${rupees(lastReceipt.total)}
-</strong>
-
-</div>
-
-
-<div class="delivery">
-
-آپ کا آرڈر 3 سے 4 دن کے اندر آپ کو ڈیلیور کر دیا جائے گا۔
-
-</div>
-
-
-</div>
-
-</body>
-
-</html>
-
-`;
-
-
-        const blob =
-            new Blob(
-                [
-                    receiptHtml
-                ],
-                {
-                    type:
-                        "text/html"
-                }
-            );
-
-
-        const url =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.href =
-            url;
-
-
-        link.download =
-            "JANJUA-Order-Receipt-" +
-            lastReceipt.orderId +
-            ".html";
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        link.remove();
-
-
-        URL.revokeObjectURL(
-            url
-        );
-
-    }
-);
-
-
-/* =========================
-   SHARE
-========================= */
-
-document.getElementById(
-    "shareReceiptBtn"
-)
-.addEventListener(
-    "click",
-    async function(){
-
-        if(!lastReceipt){
-
-            return;
-
-        }
-
-
-        const shareText =
-
-`JANJUA ORDER RECEIPT
-
-Product: ${productName}
-
-Order ID: ${lastReceipt.orderId}
-
-Customer: ${lastReceipt.customer}
-
-Quantity: ${lastReceipt.quantity}
-
-Product Price: ${rupees(lastReceipt.productTotal)}
-
-Delivery: ${
-    lastReceipt.deliveryTotal > 0
-    ?
-    rupees(lastReceipt.deliveryTotal)
-    :
-    "FREE"
-}
-
-Total Amount: ${rupees(lastReceipt.total)}
-
-Delivery:
-آپ کا آرڈر 3 سے 4 دن کے اندر آپ کو ڈیلیور کر دیا جائے گا۔
-
-Thank you for shopping with JANJUA.`;
-
-
-
-        try{
-
-            if(
-                navigator.share
-            ){
-
-                await navigator.share(
-                    {
-                        title:
-                            "JANJUA Order Receipt",
-
-                        text:
-                            shareText
-                    }
-                );
-
-            }else{
-
-                await navigator.clipboard.writeText(
-                    shareText
-                );
-
-
                 alert(
-                    "Receipt text copy ہوگیا ہے۔"
+                    "آرڈر submit نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
                 );
+
+
+                if(submitButton){
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "PLACE ORDER";
+
+                }
 
             }
 
-        }catch(error){
-
-            console.log(
-                error
-            );
-
         }
+    );
 
-    }
-);
-
-
-/* =========================
-   PRINT
-========================= */
-
-document.getElementById(
-    "printReceiptBtn"
-)
-.addEventListener(
-    "click",
-    function(){
-
-        window.print();
-
-    }
-);
+}
 
 
-/* =========================
-   NEW ORDER
-========================= */
-
-document.getElementById(
-    "newOrderBtn"
-)
-.addEventListener(
-    "click",
-    function(){
-
-        window.location.href =
-            "shop.html";
-
-    }
-);
-
-
-/* =========================
-   ESCAPE
-========================= */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 function escapeHtml(value){
 
-    return String(value)
+    return String(
+        value ?? ""
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1392,10 +1528,8 @@ function escapeAttribute(value){
 }
 
 
-/* =========================
+/* =========================================
    START
-========================= */
+========================================= */
 
-setupProduct();
-
-calculateTotal();
+showProduct();
