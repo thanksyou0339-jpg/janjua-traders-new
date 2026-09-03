@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Digital Janjua Trading - Online Shop</title>
+<title>JANJUA - Digital Marketing Online Shop</title>
 
 <link rel="stylesheet" href="shop-style.css">
 </head>
@@ -14,25 +14,49 @@
 
 <header class="shop-header">
 
-    <div class="brand-animation">
-        <span>☁️</span>
-        <strong>DIGITAL</strong>
-        <strong>JANJUA</strong>
-        <strong>TRADING</strong>
-        <span>☁️</span>
+    <!-- Animated birds / nature -->
+    <div class="nature-layer" aria-hidden="true">
+
+        <span class="bird bird-1">🕊️</span>
+        <span class="bird bird-2">🐦</span>
+        <span class="bird bird-3">🦅</span>
+        <span class="bird bird-4">🕊️</span>
+
+        <span class="nature-spark spark-1">✦</span>
+        <span class="nature-spark spark-2">✧</span>
+        <span class="nature-spark spark-3">•</span>
+
     </div>
 
-    <div class="shop-subtitle">
-        DIGITAL ONLINE MARKETING PLATFORM
+
+    <div class="brand-area">
+
+        <div class="brand-title">
+            JANJUA
+        </div>
+
+        <div class="brand-line">
+            DIGITAL MARKETING
+        </div>
+
+        <div class="brand-subtitle">
+            ONLINE SHOPPING PLATFORM
+        </div>
+
     </div>
 
+
+    <!-- Search -->
     <div class="search-box">
+
+        <span class="search-icon">🔍</span>
 
         <input
             type="search"
             id="searchBox"
             dir="auto"
-            placeholder="🔍 Product تلاش کریں"
+            placeholder="Product تلاش کریں..."
+            autocomplete="off"
         >
 
     </div>
@@ -40,30 +64,20 @@
 </header>
 
 
-<nav class="category-bar">
+<!-- Categories -->
 
-    <button type="button" onclick="showCategory('All')">
-        All
-    </button>
+<nav
+    id="categoryBar"
+    class="category-bar"
+    aria-label="Product Categories"
+>
 
-    <button type="button" onclick="showCategory('Shoes')">
-        Shoes
-    </button>
-
-    <button type="button" onclick="showCategory('Clothes')">
-        Clothes
-    </button>
-
-    <button type="button" onclick="showCategory('Beauty')">
-        Beauty
-    </button>
-
-    <button type="button" onclick="showCategory('Electronics')">
-        Electronics
-    </button>
-
-    <button type="button" onclick="showCategory('Other')">
-        Other
+    <button
+        type="button"
+        class="category-btn active"
+        data-category="All"
+    >
+        ✨ All
     </button>
 
 </nav>
@@ -71,34 +85,51 @@
 
 <main class="shop-container">
 
+
+    <!-- Loading -->
+
     <div
         id="loadingMessage"
-        style="
-        text-align:center;
-        padding:40px;
-        font-size:18px;
-        "
+        class="loading-message"
     >
-        Products loading...
+
+        <span class="loader"></span>
+
+        <span>
+            Products loading...
+        </span>
+
     </div>
+
+
+    <!-- Products -->
 
     <div
         id="productGrid"
         class="product-grid"
     ></div>
 
+
 </main>
 
 
 <footer class="shop-footer">
 
+    <div class="footer-brand">
+        JANJUA
+    </div>
+
     <strong>
-        DIGITAL JANJUA TRADING
+        DIGITAL MARKETING
     </strong>
 
     <p>
-        DIGITAL ONLINE MARKETING PLATFORM
+        ONLINE SHOPPING PLATFORM
     </p>
+
+    <small>
+        Quality Products • Easy Ordering • Fast Delivery
+    </small>
 
 </footer>
 
