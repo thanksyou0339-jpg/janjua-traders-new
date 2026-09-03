@@ -7,6 +7,7 @@
 <title>Janjua Traders - Admin Panel</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -18,10 +19,14 @@ body {
     color: #222;
 }
 
+/* MAIN CONTAINER */
+
 .container {
     width: min(700px, 94%);
     margin: 25px auto;
 }
+
+/* HEADER */
 
 .header {
     background: #111827;
@@ -36,6 +41,12 @@ body {
     margin: 0;
 }
 
+.header p {
+    margin-bottom: 0;
+}
+
+/* CARD */
+
 .card {
     background: white;
     padding: 20px;
@@ -48,12 +59,16 @@ h2 {
     margin-top: 0;
 }
 
+/* LABEL */
+
 label {
     display: block;
     margin-top: 14px;
     margin-bottom: 6px;
     font-weight: bold;
 }
+
+/* INPUTS */
 
 input,
 select,
@@ -63,12 +78,34 @@ textarea {
     border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/*
+   NUMBER FIELDS
+   Numbers will move LEFT to RIGHT
+*/
+
+input[type="number"] {
+    direction: ltr;
+    text-align: left;
+}
+
+/* URL / EMAIL / TEXT NUMERIC-LIKE FIELDS */
+
+input[type="url"],
+input[type="email"],
+input[type="password"] {
+    direction: ltr;
+    text-align: left;
 }
 
 textarea {
     min-height: 90px;
     resize: vertical;
 }
+
+/* BUTTON */
 
 button {
     border: 0;
@@ -79,6 +116,13 @@ button {
     cursor: pointer;
 }
 
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* PRIMARY */
+
 .primary {
     width: 100%;
     margin-top: 20px;
@@ -86,19 +130,31 @@ button {
     color: white;
 }
 
+.primary:hover {
+    opacity: .92;
+}
+
+/* SECONDARY */
+
 .secondary {
     background: #e5e7eb;
     color: #111827;
 }
+
+/* DANGER */
 
 .danger {
     background: #dc2626;
     color: white;
 }
 
+/* HIDDEN */
+
 .hidden {
     display: none;
 }
+
+/* MESSAGE */
 
 .message {
     padding: 12px;
@@ -116,6 +172,8 @@ button {
     background: #fee2e2;
     color: #991b1b;
 }
+
+/* PRODUCT ITEM */
 
 .product-item {
     border: 1px solid #ddd;
@@ -137,6 +195,21 @@ button {
 .product-actions button {
     flex: 1;
 }
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .card {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+}
+
 </style>
 </head>
 
@@ -144,109 +217,240 @@ button {
 
 <div class="container">
 
+    <!-- HEADER -->
+
     <div class="header">
+
         <h1>JANJUA TRADERS</h1>
+
         <p>Admin Panel</p>
+
     </div>
 
+
     <!-- LOGIN -->
+
     <div id="loginSection" class="card">
 
         <h2>Admin Login</h2>
 
         <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="Admin Email">
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Admin Email"
+        >
+
 
         <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="Password">
 
-        <button class="primary" id="loginBtn">
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+        >
+
+
+        <button
+            class="primary"
+            id="loginBtn"
+        >
             LOGIN
         </button>
 
-        <div id="loginMessage" class="message"></div>
+
+        <div
+            id="loginMessage"
+            class="message"
+        ></div>
 
     </div>
 
 
     <!-- ADMIN PANEL -->
-    <div id="adminSection" class="hidden">
+
+    <div
+        id="adminSection"
+        class="hidden"
+    >
+
+        <!-- ADD PRODUCT -->
 
         <div class="card">
 
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div
+                style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:10px;
+                "
+            >
+
                 <h2>Product Add کریں</h2>
 
-                <button class="secondary" id="logoutBtn">
+                <button
+                    class="secondary"
+                    id="logoutBtn"
+                >
                     Logout
                 </button>
+
             </div>
 
 
-            <label>Product Name</label>
-            <input type="text" id="productName"
-                   placeholder="مثلاً Men's Shoes">
+            <!-- PRODUCT NAME -->
 
+            <label>Product Name</label>
+
+            <input
+                type="text"
+                id="productName"
+                placeholder="مثلاً Men's Shoes"
+            >
+
+
+            <!-- CATEGORY -->
 
             <label>Category</label>
+
             <select id="productCategory">
-                <option value="Shoes">Shoes</option>
-                <option value="Clothes">Clothes</option>
-                <option value="Beauty">Beauty</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Other">Other</option>
+
+                <option value="Shoes">
+                    Shoes
+                </option>
+
+                <option value="Clothes">
+                    Clothes
+                </option>
+
+                <option value="Beauty">
+                    Beauty
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
+
+            <!-- SELLING PRICE -->
 
             <label>Selling Price</label>
-            <input type="number" id="productPrice"
-                   placeholder="2000">
 
+            <input
+                type="number"
+                id="productPrice"
+                placeholder="2000"
+                min="0"
+            >
+
+
+            <!-- OLD PRICE -->
 
             <label>Old Price</label>
-            <input type="number" id="productOldPrice"
-                   placeholder="2500">
 
+            <input
+                type="number"
+                id="productOldPrice"
+                placeholder="2500"
+                min="0"
+            >
+
+
+            <!-- DESCRIPTION -->
 
             <label>Description</label>
-            <textarea id="productDescription"
-                      placeholder="Product کی تفصیل"></textarea>
 
+            <textarea
+                id="productDescription"
+                placeholder="Product کی تفصیل"
+            ></textarea>
+
+
+            <!-- IMAGE -->
 
             <label>Product Image Link</label>
-            <input type="url" id="productImage"
-                   placeholder="https://example.com/image.jpg">
 
+            <input
+                type="url"
+                id="productImage"
+                placeholder="https://example.com/image.jpg"
+            >
+
+
+            <!-- SUPPLIER -->
 
             <label>Supplier</label>
+
             <select id="productSupplier">
-                <option value="Markaz">Markaz</option>
-                <option value="Daraz">Daraz</option>
-                <option value="Naveed">Naveed</option>
-                <option value="Other">Other</option>
+
+                <option value="Markaz">
+                    Markaz
+                </option>
+
+                <option value="Daraz">
+                    Daraz
+                </option>
+
+                <option value="Naveed">
+                    Naveed
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
 
-            <label>Supplier Product Link</label>
-            <input type="url" id="supplierLink"
-                   placeholder="Supplier کا اصل product link">
+            <!-- SUPPLIER LINK -->
 
+            <label>Supplier Product Link</label>
+
+            <input
+                type="url"
+                id="supplierLink"
+                placeholder="Supplier کا اصل product link"
+            >
+
+
+            <!-- SOCIAL LINK -->
 
             <label>Facebook / TikTok Link</label>
-            <input type="url" id="socialLink"
-                   placeholder="Facebook یا TikTok post link">
+
+            <input
+                type="url"
+                id="socialLink"
+                placeholder="Facebook یا TikTok post link"
+            >
 
 
-            <button class="primary" id="saveProductBtn">
+            <!-- SAVE -->
+
+            <button
+                class="primary"
+                id="saveProductBtn"
+            >
                 SAVE PRODUCT
             </button>
 
-            <div id="productMessage" class="message"></div>
+
+            <div
+                id="productMessage"
+                class="message"
+            ></div>
 
         </div>
 
 
-        <!-- PRODUCT LIST -->
+        <!-- SAVED PRODUCTS -->
 
         <div class="card">
 
@@ -265,8 +469,16 @@ button {
 
 <script type="module">
 
-import { initializeApp }
+
+/* =========================
+   FIREBASE IMPORTS
+========================= */
+
+import {
+    initializeApp
+}
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
     getAuth,
@@ -276,321 +488,555 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
 import {
     getFirestore,
     collection,
     addDoc,
     getDocs,
     deleteDoc,
-    doc,
-    updateDoc
+    doc
 }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
 const firebaseConfig = {
 
-    apiKey: "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+    apiKey:
+        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
 
-    authDomain: "janjua-traders.firebaseapp.com",
+    authDomain:
+        "janjua-traders.firebaseapp.com",
 
-    projectId: "janjua-traders",
+    projectId:
+        "janjua-traders",
 
-    storageBucket: "janjua-traders.firebasestorage.app",
+    storageBucket:
+        "janjua-traders.firebasestorage.app",
 
-    messagingSenderId: "154904774188",
+    messagingSenderId:
+        "154904774188",
 
-    appId: "1:154904774188:web:1830f9d533e77dae6a7389"
+    appId:
+        "1:154904774188:web:1830f9d533e77dae6a7389"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
+/* =========================
+   INITIALIZE FIREBASE
+========================= */
 
-const auth = getAuth(app);
+const app =
+    initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
 
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const loginSection =
-    document.getElementById("loginSection");
+    document.getElementById(
+        "loginSection"
+    );
+
 
 const adminSection =
-    document.getElementById("adminSection");
+    document.getElementById(
+        "adminSection"
+    );
 
 
 const loginBtn =
-    document.getElementById("loginBtn");
+    document.getElementById(
+        "loginBtn"
+    );
+
 
 const logoutBtn =
-    document.getElementById("logoutBtn");
+    document.getElementById(
+        "logoutBtn"
+    );
 
 
 const loginMessage =
-    document.getElementById("loginMessage");
+    document.getElementById(
+        "loginMessage"
+    );
+
 
 const productMessage =
-    document.getElementById("productMessage");
+    document.getElementById(
+        "productMessage"
+    );
 
 
 const productList =
-    document.getElementById("productList");
+    document.getElementById(
+        "productList"
+    );
 
 
-function showMessage(element, text, type) {
+/* =========================
+   MESSAGE FUNCTION
+========================= */
 
-    element.textContent = text;
+function showMessage(
+    element,
+    text,
+    type
+) {
+
+    element.textContent =
+        text;
 
     element.className =
         "message " + type;
 
-    element.style.display = "block";
+    element.style.display =
+        "block";
+
 }
 
 
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
 
-loginBtn.addEventListener("click", async function () {
+loginBtn.addEventListener(
+    "click",
+    async function () {
 
-    const email =
-        document.getElementById("loginEmail").value.trim();
+        const email =
+            document
+            .getElementById(
+                "loginEmail"
+            )
+            .value
+            .trim();
 
-    const password =
-        document.getElementById("loginPassword").value;
+
+        const password =
+            document
+            .getElementById(
+                "loginPassword"
+            )
+            .value;
 
 
-    if (!email || !password) {
+        if (!email || !password) {
 
-        showMessage(
-            loginMessage,
-            "Email اور Password درج کریں۔",
-            "error"
-        );
+            showMessage(
+                loginMessage,
+                "Email اور Password درج کریں۔",
+                "error"
+            );
 
-        return;
+            return;
+
+        }
+
+
+        try {
+
+            loginBtn.disabled =
+                true;
+
+            loginBtn.textContent =
+                "LOGIN ہو رہا ہے...";
+
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                loginMessage,
+                "Login نہیں ہو سکا۔ Email یا Password چیک کریں۔",
+                "error"
+            );
+
+        }
+
+        finally {
+
+            loginBtn.disabled =
+                false;
+
+            loginBtn.textContent =
+                "LOGIN";
+
+        }
+
     }
+);
 
 
-    try {
+/* =========================
+   AUTH STATE
+========================= */
 
-        loginBtn.disabled = true;
+onAuthStateChanged(
+    auth,
+    function (user) {
 
-        loginBtn.textContent =
-            "LOGIN ہو رہا ہے...";
+        if (user) {
 
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+            loginSection
+                .classList
+                .add("hidden");
 
 
-    } catch (error) {
+            adminSection
+                .classList
+                .remove("hidden");
 
-        console.error(error);
 
-        showMessage(
-            loginMessage,
-            "Login نہیں ہو سکا۔ Email یا Password چیک کریں۔",
-            "error"
-        );
+            loadProducts();
 
-    } finally {
+        }
 
-        loginBtn.disabled = false;
+        else {
 
-        loginBtn.textContent =
-            "LOGIN";
+            loginSection
+                .classList
+                .remove("hidden");
+
+
+            adminSection
+                .classList
+                .add("hidden");
+
+        }
+
     }
+);
 
-});
 
+/* =========================
+   LOGOUT
+========================= */
 
-/* AUTH STATE */
+logoutBtn.addEventListener(
+    "click",
+    async function () {
 
-onAuthStateChanged(auth, function (user) {
+        await signOut(auth);
 
-    if (user) {
-
-        loginSection.classList.add("hidden");
-
-        adminSection.classList.remove("hidden");
-
-        loadProducts();
-
-    } else {
-
-        loginSection.classList.remove("hidden");
-
-        adminSection.classList.add("hidden");
     }
-
-});
-
-
-/* LOGOUT */
-
-logoutBtn.addEventListener("click", async function () {
-
-    await signOut(auth);
-
-});
+);
 
 
-/* SAVE PRODUCT */
+/* =========================
+   SAVE PRODUCT
+========================= */
 
 document
-.getElementById("saveProductBtn")
-.addEventListener("click", async function () {
+    .getElementById(
+        "saveProductBtn"
+    )
+    .addEventListener(
+        "click",
+        async function () {
 
-    const name =
-        document.getElementById("productName")
-        .value.trim();
-
-    const category =
-        document.getElementById("productCategory")
-        .value;
-
-    const price =
-        Number(
-            document.getElementById("productPrice")
-            .value
-        );
-
-    const oldPrice =
-        Number(
-            document.getElementById("productOldPrice")
-            .value
-        ) || 0;
-
-    const description =
-        document.getElementById("productDescription")
-        .value.trim();
-
-    const image =
-        document.getElementById("productImage")
-        .value.trim();
-
-    const supplier =
-        document.getElementById("productSupplier")
-        .value;
-
-    const supplierLink =
-        document.getElementById("supplierLink")
-        .value.trim();
-
-    const socialLink =
-        document.getElementById("socialLink")
-        .value.trim();
+            const name =
+                document
+                .getElementById(
+                    "productName"
+                )
+                .value
+                .trim();
 
 
-    if (!name || !price || !image || !supplierLink) {
-
-        showMessage(
-            productMessage,
-            "Product Name، Price، Image Link اور Supplier Link ضروری ہیں۔",
-            "error"
-        );
-
-        return;
-    }
+            const category =
+                document
+                .getElementById(
+                    "productCategory"
+                )
+                .value;
 
 
-    try {
-
-        const saveBtn =
-            document.getElementById("saveProductBtn");
-
-        saveBtn.disabled = true;
-
-        saveBtn.textContent =
-            "Saving...";
-
-
-        const productId =
-            "JT-" +
-            Date.now();
+            const price =
+                Number(
+                    document
+                    .getElementById(
+                        "productPrice"
+                    )
+                    .value
+                );
 
 
-        await addDoc(
-            collection(db, "products"),
-            {
+            const oldPrice =
+                Number(
+                    document
+                    .getElementById(
+                        "productOldPrice"
+                    )
+                    .value
+                ) || 0;
 
-                id: productId,
 
-                name: name,
+            const description =
+                document
+                .getElementById(
+                    "productDescription"
+                )
+                .value
+                .trim();
 
-                category: category,
 
-                price: price,
+            const image =
+                document
+                .getElementById(
+                    "productImage"
+                )
+                .value
+                .trim();
 
-                oldPrice: oldPrice,
 
-                description: description,
+            const supplier =
+                document
+                .getElementById(
+                    "productSupplier"
+                )
+                .value;
 
-                image: image,
 
-                supplier: supplier,
+            const supplierLink =
+                document
+                .getElementById(
+                    "supplierLink"
+                )
+                .value
+                .trim();
 
-                supplierLink: supplierLink,
 
-                socialLink: socialLink,
+            const socialLink =
+                document
+                .getElementById(
+                    "socialLink"
+                )
+                .value
+                .trim();
 
-                createdAt: new Date().toISOString()
+
+            /* VALIDATION */
+
+            if (
+                !name ||
+                !price ||
+                !image ||
+                !supplierLink
+            ) {
+
+                showMessage(
+                    productMessage,
+                    "Product Name، Price، Image Link اور Supplier Link ضروری ہیں۔",
+                    "error"
+                );
+
+                return;
+
             }
-        );
 
 
-        showMessage(
-            productMessage,
-            "Product کامیابی سے Firebase میں save ہو گیا۔",
-            "success"
-        );
+            try {
+
+                const saveBtn =
+                    document
+                    .getElementById(
+                        "saveProductBtn"
+                    );
 
 
-        document.getElementById("productName").value = "";
-
-        document.getElementById("productPrice").value = "";
-
-        document.getElementById("productOldPrice").value = "";
-
-        document.getElementById("productDescription").value = "";
-
-        document.getElementById("productImage").value = "";
-
-        document.getElementById("supplierLink").value = "";
-
-        document.getElementById("socialLink").value = "";
+                saveBtn.disabled =
+                    true;
 
 
-        loadProducts();
+                saveBtn.textContent =
+                    "Saving...";
 
 
-    } catch (error) {
+                /* PRODUCT ID */
 
-        console.error(error);
-
-        showMessage(
-            productMessage,
-            "Product save نہیں ہو سکا۔",
-            "error"
-        );
-
-    } finally {
-
-        const saveBtn =
-            document.getElementById("saveProductBtn");
-
-        saveBtn.disabled = false;
-
-        saveBtn.textContent =
-            "SAVE PRODUCT";
-    }
-
-});
+                const productId =
+                    "JT-" +
+                    Date.now();
 
 
-/* LOAD PRODUCTS */
+                /* SAVE TO FIRESTORE */
+
+                await addDoc(
+                    collection(
+                        db,
+                        "products"
+                    ),
+                    {
+
+                        id:
+                            productId,
+
+                        name:
+                            name,
+
+                        category:
+                            category,
+
+                        price:
+                            price,
+
+                        oldPrice:
+                            oldPrice,
+
+                        description:
+                            description,
+
+                        image:
+                            image,
+
+                        supplier:
+                            supplier,
+
+                        supplierLink:
+                            supplierLink,
+
+                        socialLink:
+                            socialLink,
+
+                        createdAt:
+                            new Date()
+                            .toISOString()
+
+                    }
+                );
+
+
+                /* SUCCESS */
+
+                showMessage(
+                    productMessage,
+                    "Product کامیابی سے Firebase میں save ہو گیا۔",
+                    "success"
+                );
+
+
+                /* CLEAR FIELDS */
+
+                document
+                    .getElementById(
+                        "productName"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "productPrice"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "productOldPrice"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "productDescription"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "productImage"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "supplierLink"
+                    )
+                    .value = "";
+
+
+                document
+                    .getElementById(
+                        "socialLink"
+                    )
+                    .value = "";
+
+
+                /* RELOAD PRODUCTS */
+
+                loadProducts();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                showMessage(
+                    productMessage,
+                    "Product save نہیں ہو سکا۔",
+                    "error"
+                );
+
+            }
+
+            finally {
+
+                const saveBtn =
+                    document
+                    .getElementById(
+                        "saveProductBtn"
+                    );
+
+
+                saveBtn.disabled =
+                    false;
+
+
+                saveBtn.textContent =
+                    "SAVE PRODUCT";
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
 
 async function loadProducts() {
 
@@ -602,7 +1048,10 @@ async function loadProducts() {
 
         const snapshot =
             await getDocs(
-                collection(db, "products")
+                collection(
+                    db,
+                    "products"
+                )
             );
 
 
@@ -612,126 +1061,198 @@ async function loadProducts() {
                 "ابھی کوئی Product موجود نہیں۔";
 
             return;
+
         }
 
 
-        productList.innerHTML = "";
+        productList.innerHTML =
+            "";
 
 
-        snapshot.forEach(function (item) {
+        snapshot.forEach(
+            function (item) {
 
-            const product =
-                item.data();
-
-
-            const div =
-                document.createElement("div");
-
-            div.className =
-                "product-item";
+                const product =
+                    item.data();
 
 
-            div.innerHTML = `
-
-                <strong>
-                    ${escapeHtml(product.name || "")}
-                </strong>
-
-                <br>
-
-                Rs. ${Number(product.price || 0).toLocaleString("en-PK")}
-
-                <br>
-
-                ${escapeHtml(product.category || "")}
-
-                <div class="product-actions">
-
-                    <button
-                        class="danger"
-                        data-delete="${item.id}">
-                        DELETE
-                    </button>
-
-                </div>
-            `;
+                const div =
+                    document
+                    .createElement(
+                        "div"
+                    );
 
 
-            productList.appendChild(div);
+                div.className =
+                    "product-item";
 
-        });
 
+                div.innerHTML = `
+
+                    <strong>
+                        ${escapeHtml(
+                            product.name || ""
+                        )}
+                    </strong>
+
+                    <br>
+
+                    Rs.
+                    ${Number(
+                        product.price || 0
+                    ).toLocaleString("en-PK")}
+
+                    <br>
+
+                    ${escapeHtml(
+                        product.category || ""
+                    )}
+
+                    <div class="product-actions">
+
+                        <button
+                            class="danger"
+                            data-delete="${item.id}"
+                        >
+                            DELETE
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                productList
+                    .appendChild(
+                        div
+                    );
+
+            }
+        );
+
+
+        /* DELETE BUTTONS */
 
         document
-        .querySelectorAll("[data-delete]")
-        .forEach(function (button) {
+            .querySelectorAll(
+                "[data-delete]"
+            )
+            .forEach(
+                function (button) {
 
-            button.addEventListener(
-                "click",
-                function () {
+                    button.addEventListener(
+                        "click",
+                        function () {
 
-                    deleteProduct(
-                        this.getAttribute("data-delete")
+                            deleteProduct(
+                                this.getAttribute(
+                                    "data-delete"
+                                )
+                            );
+
+                        }
                     );
 
                 }
             );
 
-        });
+    }
 
-
-    } catch (error) {
+    catch (error) {
 
         console.error(error);
 
         productList.innerHTML =
             "Products load نہیں ہو سکے۔";
+
     }
 
 }
 
 
-/* DELETE */
+/* =========================
+   DELETE PRODUCT
+========================= */
 
-async function deleteProduct(documentId) {
+async function deleteProduct(
+    documentId
+) {
 
-    if (!confirm("کیا آپ یہ Product delete کرنا چاہتے ہیں؟")) {
+    if (
+        !confirm(
+            "کیا آپ یہ Product delete کرنا چاہتے ہیں؟"
+        )
+    ) {
+
         return;
+
     }
 
 
     try {
 
         await deleteDoc(
-            doc(db, "products", documentId)
+            doc(
+                db,
+                "products",
+                documentId
+            )
         );
 
 
         loadProducts();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(error);
+
 
         alert(
             "Product delete نہیں ہو سکا۔"
         );
+
     }
 
 }
 
 
-/* SECURITY FOR DISPLAY TEXT */
+/* =========================
+   SECURITY FOR DISPLAY TEXT
+========================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
 
 </script>
