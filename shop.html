@@ -2,39 +2,36 @@
 <html lang="ur" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<title>Digital Janjua Trading - Online Shop</title>
 
-<title>Janjua Traders - Online Shop</title>
-
-<link rel="stylesheet"
-      href="shop-style.css">
-
+<link rel="stylesheet" href="shop-style.css">
 </head>
-
 
 <body>
 
-
 <header class="shop-header">
 
-    <div class="shop-logo">
-        JANJUA TRADERS
+    <div class="brand-animation">
+        <span>☁️</span>
+        <strong>DIGITAL</strong>
+        <strong>JANJUA</strong>
+        <strong>TRADING</strong>
+        <span>☁️</span>
     </div>
 
     <div class="shop-subtitle">
-        Online Shopping Store
+        DIGITAL ONLINE MARKETING PLATFORM
     </div>
-
 
     <div class="search-box">
 
         <input
             type="search"
             id="searchBox"
+            dir="auto"
             placeholder="🔍 Product تلاش کریں"
         >
 
@@ -45,33 +42,27 @@
 
 <nav class="category-bar">
 
-    <button type="button"
-            onclick="showCategory('All')">
+    <button type="button" onclick="showCategory('All')">
         All
     </button>
 
-    <button type="button"
-            onclick="showCategory('Shoes')">
+    <button type="button" onclick="showCategory('Shoes')">
         Shoes
     </button>
 
-    <button type="button"
-            onclick="showCategory('Clothes')">
+    <button type="button" onclick="showCategory('Clothes')">
         Clothes
     </button>
 
-    <button type="button"
-            onclick="showCategory('Beauty')">
+    <button type="button" onclick="showCategory('Beauty')">
         Beauty
     </button>
 
-    <button type="button"
-            onclick="showCategory('Electronics')">
+    <button type="button" onclick="showCategory('Electronics')">
         Electronics
     </button>
 
-    <button type="button"
-            onclick="showCategory('Other')">
+    <button type="button" onclick="showCategory('Other')">
         Other
     </button>
 
@@ -80,19 +71,21 @@
 
 <main class="shop-container">
 
-    <div id="loadingMessage"
-         style="
-         text-align:center;
-         padding:40px;
-         font-size:18px;
-         ">
+    <div
+        id="loadingMessage"
+        style="
+        text-align:center;
+        padding:40px;
+        font-size:18px;
+        "
+    >
         Products loading...
     </div>
 
-
-    <div id="productGrid"
-         class="product-grid">
-    </div>
+    <div
+        id="productGrid"
+        class="product-grid"
+    ></div>
 
 </main>
 
@@ -100,23 +93,20 @@
 <footer class="shop-footer">
 
     <strong>
-        JANJUA TRADERS
+        DIGITAL JANJUA TRADING
     </strong>
 
     <p>
-        Online Shopping Store
+        DIGITAL ONLINE MARKETING PLATFORM
     </p>
 
 </footer>
 
 
-<!-- FIREBASE SHOP SCRIPT -->
-
-<script type="module"
-        src="shop-script.js">
-</script>
-
+<script
+    type="module"
+    src="shop-script.js"
+></script>
 
 </body>
-
 </html>
