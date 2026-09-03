@@ -5,21 +5,19 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Janjua Traders - Online Shop</title>
 
-<link
-    rel="stylesheet"
-    href="shop-style.css"
->
+<link rel="stylesheet"
+      href="shop-style.css">
 
 </head>
 
+
 <body>
+
 
 <header class="shop-header">
 
@@ -30,6 +28,7 @@
     <div class="shop-subtitle">
         Online Shopping Store
     </div>
+
 
     <div class="search-box">
 
@@ -46,39 +45,34 @@
 
 <nav class="category-bar">
 
-    <button
-        type="button"
-        onclick="showCategory('All')"
-    >
+    <button type="button"
+            onclick="showCategory('All')">
         All
     </button>
 
-    <button
-        type="button"
-        onclick="showCategory('Shoes')"
-    >
+    <button type="button"
+            onclick="showCategory('Shoes')">
         Shoes
     </button>
 
-    <button
-        type="button"
-        onclick="showCategory('Clothes')"
-    >
+    <button type="button"
+            onclick="showCategory('Clothes')">
         Clothes
     </button>
 
-    <button
-        type="button"
-        onclick="showCategory('Beauty')"
-    >
+    <button type="button"
+            onclick="showCategory('Beauty')">
         Beauty
     </button>
 
-    <button
-        type="button"
-        onclick="showCategory('Electronics')"
-    >
+    <button type="button"
+            onclick="showCategory('Electronics')">
         Electronics
+    </button>
+
+    <button type="button"
+            onclick="showCategory('Other')">
+        Other
     </button>
 
 </nav>
@@ -86,10 +80,19 @@
 
 <main class="shop-container">
 
-    <div
-        id="productGrid"
-        class="product-grid"
-    ></div>
+    <div id="loadingMessage"
+         style="
+         text-align:center;
+         padding:40px;
+         font-size:18px;
+         ">
+        Products loading...
+    </div>
+
+
+    <div id="productGrid"
+         class="product-grid">
+    </div>
 
 </main>
 
@@ -107,9 +110,12 @@
 </footer>
 
 
-<script src="products.js"></script>
+<!-- FIREBASE SHOP SCRIPT -->
 
-<script src="shop-script.js"></script>
+<script type="module"
+        src="shop-script.js">
+</script>
+
 
 </body>
 
