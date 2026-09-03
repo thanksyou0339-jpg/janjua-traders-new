@@ -6,404 +6,668 @@
 <meta charset="UTF-8">
 
 <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0">
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<title>JANJUA - Order</title>
+<title>JANJUA - Order Form</title>
 
 <style>
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  background:#f4f7f5;
-  color:#183b2a;
-  font-family:Arial,"Noto Nastaliq Urdu",sans-serif;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3f5f8;
+    color:#17202a;
 }
 
-.main-header{
-  background:linear-gradient(135deg,#063b27,#0a5a3a);
-  color:white;
-  text-align:center;
-  padding:22px 15px;
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+    background:
+        linear-gradient(
+            135deg,
+            #07111f,
+            #111827,
+            #172554
+        );
+
+    color:white;
+
+    text-align:center;
+
+    padding:
+        25px
+        15px;
 }
 
-.brand{
-  font-size:40px;
-  font-weight:900;
-  letter-spacing:8px;
+
+.logo{
+
+    font-size:
+        clamp(38px,9vw,65px);
+
+    font-weight:1000;
+
+    letter-spacing:6px;
 }
 
-.subtitle{
-  margin-top:5px;
-  font-size:13px;
-  color:#f2d889;
-  font-weight:bold;
-  letter-spacing:1px;
+
+.header-title{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    margin-top:5px;
 }
+
+
+.header-subtitle{
+
+    font-size:12px;
+
+    opacity:.75;
+
+    margin-top:5px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container{
-  max-width:750px;
-  margin:25px auto;
-  padding:0 15px;
+
+    width:min(700px,94%);
+
+    margin:25px auto 50px;
 }
+
+
+/* =========================
+   CARD
+========================= */
 
 .card{
-  background:white;
-  border-radius:20px;
-  padding:22px;
-  margin-bottom:20px;
-  box-shadow:0 7px 25px rgba(0,0,0,.08);
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    box-shadow:
+        0 7px 25px
+        rgba(0,0,0,.07);
+
+    border:
+        1px solid #e7eaee;
 }
 
-.product-card{
-  text-align:center;
+
+.card h2{
+
+    margin:
+        0
+        0
+        17px;
+
+    font-size:21px;
 }
+
+
+/* =========================
+   PRODUCT
+========================= */
+
+.product-box{
+
+    display:grid;
+
+    grid-template-columns:
+        150px 1fr;
+
+    gap:18px;
+
+    align-items:center;
+}
+
 
 .product-image{
-  width:100%;
-  max-width:300px;
-  height:300px;
-  object-fit:contain;
-  border-radius:15px;
-  background:#fff;
+
+    width:150px;
+
+    height:150px;
+
+    object-fit:cover;
+
+    border-radius:14px;
+
+    background:#eee;
+
+    display:block;
 }
+
 
 .product-name{
-  font-size:24px;
-  font-weight:900;
-  margin-top:15px;
+
+    margin:0 0 8px;
+
+    font-size:22px;
+
+    direction:auto;
+
+    unicode-bidi:plaintext;
 }
+
+
+.product-description{
+
+    margin:
+        0
+        0
+        10px;
+
+    color:#667085;
+
+    line-height:1.5;
+
+    font-size:14px;
+
+    direction:auto;
+
+    unicode-bidi:plaintext;
+}
+
 
 .price-row{
-  margin-top:12px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-  direction:ltr;
+
+    direction:ltr;
+
+    text-align:right;
 }
+
 
 .current-price{
-  font-size:25px;
-  color:#07552f;
-  font-weight:900;
+
+    font-size:21px;
+
+    font-weight:1000;
 }
+
 
 .old-price{
-  font-size:18px;
-  color:#999;
-  text-decoration:line-through;
+
+    color:#888;
+
+    margin-right:8px;
+
+    font-size:14px;
 }
+
 
 .delivery-badge{
-  display:inline-block;
-  margin-top:15px;
-  padding:10px 18px;
-  border-radius:30px;
-  font-size:18px;
-  font-weight:900;
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:
+        6px
+        10px;
+
+    border-radius:999px;
+
+    background:#ecfdf5;
+
+    color:#047857;
+
+    font-size:12px;
+
+    font-weight:bold;
 }
 
-.free{
-  background:#e3f7ea;
-  color:#07552f;
-}
-
-.paid{
-  background:#fff2d5;
-  color:#8a620e;
-}
 
 .delivery-note{
-  margin-top:12px;
-  font-size:16px;
-  font-weight:bold;
-  line-height:1.8;
+
+    margin-top:8px;
+
+    color:#475467;
+
+    font-size:13px;
+
+    line-height:1.5;
 }
 
-.form-title{
-  font-size:22px;
-  font-weight:900;
-  color:#07552f;
-  border-bottom:2px solid #e4d39c;
-  padding-bottom:10px;
-  margin-bottom:15px;
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+
+    margin-bottom:15px;
 }
 
-label{
-  display:block;
-  font-weight:bold;
-  margin-top:14px;
-  margin-bottom:6px;
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    font-size:14px;
+
+    font-weight:bold;
 }
 
-input,textarea,select{
-  width:100%;
-  padding:13px;
-  border:1px solid #ccd8d1;
-  border-radius:10px;
-  font-size:16px;
-  background:white;
-  outline:none;
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+    width:100%;
+
+    padding:13px;
+
+    border:
+        1px solid #d5dae1;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+    background:white;
 }
 
-textarea{
-  min-height:100px;
-  resize:vertical;
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+    border-color:#111827;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(17,24,39,.08);
 }
 
-input:focus,textarea:focus,select:focus{
-  border-color:#07552f;
-  box-shadow:0 0 0 3px rgba(7,85,47,.1);
+
+.form-group textarea{
+
+    min-height:105px;
+
+    resize:vertical;
+
+    direction:auto;
+
+    unicode-bidi:plaintext;
 }
 
-.total-box{
-  margin-top:20px;
-  background:#f1f7f3;
-  border-radius:15px;
-  padding:17px;
+
+/* =========================
+   TWO COLUMNS
+========================= */
+
+.two-columns{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:12px;
 }
 
-.total-line{
-  display:flex;
-  justify-content:space-between;
-  padding:7px 0;
-  font-size:16px;
-}
 
-.total-final{
-  border-top:2px solid #d7e4dc;
-  margin-top:8px;
-  padding-top:12px;
-  font-size:21px;
-  font-weight:900;
-  color:#07552f;
-}
+/* =========================
+   SUBMIT
+========================= */
 
 .submit-btn{
-  width:100%;
-  margin-top:20px;
-  background:#07552f;
-  color:white;
-  font-size:18px;
-  padding:15px;
+
+    width:100%;
+
+    border:0;
+
+    padding:14px;
+
+    border-radius:11px;
+
+    background:#111827;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.2s ease;
 }
+
+
+.submit-btn:hover{
+
+    background:#1f2937;
+
+    transform:
+        translateY(-1px);
+}
+
 
 .submit-btn:disabled{
-  opacity:.6;
+
+    opacity:.6;
+
+    cursor:not-allowed;
 }
+
+
+/* =========================
+   MESSAGE
+========================= */
 
 .message{
-  display:none;
-  padding:12px;
-  margin-top:15px;
-  border-radius:10px;
-  font-weight:bold;
-}
 
-.error{
-  background:#ffe7e7;
-  color:#a00000;
-}
+    display:none;
 
-.success{
-  background:#e5f8ed;
-  color:#07552f;
+    padding:12px;
+
+    margin-bottom:15px;
+
+    border-radius:9px;
+
+    font-weight:bold;
+
+    font-size:14px;
 }
 
 
-/* RECEIPT */
+.message.error{
 
-.receipt-wrapper{
-  display:none;
+    display:block;
+
+    background:#fef2f2;
+
+    color:#b91c1c;
 }
+
+
+/* =========================
+   RECEIPT
+========================= */
+
+#receiptSection{
+
+    display:none;
+}
+
 
 .receipt{
-  background:white;
-  border:2px solid #d9c17a;
-  border-radius:18px;
-  overflow:hidden;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    border:
+        2px solid #111827;
 }
+
 
 .receipt-header{
-  background:#063b27;
-  color:white;
-  text-align:center;
-  padding:20px;
+
+    text-align:center;
+
+    padding-bottom:15px;
+
+    border-bottom:
+        1px dashed #bbb;
 }
+
 
 .receipt-logo{
-  font-size:35px;
-  font-weight:900;
-  letter-spacing:6px;
+
+    font-size:32px;
+
+    font-weight:1000;
+
+    letter-spacing:4px;
 }
+
 
 .receipt-title{
-  margin-top:5px;
-  color:#f2d889;
-  font-weight:bold;
+
+    margin-top:5px;
+
+    font-size:14px;
+
+    font-weight:bold;
 }
 
-.receipt-body{
-  padding:20px;
-}
-
-.receipt-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:10px 0;
-  border-bottom:1px dashed #ccd8d1;
-}
-
-.receipt-label{
-  font-weight:bold;
-  color:#555;
-}
-
-.receipt-value{
-  font-weight:bold;
-  text-align:left;
-  direction:auto;
-  unicode-bidi:plaintext;
-}
 
 .receipt-product{
-  margin:15px 0;
-  padding:15px;
-  background:#f7faf8;
-  border-radius:12px;
-  text-align:center;
+
+    display:flex;
+
+    gap:13px;
+
+    align-items:center;
+
+    padding:15px 0;
+
+    border-bottom:
+        1px dashed #ddd;
 }
+
 
 .receipt-product img{
-  width:130px;
-  height:130px;
-  object-fit:contain;
+
+    width:90px;
+
+    height:90px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    background:#eee;
 }
+
 
 .receipt-product-name{
-  font-size:19px;
-  font-weight:900;
-  margin-top:8px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    direction:auto;
+
+    unicode-bidi:plaintext;
 }
+
+
+.receipt-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:8px 0;
+
+    border-bottom:
+        1px solid #f0f0f0;
+
+    direction:rtl;
+}
+
+
+.receipt-row strong{
+
+    direction:auto;
+
+    unicode-bidi:plaintext;
+}
+
+
+.total-row{
+
+    font-size:19px;
+
+    font-weight:1000;
+
+    border-top:
+        2px solid #111827;
+
+    margin-top:7px;
+
+    padding-top:12px;
+}
+
 
 .delivery-instruction{
-  margin-top:18px;
-  padding:15px;
-  background:#e9f6ee;
-  color:#07552f;
-  border-radius:12px;
-  text-align:center;
-  font-size:17px;
-  line-height:1.9;
-  font-weight:900;
+
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:10px;
+
+    background:#ecfdf5;
+
+    color:#065f46;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+    font-weight:bold;
 }
+
 
 .payment-note{
-  margin-top:12px;
-  padding:13px;
-  background:#fff5dd;
-  color:#795a15;
-  border-radius:10px;
-  font-weight:bold;
-  line-height:1.8;
-  text-align:center;
+
+    margin-top:10px;
+
+    padding:11px;
+
+    border-radius:9px;
+
+    background:#fff7ed;
+
+    color:#9a3412;
+
+    font-size:13px;
+
+    line-height:1.6;
 }
 
-.receipt-buttons{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:18px;
+
+/* =========================
+   RECEIPT BUTTONS
+========================= */
+
+.receipt-actions{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+
+    margin-top:15px;
 }
 
-.receipt-buttons button{
-  border:0;
-  border-radius:10px;
-  padding:13px 8px;
-  font-weight:bold;
-  cursor:pointer;
+
+.action-btn{
+
+    border:0;
+
+    padding:11px;
+
+    border-radius:9px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    background:#111827;
+
+    color:white;
 }
 
-.download-btn{
-  background:#07552f;
-  color:white;
-}
-
-.share-btn{
-  background:#b98b2e;
-  color:white;
-}
-
-.print-btn{
-  background:#444;
-  color:white;
-}
 
 .new-order-btn{
-  width:100%;
-  margin-top:10px;
-  background:#e9f0ec;
-  color:#07552f;
+
+    width:100%;
+
+    margin-top:10px;
+
+    background:#2563eb;
 }
 
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
-  .brand{
-    font-size:34px;
-  }
+    .container{
+        width:94%;
+    }
 
-  .product-image{
-    height:250px;
-  }
+    .card{
+        padding:15px;
+    }
 
-  .receipt-buttons{
-    grid-template-columns:1fr;
-  }
+    .product-box{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
 
-  .receipt-row{
-    flex-direction:column;
-    gap:4px;
-  }
+    .product-image{
+        margin:auto;
+        width:180px;
+        height:180px;
+    }
 
-  .receipt-value{
-    text-align:right;
-  }
+    .price-row{
+        text-align:center;
+    }
 
-}
+    .two-columns{
+        grid-template-columns:1fr;
+    }
 
-
-@media print{
-
-  body{
-    background:white;
-  }
-
-  .main-header,
-  .receipt-buttons,
-  .new-order-btn{
-    display:none !important;
-  }
-
-  .container{
-    margin:0;
-    max-width:none;
-  }
-
-  .receipt-wrapper{
-    display:block !important;
-  }
-
-  .receipt{
-    border:1px solid #999;
-    box-shadow:none;
-  }
+    .receipt-actions{
+        grid-template-columns:1fr;
+    }
 
 }
 
@@ -415,566 +679,648 @@ input:focus,textarea:focus,select:focus{
 <body>
 
 
-<header class="main-header">
+<header class="header">
 
-  <div class="brand">
-    JANJUA
-  </div>
+    <div class="logo">
+        JANJUA
+    </div>
 
-  <div class="subtitle">
-    DIGITAL MARKETING ONLINE PLATFORM
-  </div>
+    <div class="header-title">
+        DIGITAL MARKETING
+    </div>
+
+    <div class="header-subtitle">
+        ONLINE SHOPPING PLATFORM
+    </div>
 
 </header>
+
 
 
 <main class="container">
 
 
-<!-- ORDER SECTION -->
+    <!-- =========================
+         ORDER SECTION
+    ========================= -->
 
-<div id="orderSection">
+    <section
+        id="orderSection"
+    >
 
 
-  <section class="card product-card">
+        <div class="card">
 
-    <img
-      id="productImage"
-      class="product-image"
-      src=""
-      alt="Product">
+            <h2>
+                🛍️ Product Order
+            </h2>
 
-    <div
-      id="productName"
-      class="product-name">
-      Product
-    </div>
 
+            <div class="product-box">
 
-    <div class="price-row">
+                <img
+                    id="productImage"
+                    class="product-image"
+                    src="https://via.placeholder.com/500x500?text=Product"
+                    alt="Product"
+                >
 
-      <span
-        id="productPrice"
-        class="current-price">
-        Rs. 0
-      </span>
 
-      <span
-        id="oldPrice"
-        class="old-price">
-      </span>
+                <div>
 
-    </div>
+                    <h1
+                        id="productName"
+                        class="product-name"
+                    >
+                        Product
+                    </h1>
 
 
-    <div
-      id="deliveryBadge"
-      class="delivery-badge">
-    </div>
+                    <p
+                        id="productDescription"
+                        class="product-description"
+                    ></p>
 
 
-    <div
-      id="deliveryNote"
-      class="delivery-note">
-    </div>
+                    <div class="price-row">
 
-  </section>
+                        <strong
+                            id="productPrice"
+                            class="current-price"
+                        >
+                            Rs. 0
+                        </strong>
 
 
-  <section class="card">
+                        <del
+                            id="oldPrice"
+                            class="old-price"
+                        ></del>
 
-    <div class="form-title">
-      آرڈر کی معلومات
-    </div>
+                    </div>
 
 
-    <form
-      id="orderForm"
-      action="https://formsubmit.co/ajax/thanksyou0339@gmail.com"
-      method="POST">
+                    <div
+                        id="deliveryBadge"
+                        class="delivery-badge"
+                    >
+                        Free Delivery
+                    </div>
 
 
-      <label>
-        آپ کا نام
-      </label>
+                    <div
+                        id="deliveryNote"
+                        class="delivery-note"
+                    >
+                        آپ کا آرڈر 3 سے 4 دن کے اندر ڈیلیور کر دیا جائے گا۔
+                    </div>
 
-      <input
-        id="customerName"
-        name="Customer_Name"
-        required
-        placeholder="اپنا نام لکھیں">
+                </div>
 
+            </div>
 
-      <label>
-        موبائل / WhatsApp نمبر
-      </label>
-
-      <input
-        id="mobile"
-        name="Mobile_WhatsApp"
-        type="tel"
-        required
-        placeholder="03XXXXXXXXX"
-        dir="ltr">
-
-
-      <label>
-        مکمل Delivery Address
-      </label>
-
-      <textarea
-        id="address"
-        name="Delivery_Address"
-        required
-        placeholder="مکمل پتہ لکھیں"></textarea>
-
-
-      <label>
-        Quantity
-      </label>
-
-      <select
-        id="quantity"
-        name="Quantity"
-        required>
-
-        <option value="1" selected>1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-
-      </select>
-
-
-      <label>
-        کس Platform سے آرڈر کیا؟
-      </label>
-
-      <select
-        id="platform"
-        name="Platform">
-
-        <option value="">
-          Select Platform
-        </option>
-
-        <option value="Facebook">
-          Facebook
-        </option>
-
-        <option value="Instagram">
-          Instagram
-        </option>
-
-        <option value="TikTok">
-          TikTok
-        </option>
-
-        <option value="WhatsApp">
-          WhatsApp
-        </option>
-
-        <option value="Website">
-          Website
-        </option>
-
-        <option value="Other">
-          Other
-        </option>
-
-      </select>
-
-
-      <label>
-        Color
-      </label>
-
-      <input
-        id="color"
-        name="Color"
-        placeholder="اگر ضروری ہو">
-
-
-      <label>
-        Size
-      </label>
-
-      <input
-        id="size"
-        name="Size"
-        placeholder="اگر ضروری ہو">
-
-
-      <!-- HIDDEN ORDER DATA -->
-
-      <input
-        type="hidden"
-        name="_subject"
-        id="_subject">
-
-      <input
-        type="hidden"
-        name="_template"
-        value="table">
-
-      <input
-        type="hidden"
-        name="_captcha"
-        value="false">
-
-      <input
-        type="hidden"
-        name="_url"
-        id="_url">
-
-      <input
-        type="hidden"
-        name="Order_ID"
-        id="orderId">
-
-      <input
-        type="hidden"
-        name="Product"
-        id="hiddenProduct">
-
-      <input
-        type="hidden"
-        name="Product_Description"
-        id="hiddenDescription">
-
-      <input
-        type="hidden"
-        name="Product_Price"
-        id="hiddenPrice">
-
-      <input
-        type="hidden"
-        name="Old_Price"
-        id="hiddenOldPrice">
-
-      <input
-        type="hidden"
-        name="Product_ID"
-        id="hiddenProductId">
-
-      <input
-        type="hidden"
-        name="Product_Image"
-        id="hiddenProductImage">
-
-      <input
-        type="hidden"
-        name="Delivery_Status"
-        id="hiddenDeliveryStatus">
-
-      <input
-        type="hidden"
-        name="Delivery_Charges"
-        id="hiddenDeliveryCharges">
-
-      <input
-        type="hidden"
-        name="Total_Amount"
-        id="hiddenTotal">
-
-
-      <div class="total-box">
-
-        <div class="total-line">
-          <span>Product Total</span>
-          <strong id="productTotal">Rs. 0</strong>
         </div>
 
-        <div class="total-line">
-          <span>Delivery Charges</span>
-          <strong id="deliveryTotal">Free</strong>
+
+
+        <div class="card">
+
+            <h2>
+                📝 Customer Information
+            </h2>
+
+
+            <div
+                id="formMessage"
+                class="message"
+            ></div>
+
+
+            <form
+                id="orderForm"
+                action="https://formsubmit.co/ajax/thanksyou0339@gmail.com"
+                method="POST"
+            >
+
+
+                <!-- =========================
+                     CUSTOMER NAME
+                ========================= -->
+
+                <div class="form-group">
+
+                    <label>
+                        نام *
+                    </label>
+
+                    <input
+                        type="text"
+                        name="Customer_Name"
+                        id="customerName"
+                        required
+                        placeholder="اپنا نام لکھیں"
+                    >
+
+                </div>
+
+
+
+                <!-- =========================
+                     MOBILE
+                ========================= -->
+
+                <div class="form-group">
+
+                    <label>
+                        موبائل / WhatsApp نمبر *
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="Mobile_WhatsApp"
+                        id="mobile"
+                        required
+                        placeholder="03XXXXXXXXX"
+                    >
+
+                </div>
+
+
+
+                <!-- =========================
+                     ADDRESS
+                ========================= -->
+
+                <div class="form-group">
+
+                    <label>
+                        مکمل Delivery Address *
+                    </label>
+
+                    <textarea
+                        name="Delivery_Address"
+                        id="address"
+                        required
+                        placeholder="House No, Street, Area, City, District"
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- =========================
+                     QUANTITY + PLATFORM
+                ========================= -->
+
+                <div class="two-columns">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Quantity *
+                        </label>
+
+                        <input
+                            type="number"
+                            name="Quantity"
+                            id="quantity"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Order Platform
+                        </label>
+
+                        <select
+                            name="Platform"
+                            id="platform"
+                        >
+
+                            <option value="Website">
+                                Website
+                            </option>
+
+                            <option value="WhatsApp">
+                                WhatsApp
+                            </option>
+
+                            <option value="Facebook">
+                                Facebook
+                            </option>
+
+                            <option value="TikTok">
+                                TikTok
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     COLOR + SIZE
+                ========================= -->
+
+                <div class="two-columns">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Color
+                        </label>
+
+                        <input
+                            type="text"
+                            name="Color"
+                            id="color"
+                            placeholder="اگر موجود ہو"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Size
+                        </label>
+
+                        <input
+                            type="text"
+                            name="Size"
+                            id="size"
+                            placeholder="اگر موجود ہو"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     HIDDEN INTERNAL DATA
+                ========================= -->
+
+                <input
+                    type="hidden"
+                    name="_subject"
+                    value="JANJUA — New Customer Order"
+                >
+
+                <input
+                    type="hidden"
+                    name="_template"
+                    value="table"
+                >
+
+                <input
+                    type="hidden"
+                    name="_captcha"
+                    value="false"
+                >
+
+                <input
+                    type="hidden"
+                    name="_url"
+                    id="formUrl"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Order_ID"
+                    id="hiddenOrderId"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Product"
+                    id="hiddenProduct"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Product_Description"
+                    id="hiddenDescription"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Product_Price"
+                    id="hiddenPrice"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Old_Price"
+                    id="hiddenOldPrice"
+                >
+
+
+                <!--
+                    Product ID is kept internally
+                    for admin/backend use.
+                    It is NOT displayed on receipt.
+                -->
+
+                <input
+                    type="hidden"
+                    name="Product_ID"
+                    id="hiddenProductId"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Product_Image"
+                    id="hiddenProductImage"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Delivery_Status"
+                    id="hiddenDeliveryStatus"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Delivery_Charges"
+                    id="hiddenDeliveryCharges"
+                >
+
+
+                <input
+                    type="hidden"
+                    name="Total_Amount"
+                    id="hiddenTotal"
+                >
+
+
+                <button
+                    id="submitBtn"
+                    class="submit-btn"
+                    type="submit"
+                >
+                    🛒 PLACE ORDER
+                </button>
+
+            </form>
+
         </div>
 
-        <div class="total-line total-final">
-          <span>Total Amount</span>
-          <strong id="grandTotal">Rs. 0</strong>
-        </div>
-
-      </div>
+    </section>
 
 
-      <button
-        id="submitBtn"
-        class="submit-btn"
-        type="submit">
 
-        🛒 آرڈر Submit کریں
+    <!-- =========================
+         RECEIPT
+    ========================= -->
 
-      </button>
-
-
-      <div
-        id="formMessage"
-        class="message">
-      </div>
-
-
-    </form>
-
-  </section>
-
-</div>
-
-
-<!-- RECEIPT -->
-
-<div
-  id="receiptWrapper"
-  class="receipt-wrapper">
-
-
-  <section
-    id="receipt"
-    class="receipt">
-
-
-    <div class="receipt-header">
-
-      <div class="receipt-logo">
-        JANJUA
-      </div>
-
-      <div class="receipt-title">
-        ORDER RECEIPT
-      </div>
-
-    </div>
-
-
-    <div class="receipt-body">
-
-
-      <div class="receipt-product">
-
-        <img
-          id="receiptImage"
-          src=""
-          alt="Product">
+    <section
+        id="receiptSection"
+    >
 
         <div
-          id="receiptProductName"
-          class="receipt-product-name">
+            id="receipt"
+            class="receipt"
+        >
+
+            <div class="receipt-header">
+
+                <div class="receipt-logo">
+                    JANJUA
+                </div>
+
+                <div class="receipt-title">
+                    DIGITAL MARKETING ONLINE SHOPPING PLATFORM
+                </div>
+
+                <div style="margin-top:8px;">
+                    ORDER RECEIPT
+                </div>
+
+            </div>
+
+
+            <div class="receipt-product">
+
+                <img
+                    id="receiptImage"
+                    src="https://via.placeholder.com/500x500?text=Product"
+                    alt="Product"
+                >
+
+
+                <div>
+
+                    <div
+                        id="receiptProductName"
+                        class="receipt-product-name"
+                    >
+                    </div>
+
+
+                    <div
+                        id="receiptDate"
+                        style="
+                        margin-top:7px;
+                        font-size:12px;
+                        color:#667085;
+                        "
+                    >
+                    </div>
+
+
+                    <div
+                        id="receiptOrderId"
+                        style="
+                        margin-top:5px;
+                        font-size:12px;
+                        color:#667085;
+                        direction:ltr;
+                        "
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="receipt-row">
+
+                <span>
+                    Customer Name
+                </span>
+
+                <strong
+                    id="receiptCustomer"
+                ></strong>
+
+            </div>
+
+
+            <div class="receipt-row">
+
+                <span>
+                    Mobile / WhatsApp
+                </span>
+
+                <strong
+                    id="receiptMobile"
+                    dir="ltr"
+                ></strong>
+
+            </div>
+
+
+            <div class="receipt-row">
+
+                <span>
+                    Quantity
+                </span>
+
+                <strong
+                    id="receiptQuantity"
+                ></strong>
+
+            </div>
+
+
+            <div class="receipt-row">
+
+                <span>
+                    Product Price
+                </span>
+
+                <strong
+                    id="receiptPrice"
+                ></strong>
+
+            </div>
+
+
+            <div class="receipt-row">
+
+                <span>
+                    Delivery Charges
+                </span>
+
+                <strong
+                    id="receiptDelivery"
+                ></strong>
+
+            </div>
+
+
+            <div
+                class="receipt-row total-row"
+            >
+
+                <span>
+                    Total Amount
+                </span>
+
+                <strong
+                    id="receiptTotal"
+                ></strong>
+
+            </div>
+
+
+            <div
+                id="receiptDeliveryInstruction"
+                class="delivery-instruction"
+            >
+
+                آپ کا آرڈر 3 سے 4 دن کے اندر آپ کو ڈیلیور کر دیا جائے گا۔
+
+            </div>
+
+
+            <div class="payment-note">
+
+                💰 Payment:
+                Delivery کے وقت Cash on Delivery دستیاب ہے۔
+                اگر کسی Product کی payment policy مختلف ہو تو آپ کو الگ سے بتایا جائے گا۔
+
+            </div>
+
         </div>
 
-      </div>
 
 
-      <div class="receipt-row">
+        <div class="receipt-actions">
 
-        <span class="receipt-label">
-          آرڈر کی تاریخ
-        </span>
+            <button
+                id="downloadReceiptBtn"
+                class="action-btn"
+                type="button"
+            >
+                📥 Download
+            </button>
 
-        <span
-          id="receiptDate"
-          class="receipt-value">
-        </span>
 
-      </div>
+            <button
+                id="shareReceiptBtn"
+                class="action-btn"
+                type="button"
+            >
+                📤 Share
+            </button>
 
 
-      <div class="receipt-row">
+            <button
+                id="printReceiptBtn"
+                class="action-btn"
+                type="button"
+            >
+                🖨️ Print
+            </button>
 
-        <span class="receipt-label">
-          Order ID
-        </span>
+        </div>
 
-        <span
-          id="receiptOrderId"
-          class="receipt-value"
-          dir="ltr">
-        </span>
 
-      </div>
+        <button
+            id="newOrderBtn"
+            class="action-btn new-order-btn"
+            type="button"
+        >
+            🛍️ New Order
+        </button>
 
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          Product ID
-        </span>
-
-        <span
-          id="receiptProductId"
-          class="receipt-value"
-          dir="ltr">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          کسٹمر کا نام
-        </span>
-
-        <span
-          id="receiptCustomerName"
-          class="receipt-value">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          موبائل / WhatsApp
-        </span>
-
-        <span
-          id="receiptMobile"
-          class="receipt-value"
-          dir="ltr">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          Delivery Address
-        </span>
-
-        <span
-          id="receiptAddress"
-          class="receipt-value">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          Quantity
-        </span>
-
-        <span
-          id="receiptQuantity"
-          class="receipt-value">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          Product Price
-        </span>
-
-        <span
-          id="receiptProductTotal"
-          class="receipt-value">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          Delivery Charges
-        </span>
-
-        <span
-          id="receiptDelivery"
-          class="receipt-value">
-        </span>
-
-      </div>
-
-
-      <div class="receipt-row">
-
-        <span class="receipt-label">
-          Total Amount
-        </span>
-
-        <span
-          id="receiptTotal"
-          class="receipt-value">
-        </span>
-
-      </div>
-
-
-      <div class="delivery-instruction">
-
-        📦 آپ کا آرڈر
-        <strong>3 سے 4 دن</strong>
-        کے اندر آپ کو ڈیلیور کر دیا جائے گا۔
-
-        <br>
-
-        براہِ کرم اپنا موبائل نمبر آن رکھیں تاکہ
-        Delivery کے وقت آپ سے رابطہ کیا جا سکے۔
-
-      </div>
-
-
-      <div
-        id="paymentNote"
-        class="payment-note">
-      </div>
-
-
-    </div>
-
-  </section>
-
-
-  <div class="receipt-buttons">
-
-    <button
-      id="downloadBtn"
-      class="download-btn">
-      📥 Download Receipt
-    </button>
-
-    <button
-      id="shareBtn"
-      class="share-btn">
-      📤 Share Receipt
-    </button>
-
-    <button
-      id="printBtn"
-      class="print-btn">
-      🖨️ Print
-    </button>
-
-  </div>
-
-
-  <button
-    id="newOrderBtn"
-    class="new-order-btn">
-    🔄 New Order
-  </button>
-
-
-</div>
-
+    </section>
 
 </main>
 
 
-<script src="order-form-script.js"></script>
+<script
+    src="order-form-script.js"
+></script>
 
 </body>
+
 </html>
