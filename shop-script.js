@@ -9,642 +9,571 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+/* =========================================================
+   FIREBASE
+========================================================= */
+
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
-
-    authDomain:
-        "janjua-traders.firebaseapp.com",
-
-    projectId:
-        "janjua-traders",
-
-    storageBucket:
-        "janjua-traders.firebasestorage.app",
-
-    messagingSenderId:
-        "154904774188",
-
-    appId:
-        "1:154904774188:web:1830f9d533e77dae6a7389"
-
+    apiKey: "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+    authDomain: "janjua-traders.firebaseapp.com",
+    projectId: "janjua-traders",
+    storageBucket: "janjua-traders.firebasestorage.app",
+    messagingSenderId: "154904774188",
+    appId: "1:154904774188:web:1830f9d533e77dae6a7389"
 };
 
-
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 
-const productGrid =
-    document.getElementById(
-        "productGrid"
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const productGrid = document.getElementById("productGrid");
+const categoryBar = document.getElementById("categoryBar");
+const searchInput = document.getElementById("searchInput");
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   URL ENCODE
+========================================================= */
+
+function enc(value) {
+    return encodeURIComponent(
+        value === null || value === undefined ? "" : String(value)
     );
+}
 
-const loadingMessage =
-    document.getElementById(
-        "loadingMessage"
-    );
 
-const categoryBar =
-    document.getElementById(
-        "categoryBar"
-    );
-
-const searchBox =
-    document.getElementById(
-        "searchBox"
-    );
-
+/* =========================================================
+   PRODUCTS
+========================================================= */
 
 let allProducts = [];
+let activeCategory = "ALL";
 
-let currentCategory = "All";
 
-
-/* =====================================================
+/* =========================================================
    LOAD PRODUCTS
-===================================================== */
+========================================================= */
 
-async function loadProducts(){
+async function loadProducts() {
 
-    try{
+    try {
 
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "products"
-                )
-            );
-
+        const snapshot = await getDocs(
+            collection(db, "products")
+        );
 
         allProducts = [];
 
+        snapshot.forEach((docSnap) => {
 
-        snapshot.forEach(
-            item=>{
+            const data = docSnap.data();
 
-                allProducts.push({
+            allProducts.push({
+                firestoreId: docSnap.id,
+                ...data
+            });
 
-                    id:item.id,
-
-                    ...item.data()
-
-                });
-
-            }
-        );
+        });
 
 
-        allProducts.sort(
-            (a,b)=>{
+        /* Sort by Product ID */
 
-                const aId =
-                    String(
-                        a.Product_ID || ""
-                    );
+        allProducts.sort((a, b) => {
 
-                const bId =
-                    String(
-                        b.Product_ID || ""
-                    );
+            const aId = String(a.Product_ID || "");
+            const bId = String(b.Product_ID || "");
 
-                return bId.localeCompare(
-                    aId,
-                    undefined,
-                    {
-                        numeric:true
-                    }
-                );
+            return aId.localeCompare(
+                bId,
+                undefined,
+                {
+                    numeric: true,
+                    sensitivity: "base"
+                }
+            );
 
-            }
-        );
-
-
-        loadingMessage.style.display =
-            "none";
+        });
 
 
         buildCategories();
+        renderProducts(allProducts);
 
-        renderProducts();
+    } catch (error) {
 
+        console.error("Products loading error:", error);
 
-    }
-    catch(error){
+        if (productGrid) {
 
-        console.error(
-            error
-        );
+            productGrid.innerHTML = `
+                <div style="
+                    width:100%;
+                    padding:30px 15px;
+                    text-align:center;
+                    color:#b00020;
+                    font-weight:bold;
+                ">
+                    Products load نہیں ہو سکے۔
+                </div>
+            `;
 
-
-        loadingMessage.innerHTML =
-            "Products load نہیں ہو سکے۔";
-
-
-        loadingMessage.style.color =
-            "#b91c1c";
+        }
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORIES
-===================================================== */
+========================================================= */
 
-function buildCategories(){
+function buildCategories() {
 
-    const categories =
-        [
-            "All",
-            ...new Set(
-                allProducts
-                    .map(
-                        p =>
-                            p.Category
-                    )
-                    .filter(Boolean)
-            )
-        ];
+    if (!categoryBar) return;
+
+    const categories = [];
+
+    allProducts.forEach(product => {
+
+        const category = String(
+            product.Category || "Other"
+        ).trim();
+
+        if (
+            category &&
+            !categories.includes(category)
+        ) {
+            categories.push(category);
+        }
+
+    });
 
 
     categoryBar.innerHTML = "";
 
 
-    categories.forEach(
-        category=>{
+    /* ALL button */
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+    const allButton = document.createElement("button");
 
+    allButton.type = "button";
+    allButton.className = "category-btn active";
+    allButton.textContent = "ALL";
 
-            button.type =
-                "button";
+    allButton.addEventListener("click", () => {
 
-            button.className =
-                "category-btn";
+        activeCategory = "ALL";
 
+        updateCategoryButtons();
 
-            if(
-                category === "All"
-            ){
+        renderProducts(
+            filteredProducts()
+        );
 
-                button.classList.add(
-                    "active"
-                );
+    });
 
-            }
+    categoryBar.appendChild(allButton);
 
 
-            button.dataset.category =
-                category;
+    /* Category buttons */
 
+    categories.forEach(category => {
 
-            button.textContent =
-                category === "All"
-                    ? "✨ All"
-                    : category;
+        const button = document.createElement("button");
 
+        button.type = "button";
+        button.className = "category-btn";
+        button.textContent = category;
 
-            button.addEventListener(
-                "click",
-                ()=>{
+        button.addEventListener("click", () => {
 
-                    currentCategory =
-                        category;
+            activeCategory = category;
 
+            updateCategoryButtons();
 
-                    document
-                        .querySelectorAll(
-                            ".category-btn"
-                        )
-                        .forEach(
-                            b =>
-                                b.classList.remove(
-                                    "active"
-                                )
-                        );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    renderProducts();
-
-                }
+            renderProducts(
+                filteredProducts()
             );
 
+        });
 
-            categoryBar.appendChild(
-                button
-            );
+        categoryBar.appendChild(button);
 
-        }
-    );
+    });
 
 }
 
 
-/* =====================================================
-   RENDER
-===================================================== */
+/* =========================================================
+   CATEGORY ACTIVE STATE
+========================================================= */
 
-function renderProducts(){
+function updateCategoryButtons() {
 
-    const search =
-        searchBox.value
-            .trim()
-            .toLowerCase();
+    if (!categoryBar) return;
+
+    const buttons =
+        categoryBar.querySelectorAll(".category-btn");
+
+    buttons.forEach(button => {
+
+        if (
+            button.textContent.trim() === activeCategory
+        ) {
+            button.classList.add("active");
+        } else {
+            button.classList.remove("active");
+        }
+
+    });
+
+}
 
 
-    const filtered =
-        allProducts.filter(
-            product=>{
+/* =========================================================
+   FILTER PRODUCTS
+========================================================= */
 
-                const categoryMatch =
-                    currentCategory === "All" ||
-                    product.Category ===
-                        currentCategory;
+function filteredProducts() {
+
+    let products = [...allProducts];
 
 
-                const name =
-                    String(
-                        product.Product_Name ||
-                        product.Product ||
-                        ""
-                    )
+    /* Category */
+
+    if (activeCategory !== "ALL") {
+
+        products = products.filter(product => {
+
+            return String(
+                product.Category || "Other"
+            ).trim() === activeCategory;
+
+        });
+
+    }
+
+
+    /* Search */
+
+    const search = searchInput
+        ? searchInput.value.trim().toLowerCase()
+        : "";
+
+
+    if (search) {
+
+        products = products.filter(product => {
+
+            const name =
+                String(product.Product_Name || "")
                     .toLowerCase();
 
-
-                const description =
-                    String(
-                        product.Product_Description ||
-                        ""
-                    )
+            const description =
+                String(product.Description || "")
                     .toLowerCase();
 
+            const category =
+                String(product.Category || "")
+                    .toLowerCase();
 
-                const searchMatch =
-                    !search ||
-                    name.includes(search) ||
-                    description.includes(search);
+            const productId =
+                String(product.Product_ID || "")
+                    .toLowerCase();
+
+            return (
+                name.includes(search) ||
+                description.includes(search) ||
+                category.includes(search) ||
+                productId.includes(search)
+            );
+
+        });
+
+    }
 
 
-                return (
-                    categoryMatch &&
-                    searchMatch
-                );
+    return products;
 
-            }
-        );
+}
 
+
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderProducts(products) {
+
+    if (!productGrid) return;
 
     productGrid.innerHTML = "";
 
 
-    if(!filtered.length){
+    if (!products.length) {
 
-        productGrid.innerHTML =
-            `
-            <div
-                style="
-                    grid-column:1/-1;
-                    text-align:center;
-                    padding:40px;
-                    color:#777;
-                "
-            >
-                Product نہیں ملا۔
+        productGrid.innerHTML = `
+            <div style="
+                width:100%;
+                padding:40px 15px;
+                text-align:center;
+                font-size:18px;
+                font-weight:bold;
+            ">
+                کوئی Product نہیں ملا۔
             </div>
-            `;
+        `;
 
         return;
 
     }
 
 
-    /*
-      DocumentFragment استعمال کرنے سے
-      DOM پر بار بار load نہیں پڑتا۔
-    */
-
     const fragment =
         document.createDocumentFragment();
 
 
-    filtered.forEach(
-        product=>{
+    products.forEach(product => {
 
-            const card =
-                document.createElement(
-                    "article"
+        const productId =
+            product.Product_ID || "";
+
+        const name =
+            product.Product_Name || "Product";
+
+        const description =
+            product.Description || "";
+
+        const price =
+            product.Price || "";
+
+        const oldPrice =
+            product.Old_Price || "";
+
+        const category =
+            product.Category || "";
+
+        const image =
+            product.Image_URL ||
+            product.Image ||
+            "";
+
+        const deliveryType =
+            product.Delivery_Type || "";
+
+        const deliveryCharges =
+            product.Delivery_Charges || "";
+
+        /*
+         * ORIGINAL SUPPLIER LINK
+         * Admin میں یہی field save ہوتی ہے۔
+         */
+
+        const supplierLink =
+            product.Supplier_Link ||
+            product.supplierLink ||
+            product.Original_Supplier_Link ||
+            "";
+
+
+        /* =================================================
+           JANJUA ORDER LINK
+        ================================================= */
+
+        const orderFormPath =
+            window.location.pathname
+                .replace(
+                    /shop\.html$/i,
+                    "order-form.html"
                 );
 
-
-            card.className =
-                "product-card";
-
-
-            const name =
-                product.Product_Name ||
-                product.Product ||
-                "Product";
+        const janjuaOrderLink =
+            window.location.origin +
+            orderFormPath +
+            "?Product_ID=" +
+            enc(productId);
 
 
-            const description =
-                product.Product_Description ||
-                "";
+        /* =================================================
+           FULL ORDER URL
+        ================================================= */
+
+        const orderUrl =
+            window.location.origin +
+            orderFormPath +
+            "?Product=" + enc(name) +
+            "&Product_Description=" + enc(description) +
+            "&Product_Price=" + enc(price) +
+            "&Old_Price=" + enc(oldPrice) +
+            "&Product_ID=" + enc(productId) +
+            "&Product_Image=" + enc(image) +
+            "&Category=" + enc(category) +
+            "&Delivery_Type=" + enc(deliveryType) +
+            "&Delivery_Charges=" + enc(deliveryCharges) +
+
+            /*
+             * ORIGINAL SUPPLIER LINK
+             * Gmail کے لیے آگے بھیجا جائے گا۔
+             */
+
+            "&Supplier_Link=" + enc(supplierLink);
 
 
-            const price =
-                Number(
-                    product.Product_Price || 0
-                );
+        /* =================================================
+           CARD
+        ================================================= */
+
+        const card =
+            document.createElement("div");
+
+        card.className = "product-card";
 
 
-            const oldPrice =
-                Number(
-                    product.Old_Price || 0
-                );
+        card.innerHTML = `
+
+            <div class="product-image-wrap">
+
+                <img
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(name)}"
+                    loading="lazy"
+                    decoding="async"
+                    width="500"
+                    height="500"
+                >
+
+            </div>
 
 
-            const image =
-                product.Product_Image ||
-                "";
+            <div class="product-info">
 
-
-            const productId =
-                product.Product_ID ||
-                "";
-
-
-            const deliveryType =
-                product.Delivery_Type ||
-                "Free Delivery";
-
-
-            const deliveryCharges =
-                Number(
-                    product.Delivery_Charges || 0
-                );
-
-
-            card.innerHTML = `
-
-                <div class="product-image-wrap">
-
-                    <img
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(name)}"
-                        loading="lazy"
-                        decoding="async"
-                        width="500"
-                        height="500"
-                    >
-
+                <div class="product-category">
+                    ${escapeHtml(category)}
                 </div>
 
 
-                <div class="product-content">
+                <h3 class="product-name">
+                    ${escapeHtml(name)}
+                </h3>
 
-                    <h3>
-                        ${escapeHtml(name)}
-                    </h3>
+
+                ${
+                    description
+                    ? `
+                        <p class="product-description">
+                            ${escapeHtml(description)}
+                        </p>
+                      `
+                    : ""
+                }
+
+
+                <div class="product-price-row">
+
+                    <span class="product-price">
+                        Rs. ${escapeHtml(price)}
+                    </span>
 
 
                     ${
-                        description
-                        ?
-                        `
-                        <p>
-                            ${escapeHtml(
-                                description
-                            )}
-                        </p>
-                        `
-                        :
-                        ""
+                        oldPrice
+                        ? `
+                            <span class="product-old-price">
+                                Rs. ${escapeHtml(oldPrice)}
+                            </span>
+                          `
+                        : ""
                     }
-
-
-                    <div class="price-row">
-
-                        <strong>
-                            Rs. ${price.toLocaleString()}
-                        </strong>
-
-
-                        ${
-                            oldPrice > price
-                            ?
-                            `
-                            <del>
-                                Rs. ${oldPrice.toLocaleString()}
-                            </del>
-                            `
-                            :
-                            ""
-                        }
-
-                    </div>
-
-
-                    <div class="delivery-row">
-
-                        ${
-                            deliveryType ===
-                            "Free Delivery"
-                            ?
-                            "🚚 Free Delivery"
-                            :
-                            "🚚 Delivery: Rs. " +
-                            deliveryCharges.toLocaleString()
-                        }
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="order-now-btn"
-                    >
-                        ORDER NOW
-                    </button>
 
                 </div>
 
-            `;
 
-
-            const orderButton =
-                card.querySelector(
-                    ".order-now-btn"
-                );
-
-
-            orderButton.addEventListener(
-                "click",
-                ()=>{
-
-                    openOrderForm(
-                        product
-                    );
-
+                ${
+                    deliveryType
+                    ? `
+                        <div class="delivery-info">
+                            ${escapeHtml(deliveryType)}
+                            ${
+                                deliveryCharges
+                                ? `
+                                    — Rs. ${escapeHtml(
+                                        deliveryCharges
+                                    )}
+                                  `
+                                : ""
+                            }
+                        </div>
+                      `
+                    : ""
                 }
-            );
 
 
-            fragment.appendChild(
-                card
+                <a
+                    class="order-btn"
+                    href="${escapeHtml(orderUrl)}"
+                >
+                    ORDER NOW
+                </a>
+
+            </div>
+
+        `;
+
+
+        fragment.appendChild(card);
+
+    });
+
+
+    productGrid.appendChild(fragment);
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            renderProducts(
+                filteredProducts()
             );
 
         }
     );
 
-
-    productGrid.appendChild(
-        fragment
-    );
-
 }
 
 
-/* =====================================================
-   ORDER LINK
-===================================================== */
-
-function openOrderForm(product){
-
-    const params =
-        new URLSearchParams();
-
-
-    params.set(
-        "Product",
-        product.Product_Name ||
-        product.Product ||
-        ""
-    );
-
-
-    params.set(
-        "Product_Description",
-        product.Product_Description ||
-        ""
-    );
-
-
-    params.set(
-        "Product_Price",
-        product.Product_Price ||
-        0
-    );
-
-
-    params.set(
-        "Old_Price",
-        product.Old_Price ||
-        0
-    );
-
-
-    params.set(
-        "Product_ID",
-        product.Product_ID ||
-        ""
-    );
-
-
-    params.set(
-        "Product_Image",
-        product.Product_Image ||
-        ""
-    );
-
-
-    params.set(
-        "Category",
-        product.Category ||
-        ""
-    );
-
-
-    params.set(
-        "Delivery_Type",
-        product.Delivery_Type ||
-        "Free Delivery"
-    );
-
-
-    params.set(
-        "Delivery_Charges",
-        product.Delivery_Charges ||
-        0
-    );
-
-
-    window.location.href =
-        "order-form.html?" +
-        params.toString();
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-searchBox.addEventListener(
-    "input",
-    renderProducts
-);
-
-
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =====================================================
+/* =========================================================
    START
-===================================================== */
+========================================================= */
 
 loadProducts();
