@@ -1,17 +1,4 @@
-/* =========================================================
-   JANJUA ORDER FORM
-   FIREBASE PRODUCT LOADER + FORMSUBMIT
-========================================================= */
-
-
-/* =========================================================
-   FIREBASE
-========================================================= */
-
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
     getFirestore,
@@ -20,102 +7,122 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+// =====================================================
+// FIREBASE CONFIG
+// =====================================================
+
 const firebaseConfig = {
+    apiKey: "AIzaSyA8_4KXKAdfKWZ5mi5DaT9qiayL3h_Yzw",
+    authDomain: "janjua-traders.firebaseapp.com",
+    projectId: "janjua-traders",
+    storageBucket: "janjua-traders.firebasestorage.app",
+    messagingSenderId: "154904774188",
+    appId: "1:154904774188:web:1830f9d533e77dae6a7389"
+};
 
-    apiKey:
-        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    authDomain:
-        "janjua-traders.firebaseapp.com",
 
-    projectId:
-        "janjua-traders",
+// =====================================================
+// ELEMENTS
+// =====================================================
 
-    storageBucket:
-        "janjua-traders.firebasestorage.app",
+const productImageEl = document.getElementById("productImage");
+const productNameEl = document.getElementById("productName");
+const productDescriptionEl = document.getElementById("productDescription");
+const productPriceEl = document.getElementById("productPrice");
+const oldPriceEl = document.getElementById("oldPrice");
 
-    messagingSenderId:
-        "154904774188",
+const deliveryBadgeEl = document.getElementById("deliveryBadge");
+const deliveryNoteEl = document.getElementById("deliveryNote");
 
-    appId:
-        "1:154904774188:web:1830f9d533e77dae6a7389"
+const form = document.getElementById("orderForm");
 
+const customerName = document.getElementById("customerName");
+const mobileWhatsApp = document.getElementById("mobileWhatsApp");
+const deliveryAddress = document.getElementById("deliveryAddress");
+const quantity = document.getElementById("quantity");
+const platform = document.getElementById("platform");
+const color = document.getElementById("color");
+const size = document.getElementById("size");
+
+const receiptSection = document.getElementById("receiptSection");
+
+
+// =====================================================
+// HIDDEN FIELDS
+// =====================================================
+
+const hiddenOrderId = document.getElementById("hiddenOrderId");
+const hiddenProduct = document.getElementById("hiddenProduct");
+const hiddenDescription = document.getElementById("hiddenDescription");
+const hiddenPrice = document.getElementById("hiddenPrice");
+const hiddenOldPrice = document.getElementById("hiddenOldPrice");
+const hiddenProductId = document.getElementById("hiddenProductId");
+const hiddenProductImage = document.getElementById("hiddenProductImage");
+const hiddenDeliveryStatus = document.getElementById("hiddenDeliveryStatus");
+const hiddenDeliveryCharges = document.getElementById("hiddenDeliveryCharges");
+const hiddenTotalAmount = document.getElementById("hiddenTotalAmount");
+const hiddenJanjuaLink = document.getElementById("hiddenJanjuaLink");
+const hiddenSupplierLink = document.getElementById("hiddenSupplierLink");
+
+
+// =====================================================
+// URL PARAMETERS
+// =====================================================
+
+const params = new URLSearchParams(window.location.search);
+
+const productIdFromURL =
+    params.get("Product_ID") ||
+    params.get("productId") ||
+    "";
+
+const supplierLinkFromURL =
+    params.get("Supplier_Link") ||
+    params.get("supplierLink") ||
+    "";
+
+
+// =====================================================
+// PRODUCT DATA
+// =====================================================
+
+let productData = {
+    id: productIdFromURL,
+    name: params.get("Product") || "",
+    description: params.get("Product_Description") || "",
+    price: Number(params.get("Product_Price") || 0),
+    oldPrice: Number(params.get("Old_Price") || 0),
+    category: params.get("Category") || "",
+    image: params.get("Product_Image") || "",
+    deliveryType: params.get("Delivery_Type") || "",
+    deliveryCharges: Number(params.get("Delivery_Charges") || 0),
+
+    // IMPORTANT
+    supplierLink: supplierLinkFromURL || ""
 };
 
 
-const app =
-    initializeApp(
-        firebaseConfig
-    );
-
-
-const db =
-    getFirestore(
-        app
-    );
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function getParam(name) {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    return (
-        params.get(name) || ""
-    );
-
-}
-
-
-function safeText(value) {
-
-    return (
-        value === null ||
-        value === undefined
-    )
-        ? ""
-        : String(value);
-
-}
-
-
-/* =========================================================
-   CLOUDINARY IMAGE OPTIMIZATION
-========================================================= */
+// =====================================================
+// IMAGE OPTIMIZATION
+// =====================================================
 
 function optimizeImage(url) {
 
     if (!url) {
-
         return "";
-
     }
 
-
-    url =
-        String(url).trim();
-
+    url = String(url).trim();
 
     if (
-        url.includes(
-            "res.cloudinary.com"
-        ) &&
-        url.includes(
-            "/image/upload/"
-        )
+        url.includes("res.cloudinary.com") &&
+        url.includes("/image/upload/")
     ) {
 
-        if (
-            !url.includes(
-                "f_auto"
-            )
-        ) {
+        if (!url.includes("f_auto")) {
 
             return url.replace(
                 "/image/upload/",
@@ -126,540 +133,294 @@ function optimizeImage(url) {
 
     }
 
-
     return url;
-
 }
 
 
-/* =========================================================
-   URL PARAMETERS
-========================================================= */
+// =====================================================
+// MONEY FORMAT
+// =====================================================
 
-let product =
-    getParam(
-        "Product"
-    );
+function money(value) {
 
+    const number = Number(value || 0);
 
-let description =
-    getParam(
-        "Product_Description"
-    );
+    return "Rs. " + number.toLocaleString("en-PK");
+}
 
 
-let price =
-    getParam(
-        "Product_Price"
-    );
+// =====================================================
+// GENERATE ORDER ID
+// =====================================================
+
+function generateOrderId() {
+
+    const now = new Date();
+
+    const datePart =
+        now.getFullYear().toString() +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        String(now.getDate()).padStart(2, "0");
+
+    const timePart =
+        String(now.getHours()).padStart(2, "0") +
+        String(now.getMinutes()).padStart(2, "0") +
+        String(now.getSeconds()).padStart(2, "0");
+
+    const randomPart =
+        Math.floor(1000 + Math.random() * 9000);
+
+    return "JT-" + datePart + "-" + timePart + "-" + randomPart;
+}
 
 
-let oldPrice =
-    getParam(
-        "Old_Price"
-    );
+// =====================================================
+// JANJUA ORDER LINK
+// =====================================================
+
+function getJanjuaOrderLink() {
+
+    return window.location.href;
+}
 
 
-const productId =
-    getParam(
-        "Product_ID"
-    );
-
-
-let productImage =
-    getParam(
-        "Product_Image"
-    );
-
-
-let category =
-    getParam(
-        "Category"
-    );
-
-
-let deliveryType =
-    getParam(
-        "Delivery_Type"
-    );
-
-
-let deliveryCharges =
-    getParam(
-        "Delivery_Charges"
-    );
-
-
-/* =========================================================
-   SUPPLIER LINK
-========================================================= */
-
-const supplierLink =
-    getParam(
-        "Supplier_Link"
-    );
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const productImageEl =
-    document.getElementById(
-        "productImage"
-    );
-
-
-const productNameEl =
-    document.getElementById(
-        "productName"
-    );
-
-
-const productDescriptionEl =
-    document.getElementById(
-        "productDescription"
-    );
-
-
-const productPriceEl =
-    document.getElementById(
-        "productPrice"
-    );
-
-
-const oldPriceEl =
-    document.getElementById(
-        "oldPrice"
-    );
-
-
-const deliveryBadgeEl =
-    document.getElementById(
-        "deliveryBadge"
-    );
-
-
-const deliveryNoteEl =
-    document.getElementById(
-        "deliveryNote"
-    );
-
-
-const orderForm =
-    document.getElementById(
-        "orderForm"
-    );
-
-
-/* =========================================================
-   DELIVERY AMOUNT
-========================================================= */
-
-let deliveryAmount =
-    0;
-
-
-/* =========================================================
-   FIRESTORE PRODUCT LOADER
-========================================================= */
+// =====================================================
+// LOAD PRODUCT FROM FIRESTORE
+// =====================================================
 
 async function loadProductFromFirestore() {
 
-    /*
-       Product_ID لازمی ہے۔
-    */
-
-    if (!productId) {
-
-        console.warn(
-            "Product_ID not found in URL."
-        );
-
-        return false;
-
+    if (!productIdFromURL) {
+        return;
     }
-
 
     try {
 
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "products"
-                )
-            );
+        const snapshot = await getDocs(
+            collection(db, "products")
+        );
 
+        let foundProduct = null;
 
-        let foundProduct =
-            null;
+        snapshot.forEach((doc) => {
 
+            const data = doc.data();
 
-        snapshot.forEach(
-            function(doc) {
+            const id =
+                data.Product_ID ||
+                data.productId ||
+                data.id ||
+                "";
 
-                const data =
-                    doc.data();
+            if (String(id) === String(productIdFromURL)) {
 
-
-                const firestoreId =
-                    safeText(
-                        data.Product_ID
-                    ).trim();
-
-
-                if (
-                    firestoreId ===
-                    productId.trim()
-                ) {
-
-                    foundProduct =
-                        data;
-
-                }
+                foundProduct = {
+                    firestoreId: doc.id,
+                    ...data
+                };
 
             }
-        );
+
+        });
 
 
         if (!foundProduct) {
-
-            console.warn(
-                "Product not found:",
-                productId
-            );
-
-
-            return false;
-
+            console.log("Product not found in Firestore.");
+            return;
         }
 
 
-        /* =================================================
-           PRODUCT NAME
-        ================================================= */
+        // =================================================
+        // GET ALL PRODUCT DATA
+        // =================================================
 
-        product =
-            safeText(
-                foundProduct.Product ||
-                foundProduct.Product_Name
+        productData.name =
+            foundProduct.Product ||
+            foundProduct.Product_Name ||
+            productData.name ||
+            "";
+
+        productData.description =
+            foundProduct.Product_Description ||
+            productData.description ||
+            "";
+
+        productData.price =
+            Number(
+                foundProduct.Product_Price ||
+                productData.price ||
+                0
+            );
+
+        productData.oldPrice =
+            Number(
+                foundProduct.Old_Price ||
+                productData.oldPrice ||
+                0
+            );
+
+        productData.category =
+            foundProduct.Category ||
+            productData.category ||
+            "";
+
+        productData.image =
+            foundProduct.Product_Image ||
+            foundProduct.Image ||
+            foundProduct.image ||
+            productData.image ||
+            "";
+
+        productData.deliveryType =
+            foundProduct.Delivery_Type ||
+            productData.deliveryType ||
+            "";
+
+        productData.deliveryCharges =
+            Number(
+                foundProduct.Delivery_Charges ||
+                productData.deliveryCharges ||
+                0
             );
 
 
-        /* =================================================
-           DESCRIPTION
-        ================================================= */
+        // =================================================
+        // VERY IMPORTANT:
+        // ORIGINAL SUPPLIER LINK
+        // =================================================
 
-        description =
-            safeText(
-                foundProduct.Product_Description
-            );
-
-
-        /* =================================================
-           PRICE
-        ================================================= */
-
-        price =
-            safeText(
-                foundProduct.Product_Price
-            );
-
-
-        /* =================================================
-           OLD PRICE
-        ================================================= */
-
-        oldPrice =
-            safeText(
-                foundProduct.Old_Price
-            );
-
-
-        /* =================================================
-           CATEGORY
-        ================================================= */
-
-        category =
-            safeText(
-                foundProduct.Category
-            );
-
-
-        /* =================================================
-           DELIVERY TYPE
-        ================================================= */
-
-        deliveryType =
-            safeText(
-                foundProduct.Delivery_Type
-            );
-
-
-        /* =================================================
-           DELIVERY CHARGES
-        ================================================= */
-
-        deliveryCharges =
-            safeText(
-                foundProduct.Delivery_Charges
-            );
-
-
-        /* =================================================
-           IMPORTANT PRODUCT IMAGE
-        ================================================= */
-
-        productImage =
-            safeText(
-                foundProduct.Product_Image ||
-                foundProduct.productImage ||
-                foundProduct.Image ||
-                foundProduct.image
-            );
+        productData.supplierLink =
+            foundProduct.supplierLink ||
+            foundProduct.Supplier_Link ||
+            foundProduct.Original_Supplier_Link ||
+            productData.supplierLink ||
+            "";
 
 
         console.log(
-            "JANJUA Product loaded:",
-            foundProduct
+            "Original Supplier Link:",
+            productData.supplierLink
         );
 
 
-        console.log(
-            "JANJUA Product Image:",
-            productImage
-        );
-
-
-        return true;
-
-    }
-    catch(error) {
+    } catch (error) {
 
         console.error(
             "Firestore product loading error:",
             error
         );
 
-
-        return false;
-
     }
-
 }
 
 
-/* =========================================================
-   UPDATE DELIVERY AMOUNT
-========================================================= */
-
-function updateDeliveryAmount() {
-
-    const parsedDelivery =
-        parseFloat(
-            String(
-                deliveryCharges
-            )
-            .replace(
-                /[^0-9.]/g,
-                ""
-            )
-        );
-
-
-    if (
-        !isNaN(
-            parsedDelivery
-        )
-    ) {
-
-        deliveryAmount =
-            parsedDelivery;
-
-    }
-    else {
-
-        deliveryAmount =
-            0;
-
-    }
-
-}
-
-
-/* =========================================================
-   DISPLAY PRODUCT
-========================================================= */
+// =====================================================
+// DISPLAY PRODUCT
+// =====================================================
 
 function displayProduct() {
 
+    const imageUrl =
+        optimizeImage(productData.image);
 
-    /* =================================================
-       PRODUCT IMAGE
-    ================================================= */
 
+    // IMAGE
     if (productImageEl) {
-
-        const imageUrl =
-            optimizeImage(
-                productImage
-            );
-
 
         if (imageUrl) {
 
-            productImageEl.src =
-                imageUrl;
+            productImageEl.src = imageUrl;
+            productImageEl.style.display = "block";
 
+        } else {
 
-            productImageEl.style.display =
-                "block";
-
-
-            productImageEl.onerror =
-                function() {
-
-                    console.error(
-                        "Product image failed:",
-                        imageUrl
-                    );
-
-
-                    /*
-                       Original URL پر دوبارہ کوشش
-                       کریں اگر Cloudinary
-                       optimized URL fail ہو۔
-                    */
-
-                    if (
-                        productImage &&
-                        this.src !== productImage
-                    ) {
-
-                        this.src =
-                            productImage;
-
-                    }
-                    else {
-
-                        this.style.display =
-                            "none";
-
-                    }
-
-                };
-
-        }
-        else {
-
-            productImageEl.removeAttribute(
-                "src"
-            );
+            productImageEl.removeAttribute("src");
 
         }
 
     }
 
 
-    /* =================================================
-       PRODUCT NAME
-    ================================================= */
-
+    // NAME
     if (productNameEl) {
 
         productNameEl.textContent =
-            product ||
-            "Product";
+            productData.name || "Product";
 
     }
 
 
-    /* =================================================
-       DESCRIPTION
-    ================================================= */
-
+    // DESCRIPTION
     if (productDescriptionEl) {
 
         productDescriptionEl.textContent =
-            description;
+            productData.description || "";
 
     }
 
 
-    /* =================================================
-       PRICE
-    ================================================= */
-
+    // PRICE
     if (productPriceEl) {
 
         productPriceEl.textContent =
-            price
-                ? "Rs. " +
-                  price
-                : "";
+            money(productData.price);
 
     }
 
 
-    /* =================================================
-       OLD PRICE
-    ================================================= */
-
+    // OLD PRICE
     if (oldPriceEl) {
 
-        oldPriceEl.textContent =
-            oldPrice
-                ? "Rs. " +
-                  oldPrice
-                : "";
+        if (productData.oldPrice > 0) {
+
+            oldPriceEl.textContent =
+                money(productData.oldPrice);
+
+            oldPriceEl.style.display = "inline";
+
+        } else {
+
+            oldPriceEl.style.display = "none";
+
+        }
 
     }
 
 
-    /* =================================================
-       DELIVERY BADGE
-    ================================================= */
-
+    // DELIVERY
     if (deliveryBadgeEl) {
 
-        if (deliveryType) {
+        if (
+            String(productData.deliveryType)
+                .toLowerCase()
+                .includes("free")
+        ) {
 
             deliveryBadgeEl.textContent =
-                deliveryType;
+                "FREE DELIVERY";
 
+        } else {
 
-            deliveryBadgeEl.style.display =
-                "inline-block";
-
-        }
-        else {
-
-            deliveryBadgeEl.style.display =
-                "none";
+            deliveryBadgeEl.textContent =
+                "DELIVERY AVAILABLE";
 
         }
 
     }
 
-
-    /* =================================================
-       DELIVERY NOTE
-    ================================================= */
 
     if (deliveryNoteEl) {
 
-        if (deliveryCharges) {
+        if (productData.deliveryCharges > 0) {
 
             deliveryNoteEl.textContent =
-                "Delivery Charges: Rs. " +
-                deliveryCharges;
+                "Delivery Charges: " +
+                money(productData.deliveryCharges);
 
-        }
-        else {
+        } else {
 
             deliveryNoteEl.textContent =
-                "";
+                "Free Delivery";
 
         }
 
@@ -668,169 +429,81 @@ function displayProduct() {
 }
 
 
-/* =========================================================
-   HIDDEN ELEMENTS
-========================================================= */
-
-const formUrl =
-    document.getElementById(
-        "formUrl"
-    );
-
-
-const hiddenOrderId =
-    document.getElementById(
-        "hiddenOrderId"
-    );
-
-
-const hiddenProduct =
-    document.getElementById(
-        "hiddenProduct"
-    );
-
-
-const hiddenDescription =
-    document.getElementById(
-        "hiddenDescription"
-    );
-
-
-const hiddenPrice =
-    document.getElementById(
-        "hiddenPrice"
-    );
-
-
-const hiddenOldPrice =
-    document.getElementById(
-        "hiddenOldPrice"
-    );
-
-
-const hiddenProductId =
-    document.getElementById(
-        "hiddenProductId"
-    );
-
-
-const hiddenProductImage =
-    document.getElementById(
-        "hiddenProductImage"
-    );
-
-
-const hiddenDeliveryStatus =
-    document.getElementById(
-        "hiddenDeliveryStatus"
-    );
-
-
-const hiddenDeliveryCharges =
-    document.getElementById(
-        "hiddenDeliveryCharges"
-    );
-
-
-const hiddenTotal =
-    document.getElementById(
-        "hiddenTotal"
-    );
-
-
-const hiddenJanjuaLink =
-    document.getElementById(
-        "hiddenJanjuaLink"
-    );
-
-
-const hiddenSupplierLink =
-    document.getElementById(
-        "hiddenSupplierLink"
-    );
-
-
-/* =========================================================
-   JANJUA ORDER LINK
-========================================================= */
-
-const janjuaOrderLink =
-    window.location.href;
-
-
-/* =========================================================
-   UPDATE HIDDEN FIELDS
-========================================================= */
+// =====================================================
+// UPDATE HIDDEN FIELDS
+// =====================================================
 
 function updateHiddenFields() {
 
+    const orderId = generateOrderId();
 
-    if (formUrl) {
+    const janjuaLink =
+        getJanjuaOrderLink();
 
-        formUrl.value =
-            window.location.href;
+    const supplierLink =
+        productData.supplierLink ||
+        supplierLinkFromURL ||
+        "";
 
+
+    // ================================================
+    // ORDER ID
+    // ================================================
+
+    if (hiddenOrderId) {
+        hiddenOrderId.value = orderId;
     }
 
 
+    // ================================================
+    // PRODUCT
+    // ================================================
+
     if (hiddenProduct) {
-
         hiddenProduct.value =
-            product;
-
+            productData.name;
     }
 
 
     if (hiddenDescription) {
-
         hiddenDescription.value =
-            description;
-
+            productData.description;
     }
 
 
     if (hiddenPrice) {
-
         hiddenPrice.value =
-            price;
-
+            productData.price;
     }
 
 
     if (hiddenOldPrice) {
-
         hiddenOldPrice.value =
-            oldPrice;
-
+            productData.oldPrice;
     }
 
 
     if (hiddenProductId) {
-
         hiddenProductId.value =
-            productId;
-
+            productData.id;
     }
 
-
-    /*
-       IMPORTANT:
-       Firestore سے حاصل کیا ہوا
-       اصل Product_Image URL
-    */
 
     if (hiddenProductImage) {
-
         hiddenProductImage.value =
-            productImage;
-
+            productData.image;
     }
 
+
+    // ================================================
+    // DELIVERY
+    // ================================================
 
     if (hiddenDeliveryStatus) {
 
         hiddenDeliveryStatus.value =
-            deliveryType;
+            productData.deliveryType ||
+            "";
 
     }
 
@@ -838,18 +511,49 @@ function updateHiddenFields() {
     if (hiddenDeliveryCharges) {
 
         hiddenDeliveryCharges.value =
-            deliveryCharges;
+            productData.deliveryCharges || 0;
 
     }
 
+
+    // ================================================
+    // TOTAL
+    // ================================================
+
+    const qty =
+        Number(quantity?.value || 1);
+
+    const total =
+        (
+            Number(productData.price || 0) *
+            qty
+        ) +
+        Number(productData.deliveryCharges || 0);
+
+
+    if (hiddenTotalAmount) {
+
+        hiddenTotalAmount.value =
+            total;
+
+    }
+
+
+    // ================================================
+    // JANJUA LINK
+    // ================================================
 
     if (hiddenJanjuaLink) {
 
         hiddenJanjuaLink.value =
-            janjuaOrderLink;
+            janjuaLink;
 
     }
 
+
+    // ================================================
+    // ORIGINAL SUPPLIER LINK
+    // ================================================
 
     if (hiddenSupplierLink) {
 
@@ -858,814 +562,312 @@ function updateHiddenFields() {
 
     }
 
-}
 
+    console.log(
+        "JANJUA Link:",
+        janjuaLink
+    );
 
-/* =========================================================
-   TOTAL CALCULATION
-========================================================= */
-
-function calculateTotal() {
-
-
-    const quantityEl =
-        document.getElementById(
-            "quantity"
-        );
-
-
-    const quantity =
-        parseInt(
-            quantityEl
-                ? quantityEl.value
-                : "1",
-            10
-        ) || 1;
-
-
-    const productAmount =
-        parseFloat(
-            String(
-                price
-            )
-            .replace(
-                /[^0-9.]/g,
-                ""
-            )
-        ) || 0;
-
-
-    const total =
-        (
-            productAmount *
-            quantity
-        ) +
-        deliveryAmount;
-
-
-    return {
-
-        quantity,
-
-        total
-
-    };
-
-}
-
-
-/* =========================================================
-   ORDER ID
-========================================================= */
-
-function generateOrderId() {
-
-
-    const now =
-        new Date();
-
-
-    const year =
-        now.getFullYear();
-
-
-    const month =
-        String(
-            now.getMonth() + 1
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
-
-    const day =
-        String(
-            now.getDate()
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
-
-    const hours =
-        String(
-            now.getHours()
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
-
-    const minutes =
-        String(
-            now.getMinutes()
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
-
-    const seconds =
-        String(
-            now.getSeconds()
-        )
-        .padStart(
-            2,
-            "0"
-        );
-
-
-    return (
-
-        "JT-" +
-        year +
-        month +
-        day +
-        "-" +
-        hours +
-        minutes +
-        seconds
-
+    console.log(
+        "Original Supplier Link:",
+        supplierLink
     );
 
 }
 
 
-/* =========================================================
-   RECEIPT
-========================================================= */
-
-function showReceipt(
-    orderData
-) {
-
-
-    const receiptSection =
-        document.getElementById(
-            "receiptSection"
-        );
-
-
-    const receiptImage =
-        document.getElementById(
-            "receiptImage"
-        );
-
-
-    const receiptProductName =
-        document.getElementById(
-            "receiptProductName"
-        );
-
-
-    const receiptDate =
-        document.getElementById(
-            "receiptDate"
-        );
-
-
-    const receiptOrderId =
-        document.getElementById(
-            "receiptOrderId"
-        );
-
-
-    const receiptCustomer =
-        document.getElementById(
-            "receiptCustomer"
-        );
-
-
-    const receiptMobile =
-        document.getElementById(
-            "receiptMobile"
-        );
-
-
-    const receiptQuantity =
-        document.getElementById(
-            "receiptQuantity"
-        );
-
-
-    const receiptPrice =
-        document.getElementById(
-            "receiptPrice"
-        );
-
-
-    const receiptDelivery =
-        document.getElementById(
-            "receiptDelivery"
-        );
-
-
-    const receiptTotal =
-        document.getElementById(
-            "receiptTotal"
-        );
-
-
-    const receiptInstruction =
-        document.getElementById(
-            "receiptDeliveryInstruction"
-        );
-
-
-    /* =================================================
-       RECEIPT IMAGE
-    ================================================= */
-
-    if (receiptImage) {
-
-        const imageUrl =
-            optimizeImage(
-                orderData.productImage
-            );
-
-
-        if (imageUrl) {
-
-            receiptImage.src =
-                imageUrl;
-
-
-            receiptImage.style.display =
-                "block";
-
-        }
-
-    }
-
-
-    if (receiptProductName) {
-
-        receiptProductName.textContent =
-            orderData.product;
-
-    }
-
-
-    if (receiptDate) {
-
-        receiptDate.textContent =
-            orderData.date;
-
-    }
-
-
-    if (receiptOrderId) {
-
-        receiptOrderId.textContent =
-            orderData.orderId;
-
-    }
-
-
-    if (receiptCustomer) {
-
-        receiptCustomer.textContent =
-            orderData.customer;
-
-    }
-
-
-    if (receiptMobile) {
-
-        receiptMobile.textContent =
-            orderData.mobile;
-
-    }
-
-
-    if (receiptQuantity) {
-
-        receiptQuantity.textContent =
-            orderData.quantity;
-
-    }
-
-
-    if (receiptPrice) {
-
-        receiptPrice.textContent =
-            "Rs. " +
-            orderData.price;
-
-    }
-
-
-    if (receiptDelivery) {
-
-        receiptDelivery.textContent =
-            orderData.deliveryCharges
-                ? "Rs. " +
-                  orderData.deliveryCharges
-                : "FREE";
-
-    }
-
-
-    if (receiptTotal) {
-
-        receiptTotal.textContent =
-            "Rs. " +
-            orderData.total;
-
-    }
-
-
-    if (receiptInstruction) {
-
-        receiptInstruction.textContent =
-            "آپ کا Order کامیابی سے موصول ہو گیا ہے۔ Order ID محفوظ کر لیں۔";
-
-    }
-
-
-    if (receiptSection) {
-
-        receiptSection.style.display =
-            "block";
-
-
-        receiptSection.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "start"
-
-        });
-
-    }
+// =====================================================
+// UPDATE TOTAL WHEN QUANTITY CHANGES
+// =====================================================
+
+if (quantity) {
+
+    quantity.addEventListener(
+        "change",
+        updateHiddenFields
+    );
+
+    quantity.addEventListener(
+        "input",
+        updateHiddenFields
+    );
 
 }
 
 
-/* =========================================================
-   FORM SUBMIT
-========================================================= */
+// =====================================================
+// INITIALIZE PRODUCT
+// =====================================================
 
-if (orderForm) {
+async function initializeProduct() {
+
+    // First display URL data
+    displayProduct();
+
+    // Then get latest product data from Firestore
+    await loadProductFromFirestore();
+
+    // Display Firestore data
+    displayProduct();
+
+    // Update all hidden fields
+    updateHiddenFields();
+
+}
 
 
-    orderForm.addEventListener(
+initializeProduct();
 
+
+// =====================================================
+// FORM SUBMISSION
+// =====================================================
+
+if (form) {
+
+    form.addEventListener(
         "submit",
-
-        async function(event) {
-
+        async function (event) {
 
             event.preventDefault();
 
 
-            const customerNameEl =
-                document.getElementById(
-                    "customerName"
-                );
-
-
-            const mobileEl =
-                document.getElementById(
-                    "mobile"
-                );
-
-
-            const addressEl =
-                document.getElementById(
-                    "address"
-                );
-
-
-            const platformEl =
-                document.getElementById(
-                    "platform"
-                );
-
-
-            const colorEl =
-                document.getElementById(
-                    "color"
-                );
-
-
-            const sizeEl =
-                document.getElementById(
-                    "size"
-                );
-
-
-            const customerName =
-                customerNameEl
-                    ? customerNameEl.value.trim()
-                    : "";
-
-
-            const mobile =
-                mobileEl
-                    ? mobileEl.value.trim()
-                    : "";
-
-
-            const address =
-                addressEl
-                    ? addressEl.value.trim()
-                    : "";
-
-
-            const platform =
-                platformEl
-                    ? platformEl.value
-                    : "";
-
-
-            const color =
-                colorEl
-                    ? colorEl.value.trim()
-                    : "";
-
-
-            const size =
-                sizeEl
-                    ? sizeEl.value.trim()
-                    : "";
-
-
-            const {
-                quantity,
-                total
-            } =
-                calculateTotal();
-
-
-            /* =================================================
-               VALIDATION
-            ================================================= */
-
-            if (!customerName) {
-
-                alert(
-                    "براہ کرم نام درج کریں۔"
-                );
-
-                return;
-
-            }
-
-
-            if (!mobile) {
-
-                alert(
-                    "براہ کرم موبائل / WhatsApp نمبر درج کریں۔"
-                );
-
-                return;
-
-            }
-
-
-            if (!address) {
-
-                alert(
-                    "براہ کرم مکمل پتہ درج کریں۔"
-                );
-
-                return;
-
-            }
-
-
-            /* =================================================
-               ORDER ID
-            ================================================= */
-
-            const orderId =
-                generateOrderId();
-
-
-            if (hiddenOrderId) {
-
-                hiddenOrderId.value =
-                    orderId;
-
-            }
-
-
-            if (hiddenTotal) {
-
-                hiddenTotal.value =
-                    total;
-
-            }
-
-
-            /*
-               دوبارہ hidden fields update
-               کریں تاکہ Firestore کی
-               تازہ product image بھی موجود ہو۔
-            */
-
+            // Make sure hidden fields contain latest values
             updateHiddenFields();
 
 
-            if (hiddenOrderId) {
+            const submitButton =
+                form.querySelector(
+                    'button[type="submit"]'
+                );
 
-                hiddenOrderId.value =
-                    orderId;
+
+            if (submitButton) {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Processing...";
 
             }
 
 
-            if (hiddenTotal) {
+            const orderId =
+                hiddenOrderId?.value ||
+                generateOrderId();
 
-                hiddenTotal.value =
-                    total;
-
-            }
-
-
-            /* =================================================
-               FORM DATA
-            ================================================= */
 
             const formData =
-                new FormData(
-                    orderForm
-                );
-
-
-            /* =================================================
-               SUBMIT BUTTON
-            ================================================= */
-
-            const submitBtn =
-                orderForm.querySelector(
-                    ".submit-btn"
-                );
-
-
-            const oldButtonText =
-                submitBtn
-                    ? submitBtn.textContent
-                    : "";
-
-
-            if (submitBtn) {
-
-                submitBtn.disabled =
-                    true;
-
-
-                submitBtn.textContent =
-                    "Order Sending...";
-
-            }
+                new FormData(form);
 
 
             try {
 
-
                 const response =
                     await fetch(
-
-                        orderForm.action,
-
+                        "https://formsubmit.co/ajax/thanksyou0339@gmail.com",
                         {
-
-                            method:
-                                "POST",
-
-                            body:
-                                formData,
-
+                            method: "POST",
+                            body: formData,
                             headers: {
-
                                 Accept:
                                     "application/json"
-
                             }
-
                         }
-
                     );
+
+
+                const result =
+                    await response.json();
 
 
                 if (!response.ok) {
 
                     throw new Error(
-                        "Order submission failed"
+                        result.message ||
+                        "Order submission failed."
                     );
 
                 }
 
 
-                /* =================================================
-                   SAVE LAST ORDER
-                ================================================= */
-
-                const orderData = {
-
-                    orderId,
-
-                    date:
-                        new Date()
-                            .toLocaleString(),
-
-                    product,
-
-                    description,
-
-                    price,
-
-                    oldPrice,
-
-                    productId,
-
-                    productImage,
-
-                    category,
-
-                    deliveryType,
-
-                    deliveryCharges,
-
-                    customer:
-                        customerName,
-
-                    mobile,
-
-                    address,
-
-                    quantity,
-
-                    platform,
-
-                    color,
-
-                    size,
-
-                    total,
-
-                    janjuaOrderLink,
-
-                    supplierLink
-
-                };
-
-
-                localStorage.setItem(
-
-                    "janjua_last_order",
-
-                    JSON.stringify(
-                        orderData
-                    )
-
-                );
-
-
-                /* =================================================
-                   SHOW RECEIPT
-                ================================================= */
+                // =====================================
+                // SHOW RECEIPT
+                // =====================================
 
                 showReceipt(
-                    orderData
+                    orderId
                 );
 
 
-                /* =================================================
-                   HIDE FORM
-                ================================================= */
-
-                const formBox =
-                    orderForm.closest(
-                        ".form-box"
-                    );
-
-
-                if (formBox) {
-
-                    formBox.style.display =
-                        "none";
-
-                }
-
-
-            }
-            catch(error) {
-
+            } catch (error) {
 
                 console.error(
+                    "Order submission error:",
                     error
                 );
 
-
                 alert(
-                    "Order send نہیں ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔"
+                    "Order submit نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
                 );
 
 
-                if (submitBtn) {
+                if (submitButton) {
 
-                    submitBtn.disabled =
-                        false;
+                    submitButton.disabled = false;
 
-
-                    submitBtn.textContent =
-                        oldButtonText;
+                    submitButton.textContent =
+                        "ORDER NOW";
 
                 }
 
             }
 
         }
-
     );
 
 }
 
 
-/* =========================================================
-   DOWNLOAD RECEIPT
-========================================================= */
+// =====================================================
+// SHOW RECEIPT
+// =====================================================
 
-const downloadReceiptBtn =
-    document.getElementById(
-        "downloadReceiptBtn"
-    );
+function showReceipt(orderId) {
 
-
-if (downloadReceiptBtn) {
+    if (!receiptSection) {
+        return;
+    }
 
 
-    downloadReceiptBtn.addEventListener(
+    // Customer details
+    const receiptOrderId =
+        document.getElementById("receiptOrderId");
 
+    const receiptCustomer =
+        document.getElementById("receiptCustomer");
+
+    const receiptMobile =
+        document.getElementById("receiptMobile");
+
+    const receiptAddress =
+        document.getElementById("receiptAddress");
+
+    const receiptProduct =
+        document.getElementById("receiptProduct");
+
+    const receiptQuantity =
+        document.getElementById("receiptQuantity");
+
+    const receiptTotal =
+        document.getElementById("receiptTotal");
+
+
+    if (receiptOrderId) {
+        receiptOrderId.textContent =
+            orderId;
+    }
+
+
+    if (receiptCustomer) {
+        receiptCustomer.textContent =
+            customerName?.value || "";
+    }
+
+
+    if (receiptMobile) {
+        receiptMobile.textContent =
+            mobileWhatsApp?.value || "";
+    }
+
+
+    if (receiptAddress) {
+        receiptAddress.textContent =
+            deliveryAddress?.value || "";
+    }
+
+
+    if (receiptProduct) {
+        receiptProduct.textContent =
+            productData.name || "";
+    }
+
+
+    if (receiptQuantity) {
+        receiptQuantity.textContent =
+            quantity?.value || "1";
+    }
+
+
+    const qty =
+        Number(quantity?.value || 1);
+
+    const total =
+        (
+            Number(productData.price || 0) *
+            qty
+        ) +
+        Number(productData.deliveryCharges || 0);
+
+
+    if (receiptTotal) {
+
+        receiptTotal.textContent =
+            money(total);
+
+    }
+
+
+    receiptSection.style.display =
+        "block";
+
+
+    if (form) {
+
+        form.style.display =
+            "none";
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// =====================================================
+// DOWNLOAD RECEIPT
+// =====================================================
+
+const downloadButton =
+    document.getElementById("downloadReceipt");
+
+
+if (downloadButton) {
+
+    downloadButton.addEventListener(
         "click",
+        function () {
 
-        function() {
-
-
-            const lastOrder =
-                localStorage.getItem(
-                    "janjua_last_order"
+            const receipt =
+                document.getElementById(
+                    "receiptSection"
                 );
 
-
-            if (!lastOrder) {
-
-                alert(
-                    "Receipt data نہیں ملی۔"
-                );
-
+            if (!receipt) {
                 return;
-
             }
 
 
-            let order;
-
-
-            try {
-
-                order =
-                    JSON.parse(
-                        lastOrder
-                    );
-
-            }
-            catch(error) {
-
-                alert(
-                    "Receipt data خراب ہے۔"
-                );
-
-                return;
-
-            }
-
-
-            const receiptImage =
-                optimizeImage(
-                    order.productImage
-                );
-
-
-            const receiptHtml = `
-
+            const html =
+                `
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
 <title>JANJUA Order Receipt</title>
 
 <style>
@@ -1673,17 +875,15 @@ if (downloadReceiptBtn) {
 body{
     font-family:Arial,sans-serif;
     padding:20px;
-    max-width:600px;
+}
+
+.receipt{
+    max-width:500px;
     margin:auto;
 }
 
-img{
-    width:100%;
-    max-width:500px;
-    max-height:300px;
-    object-fit:contain;
-    display:block;
-    margin-bottom:20px;
+h1{
+    text-align:center;
 }
 
 .row{
@@ -1697,385 +897,171 @@ img{
 
 <body>
 
-<h2>JANJUA Order Receipt</h2>
+<div class="receipt">
 
-<img
-    src="${receiptImage || ""}"
-    alt="Product"
->
+${receipt.innerHTML}
 
-<div class="row">
-<b>Order ID:</b>
-${order.orderId || ""}
-</div>
-
-<div class="row">
-<b>Date:</b>
-${order.date || ""}
-</div>
-
-<div class="row">
-<b>Product:</b>
-${order.product || ""}
-</div>
-
-<div class="row">
-<b>Customer:</b>
-${order.customer || ""}
-</div>
-
-<div class="row">
-<b>Mobile:</b>
-${order.mobile || ""}
-</div>
-
-<div class="row">
-<b>Quantity:</b>
-${order.quantity || ""}
-</div>
-
-<div class="row">
-<b>Price:</b>
-Rs. ${order.price || ""}
-</div>
-
-<div class="row">
-<b>Delivery:</b>
-${order.deliveryCharges || "FREE"}
-</div>
-
-<div class="row">
-<b>Total:</b>
-Rs. ${order.total || ""}
 </div>
 
 </body>
 
 </html>
-
-`;
+                `;
 
 
             const blob =
                 new Blob(
-
-                    [
-                        receiptHtml
-                    ],
-
+                    [html],
                     {
                         type:
-                            "text/html"
+                            "text/html;charset=utf-8"
                     }
-
                 );
 
 
             const url =
-                URL.createObjectURL(
-                    blob
-                );
+                URL.createObjectURL(blob);
 
 
             const a =
-                document.createElement(
-                    "a"
-                );
+                document.createElement("a");
 
 
-            a.href =
-                url;
-
+            a.href = url;
 
             a.download =
-                "JANJUA-" +
-                (
-                    order.orderId ||
-                    "Receipt"
-                ) +
+                "JANJUA-Order-Receipt-" +
+                (hiddenOrderId?.value || "Order") +
                 ".html";
 
 
-            document.body.appendChild(
-                a
-            );
-
+            document.body.appendChild(a);
 
             a.click();
 
-
             a.remove();
 
-
-            URL.revokeObjectURL(
-                url
-            );
+            URL.revokeObjectURL(url);
 
         }
-
     );
 
 }
 
 
-/* =========================================================
-   SHARE
-========================================================= */
+// =====================================================
+// SHARE
+// =====================================================
 
-const shareReceiptBtn =
-    document.getElementById(
-        "shareReceiptBtn"
-    );
+const shareButton =
+    document.getElementById("shareReceipt");
 
 
-if (shareReceiptBtn) {
+if (shareButton) {
 
-
-    shareReceiptBtn.addEventListener(
-
+    shareButton.addEventListener(
         "click",
+        async function () {
 
-        async function() {
-
-
-            const lastOrder =
-                localStorage.getItem(
-                    "janjua_last_order"
-                );
+            const orderId =
+                hiddenOrderId?.value || "";
 
 
-            if (!lastOrder) {
-
-                alert(
-                    "Receipt data نہیں ملی۔"
-                );
-
-                return;
-
-            }
-
-
-            let order;
-
-
-            try {
-
-                order =
-                    JSON.parse(
-                        lastOrder
-                    );
-
-            }
-            catch(error) {
-
-                alert(
-                    "Receipt data خراب ہے۔"
-                );
-
-                return;
-
-            }
-
-
-            const shareText =
-
-                "JANJUA Order Receipt\n\n" +
-
+            const text =
+                "JANJUA TRADERS Order\n" +
                 "Order ID: " +
-                (
-                    order.orderId ||
-                    ""
-                ) +
-
-                "\n" +
-
-                "Product: " +
-                (
-                    order.product ||
-                    ""
-                ) +
-
-                "\n" +
-
-                "Quantity: " +
-                (
-                    order.quantity ||
-                    ""
-                ) +
-
-                "\n" +
-
-                "Total: Rs. " +
-                (
-                    order.total ||
-                    ""
-                );
+                orderId +
+                "\nProduct: " +
+                productData.name;
 
 
             if (
                 navigator.share
             ) {
 
-
                 try {
-
 
                     await navigator.share({
-
                         title:
-                            "JANJUA Order Receipt",
-
+                            "JANJUA Order",
                         text:
-                            shareText
-
+                            text
                     });
 
-
-                }
-                catch(error) {
-
+                } catch (error) {
 
                     console.log(
-                        "Share cancelled"
+                        "Share cancelled."
                     );
 
                 }
 
-
-            }
-            else {
-
+            } else {
 
                 try {
 
-
                     await navigator.clipboard.writeText(
-                        shareText
+                        text
                     );
-
 
                     alert(
-                        "Receipt details copy ہو گئے ہیں۔"
+                        "Order details copied."
                     );
 
+                } catch (error) {
 
-                }
-                catch(error) {
-
-
-                    alert(
-                        shareText
-                    );
+                    alert(text);
 
                 }
 
             }
 
         }
-
     );
 
 }
 
 
-/* =========================================================
-   PRINT / PDF
-========================================================= */
+// =====================================================
+// PRINT / PDF
+// =====================================================
 
-const printReceiptBtn =
-    document.getElementById(
-        "printReceiptBtn"
-    );
+const printButton =
+    document.getElementById("printReceipt");
 
 
-if (printReceiptBtn) {
+if (printButton) {
 
-
-    printReceiptBtn.addEventListener(
-
+    printButton.addEventListener(
         "click",
-
-        function() {
+        function () {
 
             window.print();
 
         }
-
     );
 
 }
 
 
-/* =========================================================
-   NEW ORDER
-========================================================= */
+// =====================================================
+// NEW ORDER
+// =====================================================
 
-const newOrderBtn =
-    document.getElementById(
-        "newOrderBtn"
-    );
+const newOrderButton =
+    document.getElementById("newOrder");
 
 
-if (newOrderBtn) {
+if (newOrderButton) {
 
-
-    newOrderBtn.addEventListener(
-
+    newOrderButton.addEventListener(
         "click",
-
-        function() {
+        function () {
 
             window.location.href =
                 "shop.html";
 
         }
-
     );
 
 }
-
-
-/* =========================================================
-   START PRODUCT LOADING
-========================================================= */
-
-async function initializeProduct() {
-
-
-    /*
-       پہلے Firestore سے product
-       load ہوگا۔
-    */
-
-    await loadProductFromFirestore();
-
-
-    /*
-       Delivery amount calculate
-       کریں۔
-    */
-
-    updateDeliveryAmount();
-
-
-    /*
-       Product screen پر دکھائیں۔
-    */
-
-    displayProduct();
-
-
-    /*
-       Hidden fields update کریں۔
-    */
-
-    updateHiddenFields();
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-initializeProduct();
