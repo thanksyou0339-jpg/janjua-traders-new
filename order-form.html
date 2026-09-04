@@ -345,6 +345,12 @@ body{
 }
 
 
+.submit-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+
 /* =====================================================
    RECEIPT
 ===================================================== */
@@ -556,7 +562,9 @@ body{
 <div class="page-wrap">
 
 
-    <!-- HEADER -->
+    <!-- =================================================
+         HEADER
+    ================================================= -->
 
     <div class="header">
 
@@ -573,7 +581,9 @@ body{
     </div>
 
 
-    <!-- PRODUCT -->
+    <!-- =================================================
+         PRODUCT
+    ================================================= -->
 
     <div class="product-box">
 
@@ -601,8 +611,7 @@ body{
             <p
                 id="productDescription"
                 class="product-description"
-            >
-            </p>
+            ></p>
 
 
             <div class="price-row">
@@ -610,15 +619,13 @@ body{
                 <span
                     id="productPrice"
                     class="price"
-                >
-                </span>
+                ></span>
 
 
                 <span
                     id="oldPrice"
                     class="old-price"
-                >
-                </span>
+                ></span>
 
             </div>
 
@@ -626,22 +633,22 @@ body{
             <div
                 id="deliveryBadge"
                 class="delivery-badge"
-            >
-            </div>
+            ></div>
 
 
             <div
                 id="deliveryNote"
                 class="delivery-note"
-            >
-            </div>
+            ></div>
 
         </div>
 
     </div>
 
 
-    <!-- ORDER FORM -->
+    <!-- =================================================
+         ORDER FORM
+    ================================================= -->
 
     <div class="form-box">
 
@@ -826,7 +833,9 @@ body{
             >
 
 
-            <!-- ORDER ID -->
+            <!-- =================================================
+                 ORDER ID
+            ================================================= -->
 
             <input
                 type="hidden"
@@ -836,7 +845,9 @@ body{
             >
 
 
-            <!-- PRODUCT -->
+            <!-- =================================================
+                 PRODUCT DATA
+            ================================================= -->
 
             <input
                 type="hidden"
@@ -911,7 +922,7 @@ body{
 
 
             <!-- =================================================
-                 NEW: JANJUA LINK
+                 JANJUA LINK
             ================================================= -->
 
             <input
@@ -923,7 +934,7 @@ body{
 
 
             <!-- =================================================
-                 NEW: ORIGINAL SUPPLIER LINK
+                 SUPPLIER LINK
             ================================================= -->
 
             <input
@@ -933,6 +944,10 @@ body{
                 value=""
             >
 
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================= -->
 
             <button
                 type="submit"
@@ -946,7 +961,9 @@ body{
     </div>
 
 
-    <!-- RECEIPT -->
+    <!-- =================================================
+         RECEIPT
+    ================================================= -->
 
     <section
         id="receiptSection"
@@ -967,56 +984,119 @@ body{
 
 
         <div class="receipt-row">
-            <strong>Product</strong>
-            <span id="receiptProductName"></span>
+
+            <strong>
+                Product
+            </strong>
+
+            <span
+                id="receiptProductName"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Date</strong>
-            <span id="receiptDate"></span>
+
+            <strong>
+                Date
+            </strong>
+
+            <span
+                id="receiptDate"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Order ID</strong>
-            <span id="receiptOrderId"></span>
+
+            <strong>
+                Order ID
+            </strong>
+
+            <span
+                id="receiptOrderId"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Customer</strong>
-            <span id="receiptCustomer"></span>
+
+            <strong>
+                Customer
+            </strong>
+
+            <span
+                id="receiptCustomer"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Mobile</strong>
-            <span id="receiptMobile"></span>
+
+            <strong>
+                Mobile
+            </strong>
+
+            <span
+                id="receiptMobile"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Quantity</strong>
-            <span id="receiptQuantity"></span>
+
+            <strong>
+                Quantity
+            </strong>
+
+            <span
+                id="receiptQuantity"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Price</strong>
-            <span id="receiptPrice"></span>
+
+            <strong>
+                Price
+            </strong>
+
+            <span
+                id="receiptPrice"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Delivery</strong>
-            <span id="receiptDelivery"></span>
+
+            <strong>
+                Delivery
+            </strong>
+
+            <span
+                id="receiptDelivery"
+            ></span>
+
         </div>
 
 
         <div class="receipt-row">
-            <strong>Total</strong>
-            <span id="receiptTotal"></span>
+
+            <strong>
+                Total
+            </strong>
+
+            <span
+                id="receiptTotal"
+            ></span>
+
         </div>
 
 
@@ -1028,8 +1108,7 @@ body{
                 overflow-wrap:anywhere;
                 word-break:break-word;
             "
-        >
-        </div>
+        ></div>
 
 
         <div class="receipt-actions">
@@ -1073,9 +1152,13 @@ body{
 </div>
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script
+    type="module"
     src="order-form-script.js"
-    defer
 ></script>
 
 
