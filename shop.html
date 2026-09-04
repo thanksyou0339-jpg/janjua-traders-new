@@ -2,31 +2,363 @@
 <html lang="ur" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>JANJUA - Digital Marketing Online Shop</title>
 
 <link rel="stylesheet" href="shop-style.css">
+
+<style>
+
+/* =====================================================
+   JANJUA HEADER
+===================================================== */
+
+.shop-header{
+    position:relative;
+    overflow:hidden;
+    min-height:235px;
+    padding:30px 15px 25px;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(255,255,255,.14),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #07111f,
+            #10243b,
+            #07111f
+        );
+    color:white;
+    text-align:center;
+}
+
+/* =====================================================
+   SATELLITE ORBIT BACKGROUND
+===================================================== */
+
+.orbit-system{
+    position:absolute;
+    width:360px;
+    height:360px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    opacity:.65;
+}
+
+.orbit{
+    position:absolute;
+    left:50%;
+    top:50%;
+    border:1px solid rgba(255,255,255,.20);
+    border-radius:50%;
+    transform:translate(-50%,-50%) rotateX(65deg);
+}
+
+.orbit-1{
+    width:270px;
+    height:270px;
+    animation:orbitRotate1 14s linear infinite;
+}
+
+.orbit-2{
+    width:210px;
+    height:210px;
+    animation:orbitRotate2 10s linear infinite reverse;
+}
+
+.orbit-3{
+    width:150px;
+    height:150px;
+    animation:orbitRotate3 7s linear infinite;
+}
+
+.satellite{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:13px;
+    height:13px;
+    margin:-6px;
+    border-radius:50%;
+    background:#ffffff;
+    box-shadow:
+        0 0 8px rgba(255,255,255,.9),
+        0 0 20px rgba(100,180,255,.8);
+}
+
+.satellite-1{
+    animation:satelliteMove1 14s linear infinite;
+}
+
+.satellite-2{
+    animation:satelliteMove2 10s linear infinite reverse;
+}
+
+.satellite-3{
+    animation:satelliteMove3 7s linear infinite;
+}
+
+.earth-glow{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:80px;
+    height:80px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #8ed8ff,
+            #2563a6 50%,
+            #07111f 75%
+        );
+    box-shadow:
+        0 0 25px rgba(80,180,255,.55);
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes orbitRotate1{
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotateX(65deg)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotateX(65deg)
+            rotateZ(360deg);
+    }
+}
+
+@keyframes orbitRotate2{
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotateX(65deg)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotateX(65deg)
+            rotateZ(360deg);
+    }
+}
+
+@keyframes orbitRotate3{
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotateX(65deg)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotateX(65deg)
+            rotateZ(360deg);
+    }
+}
+
+@keyframes satelliteMove1{
+    from{
+        transform:
+            rotateZ(0deg)
+            translateX(135px)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            rotateZ(360deg)
+            translateX(135px)
+            rotateZ(-360deg);
+    }
+}
+
+@keyframes satelliteMove2{
+    from{
+        transform:
+            rotateZ(0deg)
+            translateX(105px)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            rotateZ(360deg)
+            translateX(105px)
+            rotateZ(-360deg);
+    }
+}
+
+@keyframes satelliteMove3{
+    from{
+        transform:
+            rotateZ(0deg)
+            translateX(75px)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            rotateZ(360deg)
+            translateX(75px)
+            rotateZ(-360deg);
+    }
+}
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand-area{
+    position:relative;
+    z-index:5;
+}
+
+.brand-title{
+    font-size:42px;
+    font-weight:900;
+    letter-spacing:5px;
+    text-shadow:
+        0 0 12px rgba(255,255,255,.35);
+}
+
+.brand-line{
+    margin-top:3px;
+    font-size:17px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.brand-subtitle{
+    margin-top:4px;
+    font-size:13px;
+    letter-spacing:2px;
+    opacity:.85;
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box{
+    position:relative;
+    z-index:5;
+    width:95%;
+    max-width:650px;
+    margin:24px auto 0;
+}
+
+.search-box input{
+    width:100%;
+    height:48px;
+    padding:0 48px 0 15px;
+    border:0;
+    border-radius:25px;
+    outline:none;
+    font-size:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.20);
+}
+
+.search-icon{
+    position:absolute;
+    right:17px;
+    top:12px;
+    z-index:2;
+    font-size:20px;
+}
+
+/* =====================================================
+   PRODUCT IMAGE PERFORMANCE
+===================================================== */
+
+.product-card img{
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    background:#f1f3f5;
+}
+
+.product-card{
+    content-visibility:auto;
+    contain-intrinsic-size:300px;
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(
+    prefers-reduced-motion: reduce
+){
+
+    .orbit,
+    .satellite{
+        animation:none !important;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <header class="shop-header">
 
-    <div class="nature-layer" aria-hidden="true">
 
-        <span class="bird bird-1">🕊️</span>
-        <span class="bird bird-2">🐦</span>
-        <span class="bird bird-3">🦅</span>
-        <span class="bird bird-4">🕊️</span>
+    <!-- SATELLITE SYSTEM -->
 
-        <span class="nature-spark spark-1">✦</span>
-        <span class="nature-spark spark-2">✧</span>
-        <span class="nature-spark spark-3">•</span>
+    <div
+        class="orbit-system"
+        aria-hidden="true"
+    >
+
+        <div class="earth-glow"></div>
+
+        <div class="orbit orbit-1"></div>
+
+        <div class="orbit orbit-2"></div>
+
+        <div class="orbit orbit-3"></div>
+
+        <span class="satellite satellite-1"></span>
+
+        <span class="satellite satellite-2"></span>
+
+        <span class="satellite satellite-3"></span>
 
     </div>
 
+
+    <!-- BRAND -->
 
     <div class="brand-area">
 
@@ -45,9 +377,13 @@
     </div>
 
 
+    <!-- SEARCH -->
+
     <div class="search-box">
 
-        <span class="search-icon">🔍</span>
+        <span class="search-icon">
+            🔍
+        </span>
 
         <input
             type="search"
@@ -81,6 +417,7 @@
 
 <main class="shop-container">
 
+
     <div
         id="loadingMessage"
         class="loading-message"
@@ -99,6 +436,7 @@
         id="productGrid"
         class="product-grid"
     ></div>
+
 
 </main>
 
@@ -129,5 +467,7 @@
     src="shop-script.js"
 ></script>
 
+
 </body>
+
 </html>
