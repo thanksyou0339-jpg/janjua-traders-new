@@ -1,295 +1,529 @@
-// =====================================================
-// JANJUA TRADERS - SHOP SCRIPT
-// Firebase Free Version
-// =====================================================
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-import { JANJUA_PRODUCTS } from "./products.js";
+import {
+    getFirestore,
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-// =====================================================
-// ELEMENTS
-// =====================================================
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+
+    authDomain:
+        "janjua-traders.firebaseapp.com",
+
+    projectId:
+        "janjua-traders",
+
+    storageBucket:
+        "janjua-traders.firebasestorage.app",
+
+    messagingSenderId:
+        "154904774188",
+
+    appId:
+        "1:154904774188:web:1830f9d533e77dae6a7389"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
 
 const productGrid =
-    document.getElementById("productGrid");
+    document.getElementById(
+        "productGrid"
+    );
 
 const loadingMessage =
-    document.getElementById("loadingMessage");
-
-const searchBox =
-    document.getElementById("searchBox");
+    document.getElementById(
+        "loadingMessage"
+    );
 
 const categoryBar =
-    document.getElementById("categoryBar");
+    document.getElementById(
+        "categoryBar"
+    );
+
+const searchBox =
+    document.getElementById(
+        "searchBox"
+    );
 
 
-// =====================================================
-// PRODUCTS
-// =====================================================
+let allProducts = [];
 
-let products = Array.isArray(JANJUA_PRODUCTS)
-    ? JANJUA_PRODUCTS
-    : [];
+let currentCategory = "All";
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
 
-function escapeHTML(value) {
+async function loadProducts(){
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+    try{
 
-
-// =====================================================
-// PRICE FORMAT
-// =====================================================
-
-function formatPrice(price) {
-
-    const number =
-        Number(price) || 0;
-
-    return number.toLocaleString("en-PK");
-}
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "products"
+                )
+            );
 
 
-// =====================================================
-// CATEGORIES
-// =====================================================
+        allProducts = [];
 
-function createCategories() {
 
-    const categories = [
-        "All",
-        ...new Set(
-            products
-                .map(product => product.category)
-                .filter(Boolean)
-        )
-    ];
+        snapshot.forEach(
+            item=>{
 
-    categoryBar.innerHTML = "";
+                allProducts.push({
 
-    categories.forEach(category => {
+                    id:item.id,
 
-        const button =
-            document.createElement("button");
+                    ...item.data()
 
-        button.type = "button";
+                });
 
-        button.className =
-            "category-btn";
-
-        if (category === "All") {
-            button.classList.add("active");
-        }
-
-        button.dataset.category =
-            category;
-
-        button.textContent =
-            category === "All"
-                ? "✨ All"
-                : category;
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                document
-                    .querySelectorAll(".category-btn")
-                    .forEach(btn =>
-                        btn.classList.remove("active")
-                    );
-
-                button.classList.add("active");
-
-                renderProducts(
-                    products,
-                    category,
-                    searchBox.value
-                );
             }
         );
 
-        categoryBar.appendChild(button);
-    });
+
+        allProducts.sort(
+            (a,b)=>{
+
+                const aId =
+                    String(
+                        a.Product_ID || ""
+                    );
+
+                const bId =
+                    String(
+                        b.Product_ID || ""
+                    );
+
+                return bId.localeCompare(
+                    aId,
+                    undefined,
+                    {
+                        numeric:true
+                    }
+                );
+
+            }
+        );
+
+
+        loadingMessage.style.display =
+            "none";
+
+
+        buildCategories();
+
+        renderProducts();
+
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        loadingMessage.innerHTML =
+            "Products load نہیں ہو سکے۔";
+
+
+        loadingMessage.style.color =
+            "#b91c1c";
+
+    }
+
 }
 
 
-// =====================================================
-// PRODUCT CARD
-// =====================================================
+/* =====================================================
+   CATEGORIES
+===================================================== */
 
-function createProductCard(product) {
+function buildCategories(){
 
-    const card =
-        document.createElement("article");
-
-    card.className =
-        "product-card";
-
-
-    const image =
-        escapeHTML(product.image);
-
-
-    const name =
-        escapeHTML(product.name);
-
-
-    const description =
-        escapeHTML(product.description);
+    const categories =
+        [
+            "All",
+            ...new Set(
+                allProducts
+                    .map(
+                        p =>
+                            p.Category
+                    )
+                    .filter(Boolean)
+            )
+        ];
 
 
-    const category =
-        escapeHTML(product.category);
+    categoryBar.innerHTML = "";
 
 
-    const price =
-        formatPrice(product.price);
+    categories.forEach(
+        category=>{
+
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-    const oldPrice =
-        formatPrice(product.oldPrice);
+            button.type =
+                "button";
+
+            button.className =
+                "category-btn";
 
 
-    let deliveryHTML = "";
+            if(
+                category === "All"
+            ){
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
 
 
-    if (
-        product.deliveryType === "FREE" ||
-        Number(product.deliveryCharges) === 0
-    ) {
+            button.dataset.category =
+                category;
 
-        deliveryHTML = `
-            <div class="delivery-badge">
-                🚚 FREE DELIVERY
+
+            button.textContent =
+                category === "All"
+                    ? "✨ All"
+                    : category;
+
+
+            button.addEventListener(
+                "click",
+                ()=>{
+
+                    currentCategory =
+                        category;
+
+
+                    document
+                        .querySelectorAll(
+                            ".category-btn"
+                        )
+                        .forEach(
+                            b =>
+                                b.classList.remove(
+                                    "active"
+                                )
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    renderProducts();
+
+                }
+            );
+
+
+            categoryBar.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderProducts(){
+
+    const search =
+        searchBox.value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        allProducts.filter(
+            product=>{
+
+                const categoryMatch =
+                    currentCategory === "All" ||
+                    product.Category ===
+                        currentCategory;
+
+
+                const name =
+                    String(
+                        product.Product_Name ||
+                        product.Product ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                const description =
+                    String(
+                        product.Product_Description ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                const searchMatch =
+                    !search ||
+                    name.includes(search) ||
+                    description.includes(search);
+
+
+                return (
+                    categoryMatch &&
+                    searchMatch
+                );
+
+            }
+        );
+
+
+    productGrid.innerHTML = "";
+
+
+    if(!filtered.length){
+
+        productGrid.innerHTML =
+            `
+            <div
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:40px;
+                    color:#777;
+                "
+            >
+                Product نہیں ملا۔
             </div>
-        `;
+            `;
 
-    } else {
+        return;
 
-        deliveryHTML = `
-            <div class="delivery-badge">
-                🚚 Delivery Rs. ${formatPrice(
-                    product.deliveryCharges
-                )}
-            </div>
-        `;
     }
 
 
-    card.innerHTML = `
+    /*
+      DocumentFragment استعمال کرنے سے
+      DOM پر بار بار load نہیں پڑتا۔
+    */
 
-        <div class="product-image-box">
-
-            <img
-                src="${image}"
-                alt="${name}"
-                loading="lazy"
-                onerror="
-                    this.src='https://via.placeholder.com/600x600.png?text=JANJUA';
-                "
-            >
-
-        </div>
+    const fragment =
+        document.createDocumentFragment();
 
 
-        <div class="product-info">
+    filtered.forEach(
+        product=>{
 
-            ${
-                category
-                    ? `
-                        <div class="product-category">
-                            ${category}
-                        </div>
-                    `
-                    : ""
-            }
+            const card =
+                document.createElement(
+                    "article"
+                );
 
 
-            <h3 class="product-name">
-                ${name}
-            </h3>
+            card.className =
+                "product-card";
 
 
-            ${
-                description
-                    ? `
-                        <p class="product-description">
-                            ${description}
-                        </p>
-                    `
-                    : ""
-            }
+            const name =
+                product.Product_Name ||
+                product.Product ||
+                "Product";
 
 
-            <div class="price-area">
+            const description =
+                product.Product_Description ||
+                "";
 
-                <span class="current-price">
-                    Rs. ${price}
-                </span>
 
-                ${
-                    Number(product.oldPrice) > Number(product.price)
-                        ? `
-                            <span class="old-price">
-                                Rs. ${oldPrice}
-                            </span>
+            const price =
+                Number(
+                    product.Product_Price || 0
+                );
+
+
+            const oldPrice =
+                Number(
+                    product.Old_Price || 0
+                );
+
+
+            const image =
+                product.Product_Image ||
+                "";
+
+
+            const productId =
+                product.Product_ID ||
+                "";
+
+
+            const deliveryType =
+                product.Delivery_Type ||
+                "Free Delivery";
+
+
+            const deliveryCharges =
+                Number(
+                    product.Delivery_Charges || 0
+                );
+
+
+            card.innerHTML = `
+
+                <div class="product-image-wrap">
+
+                    <img
+                        src="${escapeHtml(image)}"
+                        alt="${escapeHtml(name)}"
+                        loading="lazy"
+                        decoding="async"
+                        width="500"
+                        height="500"
+                    >
+
+                </div>
+
+
+                <div class="product-content">
+
+                    <h3>
+                        ${escapeHtml(name)}
+                    </h3>
+
+
+                    ${
+                        description
+                        ?
                         `
-                        : ""
+                        <p>
+                            ${escapeHtml(
+                                description
+                            )}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <div class="price-row">
+
+                        <strong>
+                            Rs. ${price.toLocaleString()}
+                        </strong>
+
+
+                        ${
+                            oldPrice > price
+                            ?
+                            `
+                            <del>
+                                Rs. ${oldPrice.toLocaleString()}
+                            </del>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+
+                    <div class="delivery-row">
+
+                        ${
+                            deliveryType ===
+                            "Free Delivery"
+                            ?
+                            "🚚 Free Delivery"
+                            :
+                            "🚚 Delivery: Rs. " +
+                            deliveryCharges.toLocaleString()
+                        }
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="order-now-btn"
+                    >
+                        ORDER NOW
+                    </button>
+
+                </div>
+
+            `;
+
+
+            const orderButton =
+                card.querySelector(
+                    ".order-now-btn"
+                );
+
+
+            orderButton.addEventListener(
+                "click",
+                ()=>{
+
+                    openOrderForm(
+                        product
+                    );
+
                 }
-
-            </div>
-
-
-            ${deliveryHTML}
+            );
 
 
-            <button
-                type="button"
-                class="order-btn"
-                data-product-id="${escapeHTML(product.id)}"
-            >
-                ORDER NOW
-            </button>
-
-        </div>
-
-    `;
-
-
-    const orderButton =
-        card.querySelector(".order-btn");
-
-
-    orderButton.addEventListener(
-        "click",
-        () => {
-
-            openOrderPage(product);
+            fragment.appendChild(
+                card
+            );
 
         }
     );
 
 
-    return card;
+    productGrid.appendChild(
+        fragment
+    );
+
 }
 
 
-// =====================================================
-// OPEN ORDER PAGE
-// =====================================================
+/* =====================================================
+   ORDER LINK
+===================================================== */
 
-function openOrderPage(product) {
+function openOrderForm(product){
 
     const params =
         new URLSearchParams();
@@ -297,208 +531,120 @@ function openOrderPage(product) {
 
     params.set(
         "Product",
-        product.name || ""
+        product.Product_Name ||
+        product.Product ||
+        ""
     );
 
 
     params.set(
         "Product_Description",
-        product.description || ""
+        product.Product_Description ||
+        ""
     );
 
 
     params.set(
         "Product_Price",
-        product.price || 0
+        product.Product_Price ||
+        0
     );
 
 
     params.set(
         "Old_Price",
-        product.oldPrice || 0
+        product.Old_Price ||
+        0
     );
 
 
     params.set(
         "Product_ID",
-        product.id || ""
+        product.Product_ID ||
+        ""
     );
 
 
     params.set(
         "Product_Image",
-        product.image || ""
+        product.Product_Image ||
+        ""
     );
 
 
     params.set(
         "Category",
-        product.category || ""
+        product.Category ||
+        ""
     );
 
 
     params.set(
         "Delivery_Type",
-        product.deliveryType || "FREE"
+        product.Delivery_Type ||
+        "Free Delivery"
     );
 
 
     params.set(
         "Delivery_Charges",
-        product.deliveryCharges || 0
+        product.Delivery_Charges ||
+        0
     );
-
-
-    /*
-        Supplier link intentionally customer page
-        پر show نہیں کیا جا رہا۔
-
-        اگر بعد میں Gmail میں supplier link شامل کرنا
-        ہو تو الگ secure system بنایا جا سکتا ہے۔
-    */
 
 
     window.location.href =
         "order-form.html?" +
         params.toString();
+
 }
 
 
-// =====================================================
-// RENDER PRODUCTS
-// =====================================================
+/* =====================================================
+   SEARCH
+===================================================== */
 
-function renderProducts(
-    productList,
-    selectedCategory = "All",
-    searchText = ""
-) {
-
-    productGrid.innerHTML = "";
+searchBox.addEventListener(
+    "input",
+    renderProducts
+);
 
 
-    const search =
-        String(searchText || "")
-            .trim()
-            .toLowerCase();
+/* =====================================================
+   ESCAPE
+===================================================== */
 
+function escapeHtml(value){
 
-    const filtered =
-        productList.filter(product => {
-
-            const categoryMatch =
-                selectedCategory === "All" ||
-                product.category === selectedCategory;
-
-
-            const searchMatch =
-                !search ||
-                String(product.name || "")
-                    .toLowerCase()
-                    .includes(search) ||
-
-                String(product.description || "")
-                    .toLowerCase()
-                    .includes(search) ||
-
-                String(product.category || "")
-                    .toLowerCase()
-                    .includes(search);
-
-
-            return (
-                categoryMatch &&
-                searchMatch
-            );
-        });
-
-
-    if (filtered.length === 0) {
-
-        productGrid.innerHTML = `
-
-            <div class="no-products">
-
-                <h3>
-                    😔 Product نہیں ملی
-                </h3>
-
-                <p>
-                    براہِ کرم دوبارہ Search کریں۔
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    filtered.forEach(product => {
-
-        productGrid.appendChild(
-            createProductCard(product)
-        );
-
-    });
-}
-
-
-// =====================================================
-// SEARCH
-// =====================================================
-
-if (searchBox) {
-
-    searchBox.addEventListener(
-        "input",
-        () => {
-
-            const activeButton =
-                document.querySelector(
-                    ".category-btn.active"
-                );
-
-
-            const category =
-                activeButton
-                    ? activeButton.dataset.category
-                    : "All";
-
-
-            renderProducts(
-                products,
-                category,
-                searchBox.value
-            );
-
-        }
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
     );
+
 }
 
 
-// =====================================================
-// START SHOP
-// =====================================================
+/* =====================================================
+   START
+===================================================== */
 
-function startShop() {
-
-    if (loadingMessage) {
-
-        loadingMessage.style.display =
-            "none";
-    }
-
-
-    createCategories();
-
-    renderProducts(
-        products,
-        "All",
-        ""
-    );
-}
-
-
-startShop();
+loadProducts();
