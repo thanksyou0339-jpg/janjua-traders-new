@@ -1,6 +1,7 @@
 /* =========================================================
    JANJUA TRADERS — CUSTOMER SHOP
-   Works with the exact fields used by current Admin.html
+   Firebase + Products + Search + Categories
+   Smooth Continuous Featured Product Slider
 ========================================================= */
 
 import {
@@ -96,7 +97,15 @@ let searchText = "";
 
 let sliderTimer = null;
 
-let sliderIndex = 0;
+let sliderAnimationFrame = null;
+
+let sliderPosition = 0;
+
+let sliderPaused = false;
+
+let sliderCardWidth = 0;
+
+let sliderOriginalCount = 0;
 
 
 /* =========================================================
@@ -108,6 +117,10 @@ function showStatus(
     type = "info"
 ){
 
+    if(!pageStatus){
+        return;
+    }
+
     pageStatus.textContent =
         message;
 
@@ -118,6 +131,10 @@ function showStatus(
 
 
 function hideStatus(){
+
+    if(!pageStatus){
+        return;
+    }
 
     pageStatus.textContent =
         "";
@@ -160,11 +177,6 @@ function optimizeImage(url){
         String(url).trim();
 
 
-    /*
-       Cloudinary image optimization.
-       Original image remains unchanged in Cloudinary.
-    */
-
     if(
         url.includes(
             "res.cloudinary.com"
@@ -197,8 +209,6 @@ function optimizeImage(url){
 
 /* =========================================================
    GET IMAGE
-   Exact Admin field:
-   Product_Image
 ========================================================= */
 
 function getImage(product){
@@ -328,7 +338,7 @@ function getCategory(product){
 
 
 /* =========================================================
-   GET DELIVERY
+   GET DELIVERY CHARGES
 ========================================================= */
 
 function getDeliveryCharges(product){
@@ -347,6 +357,10 @@ function getDeliveryCharges(product){
 
 }
 
+
+/* =========================================================
+   GET DELIVERY TYPE
+========================================================= */
 
 function getDeliveryType(product){
 
@@ -472,14 +486,26 @@ function productNumber(id){
 
 async function loadProducts(){
 
-    productsLoading.style.display =
-        "flex";
+    if(productsLoading){
 
-    sliderLoading.style.display =
-        "flex";
+        productsLoading.style.display =
+            "flex";
 
-    productsGrid.innerHTML =
-        "";
+    }
+
+    if(sliderLoading){
+
+        sliderLoading.style.display =
+            "flex";
+
+    }
+
+    if(productsGrid){
+
+        productsGrid.innerHTML =
+            "";
+
+    }
 
 
     try{
@@ -514,11 +540,6 @@ async function loadProducts(){
         );
 
 
-        /*
-           Sort by JT.PRODUCT.0001,
-           JT.PRODUCT.0002, etc.
-        */
-
         allProducts.sort(
             (a,b)=>{
 
@@ -535,17 +556,28 @@ async function loadProducts(){
         );
 
 
-        productCount.textContent =
-            allProducts.length +
-            " Products";
+        if(productCount){
+
+            productCount.textContent =
+                allProducts.length +
+                " Products";
+
+        }
 
 
-        productsLoading.style.display =
-            "none";
+        if(productsLoading){
 
+            productsLoading.style.display =
+                "none";
 
-        sliderLoading.style.display =
-            "none";
+        }
+
+        if(sliderLoading){
+
+            sliderLoading.style.display =
+                "none";
+
+        }
 
 
         renderCategories();
@@ -578,16 +610,26 @@ async function loadProducts(){
         );
 
 
-        productsLoading.style.display =
-            "none";
+        if(productsLoading){
 
+            productsLoading.style.display =
+                "none";
 
-        sliderLoading.style.display =
-            "none";
+        }
 
+        if(sliderLoading){
 
-        productCount.textContent =
-            "Error";
+            sliderLoading.style.display =
+                "none";
+
+        }
+
+        if(productCount){
+
+            productCount.textContent =
+                "Error";
+
+        }
 
 
         let message =
@@ -620,22 +662,28 @@ async function loadProducts(){
         );
 
 
-        productsGrid.innerHTML = `
+        if(productsGrid){
 
-            <div class="empty-box"
-                 style="grid-column:1/-1;">
+            productsGrid.innerHTML = `
 
-                <strong>
-                    Products load نہیں ہو سکے۔
-                </strong>
+                <div
+                    class="empty-box"
+                    style="grid-column:1/-1;"
+                >
 
-                <br><br>
+                    <strong>
+                        Products load نہیں ہو سکے۔
+                    </strong>
 
-                براہ کرم Firebase / Firestore Rules چیک کریں۔
+                    <br><br>
 
-            </div>
+                    براہ کرم Firebase / Firestore Rules چیک کریں۔
 
-        `;
+                </div>
+
+            `;
+
+        }
 
     }
 
@@ -647,6 +695,11 @@ async function loadProducts(){
 ========================================================= */
 
 function renderCategories(){
+
+    if(!categoriesBox){
+        return;
+    }
+
 
     const set =
         new Set();
@@ -758,7 +811,7 @@ function renderCategories(){
 
 
 /* =========================================================
-   FILTER
+   FILTER PRODUCTS
 ========================================================= */
 
 function getFilteredProducts(){
@@ -834,14 +887,6 @@ function getOrderLink(product){
         encodeURIComponent(id);
 
 
-    /*
-       Current order-form can receive supplier link
-       through URL.
-
-       NOTE:
-       This is not secret from a technical perspective.
-    */
-
     if(
         product.supplierLink
     ){
@@ -862,30 +907,29 @@ function getOrderLink(product){
 
 /* =========================================================
    FEATURED SLIDER
+   CONTINUOUS AUTOMATIC MOVEMENT
 ========================================================= */
 
 function renderSlider(){
 
-    clearInterval(
-        sliderTimer
-    );
+    stopSlider();
+
+
+    if(
+        !slider ||
+        !sliderTrack
+    ){
+
+        return;
+
+    }
 
 
     sliderTrack.innerHTML =
         "";
 
 
-    const featured =
-        allProducts.slice(
-            0,
-            Math.min(
-                allProducts.length,
-                10
-            )
-        );
-
-
-    if(!featured.length){
+    if(!allProducts.length){
 
         slider.classList.add(
             "hidden"
@@ -897,8 +941,24 @@ function renderSlider(){
 
 
     /*
-       Duplicate cards so slider
-       can move smoothly.
+       Show ALL products in the featured
+       moving slider.
+
+       We duplicate the products so that
+       the movement can continue smoothly.
+    */
+
+    const featured =
+        allProducts.slice();
+
+
+    sliderOriginalCount =
+        featured.length;
+
+
+    /*
+       Two complete copies are required
+       for seamless looping.
     */
 
     const sliderProducts =
@@ -922,8 +982,10 @@ function renderSlider(){
 
 
             const price =
-                product.Product_Price
-                    .toLocaleString();
+                Number(
+                    product.Product_Price ||
+                    0
+                ).toLocaleString();
 
 
             const card =
@@ -1000,13 +1062,64 @@ function renderSlider(){
 
 
     /*
-       Wait a moment so browser
-       calculates card widths.
+       Give the browser time to
+       calculate the real card width.
     */
 
-    setTimeout(
-        startSlider,
-        500
+    requestAnimationFrame(
+        ()=>{
+
+            requestAnimationFrame(
+                ()=>{
+                    startSlider();
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CALCULATE SLIDER CARD WIDTH
+========================================================= */
+
+function calculateSliderWidth(){
+
+    if(!sliderTrack){
+        return 0;
+    }
+
+
+    const card =
+        sliderTrack.querySelector(
+            ".feature-card"
+        );
+
+
+    if(!card){
+        return 0;
+    }
+
+
+    const style =
+        window.getComputedStyle(
+            sliderTrack
+        );
+
+
+    const gap =
+        parseFloat(
+            style.columnGap ||
+            style.gap ||
+            "12"
+        ) || 12;
+
+
+    return (
+        card.getBoundingClientRect().width +
+        gap
     );
 
 }
@@ -1018,19 +1131,12 @@ function renderSlider(){
 
 function startSlider(){
 
-    clearInterval(
-        sliderTimer
-    );
-
-
-    const cards =
-        sliderTrack.querySelectorAll(
-            ".feature-card"
-        );
+    stopSlider();
 
 
     if(
-        cards.length <= 10
+        !sliderTrack ||
+        sliderOriginalCount < 2
     ){
 
         return;
@@ -1038,85 +1144,258 @@ function startSlider(){
     }
 
 
-    sliderIndex = 0;
+    sliderCardWidth =
+        calculateSliderWidth();
 
 
-    sliderTimer =
-        setInterval(
-            ()=>{
+    if(
+        !sliderCardWidth ||
+        sliderCardWidth <= 0
+    ){
 
-                sliderIndex++;
+        return;
 
-
-                /*
-                   Each original card width:
-                   190px + 12px gap
-                */
-
-                const cardWidth =
-                    cards[0].getBoundingClientRect().width +
-                    12;
+    }
 
 
-                sliderTrack.style.transform =
-                    "translateX(-" +
-                    (
-                        sliderIndex *
-                        cardWidth
-                    ) +
-                    "px)";
+    sliderPosition =
+        0;
 
 
-                if(
-                    sliderIndex >= 10
-                ){
-
-                    setTimeout(
-                        ()=>{
-
-                            sliderTrack.style.transition =
-                                "none";
-
-                            sliderIndex =
-                                0;
-
-                            sliderTrack.style.transform =
-                                "translateX(0)";
+    sliderPaused =
+        false;
 
 
-                            requestAnimationFrame(
-                                ()=>{
+    /*
+       Smooth continuous movement.
 
-                                    requestAnimationFrame(
-                                        ()=>{
+       Smaller number =
+       slower movement.
 
-                                            sliderTrack.style.transition =
-                                                "transform .5s ease";
+       Current speed:
+       approximately 35 pixels per second.
+    */
 
-                                        }
-                                    );
+    const speed =
+        35;
 
-                                }
-                            );
 
-                        },
-                        550
-                    );
+    let lastTime =
+        performance.now();
 
-                }
 
-            },
-            2500
+    function moveSlider(
+        currentTime
+    ){
+
+        if(sliderPaused){
+
+            lastTime =
+                currentTime;
+
+            sliderAnimationFrame =
+                requestAnimationFrame(
+                    moveSlider
+                );
+
+            return;
+
+        }
+
+
+        const delta =
+            currentTime -
+            lastTime;
+
+
+        lastTime =
+            currentTime;
+
+
+        sliderPosition +=
+            (
+                speed *
+                delta /
+                1000
+            );
+
+
+        const totalLoopWidth =
+            sliderOriginalCount *
+            sliderCardWidth;
+
+
+        /*
+           Once the first complete set
+           has passed, instantly reset the
+           hidden position.
+
+           Because the second identical
+           set is directly behind it,
+           the user sees a seamless loop.
+        */
+
+        if(
+            sliderPosition >=
+            totalLoopWidth
+        ){
+
+            sliderPosition -=
+                totalLoopWidth;
+
+        }
+
+
+        sliderTrack.style.transform =
+            "translate3d(" +
+            (
+                -sliderPosition
+            ) +
+            "px,0,0)";
+
+
+        sliderAnimationFrame =
+            requestAnimationFrame(
+                moveSlider
+            );
+
+    }
+
+
+    sliderAnimationFrame =
+        requestAnimationFrame(
+            moveSlider
         );
+
+
+    /*
+       Pause while user touches
+       or places the pointer over slider.
+    */
+
+    slider.addEventListener(
+        "mouseenter",
+        pauseSlider
+    );
+
+
+    slider.addEventListener(
+        "mouseleave",
+        resumeSlider
+    );
+
+
+    slider.addEventListener(
+        "touchstart",
+        pauseSlider,
+        {
+            passive:true
+        }
+    );
+
+
+    slider.addEventListener(
+        "touchend",
+        resumeSlider,
+        {
+            passive:true
+        }
+    );
 
 }
 
 
 /* =========================================================
-   RENDER PRODUCTS
+   PAUSE SLIDER
+========================================================= */
+
+function pauseSlider(){
+
+    sliderPaused =
+        true;
+
+}
+
+
+/* =========================================================
+   RESUME SLIDER
+========================================================= */
+
+function resumeSlider(){
+
+    sliderPaused =
+        false;
+
+}
+
+
+/* =========================================================
+   STOP SLIDER
+========================================================= */
+
+function stopSlider(){
+
+    if(sliderTimer){
+
+        clearInterval(
+            sliderTimer
+        );
+
+        sliderTimer =
+            null;
+
+    }
+
+
+    if(sliderAnimationFrame){
+
+        cancelAnimationFrame(
+            sliderAnimationFrame
+        );
+
+        sliderAnimationFrame =
+            null;
+
+    }
+
+
+    sliderPosition =
+        0;
+
+}
+
+
+/* =========================================================
+   WINDOW RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        if(
+            sliderOriginalCount >= 2
+        ){
+
+            sliderCardWidth =
+                calculateSliderWidth();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RENDER PRODUCTS GRID
 ========================================================= */
 
 function renderProducts(){
+
+    if(!productsGrid){
+        return;
+    }
+
 
     const products =
         getFilteredProducts();
@@ -1182,8 +1461,10 @@ function renderProducts(){
 
 
             const price =
-                product.Product_Price
-                    .toLocaleString();
+                Number(
+                    product.Product_Price ||
+                    0
+                ).toLocaleString();
 
 
             const oldPrice =
@@ -1205,7 +1486,8 @@ function renderProducts(){
 
 
             if(
-                oldPrice > product.Product_Price
+                oldPrice >
+                product.Product_Price
             ){
 
                 oldPriceHtml = `
@@ -1348,23 +1630,22 @@ function renderProducts(){
                 );
 
 
-            orderButton.addEventListener(
-                "click",
-                ()=>{
+            if(orderButton){
 
-                    window.location.href =
-                        getOrderLink(
-                            product
-                        );
+                orderButton.addEventListener(
+                    "click",
+                    ()=>{
 
-                }
-            );
+                        window.location.href =
+                            getOrderLink(
+                                product
+                            );
 
+                    }
+                );
 
-            /*
-               If image fails, keep product card visible
-               and show a small placeholder.
-            */
+            }
+
 
             const imageElement =
                 card.querySelector(
@@ -1412,24 +1693,28 @@ function renderProducts(){
    SEARCH
 ========================================================= */
 
-searchInput.addEventListener(
-    "input",
-    ()=>{
+if(searchInput){
 
-        searchText =
-            searchInput.value
-                .trim()
-                .toLowerCase();
+    searchInput.addEventListener(
+        "input",
+        ()=>{
+
+            searchText =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
 
 
-        renderProducts();
+            renderProducts();
 
-    }
-);
+        }
+    );
+
+}
 
 
 /* =========================================================
-   START
+   START SHOP
 ========================================================= */
 
 console.log(
