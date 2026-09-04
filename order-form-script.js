@@ -28,51 +28,102 @@ const db = getFirestore(app);
 // ELEMENTS
 // =====================================================
 
-const productImageEl = document.getElementById("productImage");
-const productNameEl = document.getElementById("productName");
-const productDescriptionEl = document.getElementById("productDescription");
-const productPriceEl = document.getElementById("productPrice");
-const oldPriceEl = document.getElementById("oldPrice");
+const productImageEl =
+    document.getElementById("productImage");
 
-const deliveryBadgeEl = document.getElementById("deliveryBadge");
-const deliveryNoteEl = document.getElementById("deliveryNote");
+const productNameEl =
+    document.getElementById("productName");
 
-const form = document.getElementById("orderForm");
+const productDescriptionEl =
+    document.getElementById("productDescription");
 
-const customerName = document.getElementById("customerName");
-const mobileWhatsApp = document.getElementById("mobileWhatsApp");
-const deliveryAddress = document.getElementById("deliveryAddress");
-const quantity = document.getElementById("quantity");
-const platform = document.getElementById("platform");
-const color = document.getElementById("color");
-const size = document.getElementById("size");
+const productPriceEl =
+    document.getElementById("productPrice");
 
-const receiptSection = document.getElementById("receiptSection");
+const oldPriceEl =
+    document.getElementById("oldPrice");
+
+const deliveryBadgeEl =
+    document.getElementById("deliveryBadge");
+
+const deliveryNoteEl =
+    document.getElementById("deliveryNote");
+
+const form =
+    document.getElementById("orderForm");
+
+const customerName =
+    document.getElementById("customerName");
+
+const mobile =
+    document.getElementById("mobile");
+
+const address =
+    document.getElementById("address");
+
+const quantity =
+    document.getElementById("quantity");
+
+const platform =
+    document.getElementById("platform");
+
+const color =
+    document.getElementById("color");
+
+const size =
+    document.getElementById("size");
+
+const receiptSection =
+    document.getElementById("receiptSection");
 
 
 // =====================================================
 // HIDDEN FIELDS
 // =====================================================
 
-const hiddenOrderId = document.getElementById("hiddenOrderId");
-const hiddenProduct = document.getElementById("hiddenProduct");
-const hiddenDescription = document.getElementById("hiddenDescription");
-const hiddenPrice = document.getElementById("hiddenPrice");
-const hiddenOldPrice = document.getElementById("hiddenOldPrice");
-const hiddenProductId = document.getElementById("hiddenProductId");
-const hiddenProductImage = document.getElementById("hiddenProductImage");
-const hiddenDeliveryStatus = document.getElementById("hiddenDeliveryStatus");
-const hiddenDeliveryCharges = document.getElementById("hiddenDeliveryCharges");
-const hiddenTotalAmount = document.getElementById("hiddenTotalAmount");
-const hiddenJanjuaLink = document.getElementById("hiddenJanjuaLink");
-const hiddenSupplierLink = document.getElementById("hiddenSupplierLink");
+const hiddenOrderId =
+    document.getElementById("hiddenOrderId");
+
+const hiddenProduct =
+    document.getElementById("hiddenProduct");
+
+const hiddenDescription =
+    document.getElementById("hiddenDescription");
+
+const hiddenPrice =
+    document.getElementById("hiddenPrice");
+
+const hiddenOldPrice =
+    document.getElementById("hiddenOldPrice");
+
+const hiddenProductId =
+    document.getElementById("hiddenProductId");
+
+const hiddenProductImage =
+    document.getElementById("hiddenProductImage");
+
+const hiddenDeliveryStatus =
+    document.getElementById("hiddenDeliveryStatus");
+
+const hiddenDeliveryCharges =
+    document.getElementById("hiddenDeliveryCharges");
+
+const hiddenTotal =
+    document.getElementById("hiddenTotal");
+
+const hiddenJanjuaLink =
+    document.getElementById("hiddenJanjuaLink");
+
+const hiddenSupplierLink =
+    document.getElementById("hiddenSupplierLink");
 
 
 // =====================================================
 // URL PARAMETERS
 // =====================================================
 
-const params = new URLSearchParams(window.location.search);
+const params =
+    new URLSearchParams(window.location.search);
 
 const productIdFromURL =
     params.get("Product_ID") ||
@@ -90,18 +141,42 @@ const supplierLinkFromURL =
 // =====================================================
 
 let productData = {
-    id: productIdFromURL,
-    name: params.get("Product") || "",
-    description: params.get("Product_Description") || "",
-    price: Number(params.get("Product_Price") || 0),
-    oldPrice: Number(params.get("Old_Price") || 0),
-    category: params.get("Category") || "",
-    image: params.get("Product_Image") || "",
-    deliveryType: params.get("Delivery_Type") || "",
-    deliveryCharges: Number(params.get("Delivery_Charges") || 0),
 
-    // IMPORTANT
-    supplierLink: supplierLinkFromURL || ""
+    id: productIdFromURL,
+
+    name:
+        params.get("Product") || "",
+
+    description:
+        params.get("Product_Description") || "",
+
+    price:
+        Number(
+            params.get("Product_Price") || 0
+        ),
+
+    oldPrice:
+        Number(
+            params.get("Old_Price") || 0
+        ),
+
+    category:
+        params.get("Category") || "",
+
+    image:
+        params.get("Product_Image") || "",
+
+    deliveryType:
+        params.get("Delivery_Type") || "",
+
+    deliveryCharges:
+        Number(
+            params.get("Delivery_Charges") || 0
+        ),
+
+    supplierLink:
+        supplierLinkFromURL || ""
+
 };
 
 
@@ -126,7 +201,7 @@ function optimizeImage(url) {
 
             return url.replace(
                 "/image/upload/",
-                "/image/upload/f_auto,q_auto,w_600/"
+                "/image/upload/f_auto,q_auto,w_800/"
             );
 
         }
@@ -138,54 +213,82 @@ function optimizeImage(url) {
 
 
 // =====================================================
-// MONEY FORMAT
+// MONEY
 // =====================================================
 
 function money(value) {
 
-    const number = Number(value || 0);
+    const number =
+        Number(value || 0);
 
-    return "Rs. " + number.toLocaleString("en-PK");
+    return (
+        "Rs. " +
+        number.toLocaleString("en-PK")
+    );
+
 }
 
 
 // =====================================================
-// GENERATE ORDER ID
+// ORDER ID
 // =====================================================
 
 function generateOrderId() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
     const datePart =
         now.getFullYear().toString() +
-        String(now.getMonth() + 1).padStart(2, "0") +
-        String(now.getDate()).padStart(2, "0");
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0") +
+        String(
+            now.getDate()
+        ).padStart(2, "0");
 
     const timePart =
-        String(now.getHours()).padStart(2, "0") +
-        String(now.getMinutes()).padStart(2, "0") +
-        String(now.getSeconds()).padStart(2, "0");
+        String(
+            now.getHours()
+        ).padStart(2, "0") +
+        String(
+            now.getMinutes()
+        ).padStart(2, "0") +
+        String(
+            now.getSeconds()
+        ).padStart(2, "0");
 
     const randomPart =
-        Math.floor(1000 + Math.random() * 9000);
+        Math.floor(
+            1000 +
+            Math.random() * 9000
+        );
 
-    return "JT-" + datePart + "-" + timePart + "-" + randomPart;
+    return (
+        "JT-" +
+        datePart +
+        "-" +
+        timePart +
+        "-" +
+        randomPart
+    );
+
 }
 
 
 // =====================================================
-// JANJUA ORDER LINK
+// JANJUA LINK
 // =====================================================
 
 function getJanjuaOrderLink() {
 
     return window.location.href;
+
 }
 
 
 // =====================================================
-// LOAD PRODUCT FROM FIRESTORE
+// LOAD PRODUCT
 // =====================================================
 
 async function loadProductFromFirestore() {
@@ -196,43 +299,57 @@ async function loadProductFromFirestore() {
 
     try {
 
-        const snapshot = await getDocs(
-            collection(db, "products")
-        );
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "products"
+                )
+            );
 
-        let foundProduct = null;
+        let foundProduct =
+            null;
 
-        snapshot.forEach((doc) => {
 
-            const data = doc.data();
+        snapshot.forEach(
+            (doc) => {
 
-            const id =
-                data.Product_ID ||
-                data.productId ||
-                data.id ||
-                "";
+                const data =
+                    doc.data();
 
-            if (String(id) === String(productIdFromURL)) {
+                const id =
+                    data.Product_ID ||
+                    data.productId ||
+                    data.id ||
+                    "";
 
-                foundProduct = {
-                    firestoreId: doc.id,
-                    ...data
-                };
+                if (
+                    String(id) ===
+                    String(productIdFromURL)
+                ) {
+
+                    foundProduct = {
+                        firestoreId:
+                            doc.id,
+                        ...data
+                    };
+
+                }
 
             }
-
-        });
+        );
 
 
         if (!foundProduct) {
-            console.log("Product not found in Firestore.");
+
+            console.log(
+                "Product not found."
+            );
+
             return;
+
         }
 
-
-        // =================================================
-        // GET ALL PRODUCT DATA
-        // =================================================
 
         productData.name =
             foundProduct.Product ||
@@ -240,10 +357,12 @@ async function loadProductFromFirestore() {
             productData.name ||
             "";
 
+
         productData.description =
             foundProduct.Product_Description ||
             productData.description ||
             "";
+
 
         productData.price =
             Number(
@@ -252,6 +371,7 @@ async function loadProductFromFirestore() {
                 0
             );
 
+
         productData.oldPrice =
             Number(
                 foundProduct.Old_Price ||
@@ -259,10 +379,12 @@ async function loadProductFromFirestore() {
                 0
             );
 
+
         productData.category =
             foundProduct.Category ||
             productData.category ||
             "";
+
 
         productData.image =
             foundProduct.Product_Image ||
@@ -271,10 +393,12 @@ async function loadProductFromFirestore() {
             productData.image ||
             "";
 
+
         productData.deliveryType =
             foundProduct.Delivery_Type ||
             productData.deliveryType ||
             "";
+
 
         productData.deliveryCharges =
             Number(
@@ -284,10 +408,7 @@ async function loadProductFromFirestore() {
             );
 
 
-        // =================================================
-        // VERY IMPORTANT:
-        // ORIGINAL SUPPLIER LINK
-        // =================================================
+        // SUPPLIER LINK — DO NOT REMOVE
 
         productData.supplierLink =
             foundProduct.supplierLink ||
@@ -297,20 +418,15 @@ async function loadProductFromFirestore() {
             "";
 
 
-        console.log(
-            "Original Supplier Link:",
-            productData.supplierLink
-        );
-
-
     } catch (error) {
 
         console.error(
-            "Firestore product loading error:",
+            "Firestore error:",
             error
         );
 
     }
+
 }
 
 
@@ -321,79 +437,92 @@ async function loadProductFromFirestore() {
 function displayProduct() {
 
     const imageUrl =
-        optimizeImage(productData.image);
+        optimizeImage(
+            productData.image
+        );
 
 
-    // IMAGE
     if (productImageEl) {
 
         if (imageUrl) {
 
-            productImageEl.src = imageUrl;
-            productImageEl.style.display = "block";
+            productImageEl.src =
+                imageUrl;
+
+            productImageEl.style.display =
+                "block";
 
         } else {
 
-            productImageEl.removeAttribute("src");
+            productImageEl.removeAttribute(
+                "src"
+            );
 
         }
 
     }
 
 
-    // NAME
     if (productNameEl) {
 
         productNameEl.textContent =
-            productData.name || "Product";
+            productData.name ||
+            "Product";
 
     }
 
 
-    // DESCRIPTION
     if (productDescriptionEl) {
 
         productDescriptionEl.textContent =
-            productData.description || "";
+            productData.description ||
+            "";
 
     }
 
 
-    // PRICE
     if (productPriceEl) {
 
         productPriceEl.textContent =
-            money(productData.price);
+            money(
+                productData.price
+            );
 
     }
 
 
-    // OLD PRICE
     if (oldPriceEl) {
 
-        if (productData.oldPrice > 0) {
+        if (
+            productData.oldPrice > 0
+        ) {
 
             oldPriceEl.textContent =
-                money(productData.oldPrice);
+                money(
+                    productData.oldPrice
+                );
 
-            oldPriceEl.style.display = "inline";
+            oldPriceEl.style.display =
+                "inline";
 
         } else {
 
-            oldPriceEl.style.display = "none";
+            oldPriceEl.style.display =
+                "none";
 
         }
 
     }
 
 
-    // DELIVERY
     if (deliveryBadgeEl) {
 
         if (
-            String(productData.deliveryType)
-                .toLowerCase()
-                .includes("free")
+            String(
+                productData.deliveryType
+            )
+            .toLowerCase()
+            .includes("free")
         ) {
 
             deliveryBadgeEl.textContent =
@@ -411,11 +540,15 @@ function displayProduct() {
 
     if (deliveryNoteEl) {
 
-        if (productData.deliveryCharges > 0) {
+        if (
+            productData.deliveryCharges > 0
+        ) {
 
             deliveryNoteEl.textContent =
                 "Delivery Charges: " +
-                money(productData.deliveryCharges);
+                money(
+                    productData.deliveryCharges
+                );
 
         } else {
 
@@ -435,10 +568,14 @@ function displayProduct() {
 
 function updateHiddenFields() {
 
-    const orderId = generateOrderId();
+    let orderId =
+        hiddenOrderId?.value ||
+        generateOrderId();
+
 
     const janjuaLink =
         getJanjuaOrderLink();
+
 
     const supplierLink =
         productData.supplierLink ||
@@ -446,58 +583,61 @@ function updateHiddenFields() {
         "";
 
 
-    // ================================================
-    // ORDER ID
-    // ================================================
-
     if (hiddenOrderId) {
-        hiddenOrderId.value = orderId;
+
+        hiddenOrderId.value =
+            orderId;
+
     }
 
 
-    // ================================================
-    // PRODUCT
-    // ================================================
-
     if (hiddenProduct) {
+
         hiddenProduct.value =
             productData.name;
+
     }
 
 
     if (hiddenDescription) {
+
         hiddenDescription.value =
             productData.description;
+
     }
 
 
     if (hiddenPrice) {
+
         hiddenPrice.value =
             productData.price;
+
     }
 
 
     if (hiddenOldPrice) {
+
         hiddenOldPrice.value =
             productData.oldPrice;
+
     }
 
 
     if (hiddenProductId) {
+
         hiddenProductId.value =
             productData.id;
+
     }
 
 
     if (hiddenProductImage) {
+
         hiddenProductImage.value =
             productData.image;
+
     }
 
-
-    // ================================================
-    // DELIVERY
-    // ================================================
 
     if (hiddenDeliveryStatus) {
 
@@ -511,37 +651,37 @@ function updateHiddenFields() {
     if (hiddenDeliveryCharges) {
 
         hiddenDeliveryCharges.value =
-            productData.deliveryCharges || 0;
+            productData.deliveryCharges ||
+            0;
 
     }
 
 
-    // ================================================
-    // TOTAL
-    // ================================================
-
     const qty =
-        Number(quantity?.value || 1);
+        Number(
+            quantity?.value || 1
+        );
+
 
     const total =
         (
-            Number(productData.price || 0) *
-            qty
+            Number(
+                productData.price || 0
+            ) * qty
         ) +
-        Number(productData.deliveryCharges || 0);
+        Number(
+            productData.deliveryCharges ||
+            0
+        );
 
 
-    if (hiddenTotalAmount) {
+    if (hiddenTotal) {
 
-        hiddenTotalAmount.value =
+        hiddenTotal.value =
             total;
 
     }
 
-
-    // ================================================
-    // JANJUA LINK
-    // ================================================
 
     if (hiddenJanjuaLink) {
 
@@ -551,10 +691,6 @@ function updateHiddenFields() {
     }
 
 
-    // ================================================
-    // ORIGINAL SUPPLIER LINK
-    // ================================================
-
     if (hiddenSupplierLink) {
 
         hiddenSupplierLink.value =
@@ -563,21 +699,23 @@ function updateHiddenFields() {
     }
 
 
-    console.log(
-        "JANJUA Link:",
-        janjuaLink
-    );
+    const formUrl =
+        document.getElementById(
+            "formUrl"
+        );
 
-    console.log(
-        "Original Supplier Link:",
-        supplierLink
-    );
+    if (formUrl) {
+
+        formUrl.value =
+            window.location.href;
+
+    }
 
 }
 
 
 // =====================================================
-// UPDATE TOTAL WHEN QUANTITY CHANGES
+// QUANTITY CHANGE
 // =====================================================
 
 if (quantity) {
@@ -596,27 +734,364 @@ if (quantity) {
 
 
 // =====================================================
-// INITIALIZE PRODUCT
+// INITIALIZE
 // =====================================================
 
 async function initializeProduct() {
 
-    // First display URL data
     displayProduct();
 
-    // Then get latest product data from Firestore
     await loadProductFromFirestore();
 
-    // Display Firestore data
     displayProduct();
 
-    // Update all hidden fields
     updateHiddenFields();
 
 }
 
 
 initializeProduct();
+
+
+// =====================================================
+// WAIT FOR IMAGE
+// =====================================================
+
+function waitForImage(image) {
+
+    return new Promise(
+        (resolve) => {
+
+            if (!image) {
+
+                resolve();
+
+                return;
+
+            }
+
+
+            if (image.complete) {
+
+                resolve();
+
+                return;
+
+            }
+
+
+            image.onload =
+                () => resolve();
+
+            image.onerror =
+                () => resolve();
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// SHOW RECEIPT
+// =====================================================
+
+async function showReceipt(orderId) {
+
+    if (!receiptSection) {
+        return;
+    }
+
+
+    const receiptOrderId =
+        document.getElementById(
+            "receiptOrderId"
+        );
+
+    const receiptCustomer =
+        document.getElementById(
+            "receiptCustomer"
+        );
+
+    const receiptMobile =
+        document.getElementById(
+            "receiptMobile"
+        );
+
+    const receiptAddress =
+        document.getElementById(
+            "receiptAddress"
+        );
+
+    const receiptProduct =
+        document.getElementById(
+            "receiptProductName"
+        );
+
+    const receiptDate =
+        document.getElementById(
+            "receiptDate"
+        );
+
+    const receiptQuantity =
+        document.getElementById(
+            "receiptQuantity"
+        );
+
+    const receiptPrice =
+        document.getElementById(
+            "receiptPrice"
+        );
+
+    const receiptDelivery =
+        document.getElementById(
+            "receiptDelivery"
+        );
+
+    const receiptPlatform =
+        document.getElementById(
+            "receiptPlatform"
+        );
+
+    const receiptColor =
+        document.getElementById(
+            "receiptColor"
+        );
+
+    const receiptSize =
+        document.getElementById(
+            "receiptSize"
+        );
+
+    const receiptTotal =
+        document.getElementById(
+            "receiptTotal"
+        );
+
+    const receiptImage =
+        document.getElementById(
+            "receiptImage"
+        );
+
+
+    // BASIC DATA
+
+    if (receiptOrderId) {
+
+        receiptOrderId.textContent =
+            orderId;
+
+    }
+
+
+    if (receiptCustomer) {
+
+        receiptCustomer.textContent =
+            customerName?.value ||
+            "";
+
+    }
+
+
+    if (receiptMobile) {
+
+        receiptMobile.textContent =
+            mobile?.value ||
+            "";
+
+    }
+
+
+    if (receiptAddress) {
+
+        receiptAddress.textContent =
+            address?.value ||
+            "";
+
+    }
+
+
+    if (receiptProduct) {
+
+        receiptProduct.textContent =
+            productData.name ||
+            "";
+
+    }
+
+
+    if (receiptDate) {
+
+        receiptDate.textContent =
+            new Date()
+            .toLocaleString(
+                "en-PK",
+                {
+                    dateStyle:
+                        "medium",
+                    timeStyle:
+                        "short"
+                }
+            );
+
+    }
+
+
+    const qty =
+        Number(
+            quantity?.value || 1
+        );
+
+
+    if (receiptQuantity) {
+
+        receiptQuantity.textContent =
+            qty;
+
+    }
+
+
+    if (receiptPrice) {
+
+        receiptPrice.textContent =
+            money(
+                productData.price
+            );
+
+    }
+
+
+    const deliveryText =
+        productData.deliveryCharges > 0
+            ? money(
+                productData.deliveryCharges
+              )
+            : "Free Delivery";
+
+
+    if (receiptDelivery) {
+
+        receiptDelivery.textContent =
+            deliveryText;
+
+    }
+
+
+    if (receiptPlatform) {
+
+        receiptPlatform.textContent =
+            platform?.value ||
+            "";
+
+    }
+
+
+    if (receiptColor) {
+
+        receiptColor.textContent =
+            color?.value ||
+            "-";
+
+    }
+
+
+    if (receiptSize) {
+
+        receiptSize.textContent =
+            size?.value ||
+            "-";
+
+    }
+
+
+    const total =
+        (
+            Number(
+                productData.price || 0
+            ) * qty
+        ) +
+        Number(
+            productData.deliveryCharges ||
+            0
+        );
+
+
+    if (receiptTotal) {
+
+        receiptTotal.textContent =
+            money(total);
+
+    }
+
+
+    // RECEIPT IMAGE
+
+    const imageUrl =
+        optimizeImage(
+            productData.image
+        );
+
+
+    if (receiptImage) {
+
+        if (imageUrl) {
+
+            receiptImage.crossOrigin =
+                "anonymous";
+
+            receiptImage.src =
+                imageUrl;
+
+            receiptImage.style.display =
+                "block";
+
+            await waitForImage(
+                receiptImage
+            );
+
+        } else {
+
+            receiptImage.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // SHOW RECEIPT
+
+    receiptSection.style.display =
+        "block";
+
+
+    // HIDE FORM
+
+    if (form) {
+
+        form.style.display =
+            "none";
+
+    }
+
+
+    // MOVE USER TO RECEIPT
+
+    setTimeout(
+        () => {
+
+            receiptSection.scrollIntoView({
+                behavior:
+                    "smooth",
+                block:
+                    "start"
+            });
+
+        },
+        100
+    );
+
+}
 
 
 // =====================================================
@@ -627,12 +1102,11 @@ if (form) {
 
     form.addEventListener(
         "submit",
-        async function (event) {
+        async function(event) {
 
             event.preventDefault();
 
 
-            // Make sure hidden fields contain latest values
             updateHiddenFields();
 
 
@@ -644,7 +1118,8 @@ if (form) {
 
             if (submitButton) {
 
-                submitButton.disabled = true;
+                submitButton.disabled =
+                    true;
 
                 submitButton.textContent =
                     "Processing...";
@@ -657,19 +1132,23 @@ if (form) {
                 generateOrderId();
 
 
-            const formData =
-                new FormData(form);
-
-
             try {
+
+                const formData =
+                    new FormData(form);
+
 
                 const response =
                     await fetch(
                         "https://formsubmit.co/ajax/thanksyou0339@gmail.com",
                         {
-                            method: "POST",
-                            body: formData,
-                            headers: {
+                            method:
+                                "POST",
+
+                            body:
+                                formData,
+
+                            headers:{
                                 Accept:
                                     "application/json"
                             }
@@ -677,8 +1156,20 @@ if (form) {
                     );
 
 
-                const result =
-                    await response.json();
+                let result = {};
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch(error) {
+
+                    console.log(
+                        "Response was not JSON."
+                    );
+
+                }
 
 
                 if (!response.ok) {
@@ -691,21 +1182,20 @@ if (form) {
                 }
 
 
-                // =====================================
                 // SHOW RECEIPT
-                // =====================================
 
-                showReceipt(
+                await showReceipt(
                     orderId
                 );
 
 
-            } catch (error) {
+            } catch(error) {
 
                 console.error(
                     "Order submission error:",
                     error
                 );
+
 
                 alert(
                     "Order submit نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
@@ -714,10 +1204,11 @@ if (form) {
 
                 if (submitButton) {
 
-                    submitButton.disabled = false;
+                    submitButton.disabled =
+                        false;
 
                     submitButton.textContent =
-                        "ORDER NOW";
+                        "ORDER CONFIRM کریں";
 
                 }
 
@@ -730,218 +1221,143 @@ if (form) {
 
 
 // =====================================================
-// SHOW RECEIPT
-// =====================================================
-
-function showReceipt(orderId) {
-
-    if (!receiptSection) {
-        return;
-    }
-
-
-    // Customer details
-    const receiptOrderId =
-        document.getElementById("receiptOrderId");
-
-    const receiptCustomer =
-        document.getElementById("receiptCustomer");
-
-    const receiptMobile =
-        document.getElementById("receiptMobile");
-
-    const receiptAddress =
-        document.getElementById("receiptAddress");
-
-    const receiptProduct =
-        document.getElementById("receiptProduct");
-
-    const receiptQuantity =
-        document.getElementById("receiptQuantity");
-
-    const receiptTotal =
-        document.getElementById("receiptTotal");
-
-
-    if (receiptOrderId) {
-        receiptOrderId.textContent =
-            orderId;
-    }
-
-
-    if (receiptCustomer) {
-        receiptCustomer.textContent =
-            customerName?.value || "";
-    }
-
-
-    if (receiptMobile) {
-        receiptMobile.textContent =
-            mobileWhatsApp?.value || "";
-    }
-
-
-    if (receiptAddress) {
-        receiptAddress.textContent =
-            deliveryAddress?.value || "";
-    }
-
-
-    if (receiptProduct) {
-        receiptProduct.textContent =
-            productData.name || "";
-    }
-
-
-    if (receiptQuantity) {
-        receiptQuantity.textContent =
-            quantity?.value || "1";
-    }
-
-
-    const qty =
-        Number(quantity?.value || 1);
-
-    const total =
-        (
-            Number(productData.price || 0) *
-            qty
-        ) +
-        Number(productData.deliveryCharges || 0);
-
-
-    if (receiptTotal) {
-
-        receiptTotal.textContent =
-            money(total);
-
-    }
-
-
-    receiptSection.style.display =
-        "block";
-
-
-    if (form) {
-
-        form.style.display =
-            "none";
-
-    }
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-// =====================================================
-// DOWNLOAD RECEIPT
+// DOWNLOAD PDF
 // =====================================================
 
 const downloadButton =
-    document.getElementById("downloadReceipt");
+    document.getElementById(
+        "downloadReceiptBtn"
+    );
 
 
 if (downloadButton) {
 
     downloadButton.addEventListener(
         "click",
-        function () {
+        async function() {
 
             const receipt =
                 document.getElementById(
                     "receiptSection"
                 );
 
+
             if (!receipt) {
                 return;
             }
 
 
-            const html =
-                `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>JANJUA Order Receipt</title>
+            if (
+                typeof html2pdf ===
+                "undefined"
+            ) {
 
-<style>
+                alert(
+                    "PDF system load نہیں ہوا۔ براہِ کرم internet check کرکے دوبارہ کوشش کریں۔"
+                );
 
-body{
-    font-family:Arial,sans-serif;
-    padding:20px;
-}
+                return;
 
-.receipt{
-    max-width:500px;
-    margin:auto;
-}
-
-h1{
-    text-align:center;
-}
-
-.row{
-    padding:8px 0;
-    border-bottom:1px solid #ddd;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="receipt">
-
-${receipt.innerHTML}
-
-</div>
-
-</body>
-
-</html>
-                `;
+            }
 
 
-            const blob =
-                new Blob(
-                    [html],
-                    {
-                        type:
-                            "text/html;charset=utf-8"
-                    }
+            downloadButton.disabled =
+                true;
+
+            downloadButton.textContent =
+                "PDF بن رہی ہے...";
+
+
+            try {
+
+                const image =
+                    document.getElementById(
+                        "receiptImage"
+                    );
+
+
+                await waitForImage(
+                    image
                 );
 
 
-            const url =
-                URL.createObjectURL(blob);
+                const options = {
+
+                    margin: 5,
+
+                    filename:
+                        "JANJUA-Order-" +
+                        (
+                            hiddenOrderId?.value ||
+                            "Receipt"
+                        ) +
+                        ".pdf",
+
+                    image: {
+                        type:
+                            "jpeg",
+                        quality:
+                            0.95
+                    },
+
+                    html2canvas: {
+
+                        scale:
+                            2,
+
+                        useCORS:
+                            true,
+
+                        allowTaint:
+                            false,
+
+                        backgroundColor:
+                            "#ffffff"
+
+                    },
+
+                    jsPDF: {
+
+                        unit:
+                            "mm",
+
+                        format:
+                            "a4",
+
+                        orientation:
+                            "portrait"
+
+                    }
+
+                };
 
 
-            const a =
-                document.createElement("a");
+                await html2pdf()
+                    .set(options)
+                    .from(receipt)
+                    .save();
 
 
-            a.href = url;
+            } catch(error) {
 
-            a.download =
-                "JANJUA-Order-Receipt-" +
-                (hiddenOrderId?.value || "Order") +
-                ".html";
+                console.error(
+                    "PDF error:",
+                    error
+                );
 
 
-            document.body.appendChild(a);
+                alert(
+                    "PDF download نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
+                );
 
-            a.click();
+            }
 
-            a.remove();
 
-            URL.revokeObjectURL(url);
+            downloadButton.disabled =
+                false;
+
+            downloadButton.textContent =
+                "📥 Download PDF";
 
         }
     );
@@ -950,69 +1366,235 @@ ${receipt.innerHTML}
 
 
 // =====================================================
-// SHARE
+// SHARE RECEIPT
 // =====================================================
 
 const shareButton =
-    document.getElementById("shareReceipt");
+    document.getElementById(
+        "shareReceiptBtn"
+    );
 
 
 if (shareButton) {
 
     shareButton.addEventListener(
         "click",
-        async function () {
+        async function() {
 
             const orderId =
-                hiddenOrderId?.value || "";
-
+                hiddenOrderId?.value ||
+                "";
 
             const text =
-                "JANJUA TRADERS Order\n" +
+                "JANJUA TRADERS\n" +
+                "Order Confirmation\n\n" +
                 "Order ID: " +
                 orderId +
-                "\nProduct: " +
-                productData.name;
+                "\n" +
+                "Product: " +
+                productData.name +
+                "\n" +
+                "Quantity: " +
+                (
+                    quantity?.value ||
+                    1
+                ) +
+                "\n" +
+                "Total: " +
+                money(
+                    (
+                        Number(
+                            productData.price ||
+                            0
+                        ) *
+                        Number(
+                            quantity?.value ||
+                            1
+                        )
+                    ) +
+                    Number(
+                        productData.deliveryCharges ||
+                        0
+                    )
+                ) +
+                "\n\n" +
+                "Delivery: 4–6 days\n" +
+                "Return Request: within 5 days\n" +
+                "Payment: Cash on Delivery (COD)";
 
 
-            if (
-                navigator.share
-            ) {
+            try {
 
-                try {
+                // TRY SHARE PDF FIRST
 
-                    await navigator.share({
-                        title:
-                            "JANJUA Order",
-                        text:
-                            text
-                    });
+                if (
+                    typeof html2pdf !==
+                    "undefined"
+                ) {
 
-                } catch (error) {
+                    const receipt =
+                        document.getElementById(
+                            "receiptSection"
+                        );
 
-                    console.log(
-                        "Share cancelled."
-                    );
+
+                    const options = {
+
+                        margin:5,
+
+                        filename:
+                            "JANJUA-Order-" +
+                            orderId +
+                            ".pdf",
+
+                        image:{
+                            type:
+                                "jpeg",
+                            quality:
+                                0.95
+                        },
+
+                        html2canvas:{
+                            scale:
+                                2,
+                            useCORS:
+                                true,
+                            allowTaint:
+                                false,
+                            backgroundColor:
+                                "#ffffff"
+                        },
+
+                        jsPDF:{
+                            unit:
+                                "mm",
+                            format:
+                                "a4",
+                            orientation:
+                                "portrait"
+                        }
+
+                    };
+
+
+                    const pdfBlob =
+                        await html2pdf()
+                            .set(options)
+                            .from(receipt)
+                            .outputPdf(
+                                "blob"
+                            );
+
+
+                    const file =
+                        new File(
+                            [
+                                pdfBlob
+                            ],
+                            "JANJUA-Order-" +
+                            orderId +
+                            ".pdf",
+                            {
+                                type:
+                                    "application/pdf"
+                            }
+                        );
+
+
+                    if (
+                        navigator.share &&
+                        navigator.canShare &&
+                        navigator.canShare({
+                            files:[
+                                file
+                            ]
+                        })
+                    ) {
+
+                        await navigator.share({
+
+                            title:
+                                "JANJUA Order Receipt",
+
+                            text:
+                                text,
+
+                            files:[
+                                file
+                            ]
+
+                        });
+
+                        return;
+
+                    }
 
                 }
 
-            } else {
 
-                try {
+                // NORMAL SHARE
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share({
+
+                        title:
+                            "JANJUA Order Receipt",
+
+                        text:
+                            text
+
+                    });
+
+                    return;
+
+                }
+
+
+                // CLIPBOARD FALLBACK
+
+                if (
+                    navigator.clipboard
+                ) {
 
                     await navigator.clipboard.writeText(
                         text
                     );
 
                     alert(
-                        "Order details copied."
+                        "Order details copy ہو گئے ہیں۔"
                     );
 
-                } catch (error) {
-
-                    alert(text);
+                    return;
 
                 }
+
+
+                alert(text);
+
+
+            } catch(error) {
+
+                if (
+                    error &&
+                    error.name ===
+                    "AbortError"
+                ) {
+
+                    return;
+
+                }
+
+                console.error(
+                    "Share error:",
+                    error
+                );
+
+                alert(
+                    "Share نہیں ہو سکا۔ براہِ کرم Download PDF کرکے WhatsApp پر share کریں۔"
+                );
 
             }
 
@@ -1023,18 +1605,44 @@ if (shareButton) {
 
 
 // =====================================================
-// PRINT / PDF
+// PRINT
 // =====================================================
 
 const printButton =
-    document.getElementById("printReceipt");
+    document.getElementById(
+        "printReceiptBtn"
+    );
 
 
 if (printButton) {
 
     printButton.addEventListener(
         "click",
-        function () {
+        async function() {
+
+            const receipt =
+                document.getElementById(
+                    "receiptSection"
+                );
+
+
+            if (!receipt) {
+                return;
+            }
+
+
+            // Make sure image has loaded
+
+            const image =
+                document.getElementById(
+                    "receiptImage"
+                );
+
+
+            await waitForImage(
+                image
+            );
+
 
             window.print();
 
@@ -1049,14 +1657,16 @@ if (printButton) {
 // =====================================================
 
 const newOrderButton =
-    document.getElementById("newOrder");
+    document.getElementById(
+        "newOrderBtn"
+    );
 
 
 if (newOrderButton) {
 
     newOrderButton.addEventListener(
         "click",
-        function () {
+        function() {
 
             window.location.href =
                 "shop.html";
