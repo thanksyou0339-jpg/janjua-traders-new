@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Janjua Offers - Food, Shopping and Special Offers"
+    >
+
+    <title>JANJUA OFFERS</title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f4f6f8;
+            color:#17202a;
+        }
+
+        .header{
+            background:#111827;
+            color:white;
+            padding:22px 15px;
+            text-align:center;
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:800;
+            letter-spacing:1px;
+        }
+
+        .tagline{
+            margin-top:7px;
+            font-size:14px;
+            opacity:.85;
+        }
+
+        .hero{
+            background:white;
+            text-align:center;
+            padding:35px 18px;
+            border-bottom:1px solid #e5e7eb;
+        }
+
+        .hero h1{
+            font-size:30px;
+            margin-bottom:12px;
+        }
+
+        .hero p{
+            max-width:650px;
+            margin:auto;
+            color:#667085;
+            line-height:1.7;
+            font-size:15px;
+        }
+
+        .container{
+            width:100%;
+            max-width:1050px;
+            margin:auto;
+            padding:25px 15px 45px;
+        }
+
+        .section-title{
+            text-align:center;
+            margin-bottom:22px;
+        }
+
+        .section-title h2{
+            font-size:23px;
+        }
+
+        .section-title p{
+            margin-top:7px;
+            color:#667085;
+            font-size:14px;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+            gap:18px;
+        }
+
+        .card{
+            background:white;
+            border-radius:16px;
+            padding:25px 20px;
+            text-align:center;
+            box-shadow:0 4px 18px rgba(0,0,0,.07);
+            border:1px solid #edf0f3;
+            transition:.2s;
+        }
+
+        .card:hover{
+            transform:translateY(-3px);
+            box-shadow:0 8px 25px rgba(0,0,0,.10);
+        }
+
+        .icon{
+            font-size:45px;
+            margin-bottom:13px;
+        }
+
+        .card h3{
+            font-size:20px;
+            margin-bottom:9px;
+        }
+
+        .card p{
+            color:#667085;
+            font-size:14px;
+            line-height:1.6;
+            min-height:45px;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:18px;
+            padding:11px 22px;
+            background:#111827;
+            color:white;
+            text-decoration:none;
+            border-radius:9px;
+            font-size:14px;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            opacity:.88;
+        }
+
+        .info{
+            margin-top:30px;
+            background:white;
+            border-radius:15px;
+            padding:23px;
+            text-align:center;
+            border:1px solid #edf0f3;
+        }
+
+        .info h3{
+            margin-bottom:9px;
+        }
+
+        .info p{
+            color:#667085;
+            font-size:14px;
+            line-height:1.7;
+        }
+
+        .footer{
+            background:#111827;
+            color:white;
+            text-align:center;
+            padding:22px 15px;
+            font-size:13px;
+        }
+
+        .footer p{
+            margin:5px 0;
+            opacity:.85;
+        }
+
+        @media(max-width:500px){
+
+            .logo{
+                font-size:25px;
+            }
+
+            .hero h1{
+                font-size:25px;
+            }
+
+            .container{
+                padding-top:20px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            JANJUA OFFERS
+        </div>
+
+        <div class="tagline">
+            Food • Shopping • Special Offers
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            Welcome to Janjua Offers
+        </h1>
+
+        <p>
+            Discover useful food, shopping and special offers
+            from trusted online platforms.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Explore Offers
+            </h2>
+
+            <p>
+                Choose a category and explore available offers.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <!-- FOOD -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🍔
+                </div>
+
+                <h3>
+                    Food Offers
+                </h3>
+
+                <p>
+                    Discover food, restaurants and special
+                    online food offers.
+                </p>
+
+                <a
+                    href="#"
+                    class="btn"
+                    onclick="showComingSoon('Food Offers')"
+                >
+                    VIEW OFFERS
+                </a>
+
+            </div>
+
+
+            <!-- SHOPPING -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Shopping Offers
+                </h3>
+
+                <p>
+                    Find useful products and online shopping
+                    offers.
+                </p>
+
+                <a
+                    href="#"
+                    class="btn"
+                    onclick="showComingSoon('Shopping Offers')"
+                >
+                    VIEW OFFERS
+                </a>
+
+            </div>
+
+
+            <!-- GROCERY -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🥦
+                </div>
+
+                <h3>
+                    Grocery Offers
+                </h3>
+
+                <p>
+                    Explore grocery, daily-use items and
+                    available online offers.
+                </p>
+
+                <a
+                    href="#"
+                    class="btn"
+                    onclick="showComingSoon('Grocery Offers')"
+                >
+                    VIEW OFFERS
+                </a>
+
+            </div>
+
+
+            <!-- SPECIAL -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🎁
+                </div>
+
+                <h3>
+                    Special Offers
+                </h3>
+
+                <p>
+                    Special promotions and selected offers
+                    will appear here.
+                </p>
+
+                <a
+                    href="#"
+                    class="btn"
+                    onclick="showComingSoon('Special Offers')"
+                >
+                    VIEW OFFERS
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- INFORMATION -->
+
+        <div class="info">
+
+            <h3>
+                JANJUA OFFERS
+            </h3>
+
+            <p>
+                We are preparing our offers section.
+                Food, shopping and other useful offers
+                will be added soon.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <strong>
+            JANJUA OFFERS
+        </strong>
+
+        <p>
+            Food • Shopping • Special Offers
+        </p>
+
+        <p>
+            © 2026 Janjua Traders. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- SIMPLE MESSAGE -->
+
+    <script>
+
+        function showComingSoon(category){
+
+            alert(
+                category +
+                " will be available soon."
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
