@@ -2,16 +2,12 @@
 <html lang="ur" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>SARGODHA HUB — Online Digital Marketing Platform</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -27,7 +23,9 @@ body{
     color:#17202a;
 }
 
-/* ================= HEADER ================= */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .header{
     position:sticky;
@@ -83,7 +81,9 @@ body{
     z-index:5;
 }
 
-/* ================= PLANET ORBIT ANIMATION ================= */
+/* =====================================================
+   SPACE / PLANET ANIMATION
+===================================================== */
 
 .space-animation{
     position:absolute;
@@ -150,31 +150,24 @@ body{
 }
 
 @keyframes orbitRotate{
-
     from{
         transform:translate(-50%,-50%) rotate(0deg);
     }
-
     to{
         transform:translate(-50%,-50%) rotate(360deg);
     }
-
 }
 
 @keyframes orbitRotateReverse{
-
     from{
         transform:translate(-50%,-50%) rotate(360deg);
     }
-
     to{
         transform:translate(-50%,-50%) rotate(0deg);
     }
-
 }
 
 @keyframes logoPulse{
-
     0%,100%{
         transform:scale(1);
     }
@@ -182,10 +175,11 @@ body{
     50%{
         transform:scale(1.025);
     }
-
 }
 
-/* ================= SEARCH ================= */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search-box{
     flex:1;
@@ -206,15 +200,15 @@ body{
     direction:rtl;
 }
 
-/* ================= MAIN ================= */
+/* =====================================================
+   MAIN
+===================================================== */
 
 .container{
     width:94%;
     max-width:1200px;
     margin:18px auto;
 }
-
-/* ================= STATUS ================= */
 
 .status{
     display:none;
@@ -244,13 +238,13 @@ body{
     color:#166534;
 }
 
-/* ================= HIDDEN ================= */
-
 .hidden{
     display:none !important;
 }
 
-/* ================= LOADER ================= */
+/* =====================================================
+   LOADER
+===================================================== */
 
 .loader-wrap{
     display:flex;
@@ -274,7 +268,9 @@ body{
     }
 }
 
-/* ================= SECTION ================= */
+/* =====================================================
+   SECTION TITLES
+===================================================== */
 
 .section-title{
     display:flex;
@@ -292,7 +288,9 @@ body{
     color:#6b7280;
 }
 
-/* ================= CATEGORIES ================= */
+/* =====================================================
+   CATEGORIES
+===================================================== */
 
 .categories{
     display:flex;
@@ -328,7 +326,120 @@ body{
     border-color:#111827;
 }
 
-/* ================= SLIDER ================= */
+/* =====================================================
+   INTRO / PLATFORM INFORMATION
+===================================================== */
+
+.platform-intro{
+    margin:18px 0 24px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fafc 55%,
+            #eef2ff 100%
+        );
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+    padding:22px 20px;
+    box-shadow:0 6px 22px rgba(0,0,0,.07);
+    position:relative;
+    overflow:hidden;
+}
+
+.platform-intro::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:rgba(59,130,246,.07);
+    top:-70px;
+    left:-50px;
+}
+
+.platform-intro::after{
+    content:"";
+    position:absolute;
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:rgba(251,191,36,.08);
+    bottom:-55px;
+    right:-35px;
+}
+
+.intro-content{
+    position:relative;
+    z-index:2;
+}
+
+.intro-badge{
+    display:inline-block;
+    background:#111827;
+    color:white;
+    border-radius:20px;
+    padding:6px 13px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.platform-intro h1{
+    margin:0 0 9px;
+    font-size:24px;
+    line-height:1.4;
+    font-weight:900;
+}
+
+.platform-intro h1 span{
+    color:#2563eb;
+}
+
+.platform-intro p{
+    margin:7px 0;
+    color:#4b5563;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.intro-purpose{
+    margin-top:15px;
+    padding:13px 15px;
+    background:white;
+    border-radius:13px;
+    border:1px solid #e5e7eb;
+}
+
+.intro-purpose strong{
+    color:#111827;
+}
+
+.intro-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:14px;
+}
+
+.intro-item{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:12px;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.intro-item strong{
+    display:block;
+    margin-bottom:3px;
+    color:#111827;
+}
+
+/* =====================================================
+   FEATURED SLIDER
+===================================================== */
 
 .slider-box{
     background:white;
@@ -399,7 +510,9 @@ body{
     margin-top:4px;
 }
 
-/* ================= PRODUCTS GRID ================= */
+/* =====================================================
+   PRODUCTS
+===================================================== */
 
 .products-grid{
     display:grid;
@@ -517,8 +630,6 @@ body{
     transform:scale(.98);
 }
 
-/* ================= EMPTY ================= */
-
 .empty-box{
     background:white;
     padding:35px 15px;
@@ -527,7 +638,9 @@ body{
     color:#6b7280;
 }
 
-/* ================= FOOTER ================= */
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer{
     margin-top:35px;
@@ -547,7 +660,9 @@ footer p{
     margin:7px 0 0;
 }
 
-/* ================= MOBILE ================= */
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media(max-width:900px){
 
@@ -555,6 +670,9 @@ footer p{
         grid-template-columns:repeat(3,1fr);
     }
 
+    .intro-list{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
 @media(max-width:650px){
@@ -582,6 +700,22 @@ footer p{
 
     .container{
         width:95%;
+    }
+
+    .platform-intro{
+        padding:18px 15px;
+    }
+
+    .platform-intro h1{
+        font-size:20px;
+    }
+
+    .platform-intro p{
+        font-size:13px;
+    }
+
+    .intro-list{
+        grid-template-columns:1fr;
     }
 
     .products-grid{
@@ -617,7 +751,6 @@ footer p{
     .space-animation{
         opacity:.5;
     }
-
 }
 
 @media(max-width:360px){
@@ -629,185 +762,235 @@ footer p{
     .product-image-box{
         height:145px;
     }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="header">
 
-    <div class="header-inner">
+<div class="header-inner">
 
-        <div class="header-top">
+<div class="header-top">
 
-            <div class="logo-area">
+<div class="logo-area">
 
-                <div class="space-animation">
+<div class="space-animation">
 
-                    <div class="orbit orbit-one">
-                        <span class="planet neptune"></span>
-                    </div>
+<div class="orbit orbit-one">
+<span class="planet neptune"></span>
+</div>
 
-                    <div class="orbit orbit-two">
-                        <span class="planet pluto"></span>
-                    </div>
+<div class="orbit orbit-two">
+<span class="planet pluto"></span>
+</div>
 
-                    <div class="orbit orbit-three">
-                        <span class="planet-small"></span>
-                    </div>
+<div class="orbit orbit-three">
+<span class="planet-small"></span>
+</div>
 
-                </div>
+</div>
 
+<div class="logo">
+SARGODHA <span>HUB</span>
+</div>
 
-                <div class="logo">
-                    SARGODHA <span>HUB</span>
-                </div>
+<div class="logo-subtitle">
+JANJUA DIGITAL MARKETING PLATFORM
+</div>
 
-                <div class="logo-subtitle">
-                    JANJUA DIGITAL MARKETING PLATFORM
-                </div>
+</div>
 
-            </div>
+<div class="search-box">
 
+<input
+id="searchInput"
+type="search"
+placeholder="Product تلاش کریں..."
+autocomplete="off">
 
-            <div class="search-box">
+</div>
 
-                <input
-                    id="searchInput"
-                    type="search"
-                    placeholder="Product تلاش کریں..."
-                    autocomplete="off"
-                >
+</div>
 
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </header>
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="container">
 
+<div id="pageStatus" class="status"></div>
 
-    <div
-        id="pageStatus"
-        class="status"
-    ></div>
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
 
+<div class="section-title">
 
-    <!-- CATEGORIES -->
+<h2>🛍 Categories</h2>
 
-    <div class="section-title">
+</div>
 
-        <h2>
-            🛍 Categories
-        </h2>
+<div id="categories" class="categories"></div>
 
-    </div>
+<!-- =====================================================
+     NEW PLATFORM INTRO
+===================================================== -->
 
+<section class="platform-intro">
 
-    <div
-        id="categories"
-        class="categories"
-    ></div>
+<div class="intro-content">
 
+<div class="intro-badge">
+SARGODHA HUB
+</div>
 
-    <!-- FEATURED -->
+<h1>
+سرگودھا کے لیے
+<span>ایک نیا جامع آن لائن پلیٹ فارم</span>
+</h1>
 
-    <div class="section-title">
+<p>
+سرگودھا اور گردونواح کے صارفین کے لیے مختلف
+مصنوعات، خدمات اور روزمرہ ضرورت کے مواقع
+ایک ہی جگہ آن لائن متعارف کروانے کی کوشش کی جا رہی ہے۔
+</p>
 
-        <h2>
-            ⭐ Featured Products
-        </h2>
+<p>
+اس پلیٹ فارم کا مقصد یہ ہے کہ صارفین کو مختلف
+مصنوعات اور مقامی خدمات تک آسان آن لائن رسائی
+فراہم کی جائے اور مستقبل میں مزید شعبوں کو بھی
+اسی پلیٹ فارم کا حصہ بنایا جائے۔
+</p>
 
-        <small id="productCount">
-            Loading...
-        </small>
+<div class="intro-purpose">
 
-    </div>
+<strong>🎯 ہمارا مقصد:</strong>
 
+سرگودھا میں اس طرز کے ایک جامع مقامی آن لائن پلیٹ فارم
+کو نئے انداز میں متعارف کروانا، جہاں خریداری کے ساتھ
+مختلف خدمات، کاروباری مواقع اور دیگر ضروری شعبے بھی
+آہستہ آہستہ ایک ہی جگہ دستیاب ہوں۔
 
-    <div class="slider-box">
+</div>
 
-        <div
-            id="sliderLoading"
-            class="loader-wrap"
-        >
+<div class="intro-list">
 
-            <div class="loader"></div>
+<div class="intro-item">
+<strong>🛍 مصنوعات</strong>
+مختلف روزمرہ استعمال کی مصنوعات اور دیگر اشیاء۔
+</div>
 
-        </div>
+<div class="intro-item">
+<strong>🚗 گاڑیاں و موٹر سائیکل</strong>
+خرید و فروخت، کرایہ اور متعلقہ مواقع۔
+</div>
 
+<div class="intro-item">
+<strong>🏠 پراپرٹی</strong>
+فروخت، کرایہ اور متعلقہ پراپرٹی مواقع۔
+</div>
 
-        <div
-            id="slider"
-            class="slider hidden"
-        >
+<div class="intro-item">
+<strong>🧱 کنسٹرکشن میٹریل</strong>
+اینٹ، سیمنٹ، ریت، بجری اور دیگر تعمیراتی سامان۔
+</div>
 
-            <div
-                id="sliderTrack"
-                class="slider-track"
-            ></div>
+<div class="intro-item">
+<strong>💼 Jobs & Services</strong>
+ملازمتوں، مقامی خدمات اور دیگر مواقع کو شامل کرنے کی سہولت۔
+</div>
 
-        </div>
+<div class="intro-item">
+<strong>🌐 مزید شعبے</strong>
+وقت کے ساتھ مزید کاروبار، خدمات اور کیٹیگریز شامل کی جائیں گی۔
+</div>
 
-    </div>
+</div>
 
+</div>
 
-    <!-- PRODUCTS -->
+</section>
 
-    <div class="section-title">
+<!-- =====================================================
+     FEATURED
+===================================================== -->
 
-        <h2>
-            📦 All Products
-        </h2>
+<div class="section-title">
 
-    </div>
+<h2>⭐ Featured Products</h2>
 
+<small id="productCount">
+Loading...
+</small>
 
-    <div
-        id="productsLoading"
-        class="loader-wrap"
-    >
+</div>
 
-        <div class="loader"></div>
+<div class="slider-box">
 
-    </div>
+<div id="sliderLoading" class="loader-wrap">
 
+<div class="loader"></div>
 
-    <div
-        id="productsGrid"
-        class="products-grid"
-    ></div>
+</div>
 
+<div id="slider" class="slider hidden">
+
+<div id="sliderTrack" class="slider-track"></div>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     ALL PRODUCTS
+===================================================== -->
+
+<div class="section-title">
+
+<h2>📦 All Products</h2>
+
+</div>
+
+<div id="productsLoading" class="loader-wrap">
+
+<div class="loader"></div>
+
+</div>
+
+<div id="productsGrid" class="products-grid"></div>
 
 </main>
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
-    <strong>
-        JANJUA TRADERS
-    </strong>
+<strong>
+JANJUA TRADERS
+</strong>
 
-    <p>
-        Quality Products • Easy Ordering • Home Delivery
-    </p>
+<p>
+Quality Products • Easy Ordering • Home Delivery
+</p>
 
 </footer>
 
-
-<script type="module" src="./shop-script.js"></script>
-
+<script
+type="module"
+src="./shop-script.js">
+</script>
 
 </body>
-
 </html>
