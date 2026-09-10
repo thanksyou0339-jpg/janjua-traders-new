@@ -294,6 +294,19 @@ th{
     }
 }
 
+.category-custom{
+    display:none;
+}
+
+.category-custom.show{
+    display:block;
+}
+
+.category-note{
+    margin-top:-8px;
+    margin-bottom:12px;
+}
+
 </style>
 
 </head>
@@ -464,16 +477,176 @@ th{
             </div>
 
 
+            <!-- NEW ALL-IN-ONE CATEGORY -->
+
             <div>
 
                 <label>
-                    Category
+                    All Product Category
                 </label>
 
-                <input
-                    id="category"
-                    placeholder="مثلاً Shoes, Beauty, Clothes"
+                <select id="category">
+
+                    <option value="All">
+                        All Products
+                    </option>
+
+                    <option value="Bags">
+                        Bags
+                    </option>
+
+                    <option value="Beauty">
+                        Beauty
+                    </option>
+
+                    <option value="Bikes">
+                        Bikes / Motorcycles
+                    </option>
+
+                    <option value="Books">
+                        Books
+                    </option>
+
+                    <option value="Cars - New">
+                        Cars — New / For Sale
+                    </option>
+
+                    <option value="Cars - Used">
+                        Cars — Used / For Sale
+                    </option>
+
+                    <option value="Cars - Rent">
+                        Cars — Rent
+                    </option>
+
+                    <option value="Clothes">
+                        Clothes / Clothing
+                    </option>
+
+                    <option value="Construction Material">
+                        Construction Material
+                    </option>
+
+                    <option value="Cosmetics">
+                        Cosmetics
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Food">
+                        Food
+                    </option>
+
+                    <option value="Fish">
+                        Fish / Fish Farm
+                    </option>
+
+                    <option value="Factories">
+                        Factories / Industrial
+                    </option>
+
+                    <option value="Furniture">
+                        Furniture
+                    </option>
+
+                    <option value="Health">
+                        Health / Healthcare
+                    </option>
+
+                    <option value="Hotels">
+                        Hotels / Guest Houses
+                    </option>
+
+                    <option value="Jobs">
+                        Jobs / Employment
+                    </option>
+
+                    <option value="Laptops">
+                        Laptops / Computers
+                    </option>
+
+                    <option value="Mobile Phones">
+                        Mobile Phones
+                    </option>
+
+                    <option value="Motor Parts">
+                        Motor / Auto Spare Parts
+                    </option>
+
+                    <option value="Property - New">
+                        Property — New / For Sale
+                    </option>
+
+                    <option value="Property - Rent">
+                        Property — Rent
+                    </option>
+
+                    <option value="Restaurants">
+                        Restaurants
+                    </option>
+
+                    <option value="Services">
+                        Services
+                    </option>
+
+                    <option value="Shoes">
+                        Shoes
+                    </option>
+
+                    <option value="Supermarket">
+                        Supermarket / Grocery
+                    </option>
+
+                    <option value="Travel">
+                        Travel / Tourism
+                    </option>
+
+                    <option value="Wedding">
+                        Wedding / Marriage
+                    </option>
+
+                    <option value="Tools">
+                        Tools / Machinery
+                    </option>
+
+                    <option value="Toys">
+                        Toys / Kids
+                    </option>
+
+                    <option value="Other">
+                        Other / Custom Category
+                    </option>
+
+                </select>
+
+
+                <div class="note category-note">
+                    A–Z All-in-One Category List۔ اگر مطلوبہ category نہ ہو تو
+                    <strong>Other / Custom Category</strong> منتخب کریں۔
+                </div>
+
+
+                <div
+                    id="customCategoryBox"
+                    class="category-custom"
                 >
+
+                    <label>
+                        Custom Category
+                    </label>
+
+                    <input
+                        id="customCategory"
+                        placeholder="مثلاً Tractor Rent, Fish Sale, House Share..."
+                    >
+
+                </div>
 
             </div>
 
@@ -882,6 +1055,12 @@ const productId =
 const category =
     document.getElementById("category");
 
+const customCategory =
+    document.getElementById("customCategory");
+
+const customCategoryBox =
+    document.getElementById("customCategoryBox");
+
 const productName =
     document.getElementById("productName");
 
@@ -938,6 +1117,120 @@ const productTableWrap =
 
 const editingDocId =
     document.getElementById("editingDocId");
+
+
+/* =========================================================
+   CUSTOM CATEGORY
+========================================================= */
+
+category.addEventListener(
+    "change",
+    ()=>{
+
+        if(category.value === "Other"){
+
+            customCategoryBox.classList.add(
+                "show"
+            );
+
+            customCategory.focus();
+
+        }
+        else{
+
+            customCategoryBox.classList.remove(
+                "show"
+            );
+
+            customCategory.value = "";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   GET SELECTED CATEGORY
+========================================================= */
+
+function getSelectedCategory(){
+
+    if(category.value === "Other"){
+
+        return (
+            customCategory.value.trim() ||
+            "Other"
+        );
+
+    }
+
+    return (
+        category.value.trim() ||
+        "All"
+    );
+
+}
+
+
+/* =========================================================
+   SET CATEGORY
+========================================================= */
+
+function setCategory(value){
+
+    const text =
+        String(value || "").trim();
+
+    const optionExists =
+        Array.from(
+            category.options
+        ).some(
+            option =>
+                option.value === text
+        );
+
+    if(optionExists){
+
+        category.value =
+            text;
+
+        customCategory.value =
+            "";
+
+        customCategoryBox.classList.remove(
+            "show"
+        );
+
+    }
+    else if(text){
+
+        category.value =
+            "Other";
+
+        customCategory.value =
+            text;
+
+        customCategoryBox.classList.add(
+            "show"
+        );
+
+    }
+    else{
+
+        category.value =
+            "All";
+
+        customCategory.value =
+            "";
+
+        customCategoryBox.classList.remove(
+            "show"
+        );
+
+    }
+
+}
 
 
 /* =========================================================
@@ -1731,8 +2024,7 @@ async function saveProduct(){
                     : 0,
 
             Category:
-                category.value.trim() ||
-                "All",
+                getSelectedCategory(),
 
             Product_Image:
                 finalImageUrl,
@@ -1915,11 +2207,6 @@ async function loadProducts(){
     catch(error){
 
         console.error(error);
-
-        /*
-          If orderBy fails because old documents
-          do not have Product_ID, load without order.
-        */
 
         try{
 
@@ -2165,8 +2452,6 @@ function renderProducts(products){
         html;
 
 
-    /* EDIT */
-
     document
         .querySelectorAll(".edit-btn")
         .forEach(
@@ -2187,8 +2472,6 @@ function renderProducts(products){
         );
 
 
-    /* DELETE */
-
     document
         .querySelectorAll(".delete-btn")
         .forEach(
@@ -2208,8 +2491,6 @@ function renderProducts(products){
             }
         );
 
-
-    /* COPY */
 
     document
         .querySelectorAll(
@@ -2291,8 +2572,9 @@ function editProduct(docId){
     productId.value =
         product.Product_ID || "";
 
-    category.value =
-        product.Category || "";
+    setCategory(
+        product.Category || "All"
+    );
 
     productName.value =
         product.Product_Name ||
@@ -2535,7 +2817,14 @@ function resetProductForm(){
         "";
 
     category.value =
+        "All";
+
+    customCategory.value =
         "";
+
+    customCategoryBox.classList.remove(
+        "show"
+    );
 
     productName.value =
         "";
