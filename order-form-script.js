@@ -1,202 +1,320 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 import {
     getFirestore,
     collection,
     getDocs
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
+
 // =====================================================
 // FIREBASE CONFIG
 // =====================================================
+
 const firebaseConfig = {
-    apiKey: "AIzaSyA8_4KXKAdfKWZ5mi5DaT9qiayL3h_Yzw",
-    authDomain: "janjua-traders.firebaseapp.com",
-    projectId: "janjua-traders",
-    storageBucket: "janjua-traders.firebasestorage.app",
-    messagingSenderId: "154904774188",
-    appId: "1:154904774188:web:1830f9d533e77dae6a7389"
+
+    apiKey:
+        "AIzaSyA8_4KXKAdfKWZ5mi5DaT9qiayL3h_Yzw",
+
+    authDomain:
+        "janjua-traders.firebaseapp.com",
+
+    projectId:
+        "janjua-traders",
+
+    storageBucket:
+        "janjua-traders.firebasestorage.app",
+
+    messagingSenderId:
+        "154904774188",
+
+    appId:
+        "1:154904774188:web:1830f9d533e77dae6a7389"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
 
 // =====================================================
 // ELEMENTS
 // =====================================================
+
 const productImageEl =
-    document.getElementById("productImage");
+    document.getElementById(
+        "productImage"
+    );
 
 const productNameEl =
-    document.getElementById("productName");
+    document.getElementById(
+        "productName"
+    );
 
 const productDescriptionEl =
-    document.getElementById("productDescription");
+    document.getElementById(
+        "productDescription"
+    );
 
 const productPriceEl =
-    document.getElementById("productPrice");
+    document.getElementById(
+        "productPrice"
+    );
 
 const oldPriceEl =
-    document.getElementById("oldPrice");
+    document.getElementById(
+        "oldPrice"
+    );
 
 const deliveryBadgeEl =
-    document.getElementById("deliveryBadge");
+    document.getElementById(
+        "deliveryBadge"
+    );
 
 const deliveryNoteEl =
-    document.getElementById("deliveryNote");
+    document.getElementById(
+        "deliveryNote"
+    );
 
 const form =
-    document.getElementById("orderForm");
+    document.getElementById(
+        "orderForm"
+    );
 
 const customerName =
-    document.getElementById("customerName");
+    document.getElementById(
+        "customerName"
+    );
 
 const mobile =
-    document.getElementById("mobile");
+    document.getElementById(
+        "mobile"
+    );
 
 const address =
-    document.getElementById("address");
+    document.getElementById(
+        "address"
+    );
 
 const quantity =
-    document.getElementById("quantity");
+    document.getElementById(
+        "quantity"
+    );
 
 const platform =
-    document.getElementById("platform");
+    document.getElementById(
+        "platform"
+    );
 
 const color =
-    document.getElementById("color");
+    document.getElementById(
+        "color"
+    );
 
 const size =
-    document.getElementById("size");
+    document.getElementById(
+        "size"
+    );
 
 const receiptSection =
-    document.getElementById("receiptSection");
+    document.getElementById(
+        "receiptSection"
+    );
+
 
 // =====================================================
 // HIDDEN FIELDS
 // =====================================================
+
 const hiddenOrderId =
-    document.getElementById("hiddenOrderId");
+    document.getElementById(
+        "hiddenOrderId"
+    );
 
 const hiddenProduct =
-    document.getElementById("hiddenProduct");
+    document.getElementById(
+        "hiddenProduct"
+    );
 
 const hiddenDescription =
-    document.getElementById("hiddenDescription");
+    document.getElementById(
+        "hiddenDescription"
+    );
 
 const hiddenPrice =
-    document.getElementById("hiddenPrice");
+    document.getElementById(
+        "hiddenPrice"
+    );
 
 const hiddenOldPrice =
-    document.getElementById("hiddenOldPrice");
+    document.getElementById(
+        "hiddenOldPrice"
+    );
 
 const hiddenProductId =
-    document.getElementById("hiddenProductId");
+    document.getElementById(
+        "hiddenProductId"
+    );
 
 const hiddenProductImage =
-    document.getElementById("hiddenProductImage");
+    document.getElementById(
+        "hiddenProductImage"
+    );
 
 const hiddenDeliveryStatus =
-    document.getElementById("hiddenDeliveryStatus");
+    document.getElementById(
+        "hiddenDeliveryStatus"
+    );
 
 const hiddenDeliveryCharges =
-    document.getElementById("hiddenDeliveryCharges");
+    document.getElementById(
+        "hiddenDeliveryCharges"
+    );
 
 const hiddenTotal =
-    document.getElementById("hiddenTotal");
+    document.getElementById(
+        "hiddenTotal"
+    );
 
 const hiddenJanjuaLink =
-    document.getElementById("hiddenJanjuaLink");
+    document.getElementById(
+        "hiddenJanjuaLink"
+    );
 
 const hiddenSupplierLink =
-    document.getElementById("hiddenSupplierLink");
+    document.getElementById(
+        "hiddenSupplierLink"
+    );
+
 
 // =====================================================
 // URL PARAMETERS
 // =====================================================
+
 const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+        window.location.search
+    );
+
 
 const productIdFromURL =
     params.get("Product_ID") ||
     params.get("productId") ||
     "";
 
+
 const supplierLinkFromURL =
     params.get("Supplier_Link") ||
     params.get("supplierLink") ||
     "";
 
+
 // =====================================================
 // PRODUCT DATA
 // =====================================================
+
 let productData = {
-    id: productIdFromURL,
+
+    id:
+        productIdFromURL,
 
     name:
-        params.get("Product") || "",
+        params.get("Product") ||
+        "",
 
     description:
-        params.get("Product_Description") || "",
+        params.get("Product_Description") ||
+        "",
 
     price:
         Number(
-            params.get("Product_Price") || 0
+            params.get("Product_Price") ||
+            0
         ),
 
     oldPrice:
         Number(
-            params.get("Old_Price") || 0
+            params.get("Old_Price") ||
+            0
         ),
 
     category:
-        params.get("Category") || "",
+        params.get("Category") ||
+        "",
 
     image:
-        params.get("Product_Image") || "",
+        params.get("Product_Image") ||
+        "",
 
     deliveryType:
-        params.get("Delivery_Type") || "",
+        params.get("Delivery_Type") ||
+        "",
 
     deliveryCharges:
         Number(
-            params.get("Delivery_Charges") || 0
+            params.get("Delivery_Charges") ||
+            0
         ),
 
     supplierLink:
-        supplierLinkFromURL || ""
+        supplierLinkFromURL ||
+        ""
+
 };
+
 
 // =====================================================
 // IMAGE OPTIMIZATION
 // =====================================================
+
 function optimizeImage(url) {
 
     if (!url) {
+
         return "";
+
     }
 
-    url = String(url).trim();
+    url =
+        String(url).trim();
+
 
     if (
-        url.includes("res.cloudinary.com") &&
-        url.includes("/image/upload/")
+        url.includes(
+            "res.cloudinary.com"
+        ) &&
+        url.includes(
+            "/image/upload/"
+        )
     ) {
 
-        if (!url.includes("f_auto")) {
+        if (
+            !url.includes(
+                "f_auto"
+            )
+        ) {
 
             return url.replace(
                 "/image/upload/",
                 "/image/upload/f_auto,q_auto,w_800/"
             );
+
         }
+
     }
 
     return url;
 }
 
+
 // =====================================================
 // MONEY
 // =====================================================
+
 function money(value) {
 
     const number =
@@ -204,43 +322,70 @@ function money(value) {
 
     return (
         "Rs. " +
-        number.toLocaleString("en-PK")
+        number.toLocaleString(
+            "en-PK"
+        )
     );
 }
+
 
 // =====================================================
 // ORDER ID
 // =====================================================
+
 function generateOrderId() {
 
     const now =
         new Date();
 
+
     const datePart =
         now.getFullYear().toString() +
+
         String(
             now.getMonth() + 1
-        ).padStart(2, "0") +
+        ).padStart(
+            2,
+            "0"
+        ) +
+
         String(
             now.getDate()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const timePart =
         String(
             now.getHours()
-        ).padStart(2, "0") +
+        ).padStart(
+            2,
+            "0"
+        ) +
+
         String(
             now.getMinutes()
-        ).padStart(2, "0") +
+        ).padStart(
+            2,
+            "0"
+        ) +
+
         String(
             now.getSeconds()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const randomPart =
         Math.floor(
             1000 +
             Math.random() * 9000
         );
+
 
     return (
         "JT-" +
@@ -252,22 +397,172 @@ function generateOrderId() {
     );
 }
 
+
 // =====================================================
 // JANJUA LINK
 // =====================================================
+
 function getJanjuaOrderLink() {
 
     return window.location.href;
+
 }
 
+
 // =====================================================
-// LOAD PRODUCT
+// CATEGORY NORMALIZATION
 // =====================================================
+//
+// اس function کا مقصد یہ ہے کہ:
+//
+// Cars — Rent
+// Cars - Rent
+// Cars–Rent
+// cars — rent
+//
+// سب کو ایک ہی category سمجھا جائے۔
+// =====================================================
+
+function normalizeCategory(category) {
+
+    return String(
+        category || ""
+    )
+
+    .trim()
+
+    .toLowerCase()
+
+    // مختلف dash کو ایک dash بنائیں
+    .replace(
+        /[‐-‒–—―]/g,
+        "-"
+    )
+
+    // spaces کو normalize کریں
+    .replace(
+        /\s+/g,
+        " "
+    )
+
+    // dash کے دونوں طرف spaces ختم کریں
+    .replace(
+        /\s*-\s*/g,
+        "-"
+    )
+
+    .trim();
+}
+
+
+// =====================================================
+// CATEGORY CHECK
+// =====================================================
+
+function isCarsRentCategory() {
+
+    const category =
+        normalizeCategory(
+            productData.category
+        );
+
+    return (
+
+        category ===
+            "cars-rent"
+
+        ||
+
+        category.includes(
+            "cars-rent"
+        )
+
+        ||
+
+        (
+            category.includes("cars") &&
+            category.includes("rent")
+        )
+
+    );
+}
+
+
+function isPropertyRentCategory() {
+
+    const category =
+        normalizeCategory(
+            productData.category
+        );
+
+    return (
+
+        category ===
+            "property-rent"
+
+        ||
+
+        category.includes(
+            "property-rent"
+        )
+
+        ||
+
+        (
+            category.includes("property") &&
+            category.includes("rent")
+        )
+
+    );
+}
+
+
+function isConstructionCategory() {
+
+    const category =
+        normalizeCategory(
+            productData.category
+        );
+
+    return (
+
+        category ===
+            "construction-material"
+
+        ||
+
+        category.includes(
+            "construction-material"
+        )
+
+        ||
+
+        category.includes(
+            "construction"
+        )
+
+        ||
+
+        category.includes(
+            "construction material"
+        )
+
+    );
+}
+
+
+// =====================================================
+// LOAD PRODUCT FROM FIRESTORE
+// =====================================================
+
 async function loadProductFromFirestore() {
 
     if (!productIdFromURL) {
+
         return;
+
     }
+
 
     try {
 
@@ -279,8 +574,10 @@ async function loadProductFromFirestore() {
                 )
             );
 
+
         let foundProduct =
             null;
+
 
         snapshot.forEach(
             (doc) => {
@@ -288,25 +585,35 @@ async function loadProductFromFirestore() {
                 const data =
                     doc.data();
 
+
                 const id =
                     data.Product_ID ||
                     data.productId ||
                     data.id ||
                     "";
 
+
                 if (
                     String(id) ===
-                    String(productIdFromURL)
+                    String(
+                        productIdFromURL
+                    )
                 ) {
 
                     foundProduct = {
+
                         firestoreId:
                             doc.id,
+
                         ...data
+
                     };
+
                 }
+
             }
         );
+
 
         if (!foundProduct) {
 
@@ -315,7 +622,16 @@ async function loadProductFromFirestore() {
             );
 
             return;
+
         }
+
+
+        productData.id =
+            foundProduct.Product_ID ||
+            foundProduct.productId ||
+            productData.id ||
+            productIdFromURL;
+
 
         productData.name =
             foundProduct.Product ||
@@ -323,10 +639,12 @@ async function loadProductFromFirestore() {
             productData.name ||
             "";
 
+
         productData.description =
             foundProduct.Product_Description ||
             productData.description ||
             "";
+
 
         productData.price =
             Number(
@@ -335,6 +653,7 @@ async function loadProductFromFirestore() {
                 0
             );
 
+
         productData.oldPrice =
             Number(
                 foundProduct.Old_Price ||
@@ -342,10 +661,23 @@ async function loadProductFromFirestore() {
                 0
             );
 
+
+        // =================================================
+        // CATEGORY
+        // =================================================
+
         productData.category =
             foundProduct.Category ||
+            foundProduct.category ||
             productData.category ||
             "";
+
+
+        console.log(
+            "PRODUCT CATEGORY:",
+            productData.category
+        );
+
 
         productData.image =
             foundProduct.Product_Image ||
@@ -354,10 +686,12 @@ async function loadProductFromFirestore() {
             productData.image ||
             "";
 
+
         productData.deliveryType =
             foundProduct.Delivery_Type ||
             productData.deliveryType ||
             "";
+
 
         productData.deliveryCharges =
             Number(
@@ -366,7 +700,11 @@ async function loadProductFromFirestore() {
                 0
             );
 
+
+        // =================================================
         // SUPPLIER LINK — DO NOT REMOVE
+        // =================================================
+
         productData.supplierLink =
             foundProduct.supplierLink ||
             foundProduct.Supplier_Link ||
@@ -374,24 +712,30 @@ async function loadProductFromFirestore() {
             productData.supplierLink ||
             "";
 
+
     } catch (error) {
 
         console.error(
             "Firestore error:",
             error
         );
+
     }
+
 }
+
 
 // =====================================================
 // DISPLAY PRODUCT
 // =====================================================
+
 function displayProduct() {
 
     const imageUrl =
         optimizeImage(
             productData.image
         );
+
 
     if (productImageEl) {
 
@@ -408,22 +752,29 @@ function displayProduct() {
             productImageEl.removeAttribute(
                 "src"
             );
+
         }
+
     }
+
 
     if (productNameEl) {
 
         productNameEl.textContent =
             productData.name ||
             "Product";
+
     }
+
 
     if (productDescriptionEl) {
 
         productDescriptionEl.textContent =
             productData.description ||
             "";
+
     }
+
 
     if (productPriceEl) {
 
@@ -431,7 +782,9 @@ function displayProduct() {
             money(
                 productData.price
             );
+
     }
+
 
     if (oldPriceEl) {
 
@@ -451,8 +804,11 @@ function displayProduct() {
 
             oldPriceEl.style.display =
                 "none";
+
         }
+
     }
+
 
     if (deliveryBadgeEl) {
 
@@ -471,8 +827,11 @@ function displayProduct() {
 
             deliveryBadgeEl.textContent =
                 "DELIVERY AVAILABLE";
+
         }
+
     }
+
 
     if (deliveryNoteEl) {
 
@@ -490,132 +849,175 @@ function displayProduct() {
 
             deliveryNoteEl.textContent =
                 "Free Delivery";
+
         }
+
     }
+
 }
+
 
 // =====================================================
 // UPDATE HIDDEN FIELDS
 // =====================================================
+
 function updateHiddenFields() {
 
     let orderId =
         hiddenOrderId?.value ||
         generateOrderId();
 
+
     const janjuaLink =
         getJanjuaOrderLink();
+
 
     const supplierLink =
         productData.supplierLink ||
         supplierLinkFromURL ||
         "";
 
+
     if (hiddenOrderId) {
 
         hiddenOrderId.value =
             orderId;
+
     }
+
 
     if (hiddenProduct) {
 
         hiddenProduct.value =
             productData.name;
+
     }
+
 
     if (hiddenDescription) {
 
         hiddenDescription.value =
             productData.description;
+
     }
+
 
     if (hiddenPrice) {
 
         hiddenPrice.value =
             productData.price;
+
     }
+
 
     if (hiddenOldPrice) {
 
         hiddenOldPrice.value =
             productData.oldPrice;
+
     }
+
 
     if (hiddenProductId) {
 
         hiddenProductId.value =
             productData.id;
+
     }
+
 
     if (hiddenProductImage) {
 
         hiddenProductImage.value =
             productData.image;
+
     }
+
 
     if (hiddenDeliveryStatus) {
 
         hiddenDeliveryStatus.value =
             productData.deliveryType ||
             "";
+
     }
+
 
     if (hiddenDeliveryCharges) {
 
         hiddenDeliveryCharges.value =
             productData.deliveryCharges ||
             0;
+
     }
+
 
     const qty =
         Number(
-            quantity?.value || 1
+            quantity?.value ||
+            1
         );
+
 
     const total =
         (
             Number(
-                productData.price || 0
-            ) * qty
+                productData.price ||
+                0
+            ) *
+            qty
         ) +
+
         Number(
             productData.deliveryCharges ||
             0
         );
 
+
     if (hiddenTotal) {
 
         hiddenTotal.value =
             total;
+
     }
+
 
     if (hiddenJanjuaLink) {
 
         hiddenJanjuaLink.value =
             janjuaLink;
+
     }
+
 
     if (hiddenSupplierLink) {
 
         hiddenSupplierLink.value =
             supplierLink;
+
     }
+
 
     const formUrl =
         document.getElementById(
             "formUrl"
         );
 
+
     if (formUrl) {
 
         formUrl.value =
             window.location.href;
+
     }
+
 }
+
 
 // =====================================================
 // QUANTITY CHANGE
 // =====================================================
+
 if (quantity) {
 
     quantity.addEventListener(
@@ -623,52 +1025,62 @@ if (quantity) {
         updateHiddenFields
     );
 
+
     quantity.addEventListener(
         "input",
         updateHiddenFields
     );
+
 }
+
 
 // =====================================================
 // RECEIPT POLICY — CATEGORY BASED
 // =====================================================
+
 function getReceiptPolicyHtml() {
 
     const category =
-        String(
-            productData.category || ""
-        )
-        .trim()
-        .toLowerCase();
+        normalizeCategory(
+            productData.category
+        );
+
+
+    console.log(
+        "RECEIPT POLICY CATEGORY:",
+        category
+    );
+
 
     // =================================================
     // CARS RENT
-    // PROPERTY RENT
     // =================================================
+
     if (
-        category === "cars — rent" ||
-        category === "property — rent"
+        isCarsRentCategory()
     ) {
 
         return `
+
             <div class="receipt-policy-title">
-                اہم شرائط — Rent Service
+                اہم شرائط — Cars Rent Service
             </div>
 
             <div>
-                📞 آپ کی درخواست موصول ہو گئی ہے۔
+                📞 آپ کی درخواست کامیابی سے موصول ہو گئی ہے۔
             </div>
 
             <div>
                 👤 ہمارا نمائندہ جلد از جلد،
                 عموماً <strong>ایک ورکنگ ڈے کے اندر</strong>
-                آپ کے Contact Number / WhatsApp Number پر
-                رابطہ کرے گا۔
+                آپ کے Contact Mobile Number / WhatsApp Number
+                پر رابطہ کرے گا۔
             </div>
 
             <div>
-                🔎 دستیابی، کرایہ، شرائط اور دیگر ضروری
-                تفصیلات رابطے کے دوران تصدیق کی جائیں گی۔
+                🚗 گاڑی کی دستیابی، کرایہ، مدتِ کرایہ،
+                شرائط اور دیگر ضروری تفصیلات رابطے کے دوران
+                تصدیق کی جائیں گی۔
             </div>
 
             <div class="policy-divider">
@@ -679,36 +1091,41 @@ function getReceiptPolicyHtml() {
                 ℹ️ حتمی کرایہ، دستیابی اور شرائط کی
                 تصدیق نمائندے سے رابطے کے بعد ہوگی۔
             </div>
+
         `;
+
     }
 
+
     // =================================================
-    // CONSTRUCTION MATERIAL
+    // PROPERTY RENT
     // =================================================
+
     if (
-        category === "construction material"
+        isPropertyRentCategory()
     ) {
 
         return `
+
             <div class="receipt-policy-title">
-                اہم شرائط — Construction Material
+                اہم شرائط — Property Rent Service
             </div>
 
             <div>
-                📞 آپ کی درخواست موصول ہو گئی ہے۔
+                📞 آپ کی درخواست کامیابی سے موصول ہو گئی ہے۔
             </div>
 
             <div>
                 👤 ہمارا نمائندہ جلد از جلد،
                 عموماً <strong>ایک ورکنگ ڈے کے اندر</strong>
-                آپ کے Contact Number / WhatsApp Number پر
-                رابطہ کرے گا۔
+                آپ کے Contact Mobile Number / WhatsApp Number
+                پر رابطہ کرے گا۔
             </div>
 
             <div>
-                🧱 ریت، بجری، اینٹ، سیمنٹ وغیرہ کی
-                دستیابی، مقدار، موجودہ ریٹ، ڈلیوری
-                اور دیگر تفصیلات کی تصدیق کی جائے گی۔
+                🏠 پراپرٹی کی دستیابی، کرایہ، مقام،
+                شرائط اور دیگر ضروری تفصیلات رابطے کے دوران
+                تصدیق کی جائیں گی۔
             </div>
 
             <div class="policy-divider">
@@ -716,16 +1133,66 @@ function getReceiptPolicyHtml() {
             </div>
 
             <div>
-                ℹ️ حتمی ریٹ، مقدار اور ڈلیوری کی تصدیق
-                نمائندے سے رابطے کے بعد ہوگی۔
+                ℹ️ حتمی کرایہ، دستیابی اور شرائط کی
+                تصدیق نمائندے سے رابطے کے بعد ہوگی۔
             </div>
+
         `;
+
     }
+
+
+    // =================================================
+    // CONSTRUCTION MATERIAL
+    // =================================================
+
+    if (
+        isConstructionCategory()
+    ) {
+
+        return `
+
+            <div class="receipt-policy-title">
+                اہم شرائط — Construction Material
+            </div>
+
+            <div>
+                📞 آپ کی درخواست کامیابی سے موصول ہو گئی ہے۔
+            </div>
+
+            <div>
+                👤 ہمارا نمائندہ جلد از جلد،
+                عموماً <strong>ایک ورکنگ ڈے کے اندر</strong>
+                آپ کے Contact Mobile Number / WhatsApp Number
+                پر رابطہ کرے گا۔
+            </div>
+
+            <div>
+                🧱 ریت، بجری، اینٹ، سیمنٹ وغیرہ کی
+                دستیابی، مطلوبہ مقدار، موجودہ ریٹ،
+                ڈلیوری اور دیگر تفصیلات کی تصدیق کی جائے گی۔
+            </div>
+
+            <div class="policy-divider">
+                ★ ★ ★ ★ ★
+            </div>
+
+            <div>
+                ℹ️ حتمی ریٹ، مقدار اور ڈلیوری کی
+                تصدیق نمائندے سے رابطے کے بعد ہوگی۔
+            </div>
+
+        `;
+
+    }
+
 
     // =================================================
     // NORMAL PRODUCTS
     // =================================================
+
     return `
+
         <div class="receipt-policy-title">
             اہم شرائط و معلومات
         </div>
@@ -749,66 +1216,116 @@ function getReceiptPolicyHtml() {
             💰 Return منظور ہونے کے بعد رقم کی واپسی میں
             <strong>7 دن تک</strong> لگ سکتے ہیں۔
         </div>
+
     `;
+
 }
+
 
 // =====================================================
 // SHARE POLICY TEXT
 // =====================================================
+
 function getSharePolicyText() {
 
-    const category =
-        String(
-            productData.category || ""
-        )
-        .trim()
-        .toLowerCase();
+    // =================================================
+    // CARS RENT
+    // =================================================
 
-    // =================================================
-    // RENT
-    // =================================================
     if (
-        category === "cars — rent" ||
-        category === "property — rent"
+        isCarsRentCategory()
     ) {
 
         return (
-            "Rent Service:\n" +
-            "Our representative will contact you as soon as possible, usually within one working day, via Contact/WhatsApp.\n" +
-            "Availability, rent, conditions and other details will be verified during contact.\n" +
-            "Final rent, availability and conditions will be confirmed by the representative."
+
+            "اہم شرائط — Cars Rent Service\n" +
+
+            "آپ کی درخواست موصول ہو گئی ہے۔\n" +
+
+            "ہمارا نمائندہ جلد از جلد، عموماً ایک ورکنگ ڈے کے اندر، Contact Mobile Number / WhatsApp Number پر رابطہ کرے گا۔\n" +
+
+            "گاڑی کی دستیابی، کرایہ، مدتِ کرایہ، شرائط اور دیگر تفصیلات رابطے کے دوران تصدیق کی جائیں گی۔\n" +
+
+            "حتمی کرایہ، دستیابی اور شرائط نمائندے سے رابطے کے بعد تصدیق ہوں گی۔"
+
         );
+
     }
+
+
+    // =================================================
+    // PROPERTY RENT
+    // =================================================
+
+    if (
+        isPropertyRentCategory()
+    ) {
+
+        return (
+
+            "اہم شرائط — Property Rent Service\n" +
+
+            "آپ کی درخواست موصول ہو گئی ہے۔\n" +
+
+            "ہمارا نمائندہ جلد از جلد، عموماً ایک ورکنگ ڈے کے اندر، Contact Mobile Number / WhatsApp Number پر رابطہ کرے گا۔\n" +
+
+            "پراپرٹی کی دستیابی، کرایہ، مقام، شرائط اور دیگر تفصیلات رابطے کے دوران تصدیق کی جائیں گی۔\n" +
+
+            "حتمی کرایہ، دستیابی اور شرائط نمائندے سے رابطے کے بعد تصدیق ہوں گی۔"
+
+        );
+
+    }
+
 
     // =================================================
     // CONSTRUCTION
     // =================================================
+
     if (
-        category === "construction material"
+        isConstructionCategory()
     ) {
 
         return (
-            "Construction Material:\n" +
-            "Our representative will contact you as soon as possible, usually within one working day, via Contact/WhatsApp.\n" +
-            "Availability, quantity, current rate, delivery and other details will be confirmed.\n" +
-            "Final rate, quantity and delivery will be confirmed by the representative."
+
+            "اہم شرائط — Construction Material\n" +
+
+            "آپ کی درخواست موصول ہو گئی ہے۔\n" +
+
+            "ہمارا نمائندہ جلد از جلد، عموماً ایک ورکنگ ڈے کے اندر، Contact Mobile Number / WhatsApp Number پر رابطہ کرے گا۔\n" +
+
+            "ریت، بجری، اینٹ، سیمنٹ وغیرہ کی دستیابی، مقدار، موجودہ ریٹ، ڈلیوری اور دیگر تفصیلات کی تصدیق کی جائے گی۔\n" +
+
+            "حتمی ریٹ، مقدار اور ڈلیوری نمائندے سے رابطے کے بعد تصدیق ہوگی۔"
+
         );
+
     }
+
 
     // =================================================
     // NORMAL PRODUCTS
     // =================================================
+
     return (
+
         "Delivery: 4–6 days\n" +
+
         "Return Request: within 5 days\n" +
+
         "Payment: Cash on Delivery (COD)\n" +
+
         "Refund after approved return: up to 7 days."
+
     );
+
 }
+
 
 // =====================================================
 // INITIALIZE
 // =====================================================
+
 async function initializeProduct() {
 
     displayProduct();
@@ -818,13 +1335,17 @@ async function initializeProduct() {
     displayProduct();
 
     updateHiddenFields();
+
 }
 
+
 initializeProduct();
+
 
 // =====================================================
 // WAIT FOR IMAGE
 // =====================================================
+
 function waitForImage(image) {
 
     return new Promise(
@@ -833,33 +1354,46 @@ function waitForImage(image) {
             if (!image) {
 
                 resolve();
+
                 return;
+
             }
+
 
             if (image.complete) {
 
                 resolve();
+
                 return;
+
             }
+
 
             image.onload =
                 () => resolve();
 
+
             image.onerror =
                 () => resolve();
+
         }
     );
+
 }
+
 
 // =====================================================
 // SHOW RECEIPT
 // =====================================================
+
 async function showReceipt(orderId) {
 
     if (!receiptSection) {
 
         return;
+
     }
+
 
     const receiptOrderId =
         document.getElementById(
@@ -931,42 +1465,54 @@ async function showReceipt(orderId) {
             "receiptImage"
         );
 
+
     // =================================================
     // BASIC DATA
     // =================================================
+
     if (receiptOrderId) {
 
         receiptOrderId.textContent =
             orderId;
+
     }
+
 
     if (receiptCustomer) {
 
         receiptCustomer.textContent =
             customerName?.value ||
             "";
+
     }
+
 
     if (receiptMobile) {
 
         receiptMobile.textContent =
             mobile?.value ||
             "";
+
     }
+
 
     if (receiptAddress) {
 
         receiptAddress.textContent =
             address?.value ||
             "";
+
     }
+
 
     if (receiptProduct) {
 
         receiptProduct.textContent =
             productData.name ||
             "";
+
     }
+
 
     if (receiptDate) {
 
@@ -977,22 +1523,29 @@ async function showReceipt(orderId) {
                     {
                         dateStyle:
                             "medium",
+
                         timeStyle:
                             "short"
                     }
                 );
+
     }
+
 
     const qty =
         Number(
-            quantity?.value || 1
+            quantity?.value ||
+            1
         );
+
 
     if (receiptQuantity) {
 
         receiptQuantity.textContent =
             qty;
+
     }
+
 
     if (receiptPrice) {
 
@@ -1000,66 +1553,87 @@ async function showReceipt(orderId) {
             money(
                 productData.price
             );
+
     }
+
 
     const deliveryText =
         productData.deliveryCharges > 0
+
             ? money(
                 productData.deliveryCharges
             )
+
             : "Free Delivery";
+
 
     if (receiptDelivery) {
 
         receiptDelivery.textContent =
             deliveryText;
+
     }
+
 
     if (receiptPlatform) {
 
         receiptPlatform.textContent =
             platform?.value ||
             "";
+
     }
+
 
     if (receiptColor) {
 
         receiptColor.textContent =
             color?.value ||
             "-";
+
     }
+
 
     if (receiptSize) {
 
         receiptSize.textContent =
             size?.value ||
             "-";
+
     }
+
 
     const total =
         (
             Number(
-                productData.price || 0
-            ) * qty
+                productData.price ||
+                0
+            ) *
+            qty
         ) +
+
         Number(
             productData.deliveryCharges ||
             0
         );
 
+
     if (receiptTotal) {
 
         receiptTotal.textContent =
             money(total);
+
     }
+
 
     // =================================================
     // RECEIPT IMAGE
     // =================================================
+
     const imageUrl =
         optimizeImage(
             productData.image
         );
+
 
     if (receiptImage) {
 
@@ -1074,6 +1648,7 @@ async function showReceipt(orderId) {
             receiptImage.style.display =
                 "block";
 
+
             await waitForImage(
                 receiptImage
             );
@@ -1082,60 +1657,78 @@ async function showReceipt(orderId) {
 
             receiptImage.style.display =
                 "none";
+
         }
+
     }
+
 
     // =================================================
     // RECEIPT POLICY
     // =================================================
+
     const receiptPolicy =
-        document.querySelector(
-            ".receipt-policy"
+        document.getElementById(
+            "receiptPolicy"
         );
+
 
     if (receiptPolicy) {
 
         receiptPolicy.innerHTML =
             getReceiptPolicyHtml();
+
     }
+
 
     // =================================================
     // SHOW RECEIPT
     // =================================================
+
     receiptSection.style.display =
         "block";
+
 
     // =================================================
     // HIDE FORM
     // =================================================
+
     if (form) {
 
         form.style.display =
             "none";
+
     }
+
 
     // =================================================
     // MOVE USER TO RECEIPT
     // =================================================
+
     setTimeout(
         () => {
 
             receiptSection.scrollIntoView({
+
                 behavior:
                     "smooth",
 
                 block:
                     "start"
+
             });
 
         },
         100
     );
+
 }
+
 
 // =====================================================
 // FORM SUBMISSION
 // =====================================================
+
 if (form) {
 
     form.addEventListener(
@@ -1144,12 +1737,15 @@ if (form) {
 
             event.preventDefault();
 
+
             updateHiddenFields();
+
 
             const submitButton =
                 form.querySelector(
                     'button[type="submit"]'
                 );
+
 
             if (submitButton) {
 
@@ -1158,21 +1754,30 @@ if (form) {
 
                 submitButton.textContent =
                     "Processing...";
+
             }
+
 
             const orderId =
                 hiddenOrderId?.value ||
                 generateOrderId();
 
+
             try {
 
                 const formData =
-                    new FormData(form);
+                    new FormData(
+                        form
+                    );
+
 
                 const response =
                     await fetch(
+
                         "https://formsubmit.co/ajax/thanksyou0339@gmail.com",
+
                         {
+
                             method:
                                 "POST",
 
@@ -1180,13 +1785,19 @@ if (form) {
                                 formData,
 
                             headers: {
+
                                 Accept:
                                     "application/json"
+
                             }
+
                         }
+
                     );
 
+
                 let result = {};
+
 
                 try {
 
@@ -1198,22 +1809,30 @@ if (form) {
                     console.log(
                         "Response was not JSON."
                     );
+
                 }
+
 
                 if (!response.ok) {
 
                     throw new Error(
+
                         result.message ||
                         "Order submission failed."
+
                     );
+
                 }
+
 
                 // =================================================
                 // SHOW RECEIPT
                 // =================================================
+
                 await showReceipt(
                     orderId
                 );
+
 
             } catch (error) {
 
@@ -1222,9 +1841,11 @@ if (form) {
                     error
                 );
 
+
                 alert(
                     "Order submit نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
                 );
+
 
                 if (submitButton) {
 
@@ -1233,19 +1854,26 @@ if (form) {
 
                     submitButton.textContent =
                         "ORDER CONFIRM کریں";
+
                 }
+
             }
+
         }
     );
+
 }
+
 
 // =====================================================
 // DOWNLOAD PDF
 // =====================================================
+
 const downloadButton =
     document.getElementById(
         "downloadReceiptBtn"
     );
+
 
 if (downloadButton) {
 
@@ -1258,10 +1886,13 @@ if (downloadButton) {
                     "receiptSection"
                 );
 
+
             if (!receipt) {
 
                 return;
+
             }
+
 
             if (
                 typeof html2pdf ===
@@ -1273,13 +1904,17 @@ if (downloadButton) {
                 );
 
                 return;
+
             }
+
 
             downloadButton.disabled =
                 true;
 
+
             downloadButton.textContent =
                 "PDF بن رہی ہے...";
+
 
             try {
 
@@ -1288,9 +1923,11 @@ if (downloadButton) {
                         "receiptImage"
                     );
 
+
                 await waitForImage(
                     image
                 );
+
 
                 const options = {
 
@@ -1299,18 +1936,22 @@ if (downloadButton) {
 
                     filename:
                         "JANJUA-Order-" +
+
                         (
                             hiddenOrderId?.value ||
                             "Receipt"
                         ) +
+
                         ".pdf",
 
                     image: {
+
                         type:
                             "jpeg",
 
                         quality:
                             0.95
+
                     },
 
                     html2canvas: {
@@ -1326,6 +1967,7 @@ if (downloadButton) {
 
                         backgroundColor:
                             "#ffffff"
+
                     },
 
                     jsPDF: {
@@ -1338,13 +1980,20 @@ if (downloadButton) {
 
                         orientation:
                             "portrait"
+
                     }
+
                 };
 
+
                 await html2pdf()
+
                     .set(options)
+
                     .from(receipt)
+
                     .save();
+
 
             } catch (error) {
 
@@ -1353,27 +2002,36 @@ if (downloadButton) {
                     error
                 );
 
+
                 alert(
                     "PDF download نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔"
                 );
+
             }
+
 
             downloadButton.disabled =
                 false;
 
+
             downloadButton.textContent =
                 "📥 Download PDF";
+
         }
     );
+
 }
+
 
 // =====================================================
 // SHARE RECEIPT
 // =====================================================
+
 const shareButton =
     document.getElementById(
         "shareReceiptBtn"
     );
+
 
 if (shareButton) {
 
@@ -1385,62 +2043,82 @@ if (shareButton) {
                 hiddenOrderId?.value ||
                 "";
 
+
             const policyText =
                 getSharePolicyText();
 
+
             const text =
+
                 "JANJUA TRADERS\n" +
+
                 "Order Confirmation\n\n" +
 
                 "Order ID: " +
+
                 orderId +
+
                 "\n" +
 
                 "Product: " +
+
                 productData.name +
+
                 "\n" +
 
                 "Category: " +
+
                 (
                     productData.category ||
                     "-"
                 ) +
+
                 "\n" +
 
                 "Quantity: " +
+
                 (
                     quantity?.value ||
                     1
                 ) +
+
                 "\n" +
 
                 "Total: " +
+
                 money(
+
                     (
                         Number(
                             productData.price ||
                             0
                         ) *
+
                         Number(
                             quantity?.value ||
                             1
                         )
+
                     ) +
+
                     Number(
                         productData.deliveryCharges ||
                         0
                     )
+
                 ) +
 
                 "\n\n" +
 
                 policyText;
 
+
             try {
 
                 // =================================================
                 // TRY SHARE PDF FIRST
                 // =================================================
+
                 if (
                     typeof html2pdf !==
                     "undefined"
@@ -1450,6 +2128,7 @@ if (shareButton) {
                         document.getElementById(
                             "receiptSection"
                         );
+
 
                     const options = {
 
@@ -1468,6 +2147,7 @@ if (shareButton) {
 
                             quality:
                                 0.95
+
                         },
 
                         html2canvas: {
@@ -1483,6 +2163,7 @@ if (shareButton) {
 
                             backgroundColor:
                                 "#ffffff"
+
                         },
 
                         jsPDF: {
@@ -1495,19 +2176,27 @@ if (shareButton) {
 
                             orientation:
                                 "portrait"
+
                         }
+
                     };
+
 
                     const pdfBlob =
                         await html2pdf()
+
                             .set(options)
+
                             .from(receipt)
+
                             .outputPdf(
                                 "blob"
                             );
 
+
                     const file =
                         new File(
+
                             [
                                 pdfBlob
                             ],
@@ -1517,19 +2206,29 @@ if (shareButton) {
                             ".pdf",
 
                             {
+
                                 type:
                                     "application/pdf"
+
                             }
+
                         );
 
+
                     if (
+
                         navigator.share &&
+
                         navigator.canShare &&
+
                         navigator.canShare({
+
                             files: [
                                 file
                             ]
+
                         })
+
                     ) {
 
                         await navigator.share({
@@ -1543,15 +2242,21 @@ if (shareButton) {
                             files: [
                                 file
                             ]
+
                         });
 
+
                         return;
+
                     }
+
                 }
+
 
                 // =================================================
                 // NORMAL SHARE
                 // =================================================
+
                 if (
                     navigator.share
                 ) {
@@ -1563,14 +2268,19 @@ if (shareButton) {
 
                         text:
                             text
+
                     });
 
+
                     return;
+
                 }
+
 
                 // =================================================
                 // CLIPBOARD FALLBACK
                 // =================================================
+
                 if (
                     navigator.clipboard
                 ) {
@@ -1579,48 +2289,65 @@ if (shareButton) {
                         text
                     );
 
+
                     alert(
                         "Order details copy ہو گئے ہیں۔"
                     );
 
+
                     return;
+
                 }
+
 
                 alert(
                     text
                 );
 
+
             } catch (error) {
 
                 if (
+
                     error &&
+
                     error.name ===
                     "AbortError"
+
                 ) {
 
                     return;
+
                 }
+
 
                 console.error(
                     "Share error:",
                     error
                 );
 
+
                 alert(
                     "Share نہیں ہو سکا۔ براہِ کرم Download PDF کرکے WhatsApp پر share کریں۔"
                 );
+
             }
+
         }
     );
+
 }
+
 
 // =====================================================
 // PRINT
 // =====================================================
+
 const printButton =
     document.getElementById(
         "printReceiptBtn"
     );
+
 
 if (printButton) {
 
@@ -1633,33 +2360,42 @@ if (printButton) {
                     "receiptSection"
                 );
 
+
             if (!receipt) {
 
                 return;
+
             }
 
-            // Make sure image has loaded
+
             const image =
                 document.getElementById(
                     "receiptImage"
                 );
 
+
             await waitForImage(
                 image
             );
 
+
             window.print();
+
         }
     );
+
 }
+
 
 // =====================================================
 // NEW ORDER
 // =====================================================
+
 const newOrderButton =
     document.getElementById(
         "newOrderBtn"
     );
+
 
 if (newOrderButton) {
 
@@ -1669,6 +2405,8 @@ if (newOrderButton) {
 
             window.location.href =
                 "shop.html";
+
         }
     );
+
 }
