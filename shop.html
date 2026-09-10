@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width,initial-scale=1.0">
 
-<title>JANJUA — Online Shopping</title>
+<title>SARGODHA HUB — Online Digital Marketing Platform</title>
 
 <style>
 
@@ -36,6 +36,7 @@ body{
     background:linear-gradient(135deg,#111827,#1f2937);
     color:white;
     box-shadow:0 3px 15px rgba(0,0,0,.15);
+    overflow:hidden;
 }
 
 .header-inner{
@@ -43,6 +44,8 @@ body{
     max-width:1200px;
     margin:auto;
     padding:12px 0;
+    position:relative;
+    z-index:5;
 }
 
 .header-top{
@@ -52,20 +55,143 @@ body{
     gap:12px;
 }
 
+.logo-area{
+    position:relative;
+    min-width:260px;
+    text-align:center;
+}
+
 .logo{
     font-size:25px;
     font-weight:900;
     white-space:nowrap;
+    position:relative;
+    z-index:5;
+    animation:logoPulse 2.5s ease-in-out infinite;
 }
 
 .logo span{
     color:#fbbf24;
 }
 
+.logo-subtitle{
+    margin-top:4px;
+    font-size:12px;
+    font-weight:bold;
+    color:#e5e7eb;
+    position:relative;
+    z-index:5;
+}
+
+/* ================= PLANET ORBIT ANIMATION ================= */
+
+.space-animation{
+    position:absolute;
+    inset:-45px -30px -45px -30px;
+    pointer-events:none;
+    opacity:.75;
+}
+
+.orbit{
+    position:absolute;
+    left:50%;
+    top:50%;
+    border:1px solid rgba(255,255,255,.20);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+}
+
+.orbit-one{
+    width:190px;
+    height:70px;
+    animation:orbitRotate 7s linear infinite;
+}
+
+.orbit-two{
+    width:250px;
+    height:95px;
+    animation:orbitRotateReverse 11s linear infinite;
+}
+
+.orbit-three{
+    width:310px;
+    height:120px;
+    animation:orbitRotate 15s linear infinite;
+}
+
+.planet{
+    position:absolute;
+    border-radius:50%;
+    box-shadow:0 0 10px rgba(255,255,255,.55);
+}
+
+.neptune{
+    width:13px;
+    height:13px;
+    background:#3b82f6;
+    top:2px;
+    left:50%;
+}
+
+.pluto{
+    width:9px;
+    height:9px;
+    background:#d1d5db;
+    right:10px;
+    top:50%;
+}
+
+.planet-small{
+    width:7px;
+    height:7px;
+    background:#fbbf24;
+    left:18px;
+    top:45%;
+}
+
+@keyframes orbitRotate{
+
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+
+}
+
+@keyframes orbitRotateReverse{
+
+    from{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+
+    to{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+
+}
+
+@keyframes logoPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.025);
+    }
+
+}
+
+/* ================= SEARCH ================= */
+
 .search-box{
     flex:1;
     max-width:520px;
     position:relative;
+    z-index:10;
 }
 
 .search-box input{
@@ -118,6 +244,12 @@ body{
     color:#166534;
 }
 
+/* ================= HIDDEN ================= */
+
+.hidden{
+    display:none !important;
+}
+
 /* ================= LOADER ================= */
 
 .loader-wrap{
@@ -160,6 +292,42 @@ body{
     color:#6b7280;
 }
 
+/* ================= CATEGORIES ================= */
+
+.categories{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:4px 1px 10px;
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category-btn{
+    flex:0 0 auto;
+    border:1px solid #d1d5db;
+    background:white;
+    color:#374151;
+    border-radius:20px;
+    padding:9px 16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.category-btn:hover{
+    transform:translateY(-2px);
+}
+
+.category-btn.active{
+    background:#111827;
+    color:white;
+    border-color:#111827;
+}
+
 /* ================= SLIDER ================= */
 
 .slider-box{
@@ -190,6 +358,12 @@ body{
     border-radius:14px;
     padding:9px;
     cursor:pointer;
+    transition:transform .25s ease,box-shadow .25s ease;
+}
+
+.feature-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,.10);
 }
 
 .feature-image{
@@ -223,37 +397,6 @@ body{
     font-size:15px;
     font-weight:bold;
     margin-top:4px;
-}
-
-/* ================= CATEGORIES ================= */
-
-.categories{
-    display:flex;
-    gap:9px;
-    overflow-x:auto;
-    padding:4px 1px 10px;
-    scrollbar-width:none;
-}
-
-.categories::-webkit-scrollbar{
-    display:none;
-}
-
-.category-btn{
-    flex:0 0 auto;
-    border:1px solid #d1d5db;
-    background:white;
-    color:#374151;
-    border-radius:20px;
-    padding:9px 16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.category-btn.active{
-    background:#111827;
-    color:white;
-    border-color:#111827;
 }
 
 /* ================= PRODUCTS GRID ================= */
@@ -421,7 +564,15 @@ footer p{
         align-items:stretch;
     }
 
+    .logo-area{
+        min-width:0;
+    }
+
     .logo{
+        text-align:center;
+    }
+
+    .logo-subtitle{
         text-align:center;
     }
 
@@ -463,6 +614,10 @@ footer p{
         height:105px;
     }
 
+    .space-animation{
+        opacity:.5;
+    }
+
 }
 
 @media(max-width:360px){
@@ -491,9 +646,35 @@ footer p{
 
         <div class="header-top">
 
-            <div class="logo">
-                JANJUA <span>TRADERS</span>
+            <div class="logo-area">
+
+                <div class="space-animation">
+
+                    <div class="orbit orbit-one">
+                        <span class="planet neptune"></span>
+                    </div>
+
+                    <div class="orbit orbit-two">
+                        <span class="planet pluto"></span>
+                    </div>
+
+                    <div class="orbit orbit-three">
+                        <span class="planet-small"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="logo">
+                    SARGODHA <span>HUB</span>
+                </div>
+
+                <div class="logo-subtitle">
+                    JANJUA DIGITAL MARKETING PLATFORM
+                </div>
+
             </div>
+
 
             <div class="search-box">
 
@@ -519,6 +700,23 @@ footer p{
     <div
         id="pageStatus"
         class="status"
+    ></div>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="section-title">
+
+        <h2>
+            🛍 Categories
+        </h2>
+
+    </div>
+
+
+    <div
+        id="categories"
+        class="categories"
     ></div>
 
 
@@ -562,23 +760,6 @@ footer p{
         </div>
 
     </div>
-
-
-    <!-- CATEGORIES -->
-
-    <div class="section-title">
-
-        <h2>
-            🛍 Categories
-        </h2>
-
-    </div>
-
-
-    <div
-        id="categories"
-        class="categories"
-    ></div>
 
 
     <!-- PRODUCTS -->
