@@ -55,7 +55,7 @@ th{background:#f9fafb}
 .category-custom.show{display:block}
 .category-note{margin-top:-8px;margin-bottom:12px}
 
-/* CUSTOMER SUPPORT */
+/* CUSTOMER SUPPORT - LIVE ONLY */
 .support-admin{
     margin-top:10px;
     padding:18px;
@@ -72,6 +72,7 @@ th{background:#f9fafb}
     color:#6b7280;
     font-size:13px;
     margin-bottom:15px;
+    line-height:1.7;
 }
 .support-preview{
     margin-top:16px;
@@ -79,7 +80,7 @@ th{background:#f9fafb}
     gap:12px;
 }
 .support-contact-card{
-    padding:15px;
+    padding:17px;
     border-radius:16px;
     color:white;
     box-shadow:0 8px 0 rgba(0,0,0,.12),0 12px 22px rgba(0,0,0,.18);
@@ -92,21 +93,26 @@ th{background:#f9fafb}
     background:linear-gradient(135deg,#22c55e,#059669);
 }
 .support-contact-icon{
-    font-size:28px;
+    font-size:30px;
     margin-left:8px;
     filter:drop-shadow(2px 3px 2px rgba(0,0,0,.35));
 }
 .support-number{
-    font-size:20px;
+    font-size:21px;
     font-weight:900;
     direction:ltr;
     display:inline-block;
     text-shadow:1px 2px 3px rgba(0,0,0,.35);
+    margin-top:5px;
 }
-.support-save-row{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
+.live-note{
+    background:#fff7ed;
+    color:#9a3412;
+    border:1px solid #fed7aa;
+    padding:10px;
+    border-radius:10px;
+    font-size:13px;
+    margin-top:10px;
 }
 </style>
 </head>
@@ -121,6 +127,7 @@ th{background:#f9fafb}
 <!-- LOGIN -->
 <section id="loginSection" class="container">
 <div class="card login-box">
+
 <div class="login-logo">JANJUA</div>
 <div class="login-sub">Admin Login</div>
 
@@ -137,26 +144,33 @@ th{background:#f9fafb}
 <button id="forgotBtn" class="secondary" style="width:100%;margin-top:10px">
 FORGOT PASSWORD
 </button>
+
 </div>
 </section>
+
 
 <!-- ADMIN -->
 <section id="adminSection" class="container hidden">
 
 <div class="card">
 <div class="topbar">
+
 <div>
 <strong>Admin Panel</strong>
 <div id="userEmail" class="user-email"></div>
 </div>
+
 <button id="logoutBtn" class="danger">LOGOUT</button>
+
 </div>
 </div>
 
 <div id="adminStatus" class="status"></div>
 
+
 <!-- CUSTOMER SUPPORT -->
 <div class="card">
+
 <div class="support-admin">
 
 <div class="support-admin-title">
@@ -164,48 +178,49 @@ FORGOT PASSWORD
 </div>
 
 <div class="support-admin-sub">
-یہاں سے Customer Support کے Mobile اور WhatsApp نمبر محفوظ یا تبدیل کریں۔
-یہی نمبر Customer Shop پر نظر آئیں گے۔
+یہاں Mobile اور WhatsApp نمبر لکھیں۔ نمبر لکھتے ہی نیچے Dashboard پر Live Preview میں نظر آئے گا۔
 </div>
 
 <div class="grid">
 
 <div>
 <label>📱 Mobile / Contact Number</label>
+
 <input
 id="supportMobile"
 type="tel"
 placeholder="+92 300 1234567"
 autocomplete="tel">
+
 </div>
 
+
 <div>
+
 <label>🟢 WhatsApp Number</label>
+
 <input
 id="supportWhatsApp"
 type="tel"
 placeholder="+92 300 1234567"
 autocomplete="tel">
-</div>
 
 </div>
 
-<div class="support-save-row">
-
-<button id="saveSupportBtn" class="success" type="button">
-💾 SAVE / UPDATE SUPPORT
-</button>
-
-<button id="deleteSupportBtn" class="danger" type="button">
-🗑 DELETE SUPPORT
-</button>
-
 </div>
+
+
+<div class="live-note">
+ℹ️ یہ Customer Support نمبر Firebase میں محفوظ نہیں ہوں گے۔ یہ صرف اسی Admin Dashboard پر Live Preview کے لیے ہیں۔
+</div>
+
 
 <div id="supportPreview" class="support-preview"></div>
 
 </div>
+
 </div>
+
 
 <!-- PRODUCT FORM -->
 <div class="card">
@@ -217,15 +232,28 @@ autocomplete="tel">
 <div class="grid">
 
 <div>
+
 <label>Product ID</label>
-<input id="productId" class="id-box" readonly placeholder="Automatic">
-<div class="note">Product ID خودکار بنے گا۔</div>
+
+<input
+id="productId"
+class="id-box"
+readonly
+placeholder="Automatic">
+
+<div class="note">
+Product ID خودکار بنے گا۔
 </div>
 
+</div>
+
+
 <div>
+
 <label>All Product Category</label>
 
 <select id="category">
+
 <option value="All">All Products</option>
 <option value="Bags">Bags</option>
 <option value="Beauty">Beauty</option>
@@ -260,6 +288,7 @@ autocomplete="tel">
 <option value="Tools">Tools / Machinery</option>
 <option value="Toys">Toys / Kids</option>
 <option value="Other">Other / Custom Category</option>
+
 </select>
 
 <div class="note category-note">
@@ -268,66 +297,153 @@ A–Z All-in-One Category List۔ اگر مطلوبہ category نہ ہو تو
 </div>
 
 <div id="customCategoryBox" class="category-custom">
+
 <label>Custom Category</label>
-<input id="customCategory" placeholder="مثلاً Tractor Rent, Fish Sale, House Share...">
-</div>
+
+<input
+id="customCategory"
+placeholder="مثلاً Tractor Rent, Fish Sale, House Share...">
+
 </div>
 
-<div>
-<label>Product Name <span class="required">*</span></label>
-<input id="productName" placeholder="Product Name">
 </div>
 
-<div>
-<label>Price <span class="required">*</span></label>
-<input id="price" type="number" min="0" placeholder="2000">
-</div>
 
 <div>
+
+<label>
+Product Name <span class="required">*</span>
+</label>
+
+<input
+id="productName"
+placeholder="Product Name">
+
+</div>
+
+
+<div>
+
+<label>
+Price <span class="required">*</span>
+</label>
+
+<input
+id="price"
+type="number"
+min="0"
+placeholder="2000">
+
+</div>
+
+
+<div>
+
 <label>Old Price</label>
-<input id="oldPrice" type="number" min="0" placeholder="2500">
+
+<input
+id="oldPrice"
+type="number"
+min="0"
+placeholder="2500">
+
 </div>
 
+
 <div>
+
 <label>Delivery Charges</label>
-<input id="deliveryCharges" type="number" min="0" value="0" placeholder="0">
+
+<input
+id="deliveryCharges"
+type="number"
+min="0"
+value="0"
+placeholder="0">
+
 </div>
 
+
 <div>
+
 <label>Delivery Type</label>
+
 <select id="deliveryType">
-<option value="Free Delivery">Free Delivery</option>
-<option value="Paid Delivery">Paid Delivery</option>
+
+<option value="Free Delivery">
+Free Delivery
+</option>
+
+<option value="Paid Delivery">
+Paid Delivery
+</option>
+
 </select>
+
 </div>
+
 
 <div>
+
 <label>Image</label>
-<input type="file" id="imageFile" accept="image/jpeg,image/png,image/webp">
-<div class="note">JPG / PNG / WebP — Maximum 5MB</div>
+
+<input
+type="file"
+id="imageFile"
+accept="image/jpeg,image/png,image/webp">
+
+<div class="note">
+JPG / PNG / WebP — Maximum 5MB
 </div>
 
 </div>
+
+</div>
+
 
 <label>Product Description</label>
-<textarea id="description" placeholder="Product کی تفصیل"></textarea>
 
-<img id="imagePreview" class="preview" alt="Image Preview">
+<textarea
+id="description"
+placeholder="Product کی تفصیل"></textarea>
+
+
+<img
+id="imagePreview"
+class="preview"
+alt="Image Preview">
+
 
 <label>Image URL</label>
-<input id="imageUrl" dir="ltr" placeholder="https://...">
+
+<input
+id="imageUrl"
+dir="ltr"
+placeholder="https://...">
+
 
 <label>Original Supplier Link</label>
-<input id="supplierLink" dir="ltr" placeholder="Markaz / Daraz original product link">
+
+<input
+id="supplierLink"
+dir="ltr"
+placeholder="Markaz / Daraz original product link">
 
 <div class="note">
 یہ لنک Admin کے لیے ہے۔ Customer page پر اسے ظاہر نہیں کیا جائے گا۔
 </div>
 
+
 <label>Social Media Link</label>
-<input id="socialLink" dir="ltr" placeholder="TikTok / Facebook / Instagram link">
+
+<input
+id="socialLink"
+dir="ltr"
+placeholder="TikTok / Facebook / Instagram link">
+
 
 <hr style="border:0;border-top:1px solid #eee;margin:20px 0">
+
 
 <label>JANJUA Auto Link</label>
 
@@ -335,44 +451,91 @@ A–Z All-in-One Category List۔ اگر مطلوبہ category نہ ہو تو
 Product ID بننے کے بعد Link یہاں آئے گا۔
 </div>
 
+
 <div class="action-buttons">
-<button id="copyLinkBtn" class="secondary" type="button">COPY LINK</button>
+
+<button
+id="copyLinkBtn"
+class="secondary"
+type="button">
+COPY LINK
+</button>
+
 </div>
+
 
 <hr style="border:0;border-top:1px solid #eee;margin:20px 0">
 
+
 <div class="action-buttons">
-<button id="saveProductBtn" class="success" type="button">SAVE PRODUCT</button>
-<button id="newProductBtn" class="secondary" type="button">NEW PRODUCT</button>
+
+<button
+id="saveProductBtn"
+class="success"
+type="button">
+SAVE PRODUCT
+</button>
+
+<button
+id="newProductBtn"
+class="secondary"
+type="button">
+NEW PRODUCT
+</button>
+
 </div>
 
 </div>
+
 
 <!-- PRODUCT SHEET -->
 <div class="card">
 
 <div class="topbar">
-<h2 style="margin:0">📋 Product Sheet</h2>
-<button id="refreshBtn" class="secondary">REFRESH</button>
+
+<h2 style="margin:0">
+📋 Product Sheet
+</h2>
+
+<button
+id="refreshBtn"
+class="secondary">
+REFRESH
+</button>
+
 </div>
+
 
 <div style="margin-top:15px">
-<input id="productSearch" placeholder="Product search کریں...">
+
+<input
+id="productSearch"
+placeholder="Product search کریں...">
+
 </div>
 
-<div id="productTableWrap" class="product-table-wrap">
-<div class="note">Products loading...</div>
+
+<div
+id="productTableWrap"
+class="product-table-wrap">
+
+<div class="note">
+Products loading...
+</div>
+
 </div>
 
 </div>
 
 </section>
 
+
 <script type="module">
 
 import {
 initializeApp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
 getAuth,
@@ -381,6 +544,7 @@ sendPasswordResetEmail,
 signOut,
 onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 import {
 getFirestore,
@@ -391,276 +555,360 @@ updateDoc,
 deleteDoc,
 doc,
 query,
-orderBy,
-getDoc,
-setDoc
+orderBy
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+/* FIREBASE CONFIG */
+
 const firebaseConfig={
-apiKey:"AIzaSyA8_4KXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+
+apiKey:"AIzaSyA8_4KXKAdfKWZ5mi5DaT9qiayL3h_Yzw",
+
 authDomain:"janjua-traders.firebaseapp.com",
+
 projectId:"janjua-traders",
+
 storageBucket:"janjua-traders.firebasestorage.app",
+
 messagingSenderId:"154904774188",
+
 appId:"1:154904774188:web:1830f9d533e77dae6a7389"
+
 };
 
+
 const app=initializeApp(firebaseConfig);
+
 const auth=getAuth(app);
+
 const db=getFirestore(app);
 
+
 const CLOUDINARY_CLOUD_NAME="r6brgbd8";
+
 const CLOUDINARY_UPLOAD_PRESET="janjua_traders";
 
 
-const loginSection=document.getElementById("loginSection");
-const adminSection=document.getElementById("adminSection");
-const loginEmail=document.getElementById("loginEmail");
-const loginPassword=document.getElementById("loginPassword");
-const loginBtn=document.getElementById("loginBtn");
-const forgotBtn=document.getElementById("forgotBtn");
-const logoutBtn=document.getElementById("logoutBtn");
-const userEmail=document.getElementById("userEmail");
-const loginStatus=document.getElementById("loginStatus");
-const adminStatus=document.getElementById("adminStatus");
+/* ELEMENTS */
 
-const productId=document.getElementById("productId");
-const category=document.getElementById("category");
-const customCategory=document.getElementById("customCategory");
-const customCategoryBox=document.getElementById("customCategoryBox");
-const productName=document.getElementById("productName");
-const price=document.getElementById("price");
-const oldPrice=document.getElementById("oldPrice");
-const deliveryCharges=document.getElementById("deliveryCharges");
-const deliveryType=document.getElementById("deliveryType");
-const description=document.getElementById("description");
-const imageFile=document.getElementById("imageFile");
-const imageUrl=document.getElementById("imageUrl");
-const imagePreview=document.getElementById("imagePreview");
-const supplierLink=document.getElementById("supplierLink");
-const socialLink=document.getElementById("socialLink");
-const autoLinkBox=document.getElementById("autoLinkBox");
-const copyLinkBtn=document.getElementById("copyLinkBtn");
-const saveProductBtn=document.getElementById("saveProductBtn");
-const newProductBtn=document.getElementById("newProductBtn");
-const refreshBtn=document.getElementById("refreshBtn");
-const productSearch=document.getElementById("productSearch");
-const productTableWrap=document.getElementById("productTableWrap");
-const editingDocId=document.getElementById("editingDocId");
+const loginSection=
+document.getElementById("loginSection");
 
-const supportMobile=document.getElementById("supportMobile");
-const supportWhatsApp=document.getElementById("supportWhatsApp");
-const saveSupportBtn=document.getElementById("saveSupportBtn");
-const deleteSupportBtn=document.getElementById("deleteSupportBtn");
-const supportPreview=document.getElementById("supportPreview");
+const adminSection=
+document.getElementById("adminSection");
 
-const supportRef=doc(db,"settings","customerSupport");
+const loginEmail=
+document.getElementById("loginEmail");
+
+const loginPassword=
+document.getElementById("loginPassword");
+
+const loginBtn=
+document.getElementById("loginBtn");
+
+const forgotBtn=
+document.getElementById("forgotBtn");
+
+const logoutBtn=
+document.getElementById("logoutBtn");
+
+const userEmail=
+document.getElementById("userEmail");
+
+const loginStatus=
+document.getElementById("loginStatus");
+
+const adminStatus=
+document.getElementById("adminStatus");
 
 
-function showStatus(element,message,type="info"){
-element.textContent=message;
-element.className="status show "+type;
-}
+/* PRODUCT ELEMENTS */
 
-function clearStatus(element){
-element.textContent="";
-element.className="status";
-}
+const productId=
+document.getElementById("productId");
 
-function escapeHtml(value){
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-}
+const category=
+document.getElementById("category");
 
-function firebaseErrorMessage(error){
-console.error(error);
-const code=error?.code||"";
-const message=error?.message||"";
+const customCategory=
+document.getElementById("customCategory");
 
-if(code.includes("invalid-credential")||
-code.includes("wrong-password")||
-code.includes("invalid-login-credentials"))
-return "Email یا Password غلط ہے۔";
+const customCategoryBox=
+document.getElementById("customCategoryBox");
 
-if(code.includes("user-not-found"))
-return "یہ Admin Email Firebase Authentication میں موجود نہیں ہے۔";
+const productName=
+document.getElementById("productName");
 
-if(code.includes("too-many-requests"))
-return "بہت زیادہ Login کوششیں ہوئیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔";
+const price=
+document.getElementById("price");
 
-if(code.includes("permission-denied"))
-return "Firestore Permission Denied۔ Firebase Rules چیک کریں۔";
+const oldPrice=
+document.getElementById("oldPrice");
 
-return "Firebase Error: "+message;
-}
+const deliveryCharges=
+document.getElementById("deliveryCharges");
+
+const deliveryType=
+document.getElementById("deliveryType");
+
+const description=
+document.getElementById("description");
+
+const imageFile=
+document.getElementById("imageFile");
+
+const imageUrl=
+document.getElementById("imageUrl");
+
+const imagePreview=
+document.getElementById("imagePreview");
+
+const supplierLink=
+document.getElementById("supplierLink");
+
+const socialLink=
+document.getElementById("socialLink");
+
+const autoLinkBox=
+document.getElementById("autoLinkBox");
+
+const copyLinkBtn=
+document.getElementById("copyLinkBtn");
+
+const saveProductBtn=
+document.getElementById("saveProductBtn");
+
+const newProductBtn=
+document.getElementById("newProductBtn");
+
+const refreshBtn=
+document.getElementById("refreshBtn");
+
+const productSearch=
+document.getElementById("productSearch");
+
+const productTableWrap=
+document.getElementById("productTableWrap");
+
+const editingDocId=
+document.getElementById("editingDocId");
 
 
-/* CUSTOMER SUPPORT */
+/* CUSTOMER SUPPORT - LIVE ONLY */
+
+const supportMobile=
+document.getElementById("supportMobile");
+
+const supportWhatsApp=
+document.getElementById("supportWhatsApp");
+
+const supportPreview=
+document.getElementById("supportPreview");
+
 
 function renderSupportPreview(){
 
 let html="";
-const mobile=supportMobile.value.trim();
-const whatsapp=supportWhatsApp.value.trim();
+
+const mobile=
+supportMobile.value.trim();
+
+const whatsapp=
+supportWhatsApp.value.trim();
+
 
 if(mobile){
+
 html+=`
+
 <div class="support-contact-card mobile">
-<span class="support-contact-icon">📱</span>
-<strong>Mobile / Contact</strong><br>
-<span class="support-number">${escapeHtml(mobile)}</span>
-</div>`;
+
+<span class="support-contact-icon">
+📱
+</span>
+
+<strong>
+Mobile / Contact
+</strong>
+
+<br>
+
+<span class="support-number">
+${escapeHtml(mobile)}
+</span>
+
+</div>
+
+`;
+
 }
+
 
 if(whatsapp){
+
 html+=`
+
 <div class="support-contact-card whatsapp">
-<span class="support-contact-icon">🟢</span>
-<strong>WhatsApp</strong><br>
-<span class="support-number">${escapeHtml(whatsapp)}</span>
-</div>`;
+
+<span class="support-contact-icon">
+🟢
+</span>
+
+<strong>
+WhatsApp
+</strong>
+
+<br>
+
+<span class="support-number">
+${escapeHtml(whatsapp)}
+</span>
+
+</div>
+
+`;
+
 }
+
 
 supportPreview.innerHTML=html;
-}
-
-
-async function loadCustomerSupport(){
-
-try{
-
-const snap=await getDoc(supportRef);
-
-if(snap.exists()){
-
-const data=snap.data();
-
-supportMobile.value=data.mobile||"";
-supportWhatsApp.value=data.whatsapp||"";
-
-}else{
-
-supportMobile.value="";
-supportWhatsApp.value="";
-
-}
-
-renderSupportPreview();
-
-}catch(error){
-
-console.error("Support Load Error:",error);
-
-}
 
 }
 
 
-async function saveCustomerSupport(){
-
-if(!auth.currentUser){
-alert("پہلے Admin Login کریں۔");
-return;
-}
-
-const mobile=supportMobile.value.trim();
-const whatsapp=supportWhatsApp.value.trim();
-
-if(!mobile&&!whatsapp){
-alert("کم از کم Mobile یا WhatsApp نمبر ضرور درج کریں۔");
-return;
-}
-
-try{
-
-saveSupportBtn.disabled=true;
-saveSupportBtn.textContent="SAVING...";
-
-await setDoc(
-supportRef,
-{
-mobile:mobile,
-whatsapp:whatsapp,
-updatedAt:new Date().toISOString(),
-updatedBy:auth.currentUser.email||""
-},
-{merge:true}
+supportMobile.addEventListener(
+"input",
+renderSupportPreview
 );
 
-renderSupportPreview();
 
-alert("✅ Customer Support Save / Update ہوگیا۔");
-
-}catch(error){
-
-alert("❌ Support Save نہیں ہوا۔\n\n"+firebaseErrorMessage(error));
-
-}finally{
-
-saveSupportBtn.disabled=false;
-saveSupportBtn.textContent="💾 SAVE / UPDATE SUPPORT";
-
-}
-
-}
+supportWhatsApp.addEventListener(
+"input",
+renderSupportPreview
+);
 
 
-async function deleteCustomerSupport(){
+/* STATUS */
 
-if(!auth.currentUser){
-alert("پہلے Admin Login کریں۔");
-return;
-}
+function showStatus(
+element,
+message,
+type="info"
+){
 
-if(!confirm("کیا آپ Customer Support کے نمبر Delete کرنا چاہتے ہیں؟"))
-return;
+element.textContent=message;
 
-try{
-
-await deleteDoc(supportRef);
-
-supportMobile.value="";
-supportWhatsApp.value="";
-renderSupportPreview();
-
-alert("🗑 Customer Support Delete ہوگیا۔");
-
-}catch(error){
-
-alert("❌ Support Delete نہیں ہوا۔\n\n"+firebaseErrorMessage(error));
-
-}
+element.className=
+"status show "+type;
 
 }
 
 
-saveSupportBtn.addEventListener("click",saveCustomerSupport);
-deleteSupportBtn.addEventListener("click",deleteCustomerSupport);
-supportMobile.addEventListener("input",renderSupportPreview);
-supportWhatsApp.addEventListener("input",renderSupportPreview);
+function clearStatus(element){
+
+element.textContent="";
+
+element.className="status";
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(value){
+
+return String(value??"")
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* FIREBASE ERROR */
+
+function firebaseErrorMessage(error){
+
+console.error(error);
+
+const code=
+error?.code||"";
+
+const message=
+error?.message||"";
+
+
+if(
+code.includes("invalid-credential")||
+code.includes("wrong-password")||
+code.includes("invalid-login-credentials")
+)
+return "Email یا Password غلط ہے۔";
+
+
+if(
+code.includes("user-not-found")
+)
+return "یہ Admin Email Firebase Authentication میں موجود نہیں ہے۔";
+
+
+if(
+code.includes("too-many-requests")
+)
+return "بہت زیادہ Login کوششیں ہوئیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔";
+
+
+if(
+code.includes("permission-denied")
+)
+return "Firestore Permission Denied۔ Firebase Rules چیک کریں۔";
+
+
+return "Firebase Error: "+message;
+
+}
 
 
 /* AUTH */
 
-onAuthStateChanged(auth,async user=>{
+onAuthStateChanged(
+auth,
+async user=>{
 
 if(user){
 
 loginSection.classList.add("hidden");
-adminSection.classList.remove("hidden");
-userEmail.textContent="Logged in: "+user.email;
 
-await loadCustomerSupport();
+adminSection.classList.remove("hidden");
+
+userEmail.textContent=
+"Logged in: "+user.email;
+
+
+/* Support Firebase سے LOAD نہیں ہوگا */
+
+supportMobile.value="";
+
+supportWhatsApp.value="";
+
+renderSupportPreview();
+
+
 await loadProducts();
+
 
 }else{
 
 loginSection.classList.remove("hidden");
+
 adminSection.classList.add("hidden");
 
 }
@@ -668,35 +916,70 @@ adminSection.classList.add("hidden");
 });
 
 
-loginBtn.addEventListener("click",async()=>{
+/* LOGIN */
 
-const email=loginEmail.value.trim();
-const password=loginPassword.value;
+loginBtn.addEventListener(
+"click",
+async()=>{
+
+const email=
+loginEmail.value.trim();
+
+const password=
+loginPassword.value;
+
 
 if(!email){
-showStatus(loginStatus,"Email لکھیں۔","error");
+
+showStatus(
+loginStatus,
+"Email لکھیں۔",
+"error"
+);
+
 return;
+
 }
+
 
 if(!password){
-showStatus(loginStatus,"Password لکھیں۔","error");
+
+showStatus(
+loginStatus,
+"Password لکھیں۔",
+"error"
+);
+
 return;
+
 }
 
+
 loginBtn.disabled=true;
+
 loginBtn.textContent="LOGIN...";
+
 
 try{
 
-await signInWithEmailAndPassword(auth,email,password);
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
 }catch(error){
 
-showStatus(loginStatus,firebaseErrorMessage(error),"error");
+showStatus(
+loginStatus,
+firebaseErrorMessage(error),
+"error"
+);
 
 }finally{
 
 loginBtn.disabled=false;
+
 loginBtn.textContent="LOGIN";
 
 }
@@ -704,23 +987,46 @@ loginBtn.textContent="LOGIN";
 });
 
 
-loginPassword.addEventListener("keydown",e=>{
-if(e.key==="Enter")loginBtn.click();
+loginPassword.addEventListener(
+"keydown",
+e=>{
+
+if(e.key==="Enter")
+loginBtn.click();
+
 });
 
 
-forgotBtn.addEventListener("click",async()=>{
+/* FORGOT PASSWORD */
 
-const email=loginEmail.value.trim();
+forgotBtn.addEventListener(
+"click",
+async()=>{
+
+const email=
+loginEmail.value.trim();
+
 
 if(!email){
-showStatus(loginStatus,"پہلے Admin Email لکھیں۔","error");
+
+showStatus(
+loginStatus,
+"پہلے Admin Email لکھیں۔",
+"error"
+);
+
 return;
+
 }
+
 
 try{
 
-await sendPasswordResetEmail(auth,email);
+await sendPasswordResetEmail(
+auth,
+email
+);
+
 
 showStatus(
 loginStatus,
@@ -728,30 +1034,44 @@ loginStatus,
 "ok"
 );
 
+
 }catch(error){
 
-showStatus(loginStatus,firebaseErrorMessage(error),"error");
+showStatus(
+loginStatus,
+firebaseErrorMessage(error),
+"error"
+);
 
 }
 
 });
 
 
-logoutBtn.addEventListener("click",()=>signOut(auth));
+/* LOGOUT */
+
+logoutBtn.addEventListener(
+"click",
+()=>signOut(auth)
+);
 
 
 /* CATEGORY */
 
-category.addEventListener("change",()=>{
+category.addEventListener(
+"change",
+()=>{
 
 if(category.value==="Other"){
 
 customCategoryBox.classList.add("show");
+
 customCategory.focus();
 
 }else{
 
 customCategoryBox.classList.remove("show");
+
 customCategory.value="";
 
 }
@@ -771,21 +1091,29 @@ return category.value.trim()||"All";
 
 function setCategory(value){
 
-const text=String(value||"").trim();
+const text=
+String(value||"").trim();
 
-const exists=Array.from(category.options)
+
+const exists=
+Array.from(category.options)
 .some(o=>o.value===text);
+
 
 if(exists){
 
 category.value=text;
+
 customCategory.value="";
+
 customCategoryBox.classList.remove("show");
 
 }else if(text){
 
 category.value="Other";
+
 customCategory.value=text;
+
 customCategoryBox.classList.add("show");
 
 }else{
@@ -801,18 +1129,30 @@ category.value="All";
 
 async function generateProductId(){
 
-const snapshot=await getDocs(collection(db,"products"));
+const snapshot=
+await getDocs(
+collection(db,"products")
+);
+
 
 let maxNumber=0;
 
+
 snapshot.forEach(item=>{
 
-const id=String(item.data().Product_ID||"");
-const match=id.match(/JT\.PRODUCT\.(\d+)/);
+const id=
+String(item.data().Product_ID||"");
+
+
+const match=
+id.match(/JT\.PRODUCT\.(\d+)/);
+
 
 if(match){
 
-const number=parseInt(match[1],10);
+const number=
+parseInt(match[1],10);
+
 
 if(number>maxNumber)
 maxNumber=number;
@@ -821,31 +1161,43 @@ maxNumber=number;
 
 });
 
-return "JT.PRODUCT."+String(maxNumber+1).padStart(4,"0");
+
+return "JT.PRODUCT."+
+String(maxNumber+1)
+.padStart(4,"0");
 
 }
 
 
-/* LINK */
+/* JANJUA LINK */
 
 function getJanjuaLink(id){
 
-if(!id)return "";
+if(!id)
+return "";
+
 
 return window.location.origin+
+
 window.location.pathname.replace(
 /Admin\.html$/i,
 "order-form.html"
-)+"?Product_ID="+encodeURIComponent(id);
+)+
+
+"?Product_ID="+
+encodeURIComponent(id);
 
 }
 
 
 function updateAutoLink(){
 
-const id=productId.value.trim();
+const id=
+productId.value.trim();
 
-autoLinkBox.textContent=id?
+
+autoLinkBox.textContent=
+id?
 getJanjuaLink(id):
 "Product ID بننے کے بعد Link یہاں آئے گا۔";
 
@@ -854,97 +1206,168 @@ getJanjuaLink(id):
 
 /* IMAGE */
 
-imageFile.addEventListener("change",()=>{
+imageFile.addEventListener(
+"change",
+()=>{
 
-const file=imageFile.files[0];
+const file=
+imageFile.files[0];
+
 
 if(!file){
 
 imagePreview.style.display="none";
+
 return;
 
 }
+
 
 if(file.size>5*1024*1024){
 
-alert("Image 5MB سے بڑی ہے۔");
+alert(
+"Image 5MB سے بڑی ہے۔"
+);
+
 imageFile.value="";
+
 imagePreview.style.display="none";
+
 return;
 
 }
 
-imagePreview.src=URL.createObjectURL(file);
-imagePreview.style.display="block";
+
+imagePreview.src=
+URL.createObjectURL(file);
+
+imagePreview.style.display=
+"block";
 
 });
 
 
-imageUrl.addEventListener("input",()=>{
+imageUrl.addEventListener(
+"input",
+()=>{
 
-if(!imageFile.files.length&&imageUrl.value.trim()){
+if(
+!imageFile.files.length&&
+imageUrl.value.trim()
+){
 
-imagePreview.src=imageUrl.value.trim();
-imagePreview.style.display="block";
+imagePreview.src=
+imageUrl.value.trim();
+
+imagePreview.style.display=
+"block";
 
 }
 
 });
 
 
+/* CLOUDINARY */
+
 async function uploadToCloudinary(file){
 
-if(!file)return imageUrl.value.trim();
+if(!file)
+return imageUrl.value.trim();
 
-const formData=new FormData();
 
-formData.append("file",file);
-formData.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);
+const formData=
+new FormData();
 
-const response=await fetch(
+
+formData.append(
+"file",
+file
+);
+
+
+formData.append(
+"upload_preset",
+CLOUDINARY_UPLOAD_PRESET
+);
+
+
+const response=
+await fetch(
+
 "https://api.cloudinary.com/v1_1/"+
 CLOUDINARY_CLOUD_NAME+
 "/image/upload",
+
 {
 method:"POST",
 body:formData
 }
+
 );
 
-const data=await response.json();
+
+const data=
+await response.json();
+
 
 if(!response.ok)
-throw new Error(data?.error?.message||"Cloudinary upload failed.");
+
+throw new Error(
+data?.error?.message||
+"Cloudinary upload failed."
+);
+
 
 return data.secure_url;
 
 }
 
 
-/* COPY */
+/* COPY AUTO LINK */
 
-copyLinkBtn.addEventListener("click",async()=>{
+copyLinkBtn.addEventListener(
+"click",
+async()=>{
 
-const link=autoLinkBox.textContent.trim();
+const link=
+autoLinkBox.textContent.trim();
 
-if(!link||link.includes("بننے")){
 
-alert("پہلے Product ID بنائیں۔");
+if(
+!link||
+link.includes("بننے")
+){
+
+alert(
+"پہلے Product ID بنائیں۔"
+);
+
 return;
 
 }
 
+
 try{
 
 await navigator.clipboard.writeText(link);
-copyLinkBtn.textContent="COPIED ✓";
 
-setTimeout(()=>{
-copyLinkBtn.textContent="COPY LINK";
-},1500);
+copyLinkBtn.textContent=
+"COPIED ✓";
+
+
+setTimeout(
+()=>{
+copyLinkBtn.textContent=
+"COPY LINK";
+},
+1500
+);
+
 
 }catch{
+
 alert(link);
+
 }
 
 });
@@ -952,508 +1375,36 @@ alert(link);
 
 /* SAVE PRODUCT */
 
-saveProductBtn.addEventListener("click",saveProduct);
+saveProductBtn.addEventListener(
+"click",
+saveProduct
+);
+
 
 async function saveProduct(){
 
 if(!auth.currentUser){
 
-showStatus(adminStatus,"پہلے Admin Login کریں۔","error");
-return;
-
-}
-
-const name=productName.value.trim();
-const productPrice=Number(price.value);
-
-if(!name){
-
-showStatus(adminStatus,"Product Name لازمی ہے۔","error");
-return;
-
-}
-
-if(!price.value||Number.isNaN(productPrice)){
-
-showStatus(adminStatus,"Product Price لازمی ہے۔","error");
-return;
-
-}
-
-saveProductBtn.disabled=true;
-saveProductBtn.textContent="SAVING...";
-
-try{
-
-let id=productId.value.trim();
-
-if(!id){
-
-id=await generateProductId();
-productId.value=id;
-updateAutoLink();
-
-}
-
-let finalImageUrl=imageUrl.value.trim();
-
-if(imageFile.files.length){
-
 showStatus(
 adminStatus,
-"Image Cloudinary پر upload ہو رہی ہے...",
-"info"
-);
-
-finalImageUrl=await uploadToCloudinary(imageFile.files[0]);
-imageUrl.value=finalImageUrl;
-
-}
-
-const data={
-
-Product_ID:id,
-Product:name,
-Product_Name:name,
-Product_Description:description.value.trim(),
-Product_Price:productPrice,
-Old_Price:oldPrice.value?Number(oldPrice.value):0,
-Category:getSelectedCategory(),
-Product_Image:finalImageUrl,
-Delivery_Type:deliveryType.value,
-Delivery_Charges:deliveryCharges.value?Number(deliveryCharges.value):0,
-supplierLink:supplierLink.value.trim(),
-socialLink:socialLink.value.trim(),
-Janjua_Link:getJanjuaLink(id),
-updatedAt:new Date().toISOString(),
-updatedBy:auth.currentUser.email
-
-};
-
-const existingDocId=editingDocId.value.trim();
-
-if(existingDocId){
-
-await updateDoc(
-doc(db,"products",existingDocId),
-data
-);
-
-showStatus(adminStatus,"Product successfully UPDATE ہو گیا۔","ok");
-
-}else{
-
-data.createdAt=new Date().toISOString();
-
-await addDoc(
-collection(db,"products"),
-data
-);
-
-showStatus(adminStatus,"Product successfully SAVE ہو گیا۔","ok");
-
-}
-
-await loadProducts();
-
-setTimeout(resetProductForm,700);
-
-}catch(error){
-
-showStatus(adminStatus,firebaseErrorMessage(error),"error");
-
-}finally{
-
-saveProductBtn.disabled=false;
-saveProductBtn.textContent="SAVE PRODUCT";
-
-}
-
-}
-
-
-/* LOAD PRODUCTS */
-
-let allProducts=[];
-
-async function loadProducts(){
-
-productTableWrap.innerHTML=
-'<div class="note"><span class="loader"></span> Products loading...</div>';
-
-try{
-
-let snapshot;
-
-try{
-
-snapshot=await getDocs(
-query(
-collection(db,"products"),
-orderBy("Product_ID","asc")
-)
-);
-
-}catch{
-
-snapshot=await getDocs(collection(db,"products"));
-
-}
-
-allProducts=[];
-
-snapshot.forEach(item=>{
-allProducts.push({
-docId:item.id,
-...item.data()
-});
-});
-
-allProducts.sort((a,b)=>
-String(a.Product_ID||"").localeCompare(
-String(b.Product_ID||"")
-)
-);
-
-renderProducts(allProducts);
-
-showStatus(
-adminStatus,
-allProducts.length+" products loaded.",
-"ok"
-);
-
-}catch(error){
-
-productTableWrap.innerHTML=
-"<div class='status show error'>"+
-firebaseErrorMessage(error)+
-"</div>";
-
-}
-
-}
-
-
-/* RENDER */
-
-function renderProducts(products){
-
-if(!products.length){
-
-productTableWrap.innerHTML=
-"<div class='note'>ابھی کوئی Product موجود نہیں۔</div>";
-
-return;
-
-}
-
-let html=`
-<table>
-<thead>
-<tr>
-<th>Image</th>
-<th>Product ID</th>
-<th>Name</th>
-<th>Price</th>
-<th>Category</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-`;
-
-products.forEach(product=>{
-
-const image=product.Product_Image||"";
-const name=product.Product_Name||product.Product||"";
-const pId=product.Product_ID||"";
-const p=Number(product.Product_Price||0);
-
-html+=`
-<tr>
-<td>
-${image?
-`<img src="${escapeHtml(image)}" class="product-img" alt="">`
-:"—"}
-</td>
-
-<td>${escapeHtml(pId)}</td>
-
-<td>${escapeHtml(name)}</td>
-
-<td>Rs. ${p.toLocaleString()}</td>
-
-<td>${escapeHtml(product.Category||"All")}</td>
-
-<td>
-<div class="action-buttons">
-
-<button
-class="warning small-btn edit-btn"
-data-id="${product.docId}">
-EDIT
-</button>
-
-<button
-class="danger small-btn delete-btn"
-data-id="${product.docId}">
-DELETE
-</button>
-
-<button
-class="secondary small-btn copy-product-link-btn"
-data-product-id="${escapeHtml(pId)}">
-COPY LINK
-</button>
-
-</div>
-</td>
-</tr>
-`;
-
-});
-
-html+=`</tbody></table>`;
-
-productTableWrap.innerHTML=html;
-
-
-document.querySelectorAll(".edit-btn").forEach(button=>{
-button.addEventListener("click",()=>{
-editProduct(button.dataset.id);
-});
-});
-
-
-document.querySelectorAll(".delete-btn").forEach(button=>{
-button.addEventListener("click",()=>{
-deleteProduct(button.dataset.id);
-});
-});
-
-
-document.querySelectorAll(".copy-product-link-btn").forEach(button=>{
-
-button.addEventListener("click",async()=>{
-
-const link=getJanjuaLink(button.dataset.productId);
-
-try{
-
-await navigator.clipboard.writeText(link);
-
-button.textContent="COPIED ✓";
-
-setTimeout(()=>{
-button.textContent="COPY LINK";
-},1200);
-
-}catch{
-
-alert(link);
-
-}
-
-});
-
-});
-
-}
-
-
-/* EDIT */
-
-function editProduct(docId){
-
-const product=allProducts.find(
-item=>item.docId===docId
-);
-
-if(!product){
-
-alert("Product نہیں ملا۔");
-return;
-
-}
-
-editingDocId.value=docId;
-productId.value=product.Product_ID||"";
-
-setCategory(product.Category||"All");
-
-productName.value=
-product.Product_Name||
-product.Product||
-"";
-
-price.value=product.Product_Price||"";
-oldPrice.value=product.Old_Price||"";
-deliveryCharges.value=product.Delivery_Charges||0;
-
-deliveryType.value=
-product.Delivery_Type||
-"Free Delivery";
-
-description.value=
-product.Product_Description||
-"";
-
-imageUrl.value=
-product.Product_Image||
-"";
-
-supplierLink.value=
-product.supplierLink||
-"";
-
-socialLink.value=
-product.socialLink||
-"";
-
-imageFile.value="";
-
-if(product.Product_Image){
-
-imagePreview.src=product.Product_Image;
-imagePreview.style.display="block";
-
-}else{
-
-imagePreview.style.display="none";
-
-}
-
-updateAutoLink();
-
-saveProductBtn.textContent="UPDATE PRODUCT";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-showStatus(
-adminStatus,
-"Product Edit mode میں ہے۔ تبدیلی کرکے UPDATE PRODUCT دبائیں۔",
-"info"
-);
-
-}
-
-
-/* DELETE */
-
-async function deleteProduct(docId){
-
-const product=allProducts.find(
-item=>item.docId===docId
-);
-
-if(!product)return;
-
-const name=
-product.Product_Name||
-product.Product||
-product.Product_ID||
-"Product";
-
-if(!confirm(
-"کیا آپ واقعی یہ Product Delete کرنا چاہتے ہیں؟\n\n"+
-name
-))return;
-
-try{
-
-await deleteDoc(
-doc(db,"products",docId)
-);
-
-showStatus(
-adminStatus,
-"Product Delete ہو گیا۔",
-"ok"
-);
-
-await loadProducts();
-
-}catch(error){
-
-showStatus(
-adminStatus,
-firebaseErrorMessage(error),
+"پہلے Admin Login کریں۔",
 "error"
 );
 
-}
-
-}
-
-
-/* SEARCH */
-
-productSearch.addEventListener("input",()=>{
-
-const text=productSearch.value.trim().toLowerCase();
-
-if(!text){
-
-renderProducts(allProducts);
 return;
 
 }
 
-const filtered=allProducts.filter(product=>{
 
-const combined=[
-product.Product_ID,
-product.Product_Name,
-product.Product,
-product.Category,
-product.Product_Description
-].join(" ").toLowerCase();
+const name=
+productName.value.trim();
 
-return combined.includes(text);
-
-});
-
-renderProducts(filtered);
-
-});
+const productPrice=
+Number(price.value);
 
 
-refreshBtn.addEventListener("click",loadProducts);
+if(!name){
 
-newProductBtn.addEventListener("click",resetProductForm);
-
-
-function resetProductForm(){
-
-editingDocId.value="";
-productId.value="";
-category.value="All";
-customCategory.value="";
-customCategoryBox.classList.remove("show");
-productName.value="";
-price.value="";
-oldPrice.value="";
-deliveryCharges.value="0";
-deliveryType.value="Free Delivery";
-description.value="";
-imageFile.value="";
-imageUrl.value="";
-supplierLink.value="";
-socialLink.value="";
-imagePreview.style.display="none";
-autoLinkBox.textContent="Product ID بننے کے بعد Link یہاں آئے گا۔";
-saveProductBtn.textContent="SAVE PRODUCT";
-
-}
-
-productId.addEventListener("input",updateAutoLink);
-
-console.log("JANJUA Admin Panel loaded.");
-
-</script>
-</body>
-</html>
+showStatus(
+adminStatus,
+"
