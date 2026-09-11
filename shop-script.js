@@ -1,8 +1,13 @@
 /* =========================================================
    JANJUA TRADERS — CUSTOMER SHOP
-   Firebase + Products + Search
+   Firebase + Products + Product List
    Smooth Continuous Featured Product Slider
-   Categories Hidden — Search Based Product Discovery
+
+   PRODUCT LIST:
+   - Categories loaded from Firestore
+   - Search removed
+   - Product List dropdown created in header
+   - All Products shown once
 ========================================================= */
 
 import {
@@ -92,9 +97,9 @@ const productCount =
 
 let allProducts = [];
 
-let currentCategory = "All";
+let allCategories = [];
 
-let searchText = "";
+let currentCategory = "All";
 
 let sliderTimer = null;
 
@@ -169,9 +174,7 @@ function escapeHtml(value){
 function optimizeImage(url){
 
     if(!url){
-
         return "";
-
     }
 
     url =
@@ -179,18 +182,12 @@ function optimizeImage(url){
 
 
     if(
-        url.includes(
-            "res.cloudinary.com"
-        ) &&
-        url.includes(
-            "/image/upload/"
-        )
+        url.includes("res.cloudinary.com") &&
+        url.includes("/image/upload/")
     ){
 
         if(
-            !url.includes(
-                "f_auto"
-            )
+            !url.includes("f_auto")
         ){
 
             return url.replace(
@@ -464,9 +461,8 @@ function productNumber(id){
 
     const match =
         String(id)
-            .match(
-                /(\d+)$/
-            );
+            .match(/(\d+)$/);
+
 
     if(match){
 
@@ -476,7 +472,675 @@ function productNumber(id){
 
     }
 
+
     return 999999999;
+
+}
+
+
+/* =========================================================
+   CATEGORY NAME FROM FIRESTORE
+========================================================= */
+
+function getCategoryName(raw){
+
+    return String(
+        raw.name ||
+        raw.Name ||
+        raw.category ||
+        raw.Category ||
+        ""
+    ).trim();
+
+}
+
+
+/* =========================================================
+   LOAD CATEGORIES
+========================================================= */
+
+async function loadCategories(){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "categories"
+                )
+            );
+
+
+        const categoryMap =
+            new Map();
+
+
+        snapshot.forEach(
+            item => {
+
+                const raw =
+                    item.data();
+
+
+                const name =
+                    getCategoryName(
+                        raw
+                    );
+
+
+                if(!name){
+                    return;
+                }
+
+
+                if(
+                    name.toLowerCase() ===
+                    "all"
+                ){
+
+                    return;
+
+                }
+
+
+                const key =
+                    name.toLowerCase();
+
+
+                if(
+                    !categoryMap.has(key)
+                ){
+
+                    categoryMap.set(
+                        key,
+                        name
+                    );
+
+                }
+
+            }
+        );
+
+
+        allCategories =
+            Array.from(
+                categoryMap.values()
+            ).sort(
+                (a,b)=>
+                    a.localeCompare(
+                        b,
+                        undefined,
+                        {
+                            sensitivity:"base"
+                        }
+                    )
+            );
+
+
+        renderProductList();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "CATEGORY LOAD ERROR:",
+            error
+        );
+
+
+        /*
+           If categories collection is unavailable,
+           create categories from existing products
+           as a safe fallback.
+        */
+
+        const fallback =
+            new Map();
+
+
+        allProducts.forEach(
+            product => {
+
+                const name =
+                    getCategory(
+                        product
+                    );
+
+
+                if(
+                    !name ||
+                    name.toLowerCase() === "all"
+                ){
+
+                    return;
+
+                }
+
+
+                const key =
+                    name.toLowerCase();
+
+
+                if(
+                    !fallback.has(key)
+                ){
+
+                    fallback.set(
+                        key,
+                        name
+                    );
+
+                }
+
+            }
+        );
+
+
+        allCategories =
+            Array.from(
+                fallback.values()
+            ).sort(
+                (a,b)=>
+                    a.localeCompare(
+                        b,
+                        undefined,
+                        {
+                            sensitivity:"base"
+                        }
+                    )
+            );
+
+
+        renderProductList();
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE PRODUCT LIST DROPDOWN
+========================================================= */
+
+function renderProductList(){
+
+    /*
+       The old search box is reused.
+
+       This means your existing HTML does not need
+       another header element.
+    */
+
+    const searchBox =
+        document.querySelector(
+            ".search-box"
+        );
+
+
+    if(!searchBox){
+
+        return;
+
+    }
+
+
+    searchBox.innerHTML = `
+
+        <div
+            class="product-list-dropdown"
+            id="productListDropdown"
+        >
+
+            <button
+                type="button"
+                class="product-list-toggle"
+                id="productListToggle"
+                aria-expanded="false"
+            >
+
+                📦 Product List
+
+                <span
+                    class="product-list-arrow"
+                >
+                    ▾
+                </span>
+
+            </button>
+
+
+            <div
+                class="product-list-menu"
+                id="productListMenu"
+            >
+
+                <button
+                    type="button"
+                    class="product-list-item active"
+                    data-category="All"
+                >
+
+                    🛍 All Products
+
+                </button>
+
+                ${
+                    allCategories
+                    .map(
+                        category => `
+
+                            <button
+                                type="button"
+                                class="product-list-item"
+                                data-category="${escapeHtml(category)}"
+                            >
+
+                                📦 ${escapeHtml(category)}
+
+                            </button>
+
+                        `
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    addProductListStyles();
+
+
+    const toggle =
+        document.getElementById(
+            "productListToggle"
+        );
+
+
+    const menu =
+        document.getElementById(
+            "productListMenu"
+        );
+
+
+    const dropdown =
+        document.getElementById(
+            "productListDropdown"
+        );
+
+
+    if(
+        !toggle ||
+        !menu ||
+        !dropdown
+    ){
+
+        return;
+
+    }
+
+
+    toggle.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+
+            const isOpen =
+                dropdown.classList.toggle(
+                    "open"
+                );
+
+
+            toggle.setAttribute(
+                "aria-expanded",
+                isOpen
+                    ? "true"
+                    : "false"
+            );
+
+        }
+    );
+
+
+    menu
+        .querySelectorAll(
+            ".product-list-item"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    event => {
+
+                        event.stopPropagation();
+
+
+                        currentCategory =
+                            button.dataset.category ||
+                            "All";
+
+
+                        menu
+                            .querySelectorAll(
+                                ".product-list-item"
+                            )
+                            .forEach(
+                                item => {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        dropdown.classList.remove(
+                            "open"
+                        );
+
+
+                        toggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+
+                        renderProducts();
+
+
+                        /*
+                           Move user to products
+                           after selecting category.
+                        */
+
+                        const productsSection =
+                            productsGrid
+                            ?.previousElementSibling;
+
+
+                        if(productsSection){
+
+                            setTimeout(
+                                ()=>{
+
+                                    productsSection.scrollIntoView({
+                                        behavior:"smooth",
+                                        block:"start"
+                                    });
+
+                                },
+                                80
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if(
+                !dropdown.contains(
+                    event.target
+                )
+            ){
+
+                dropdown.classList.remove(
+                    "open"
+                );
+
+
+                toggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT LIST CSS
+========================================================= */
+
+function addProductListStyles(){
+
+    if(
+        document.getElementById(
+            "productListDynamicStyles"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "productListDynamicStyles";
+
+
+    style.textContent = `
+
+        .product-list-dropdown{
+            position:relative;
+            width:100%;
+            direction:rtl;
+        }
+
+
+        .product-list-toggle{
+            width:100%;
+            border:0;
+            outline:0;
+            cursor:pointer;
+
+            border-radius:25px;
+
+            padding:12px 18px;
+
+            background:white;
+
+            color:#111827;
+
+            font-size:15px;
+
+            font-weight:800;
+
+            text-align:right;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:space-between;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,.08);
+
+            transition:.2s;
+        }
+
+
+        .product-list-toggle:hover{
+            background:#f9fafb;
+        }
+
+
+        .product-list-arrow{
+            font-size:18px;
+            transition:.2s;
+        }
+
+
+        .product-list-dropdown.open
+        .product-list-arrow{
+            transform:rotate(180deg);
+        }
+
+
+        .product-list-menu{
+            position:absolute;
+
+            top:calc(100% + 8px);
+
+            right:0;
+
+            width:100%;
+
+            max-height:330px;
+
+            overflow-y:auto;
+
+            background:white;
+
+            border-radius:14px;
+
+            padding:7px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,.18);
+
+            border:1px solid #e5e7eb;
+
+            display:none;
+
+            z-index:2000;
+        }
+
+
+        .product-list-dropdown.open
+        .product-list-menu{
+            display:block;
+        }
+
+
+        .product-list-item{
+            width:100%;
+
+            border:0;
+
+            background:white;
+
+            color:#374151;
+
+            text-align:right;
+
+            cursor:pointer;
+
+            border-radius:10px;
+
+            padding:11px 13px;
+
+            font-size:14px;
+
+            font-weight:700;
+
+            margin:2px 0;
+
+            transition:.15s;
+        }
+
+
+        .product-list-item:hover{
+            background:#f3f4f6;
+        }
+
+
+        .product-list-item.active{
+            background:#111827;
+
+            color:white;
+        }
+
+
+        @media(max-width:650px){
+
+            .product-list-menu{
+                max-height:280px;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+}
+
+
+/* =========================================================
+   HIDE OLD CATEGORY SECTION
+========================================================= */
+
+function hideOldCategorySection(){
+
+    if(!categoriesBox){
+
+        return;
+
+    }
+
+
+    categoriesBox.innerHTML =
+        "";
+
+
+    categoriesBox.style.display =
+        "none";
+
+
+    /*
+       Hide the old:
+       "🛍 Categories"
+       heading as well.
+    */
+
+    const categoryTitle =
+        categoriesBox.previousElementSibling;
+
+
+    if(categoryTitle){
+
+        categoryTitle.style.display =
+            "none";
+
+    }
 
 }
 
@@ -494,12 +1158,14 @@ async function loadProducts(){
 
     }
 
+
     if(sliderLoading){
 
         sliderLoading.style.display =
             "flex";
 
     }
+
 
     if(productsGrid){
 
@@ -542,18 +1208,13 @@ async function loadProducts(){
 
 
         allProducts.sort(
-            (a,b)=>{
-
-                return (
-                    productNumber(
-                        a.Product_ID
-                    ) -
-                    productNumber(
-                        b.Product_ID
-                    )
-                );
-
-            }
+            (a,b)=>
+                productNumber(
+                    a.Product_ID
+                ) -
+                productNumber(
+                    b.Product_ID
+                )
         );
 
 
@@ -573,6 +1234,7 @@ async function loadProducts(){
 
         }
 
+
         if(sliderLoading){
 
             sliderLoading.style.display =
@@ -581,7 +1243,16 @@ async function loadProducts(){
         }
 
 
-        renderCategories();
+        hideOldCategorySection();
+
+
+        /*
+           Product List is loaded separately
+           from Firestore categories.
+        */
+
+        await loadCategories();
+
 
         renderSlider();
 
@@ -618,12 +1289,14 @@ async function loadProducts(){
 
         }
 
+
         if(sliderLoading){
 
             sliderLoading.style.display =
                 "none";
 
         }
+
 
         if(productCount){
 
@@ -692,42 +1365,7 @@ async function loadProducts(){
 
 
 /* =========================================================
-   CATEGORIES
-   HIDDEN — SEARCH IS THE MAIN DISCOVERY METHOD
-========================================================= */
-
-function renderCategories(){
-
-    if(!categoriesBox){
-
-        return;
-
-    }
-
-
-    /*
-       Category buttons are intentionally hidden.
-
-       Customers will use the main Search Box
-       to find products.
-    */
-
-    categoriesBox.innerHTML =
-        "";
-
-    categoriesBox.style.display =
-        "none";
-
-
-    currentCategory =
-        "All";
-
-}
-
-
-/* =========================================================
    FILTER PRODUCTS
-   SEARCH ACROSS ALL PRODUCTS
 ========================================================= */
 
 function getFilteredProducts(){
@@ -735,40 +1373,23 @@ function getFilteredProducts(){
     return allProducts.filter(
         product => {
 
-            /*
-               No category filtering.
-
-               Search works across:
-               Product ID
-               Product Name
-               Category
-               Description
-            */
-
-            if(!searchText){
+            if(
+                currentCategory === "All"
+            ){
 
                 return true;
 
             }
 
 
-            const combined = [
+            return (
+                product.Category
+                    .trim()
+                    .toLowerCase() ===
 
-                product.Product_ID,
-
-                product.Product_Name,
-
-                product.Category,
-
-                product.Product_Description
-
-            ]
-            .join(" ")
-            .toLowerCase();
-
-
-            return combined.includes(
-                searchText
+                currentCategory
+                    .trim()
+                    .toLowerCase()
             );
 
         }
@@ -852,12 +1473,6 @@ function renderSlider(){
     }
 
 
-    /*
-       ALL Firestore products are used.
-
-       Nothing is limited to only 2 products.
-    */
-
     const featured =
         allProducts.slice();
 
@@ -865,11 +1480,6 @@ function renderSlider(){
     sliderOriginalCount =
         featured.length;
 
-
-    /*
-       Duplicate the complete product list
-       for seamless continuous looping.
-    */
 
     const sliderProducts =
         [
@@ -971,11 +1581,6 @@ function renderSlider(){
     );
 
 
-    /*
-       Give browser time to calculate
-       actual card dimensions.
-    */
-
     requestAnimationFrame(
         ()=>{
 
@@ -1074,552 +1679,4 @@ function startSlider(){
     }
 
 
-    sliderPosition =
-        0;
-
-
-    sliderPaused =
-        false;
-
-
-    /*
-       Faster smooth movement.
-
-       Previous:
-       35 pixels / second
-
-       New:
-       60 pixels / second
-    */
-
-    const speed =
-        60;
-
-
-    let lastTime =
-        performance.now();
-
-
-    function moveSlider(
-        currentTime
-    ){
-
-        if(sliderPaused){
-
-            lastTime =
-                currentTime;
-
-            sliderAnimationFrame =
-                requestAnimationFrame(
-                    moveSlider
-                );
-
-            return;
-
-        }
-
-
-        const delta =
-            currentTime -
-            lastTime;
-
-
-        lastTime =
-            currentTime;
-
-
-        sliderPosition +=
-            (
-                speed *
-                delta /
-                1000
-            );
-
-
-        const totalLoopWidth =
-            sliderOriginalCount *
-            sliderCardWidth;
-
-
-        /*
-           Seamless loop.
-        */
-
-        if(
-            sliderPosition >=
-            totalLoopWidth
-        ){
-
-            sliderPosition -=
-                totalLoopWidth;
-
-        }
-
-
-        sliderTrack.style.transform =
-            "translate3d(" +
-            (
-                -sliderPosition
-            ) +
-            "px,0,0)";
-
-
-        sliderAnimationFrame =
-            requestAnimationFrame(
-                moveSlider
-            );
-
-    }
-
-
-    sliderAnimationFrame =
-        requestAnimationFrame(
-            moveSlider
-        );
-
-
-    /*
-       Use DOM event properties instead of
-       repeatedly adding duplicate listeners.
-    */
-
-    slider.onmouseenter =
-        pauseSlider;
-
-    slider.onmouseleave =
-        resumeSlider;
-
-    slider.ontouchstart =
-        pauseSlider;
-
-    slider.ontouchend =
-        resumeSlider;
-
-}
-
-
-/* =========================================================
-   PAUSE SLIDER
-========================================================= */
-
-function pauseSlider(){
-
-    sliderPaused =
-        true;
-
-}
-
-
-/* =========================================================
-   RESUME SLIDER
-========================================================= */
-
-function resumeSlider(){
-
-    sliderPaused =
-        false;
-
-}
-
-
-/* =========================================================
-   STOP SLIDER
-========================================================= */
-
-function stopSlider(){
-
-    if(sliderTimer){
-
-        clearInterval(
-            sliderTimer
-        );
-
-        sliderTimer =
-            null;
-
-    }
-
-
-    if(sliderAnimationFrame){
-
-        cancelAnimationFrame(
-            sliderAnimationFrame
-        );
-
-        sliderAnimationFrame =
-            null;
-
-    }
-
-
-    sliderPosition =
-        0;
-
-}
-
-
-/* =========================================================
-   WINDOW RESIZE
-========================================================= */
-
-window.addEventListener(
-    "resize",
-    ()=>{
-
-        if(
-            sliderOriginalCount >= 1
-        ){
-
-            sliderCardWidth =
-                calculateSliderWidth();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   RENDER PRODUCTS GRID
-========================================================= */
-
-function renderProducts(){
-
-    if(!productsGrid){
-
-        return;
-
-    }
-
-
-    const products =
-        getFilteredProducts();
-
-
-    if(!products.length){
-
-        productsGrid.innerHTML = `
-
-            <div
-                class="empty-box"
-                style="grid-column:1/-1;"
-            >
-
-                کوئی Product نہیں ملا۔
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    productsGrid.innerHTML =
-        "";
-
-
-    products.forEach(
-        product => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-
-            card.className =
-                "product-card";
-
-
-            const image =
-                product.Image;
-
-
-            const name =
-                escapeHtml(
-                    product.Product_Name
-                );
-
-
-            const category =
-                escapeHtml(
-                    product.Category
-                );
-
-
-            const description =
-                escapeHtml(
-                    product.Product_Description
-                );
-
-
-            const price =
-                Number(
-                    product.Product_Price ||
-                    0
-                ).toLocaleString();
-
-
-            const oldPrice =
-                product.Old_Price;
-
-
-            const deliveryCharges =
-                product.Delivery_Charges;
-
-
-            const deliveryType =
-                escapeHtml(
-                    product.Delivery_Type
-                );
-
-
-            let oldPriceHtml =
-                "";
-
-
-            if(
-                oldPrice >
-                product.Product_Price
-            ){
-
-                oldPriceHtml = `
-
-                    <span class="old-price">
-
-                        Rs. ${oldPrice.toLocaleString()}
-
-                    </span>
-
-                `;
-
-            }
-
-
-            let deliveryHtml =
-                "";
-
-
-            if(
-                deliveryCharges > 0
-            ){
-
-                deliveryHtml = `
-
-                    <div class="delivery">
-
-                        🚚 Delivery:
-                        Rs. ${deliveryCharges.toLocaleString()}
-
-                    </div>
-
-                `;
-
-            }
-            else{
-
-                deliveryHtml = `
-
-                    <div class="delivery">
-
-                        🚚 ${deliveryType}
-
-                    </div>
-
-                `;
-
-            }
-
-
-            card.innerHTML = `
-
-                <div class="product-image-box">
-
-                    ${
-                        image
-                        ?
-                        `
-                        <img
-                            src="${escapeHtml(image)}"
-                            alt="${name}"
-                            loading="lazy"
-                        >
-                        `
-                        :
-                        `
-                        <div class="no-image">
-                            Image Available نہیں
-                        </div>
-                        `
-                    }
-
-                </div>
-
-
-                <div class="product-body">
-
-                    <div class="product-category">
-
-                        ${category}
-
-                    </div>
-
-
-                    <div class="product-name">
-
-                        ${name}
-
-                    </div>
-
-
-                    <div class="price-row">
-
-                        <span class="current-price">
-
-                            Rs. ${price}
-
-                        </span>
-
-                        ${oldPriceHtml}
-
-                    </div>
-
-
-                    ${deliveryHtml}
-
-
-                    ${
-                        description
-                        ?
-                        `
-                        <div class="product-description">
-
-                            ${description}
-
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    <button
-                        class="order-btn"
-                        type="button"
-                    >
-
-                        ORDER NOW
-
-                    </button>
-
-                </div>
-
-            `;
-
-
-            const orderButton =
-                card.querySelector(
-                    ".order-btn"
-                );
-
-
-            if(orderButton){
-
-                orderButton.addEventListener(
-                    "click",
-                    ()=>{
-
-                        window.location.href =
-                            getOrderLink(
-                                product
-                            );
-
-                    }
-                );
-
-            }
-
-
-            const imageElement =
-                card.querySelector(
-                    "img"
-                );
-
-
-            if(imageElement){
-
-                imageElement.addEventListener(
-                    "error",
-                    ()=>{
-
-                        const parent =
-                            imageElement.parentElement;
-
-
-                        parent.innerHTML = `
-
-                            <div class="no-image">
-
-                                Image load نہیں ہوئی
-
-                            </div>
-
-                        `;
-
-                    }
-                );
-
-            }
-
-
-            productsGrid.appendChild(
-                card
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-if(searchInput){
-
-    searchInput.addEventListener(
-        "input",
-        ()=>{
-
-            searchText =
-                searchInput.value
-                    .trim()
-                    .toLowerCase();
-
-
-            renderProducts();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   START SHOP
-========================================================= */
-
-console.log(
-    "JANJUA Customer Shop started."
-);
-
-console.log(
-    "Firebase Project:",
-    firebaseConfig.projectId
-);
-
-
-loadProducts();
+    slider
