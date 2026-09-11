@@ -49,7 +49,7 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:12px;
+    gap:15px;
 }
 
 .logo{
@@ -62,22 +62,92 @@ body{
     color:#fbbf24;
 }
 
-.search-box{
-    flex:1;
-    max-width:520px;
+/* ================= PRODUCT LIST ================= */
+
+.product-list-dropdown{
     position:relative;
+    width:360px;
+    direction:rtl;
 }
 
-.search-box input{
+.product-list-toggle{
     width:100%;
     border:0;
     outline:0;
+    cursor:pointer;
     border-radius:25px;
     padding:12px 18px;
-    font-size:15px;
     background:white;
     color:#111827;
-    direction:rtl;
+    font-size:15px;
+    font-weight:800;
+    text-align:right;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.product-list-arrow{
+    font-size:18px;
+    transition:.2s;
+}
+
+.product-list-dropdown.open
+.product-list-arrow{
+    transform:rotate(180deg);
+}
+
+.product-list-menu{
+    position:absolute;
+    top:calc(100% + 8px);
+    right:0;
+    width:100%;
+    max-height:330px;
+    overflow-y:auto;
+
+    background:white;
+    border-radius:14px;
+    padding:7px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.18);
+    border:1px solid #e5e7eb;
+
+    display:none;
+    z-index:2000;
+}
+
+.product-list-dropdown.open
+.product-list-menu{
+    display:block;
+}
+
+.product-list-item{
+    width:100%;
+    border:0;
+    background:white;
+    color:#374151;
+    text-align:right;
+    cursor:pointer;
+
+    border-radius:10px;
+    padding:11px 13px;
+
+    font-size:14px;
+    font-weight:700;
+
+    margin:2px 0;
+}
+
+.product-list-item:hover{
+    background:#f3f4f6;
+}
+
+.product-list-item.active{
+    background:#111827;
+    color:white;
 }
 
 /* ================= MAIN ================= */
@@ -179,15 +249,16 @@ body{
     display:flex;
     gap:12px;
     width:max-content;
-    transition:transform .5s ease;
 }
 
 .feature-card{
     width:190px;
     min-width:190px;
+
     background:#f9fafb;
     border:1px solid #e5e7eb;
     border-radius:14px;
+
     padding:9px;
     cursor:pointer;
 }
@@ -195,11 +266,14 @@ body{
 .feature-image{
     width:100%;
     height:130px;
+
     border-radius:10px;
     background:white;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     overflow:hidden;
 }
 
@@ -213,6 +287,7 @@ body{
     font-weight:bold;
     font-size:14px;
     margin-top:8px;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -225,38 +300,7 @@ body{
     margin-top:4px;
 }
 
-/* ================= CATEGORIES ================= */
-
-.categories{
-    display:flex;
-    gap:9px;
-    overflow-x:auto;
-    padding:4px 1px 10px;
-    scrollbar-width:none;
-}
-
-.categories::-webkit-scrollbar{
-    display:none;
-}
-
-.category-btn{
-    flex:0 0 auto;
-    border:1px solid #d1d5db;
-    background:white;
-    color:#374151;
-    border-radius:20px;
-    padding:9px 16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.category-btn.active{
-    background:#111827;
-    color:white;
-    border-color:#111827;
-}
-
-/* ================= PRODUCTS GRID ================= */
+/* ================= PRODUCTS ================= */
 
 .products-grid{
     display:grid;
@@ -268,20 +312,27 @@ body{
     background:white;
     border-radius:16px;
     overflow:hidden;
+
     box-shadow:0 4px 16px rgba(0,0,0,.07);
+
     border:1px solid #edf0f2;
+
     display:flex;
     flex-direction:column;
+
     min-width:0;
 }
 
 .product-image-box{
     width:100%;
     height:210px;
+
     background:#fff;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     overflow:hidden;
 }
 
@@ -299,8 +350,10 @@ body{
 
 .product-body{
     padding:12px;
+
     display:flex;
     flex-direction:column;
+
     flex:1;
 }
 
@@ -314,17 +367,22 @@ body{
     font-size:16px;
     font-weight:bold;
     line-height:1.4;
+
     min-height:44px;
+
     display:-webkit-box;
     -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
+
     overflow:hidden;
 }
 
 .price-row{
     margin-top:8px;
+
     display:flex;
     align-items:center;
+
     gap:8px;
     flex-wrap:wrap;
 }
@@ -351,22 +409,31 @@ body{
     color:#6b7280;
     font-size:12px;
     line-height:1.5;
+
     margin-top:7px;
+
     display:-webkit-box;
     -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
+
     overflow:hidden;
 }
 
 .order-btn{
     width:100%;
+
     margin-top:10px;
+
     padding:11px;
+
     border:0;
     border-radius:10px;
+
     background:#111827;
     color:white;
+
     font-weight:bold;
+
     cursor:pointer;
 }
 
@@ -380,7 +447,9 @@ body{
     background:white;
     padding:35px 15px;
     border-radius:15px;
+
     text-align:center;
+
     color:#6b7280;
 }
 
@@ -388,9 +457,12 @@ body{
 
 footer{
     margin-top:35px;
+
     background:#111827;
     color:white;
+
     text-align:center;
+
     padding:22px 10px;
 }
 
@@ -425,8 +497,8 @@ footer p{
         text-align:center;
     }
 
-    .search-box{
-        max-width:none;
+    .product-list-dropdown{
+        width:100%;
     }
 
     .container{
@@ -481,9 +553,7 @@ footer p{
 
 </head>
 
-
 <body>
-
 
 <header class="header">
 
@@ -495,14 +565,42 @@ footer p{
                 JANJUA <span>TRADERS</span>
             </div>
 
-            <div class="search-box">
+            <!-- PRODUCT LIST -->
 
-                <input
-                    id="searchInput"
-                    type="search"
-                    placeholder="Product تلاش کریں..."
-                    autocomplete="off"
+            <div
+                class="product-list-dropdown"
+                id="productListDropdown"
+            >
+
+                <button
+                    type="button"
+                    class="product-list-toggle"
+                    id="productListToggle"
+                    aria-expanded="false"
                 >
+
+                    📦 Product List
+
+                    <span class="product-list-arrow">
+                        ▾
+                    </span>
+
+                </button>
+
+                <div
+                    class="product-list-menu"
+                    id="productListMenu"
+                >
+
+                    <button
+                        type="button"
+                        class="product-list-item active"
+                        data-category="All"
+                    >
+                        🛍 All Products
+                    </button>
+
+                </div>
 
             </div>
 
@@ -512,9 +610,7 @@ footer p{
 
 </header>
 
-
 <main class="container">
-
 
     <div
         id="pageStatus"
@@ -536,7 +632,6 @@ footer p{
 
     </div>
 
-
     <div class="slider-box">
 
         <div
@@ -548,10 +643,10 @@ footer p{
 
         </div>
 
-
         <div
             id="slider"
-            class="slider hidden"
+            class="slider"
+            style="display:none;"
         >
 
             <div
@@ -564,33 +659,15 @@ footer p{
     </div>
 
 
-    <!-- CATEGORIES -->
-
-    <div class="section-title">
-
-        <h2>
-            🛍 Categories
-        </h2>
-
-    </div>
-
-
-    <div
-        id="categories"
-        class="categories"
-    ></div>
-
-
     <!-- PRODUCTS -->
 
     <div class="section-title">
 
         <h2>
-            📦 All Products
+            📦 Products
         </h2>
 
     </div>
-
 
     <div
         id="productsLoading"
@@ -601,15 +678,12 @@ footer p{
 
     </div>
 
-
     <div
         id="productsGrid"
         class="products-grid"
     ></div>
 
-
 </main>
-
 
 <footer>
 
@@ -623,9 +697,10 @@ footer p{
 
 </footer>
 
-
-<script type="module" src="./shop-script.js"></script>
-
+<script
+    type="module"
+    src="./shop-script.js?v=20260911"
+></script>
 
 </body>
 
