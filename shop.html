@@ -64,7 +64,9 @@ z-index:5;
 animation:logoPulse 2.5s ease-in-out infinite;
 }
 
-.logo span{color:#fbbf24}
+.logo span{
+color:#fbbf24;
+}
 
 .logo-subtitle{
 margin-top:4px;
@@ -142,18 +144,30 @@ top:45%;
 }
 
 @keyframes orbitRotate{
-from{transform:translate(-50%,-50%) rotate(0deg)}
-to{transform:translate(-50%,-50%) rotate(360deg)}
+from{
+transform:translate(-50%,-50%) rotate(0deg)
+}
+to{
+transform:translate(-50%,-50%) rotate(360deg)
+}
 }
 
 @keyframes orbitRotateReverse{
-from{transform:translate(-50%,-50%) rotate(360deg)}
-to{transform:translate(-50%,-50%) rotate(0deg)}
+from{
+transform:translate(-50%,-50%) rotate(360deg)
+}
+to{
+transform:translate(-50%,-50%) rotate(0deg)
+}
 }
 
 @keyframes logoPulse{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.025)}
+0%,100%{
+transform:scale(1)
+}
+50%{
+transform:scale(1.025)
+}
 }
 
 /* SEARCH */
@@ -194,7 +208,9 @@ font-weight:bold;
 text-align:center;
 }
 
-.status.show{display:block}
+.status.show{
+display:block;
+}
 
 .status.error{
 background:#fee2e2;
@@ -211,7 +227,9 @@ background:#dcfce7;
 color:#166534;
 }
 
-.hidden{display:none!important}
+.hidden{
+display:none!important;
+}
 
 /* LOADER */
 
@@ -232,7 +250,9 @@ animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
-to{transform:rotate(360deg)}
+to{
+transform:rotate(360deg)
+}
 }
 
 /* TITLES */
@@ -287,95 +307,6 @@ transform:translateY(-2px);
 background:#111827;
 color:white;
 border-color:#111827;
-}
-
-/* CUSTOMER SUPPORT */
-
-.customer-support{
-margin:18px 0 24px;
-padding:18px;
-background:linear-gradient(135deg,#ffffff,#f8fafc);
-border-radius:20px;
-border:1px solid #e5e7eb;
-box-shadow:0 8px 25px rgba(0,0,0,.09);
-text-align:center;
-}
-
-.support-title{
-font-size:23px;
-font-weight:900;
-margin-bottom:5px;
-color:#111827;
-text-shadow:1px 2px 2px rgba(0,0,0,.12);
-}
-
-.support-subtitle{
-color:#6b7280;
-font-size:13px;
-margin-bottom:15px;
-}
-
-.support-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:13px;
-}
-
-.support-card{
-min-height:82px;
-display:flex;
-align-items:center;
-gap:12px;
-padding:13px 15px;
-border-radius:17px;
-color:white;
-text-decoration:none;
-box-shadow:
-0 8px 0 rgba(0,0,0,.12),
-0 12px 22px rgba(0,0,0,.18);
-transform:perspective(700px) rotateX(2deg);
-transition:.25s ease;
-direction:ltr;
-text-align:left;
-}
-
-.support-card:hover{
-transform:perspective(700px) translateY(-4px) rotateX(3deg);
-}
-
-.support-card:active{
-transform:translateY(2px);
-}
-
-.support-card.whatsapp{
-background:linear-gradient(135deg,#22c55e,#059669);
-}
-
-.support-card.mobile{
-background:linear-gradient(135deg,#2563eb,#1d4ed8);
-}
-
-.support-icon{
-font-size:31px;
-min-width:38px;
-text-align:center;
-filter:drop-shadow(2px 3px 2px rgba(0,0,0,.35));
-}
-
-.support-card small{
-display:block;
-font-size:11px;
-opacity:.9;
-margin-bottom:3px;
-}
-
-.support-card strong{
-display:block;
-font-size:18px;
-font-weight:900;
-letter-spacing:.3px;
-text-shadow:1px 2px 3px rgba(0,0,0,.35);
-word-break:break-all;
 }
 
 /* FEATURED */
@@ -632,18 +563,6 @@ max-width:none;
 width:95%;
 }
 
-.support-grid{
-grid-template-columns:1fr;
-}
-
-.support-card{
-min-height:76px;
-}
-
-.support-card strong{
-font-size:17px;
-}
-
 .products-grid{
 grid-template-columns:repeat(2,1fr);
 gap:10px;
@@ -726,7 +645,7 @@ SARGODHA <span>HUB</span>
 </div>
 
 <div class="logo-subtitle">
-JANJUA DIGITAL MARKETING PLATFORM
+SARGODHA LOCAL DIGITAL MARKETPLACE
 </div>
 
 </div>
@@ -750,51 +669,6 @@ autocomplete="off">
 <main class="container">
 
 <div id="pageStatus" class="status"></div>
-
-<!-- CUSTOMER SUPPORT -->
-<section id="customerSupport" class="customer-support hidden">
-
-<div class="support-title">
-📞 Customer Support
-</div>
-
-<div class="support-subtitle">
-کسی بھی معلومات یا مدد کے لیے ہم سے رابطہ کریں۔
-</div>
-
-<div class="support-grid">
-
-<a
-id="supportWhatsApp"
-class="support-card whatsapp hidden"
-href="#">
-
-<span class="support-icon">🟢</span>
-
-<span>
-<small>WhatsApp</small>
-<strong id="supportWhatsAppNumber"></strong>
-</span>
-
-</a>
-
-<a
-id="supportMobile"
-class="support-card mobile hidden"
-href="#">
-
-<span class="support-icon">📱</span>
-
-<span>
-<small>Mobile / Contact</small>
-<strong id="supportMobileNumber"></strong>
-</span>
-
-</a>
-
-</div>
-
-</section>
 
 <!-- CATEGORIES -->
 
@@ -852,183 +726,16 @@ Loading...
 
 <footer>
 
-<strong>JANJUA TRADERS</strong>
+<strong>SARGODHA HUB</strong>
 
 <p>
-Quality Products • Easy Ordering • Home Delivery
+Local Services • Easy Ordering • Sargodha
 </p>
 
 </footer>
 
 <script type="module" src="./shop-script.js"></script>
 
-<script type="module">
-
-import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-import {
-getFirestore,
-doc,
-getDoc
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-const firebaseConfig={
-
-apiKey:"AIzaSyA8_4KXAdfKWZ5mi5DaT9qiayL3h_Yzw",
-
-authDomain:"janjua-traders.firebaseapp.com",
-
-projectId:"janjua-traders",
-
-storageBucket:"janjua-traders.firebasestorage.app",
-
-messagingSenderId:"154904774188",
-
-appId:"1:154904774188:web:1830f9d533e77dae6a7389"
-
-};
-
-
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-
-
-const supportSection=
-document.getElementById("customerSupport");
-
-const whatsappCard=
-document.getElementById("supportWhatsApp");
-
-const whatsappNumber=
-document.getElementById("supportWhatsAppNumber");
-
-const mobileCard=
-document.getElementById("supportMobile");
-
-const mobileNumber=
-document.getElementById("supportMobileNumber");
-
-
-function cleanPhone(value){
-
-return String(value||"").trim();
-
-}
-
-
-function makeWhatsAppLink(value){
-
-let number=cleanPhone(value);
-
-number=number.replace(/[^\d+]/g,"");
-
-if(number.startsWith("+"))
-number=number.substring(1);
-
-if(number.startsWith("00"))
-number=number.substring(2);
-
-if(!number)
-return "";
-
-return "https://wa.me/"+number;
-
-}
-
-
-async function loadCustomerSupport(){
-
-try{
-
-const supportRef=
-doc(db,"settings","customerSupport");
-
-const snap=
-await getDoc(supportRef);
-
-if(!snap.exists())
-return;
-
-const data=snap.data();
-
-const mobile=
-cleanPhone(data.mobile);
-
-const whatsapp=
-cleanPhone(data.whatsapp);
-
-let hasSupport=false;
-
-
-if(mobile){
-
-mobileNumber.textContent=mobile;
-
-mobileCard.href="tel:"+mobile;
-
-mobileCard.classList.remove("hidden");
-
-hasSupport=true;
-
-}else{
-
-mobileCard.classList.add("hidden");
-
-}
-
-
-if(whatsapp){
-
-whatsappNumber.textContent=whatsapp;
-
-const link=
-makeWhatsAppLink(whatsapp);
-
-if(link){
-
-whatsappCard.href=link;
-
-whatsappCard.target="_blank";
-
-whatsappCard.rel="noopener noreferrer";
-
-whatsappCard.classList.remove("hidden");
-
-hasSupport=true;
-
-}
-
-}else{
-
-whatsappCard.classList.add("hidden");
-
-}
-
-
-if(hasSupport){
-
-supportSection.classList.remove("hidden");
-
-}
-
-}catch(error){
-
-console.log(
-"Customer Support not available:",
-error
-);
-
-}
-
-}
-
-
-loadCustomerSupport();
-
-</script>
-
 </body>
+
 </html>
