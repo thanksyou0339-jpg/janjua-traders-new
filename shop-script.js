@@ -108,6 +108,773 @@ let sliderOriginalCount = 0;
 
 
 /* =========================================================
+   FEATURED SLIDER — VISUAL STYLES
+   یہ styles صرف Featured Cards کے لیے ہیں۔
+   باقی website کو نہیں چھیڑتے۔
+========================================================= */
+
+function addFeaturedSliderStyles() {
+
+    if (
+        document.getElementById(
+            "janjua-featured-slider-styles"
+        )
+    ) {
+        return;
+    }
+
+
+    const style =
+        document.createElement("style");
+
+
+    style.id =
+        "janjua-featured-slider-styles";
+
+
+    style.textContent = `
+
+        /* ==========================================
+           FEATURED SLIDER TRACK
+        ========================================== */
+
+        #sliderTrack {
+
+            direction: ltr !important;
+
+            display: flex !important;
+
+            flex-direction: row !important;
+
+            align-items: stretch;
+
+            gap: 14px;
+
+            width: max-content;
+
+            will-change: transform;
+
+        }
+
+
+        /* ==========================================
+           FEATURE CARD
+        ========================================== */
+
+        #sliderTrack .feature-card {
+
+            position: relative;
+
+            flex: 0 0 190px !important;
+
+            width: 190px !important;
+
+            min-width: 190px !important;
+
+            height: 205px;
+
+            box-sizing: border-box;
+
+            overflow: hidden;
+
+            isolation: isolate;
+
+            direction: rtl;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #f8fafc
+                );
+
+            border: 2px solid rgba(
+                148,
+                163,
+                184,
+                0.35
+            );
+
+            border-radius: 18px;
+
+            padding: 9px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.10
+                );
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease;
+
+        }
+
+
+        #sliderTrack .feature-card:hover {
+
+            transform:
+                translateY(-5px)
+                scale(1.015);
+
+            box-shadow:
+                0 13px 28px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.18
+                );
+
+            border-color:
+                rgba(
+                    59,
+                    130,
+                    246,
+                    0.45
+                );
+
+        }
+
+
+        /* ==========================================
+           ANIMATED BACKGROUND
+        ========================================== */
+
+        .feature-decoration {
+
+            position: absolute;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: 0;
+
+            border-radius: 16px;
+
+            opacity: .72;
+
+        }
+
+
+        .feature-decoration::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+
+            height: 130px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        .85
+                    ) 0%,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0
+                    ) 70%
+                );
+
+            top: -55px;
+
+            left: -40px;
+
+            animation:
+                featureGlow 4s ease-in-out
+                infinite alternate;
+
+        }
+
+
+        .feature-decoration .decor-item {
+
+            position: absolute;
+
+            display: block;
+
+            font-size: 22px;
+
+            line-height: 1;
+
+            user-select: none;
+
+            opacity: .72;
+
+            filter:
+                drop-shadow(
+                    0 2px 3px
+                    rgba(
+                        0,
+                        0,
+                        0,
+                        .12
+                    )
+                );
+
+            animation:
+                featureFloat
+                var(--duration)
+                ease-in-out
+                infinite alternate;
+
+        }
+
+
+        .feature-decoration .decor-item:nth-child(1) {
+
+            left: 5%;
+
+            top: 10%;
+
+        }
+
+
+        .feature-decoration .decor-item:nth-child(2) {
+
+            right: 7%;
+
+            top: 20%;
+
+        }
+
+
+        .feature-decoration .decor-item:nth-child(3) {
+
+            left: 15%;
+
+            bottom: 18%;
+
+        }
+
+
+        .feature-decoration .decor-item:nth-child(4) {
+
+            right: 17%;
+
+            bottom: 8%;
+
+        }
+
+
+        .feature-decoration .decor-item:nth-child(5) {
+
+            left: 48%;
+
+            top: 4%;
+
+        }
+
+
+        /* ==========================================
+           PRODUCT IMAGE
+        ========================================== */
+
+        #sliderTrack .feature-image {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            height: 124px;
+
+            overflow: hidden;
+
+            border-radius: 13px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .82
+                );
+
+            border:
+                1px solid
+                rgba(
+                    226,
+                    232,
+                    240,
+                    .9
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        #sliderTrack .feature-image img {
+
+            position: relative;
+
+            z-index: 3;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+
+            transition:
+                transform .35s ease;
+
+        }
+
+
+        #sliderTrack .feature-card:hover
+        .feature-image img {
+
+            transform:
+                scale(1.06);
+
+        }
+
+
+        #sliderTrack .feature-name {
+
+            position: relative;
+
+            z-index: 3;
+
+            margin-top: 8px;
+
+            min-height: 19px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 19px;
+
+            color: #111827;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            text-align: right;
+
+        }
+
+
+        #sliderTrack .feature-price {
+
+            position: relative;
+
+            z-index: 3;
+
+            margin-top: 4px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            color: #047857;
+
+            text-align: right;
+
+        }
+
+
+        /* ==========================================
+           DIFFERENT CARD ATMOSPHERES
+        ========================================== */
+
+        .feature-theme-leaves {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(220,252,231,.88),
+                    rgba(240,253,244,.96)
+                );
+
+        }
+
+
+        .feature-theme-birds {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(219,234,254,.88),
+                    rgba(239,246,255,.96)
+                );
+
+        }
+
+
+        .feature-theme-roses {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(252,231,243,.90),
+                    rgba(255,241,242,.96)
+                );
+
+        }
+
+
+        .feature-theme-butterflies {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(237,233,254,.90),
+                    rgba(245,243,255,.96)
+                );
+
+        }
+
+
+        .feature-theme-animals {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(254,243,199,.90),
+                    rgba(255,251,235,.96)
+                );
+
+        }
+
+
+        .feature-theme-stars {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(224,242,254,.90),
+                    rgba(248,250,252,.96)
+                );
+
+        }
+
+
+        .feature-theme-flowers {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(254,226,226,.90),
+                    rgba(255,247,237,.96)
+                );
+
+        }
+
+
+        .feature-theme-clouds {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(224,242,254,.90),
+                    rgba(248,250,252,.96)
+                );
+
+        }
+
+
+        /* ==========================================
+           ANIMATION
+        ========================================== */
+
+        @keyframes featureFloat {
+
+            0% {
+
+                transform:
+                    translate3d(
+                        -5px,
+                        7px,
+                        0
+                    )
+                    rotate(-8deg);
+
+            }
+
+            50% {
+
+                transform:
+                    translate3d(
+                        5px,
+                        -4px,
+                        0
+                    )
+                    rotate(5deg);
+
+            }
+
+            100% {
+
+                transform:
+                    translate3d(
+                        11px,
+                        7px,
+                        0
+                    )
+                    rotate(10deg);
+
+            }
+
+        }
+
+
+        @keyframes featureGlow {
+
+            0% {
+
+                transform:
+                    translate(
+                        0,
+                        0
+                    )
+                    scale(.85);
+
+                opacity: .35;
+
+            }
+
+            100% {
+
+                transform:
+                    translate(
+                        55px,
+                        25px
+                    )
+                    scale(1.15);
+
+                opacity: .75;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 650px) {
+
+            #sliderTrack .feature-card {
+
+                flex-basis: 155px !important;
+
+                width: 155px !important;
+
+                min-width: 155px !important;
+
+                height: 184px;
+
+                padding: 8px;
+
+            }
+
+
+            #sliderTrack .feature-image {
+
+                height: 105px;
+
+            }
+
+
+            #sliderTrack .feature-name {
+
+                font-size: 13px;
+
+                margin-top: 7px;
+
+            }
+
+
+            #sliderTrack .feature-price {
+
+                font-size: 13px;
+
+            }
+
+
+            .feature-decoration
+            .decor-item {
+
+                font-size: 18px;
+
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(style);
+
+}
+
+
+/* =========================================================
+   FEATURED DECORATION THEMES
+========================================================= */
+
+const featuredThemes = [
+
+    {
+        className: "feature-theme-leaves",
+        symbols: ["🍃", "🌿", "🍂", "🌱", "🍃"]
+    },
+
+    {
+        className: "feature-theme-birds",
+        symbols: ["🐦", "🕊️", "🐦", "🕊️", "☁️"]
+    },
+
+    {
+        className: "feature-theme-roses",
+        symbols: ["🌹", "🌸", "🌺", "🌹", "🌷"]
+    },
+
+    {
+        className: "feature-theme-butterflies",
+        symbols: ["🦋", "🦋", "🌸", "🦋", "✨"]
+    },
+
+    {
+        className: "feature-theme-animals",
+        symbols: ["🐾", "🐕", "🐾", "🦋", "🌿"]
+    },
+
+    {
+        className: "feature-theme-stars",
+        symbols: ["✨", "⭐", "🌟", "✨", "💫"]
+    },
+
+    {
+        className: "feature-theme-flowers",
+        symbols: ["🌸", "🌼", "🌺", "🌷", "🌸"]
+    },
+
+    {
+        className: "feature-theme-clouds",
+        symbols: ["☁️", "☁️", "🌤️", "✨", "☁️"]
+    },
+
+    {
+        className: "feature-theme-leaves",
+        symbols: ["🌿", "🍃", "🌱", "🍀", "🍃"]
+    }
+
+];
+
+
+/* =========================================================
+   CREATE FEATURE DECORATION
+========================================================= */
+
+function createFeatureDecoration(index) {
+
+    const theme =
+        featuredThemes[
+            index %
+            featuredThemes.length
+        ];
+
+
+    const decoration =
+        document.createElement("div");
+
+
+    decoration.className =
+        "feature-decoration " +
+        theme.className;
+
+
+    theme.symbols.forEach(
+        (symbol, symbolIndex) => {
+
+            const item =
+                document.createElement("span");
+
+
+            item.className =
+                "decor-item";
+
+
+            item.textContent =
+                symbol;
+
+
+            const duration =
+                2.2 +
+                (
+                    (
+                        index +
+                        symbolIndex
+                    ) %
+                    5
+                ) *
+                0.35;
+
+
+            item.style.setProperty(
+                "--duration",
+                duration + "s"
+            );
+
+
+            item.style.animationDelay =
+                (
+                    symbolIndex *
+                    0.18
+                ) +
+                "s";
+
+
+            decoration.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    return decoration;
+
+}
+
+
+/* =========================================================
    STATUS
 ========================================================= */
 
@@ -471,21 +1238,10 @@ function buildCategoriesFromProducts() {
 
 async function loadCategories() {
 
-    /*
-       پہلے Products کی categories بنا دیں۔
-       اس سے Product List کبھی خالی نہیں رہے گی
-       اگر Products میں Category موجود ہے۔
-    */
-
     buildCategoriesFromProducts();
 
     renderProductList();
 
-
-    /*
-       اب Admin Panel کی categories collection
-       سے اصل categories لانے کی کوشش کریں۔
-    */
 
     try {
 
@@ -536,11 +1292,6 @@ async function loadCategories() {
         });
 
 
-        /*
-           اگر Admin categories مل گئی ہیں
-           تو انہیں استعمال کریں۔
-        */
-
         if (categoryMap.size > 0) {
 
             allCategories =
@@ -569,11 +1320,6 @@ async function loadCategories() {
             "CATEGORY LOAD ERROR:",
             error
         );
-
-        /*
-           Product categories پہلے ہی موجود ہیں،
-           اس لیے fallback چلتا رہے گا۔
-        */
 
         buildCategoriesFromProducts();
 
@@ -781,10 +1527,6 @@ document.addEventListener(
 
 async function loadProducts() {
 
-    /*
-       Initial UI
-    */
-
     if (productsLoading) {
 
         productsLoading.style.display =
@@ -812,11 +1554,6 @@ async function loadProducts() {
 
     }
 
-
-    /*
-       Product List کا کم از کم All Products
-       شروع سے ہی موجود رہے۔
-    */
 
     allCategories = [];
 
@@ -849,10 +1586,6 @@ async function loadProducts() {
         });
 
 
-        /*
-           Product sorting
-        */
-
         allProducts.sort(
             (a, b) =>
                 productNumber(
@@ -864,10 +1597,6 @@ async function loadProducts() {
         );
 
 
-        /*
-           Product count
-        */
-
         if (productCount) {
 
             productCount.textContent =
@@ -877,10 +1606,6 @@ async function loadProducts() {
         }
 
 
-        /*
-           Products loading ختم
-        */
-
         if (productsLoading) {
 
             productsLoading.style.display =
@@ -889,45 +1614,20 @@ async function loadProducts() {
         }
 
 
-        /*
-           اگر products موجود ہیں
-           تو فوراً Slider + Products دکھائیں۔
-        */
-
         if (allProducts.length > 0) {
-
-            /*
-               پہلے Product List کو Products کی
-               categories سے بنا دیں۔
-            */
 
             buildCategoriesFromProducts();
 
             renderProductList();
 
-
-            /*
-               Featured animation
-            */
-
             renderSlider();
 
-
-            /*
-               Main Products
-            */
-
             renderProducts();
-
 
             hideStatus();
 
         }
         else {
-
-            /*
-               Products خالی ہیں
-            */
 
             if (sliderLoading) {
 
@@ -955,11 +1655,6 @@ async function loadProducts() {
 
         }
 
-
-        /*
-           Admin Panel categories کو الگ سے load کریں۔
-           اس سے Products/Slider اس کے لیے wait نہیں کرتے۔
-        */
 
         loadCategories();
 
@@ -1053,10 +1748,6 @@ async function loadProducts() {
         }
 
 
-        /*
-           پھر بھی Product List کو render کریں۔
-        */
-
         renderProductList();
 
     }
@@ -1134,11 +1825,15 @@ function getOrderLink(product) {
 
 /* =========================================================
    FEATURED SLIDER
+   صرف یہی حصہ بنیادی طور پر تبدیل کیا گیا ہے۔
 ========================================================= */
 
 function renderSlider() {
 
     stopSlider();
+
+
+    addFeaturedSliderStyles();
 
 
     if (
@@ -1176,7 +1871,7 @@ function renderSlider() {
 
 
     /*
-       تمام Products Featured Slider میں
+       تمام Products Featured میں آئیں گے۔
     */
 
     const featured =
@@ -1188,7 +1883,9 @@ function renderSlider() {
 
 
     /*
-       Seamless animation کے لیے duplicate
+       Seamless looping کے لیے دو sets۔
+       دوسرا set صرف animation continuity
+       کے لیے ہے۔
     */
 
     const sliderProducts = [
@@ -1198,7 +1895,7 @@ function renderSlider() {
 
 
     sliderProducts.forEach(
-        product => {
+        (product, index) => {
 
             const image =
                 product.Image;
@@ -1226,42 +1923,158 @@ function renderSlider() {
                 "feature-card";
 
 
-            card.innerHTML = `
+            /*
+               اصل product index نکالیں۔
+               Duplicate card کو بھی وہی
+               decoration ملے گی۔
+            */
 
-                <div class="feature-image">
-
-                    ${
-                        image
-                        ?
-                        `
-                        <img
-                            src="${escapeHtml(image)}"
-                            alt="${name}"
-                            loading="eager"
-                        >
-                        `
-                        :
-                        `
-                        <div class="no-image">
-                            No Image
-                        </div>
-                        `
-                    }
-
-                </div>
+            const originalIndex =
+                index %
+                sliderOriginalCount;
 
 
-                <div class="feature-name">
-                    ${name}
-                </div>
+            /*
+               ہر card کے لیے الگ animated
+               background۔
+            */
+
+            const decoration =
+                createFeatureDecoration(
+                    originalIndex
+                );
 
 
-                <div class="feature-price">
-                    Rs. ${price}
-                </div>
+            card.appendChild(
+                decoration
+            );
 
-            `;
 
+            /*
+               Product image
+            */
+
+            const imageBox =
+                document.createElement(
+                    "div"
+                );
+
+
+            imageBox.className =
+                "feature-image";
+
+
+            if (image) {
+
+                const imageElement =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                imageElement.src =
+                    image;
+
+
+                imageElement.alt =
+                    product.Product_Name;
+
+
+                imageElement.loading =
+                    "eager";
+
+
+                imageBox.appendChild(
+                    imageElement
+                );
+
+            }
+            else {
+
+                imageBox.innerHTML = `
+
+                    <div class="no-image">
+                        No Image
+                    </div>
+
+                `;
+
+            }
+
+
+            card.appendChild(
+                imageBox
+            );
+
+
+            /*
+               Product name
+            */
+
+            const nameBox =
+                document.createElement(
+                    "div"
+                );
+
+
+            nameBox.className =
+                "feature-name";
+
+
+            nameBox.textContent =
+                product.Product_Name;
+
+
+            card.appendChild(
+                nameBox
+            );
+
+
+            /*
+               Product price
+            */
+
+            const priceBox =
+                document.createElement(
+                    "div"
+                );
+
+
+            priceBox.className =
+                "feature-price";
+
+
+            priceBox.textContent =
+                "Rs. " +
+                price;
+
+
+            card.appendChild(
+                priceBox
+            );
+
+
+            /*
+               Duplicate cards کو
+               accessibility کے لیے hidden mark کریں۔
+            */
+
+            if (
+                index >=
+                sliderOriginalCount
+            ) {
+
+                card.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            }
+
+
+            /*
+               ہر card الگ clickable ہے۔
+            */
 
             card.addEventListener(
                 "click",
@@ -1299,7 +2112,7 @@ function renderSlider() {
 
 
     /*
-       Browser کو پہلے cards render کرنے دیں
+       Browser کو cards render کرنے دیں۔
     */
 
     requestAnimationFrame(
@@ -1351,8 +2164,8 @@ function calculateSliderWidth() {
         parseFloat(
             style.columnGap ||
             style.gap ||
-            "12"
-        ) || 12;
+            "14"
+        ) || 14;
 
 
     return (
@@ -1391,11 +2204,6 @@ function startSlider() {
         sliderCardWidth <= 0
     ) {
 
-        /*
-           اگر ابھی width calculate نہ ہو
-           تو دوبارہ کوشش کریں۔
-        */
-
         setTimeout(
             startSlider,
             300
@@ -1411,7 +2219,13 @@ function startSlider() {
     sliderPaused = false;
 
 
-    const speed = 60;
+    /*
+       پہلے 60 تھا۔
+       اب 140 px/sec ہے۔
+       یعنی تقریباً ڈھائی گنا تیز۔
+    */
+
+    const speed = 140;
 
     let lastTime =
         performance.now();
@@ -1448,6 +2262,12 @@ function startSlider() {
             delta /
             1000;
 
+
+        /*
+           صرف پہلے set کی مکمل width۔
+           یہاں پہنچ کر دوسرے identical set
+           کے شروع پر واپس آ جائیں گے۔
+        */
 
         const totalLoopWidth =
             sliderOriginalCount *
@@ -1822,10 +2642,6 @@ function renderProducts() {
             `;
 
 
-            /*
-               Order button
-            */
-
             const orderButton =
                 card.querySelector(
                     ".order-btn"
@@ -1846,10 +2662,6 @@ function renderProducts() {
 
             }
 
-
-            /*
-               Image error
-            */
 
             const imageElement =
                 card.querySelector(
@@ -1913,6 +2725,13 @@ console.log(
 console.log(
     "================================="
 );
+
+
+/*
+   Featured Slider کے styles پہلے ہی تیار کر دیں۔
+*/
+
+addFeaturedSliderStyles();
 
 
 /*
