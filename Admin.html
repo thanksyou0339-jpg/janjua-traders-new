@@ -10,34 +10,41 @@
 *{
     box-sizing:border-box;
 }
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#f3f5f8;
     color:#17202a;
 }
+
 .hidden{
     display:none !important;
 }
+
 header{
     background:linear-gradient(135deg,#111827,#1f2937);
     color:white;
     padding:18px;
     text-align:center;
 }
+
 header h1{
     margin:0;
     font-size:25px;
 }
+
 header p{
     margin:6px 0 0;
     color:#d1d5db;
 }
+
 .container{
     width:95%;
     max-width:1100px;
     margin:20px auto;
 }
+
 .card{
     background:white;
     border-radius:16px;
@@ -45,10 +52,12 @@ header p{
     margin-bottom:20px;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
+
 .card h2{
     margin-top:0;
     font-size:21px;
 }
+
 input,
 textarea,
 select{
@@ -61,15 +70,18 @@ select{
     margin-bottom:14px;
     background:#fff;
 }
+
 textarea{
     min-height:90px;
     resize:vertical;
 }
+
 label{
     font-weight:bold;
     display:block;
     margin-top:8px;
 }
+
 button{
     border:0;
     border-radius:10px;
@@ -78,77 +90,99 @@ button{
     cursor:pointer;
     font-weight:bold;
 }
+
 .primary{
     background:#111827;
     color:white;
 }
+
 .success{
     background:#15803d;
     color:white;
 }
+
 .danger{
     background:#dc2626;
     color:white;
 }
+
 .warning{
     background:#d97706;
     color:white;
 }
+
 .secondary{
     background:#e5e7eb;
     color:#111827;
 }
+
 button:disabled{
     opacity:.6;
     cursor:not-allowed;
 }
+
 .grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
+
 @media(max-width:700px){
     .grid{
         grid-template-columns:1fr;
     }
 }
+
 .status{
     padding:12px;
     border-radius:10px;
     margin-bottom:15px;
     font-weight:bold;
     display:none;
+
+    /* Firebase error کو نئی لائنوں کے ساتھ دکھانے کے لیے */
+    white-space:pre-wrap;
+    word-break:break-word;
+    overflow-wrap:anywhere;
 }
+
 .status.show{
     display:block;
 }
+
 .status.ok{
     background:#dcfce7;
     color:#166534;
 }
+
 .status.error{
     background:#fee2e2;
     color:#991b1b;
 }
+
 .status.info{
     background:#dbeafe;
     color:#1e40af;
 }
+
 .login-box{
     max-width:500px;
     margin:50px auto;
 }
+
 .login-logo{
     text-align:center;
     font-size:30px;
     font-weight:bold;
     margin-bottom:5px;
 }
+
 .login-sub{
     text-align:center;
     color:#6b7280;
     margin-bottom:25px;
 }
+
 .topbar{
     display:flex;
     justify-content:space-between;
@@ -156,18 +190,22 @@ button:disabled{
     gap:10px;
     flex-wrap:wrap;
 }
+
 .user-email{
     color:#4b5563;
     font-size:14px;
 }
+
 .product-table-wrap{
     overflow-x:auto;
 }
+
 table{
     width:100%;
     border-collapse:collapse;
     min-width:800px;
 }
+
 th,
 td{
     border-bottom:1px solid #e5e7eb;
@@ -175,9 +213,11 @@ td{
     text-align:right;
     vertical-align:middle;
 }
+
 th{
     background:#f9fafb;
 }
+
 .product-img{
     width:65px;
     height:65px;
@@ -185,15 +225,18 @@ th{
     border-radius:10px;
     border:1px solid #ddd;
 }
+
 .action-buttons{
     display:flex;
     gap:6px;
     flex-wrap:wrap;
 }
+
 .small-btn{
     padding:8px 10px;
     font-size:13px;
 }
+
 .preview{
     width:150px;
     height:150px;
@@ -203,6 +246,7 @@ th{
     display:none;
     margin-bottom:12px;
 }
+
 .link-box{
     direction:ltr;
     text-align:left;
@@ -213,20 +257,24 @@ th{
     word-break:break-all;
     margin-bottom:10px;
 }
+
 .id-box{
     background:#eff6ff;
     border:1px solid #bfdbfe;
     color:#1e40af;
     font-weight:bold;
 }
+
 .required{
     color:#dc2626;
 }
+
 .note{
     color:#6b7280;
     font-size:13px;
     line-height:1.6;
 }
+
 .loader{
     display:inline-block;
     width:16px;
@@ -237,6 +285,7 @@ th{
     animation:spin .8s linear infinite;
     vertical-align:middle;
 }
+
 @keyframes spin{
     to{
         transform:rotate(360deg);
@@ -253,6 +302,7 @@ th{
         DIGITAL MARKETING • PRODUCT MANAGEMENT
     </p>
 </header>
+
 
 <!-- LOGIN -->
 <section
@@ -392,7 +442,6 @@ th{
             </div>
 
 
-            <!-- FIXED CATEGORY DROPDOWN -->
             <div>
 
                 <label>
@@ -714,6 +763,7 @@ th{
 
 <script type="module">
 
+
 /* =========================================================
    FIREBASE CDN
 ========================================================= */
@@ -792,15 +842,31 @@ try{
     db =
         getFirestore(app);
 
+    console.log(
+        "Firebase initialized successfully."
+    );
+
+    console.log(
+        "Firebase Project:",
+        firebaseConfig.projectId
+    );
+
 }
 
 catch(error){
 
-    console.error(error);
+    console.error(
+        "FULL FIREBASE INITIALIZE ERROR:",
+        error
+    );
 
     alert(
         "Firebase Initialize Error:\n\n" +
-        error.message
+        "Code: " +
+        (error?.code || "UNKNOWN") +
+        "\n\n" +
+        "Message: " +
+        (error?.message || "No message")
     );
 
 }
@@ -947,86 +1013,112 @@ function clearStatus(element){
 
 /* =========================================================
    FIREBASE ERROR
+   اصل Firebase Error Code + Message دکھائیں
 ========================================================= */
 
 function firebaseErrorMessage(error){
 
     console.error(
-        "Firebase Error:",
+        "FULL FIREBASE ERROR:",
         error
     );
 
     const code =
-        error?.code || "";
+        error?.code || "UNKNOWN";
 
     const message =
-        error?.message || "";
+        error?.message || "No message";
+
+    let extra = "";
 
 
     if(
         code.includes("api-key-not-valid")
     ){
 
-        return (
-            "Firebase API KEY مسئلہ ہے۔ " +
-            "Firebase Console میں Project Settings > Your apps " +
-            "سے Web App کا Config دوبارہ چیک کریں۔"
-        );
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "Firebase API Key invalid/restricted ہے یا API Key کسی دوسرے Google/Firebase project سے متعلق ہے۔";
 
     }
 
 
-    if(
+    else if(
         code.includes("invalid-credential") ||
         code.includes("wrong-password") ||
         code.includes("invalid-login-credentials")
     ){
 
-        return (
-            "Email یا Password غلط ہے۔ " +
-            "Firebase Authentication میں Admin user چیک کریں۔"
-        );
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "Email یا Password غلط ہے۔";
 
     }
 
 
-    if(
+    else if(
         code.includes("user-not-found")
     ){
 
-        return (
-            "یہ Admin Email Firebase Authentication میں موجود نہیں ہے۔"
-        );
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "یہ Email Firebase Authentication میں موجود نہیں ہے۔";
 
     }
 
 
-    if(
+    else if(
+        code.includes("unauthorized-domain")
+    ){
+
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "GitHub Pages کا domain Firebase Authentication > Settings > Authorized domains میں شامل نہیں ہے۔";
+
+    }
+
+
+    else if(
         code.includes("too-many-requests")
     ){
 
-        return (
-            "بہت زیادہ Login کوششیں ہوئیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔"
-        );
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "بہت زیادہ Login attempts ہوئی ہیں۔";
 
     }
 
 
-    if(
+    else if(
+        code.includes("network-request-failed")
+    ){
+
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "Internet connection یا Firebase network request کا مسئلہ ہے۔";
+
+    }
+
+
+    else if(
         code.includes("permission-denied")
     ){
 
-        return (
-            "Firestore Permission Denied۔ " +
-            "Firestore Rules چیک کریں۔"
-        );
+        extra =
+            "\n\nممکنہ وجہ:\n" +
+            "Firestore Rules نے request کو reject کیا ہے۔";
 
     }
 
 
     return (
-        "Firebase Error: " +
-        message
+        "🔥 Firebase Error\n\n" +
+        "Error Code:\n" +
+        code +
+        "\n\n" +
+        "Error Message:\n" +
+        message +
+        extra
     );
 
 }
@@ -1129,6 +1221,19 @@ loginBtn.addEventListener(
         }
 
 
+        if(!auth){
+
+            showStatus(
+                loginStatus,
+                "Firebase Auth initialize نہیں ہوا۔\n\nPage Console میں Firebase Initialize Error چیک کریں۔",
+                "error"
+            );
+
+            return;
+
+        }
+
+
         loginBtn.disabled =
             true;
 
@@ -1153,6 +1258,17 @@ loginBtn.addEventListener(
         }
 
         catch(error){
+
+            /*
+             IMPORTANT:
+             اب custom "API KEY مسئلہ" نہیں آئے گا۔
+             اصل Firebase code/message سامنے آئے گا۔
+            */
+
+            console.error(
+                "FULL FIREBASE LOGIN ERROR:",
+                error
+            );
 
             showStatus(
                 loginStatus,
@@ -1211,6 +1327,19 @@ forgotBtn.addEventListener(
             showStatus(
                 loginStatus,
                 "پہلے Admin Email لکھیں۔",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!auth){
+
+            showStatus(
+                loginStatus,
+                "Firebase Auth initialize نہیں ہوا۔",
                 "error"
             );
 
@@ -1360,7 +1489,6 @@ async function generateProductId(){
 
 /* =========================================================
    SARGODHA HUB LINK
-   Internal field remains Janjua_Link for compatibility.
 ========================================================= */
 
 function getJanjuaLink(id){
@@ -1707,8 +1835,6 @@ async function saveProduct(){
             productId.value.trim();
 
 
-        /* NEW PRODUCT ID */
-
         if(!id){
 
             id =
@@ -1721,8 +1847,6 @@ async function saveProduct(){
 
         }
 
-
-        /* IMAGE */
 
         let finalImageUrl =
             imageUrl.value.trim();
@@ -1750,8 +1874,6 @@ async function saveProduct(){
 
         }
 
-
-        /* DATA */
 
         const data = {
 
@@ -1814,8 +1936,6 @@ async function saveProduct(){
             editingDocId.value.trim();
 
 
-        /* UPDATE */
-
         if(existingDocId){
 
             await updateDoc(
@@ -1835,9 +1955,6 @@ async function saveProduct(){
             );
 
         }
-
-
-        /* ADD */
 
         else{
 
@@ -1970,11 +2087,6 @@ async function loadProducts(){
         console.error(error);
 
 
-        /*
-          If orderBy fails because old documents
-          do not have Product_ID, load without order.
-        */
-
         try{
 
             const snapshot =
@@ -2035,8 +2147,10 @@ async function loadProducts(){
 
             productTableWrap.innerHTML =
                 "<div class='status show error'>" +
-                firebaseErrorMessage(
-                    secondError
+                escapeHtml(
+                    firebaseErrorMessage(
+                        secondError
+                    )
                 ) +
                 "</div>";
 
@@ -2223,8 +2337,6 @@ function renderProducts(products){
         html;
 
 
-    /* EDIT */
-
     document
         .querySelectorAll(".edit-btn")
         .forEach(
@@ -2245,8 +2357,6 @@ function renderProducts(products){
         );
 
 
-    /* DELETE */
-
     document
         .querySelectorAll(".delete-btn")
         .forEach(
@@ -2266,8 +2376,6 @@ function renderProducts(products){
             }
         );
 
-
-    /* COPY */
 
     document
         .querySelectorAll(
@@ -2357,13 +2465,6 @@ function editProduct(docId){
     productId.value =
         product.Product_ID || "";
 
-
-    /*
-       Fixed Category dropdown:
-       اگر پرانے Product میں کوئی ایسا
-       category موجود ہو جو نئی list میں نہیں،
-       تو All select ہوگا۔
-    */
 
     const existingCategory =
         product.Category || "All";
