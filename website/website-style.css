@@ -726,6 +726,8 @@ button {
     gap: 18px;
 
     align-items: stretch;
+
+    min-width: 0;
 }
 
 /* =========================================================
@@ -761,68 +763,92 @@ button {
 }
 
 /* =========================================================
-   FIXED PRODUCT IMAGE FRAME
+   HARD FIXED PRODUCT IMAGE FRAME
    ========================================================= */
 
 .product-image-frame {
-    position: relative;
+    position: relative !important;
 
-    width: 100%;
+    width: 100% !important;
 
-    height: 180px;
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
 
-    min-height: 180px;
-    max-height: 180px;
+    flex: 0 0 180px !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
 
-    flex: 0 0 180px;
+    display: block !important;
 
-    display: flex;
+    overflow: hidden !important;
 
-    align-items: center;
-    justify-content: center;
+    padding: 0 !important;
+    margin: 0 !important;
 
-    overflow: hidden;
-
-    padding: 10px;
+    box-sizing: border-box !important;
 
     background:
-        linear-gradient(145deg, #f1f6f3, #ffffff);
+        linear-gradient(145deg, #f1f6f3, #ffffff) !important;
 
-    border-bottom: 1px solid rgba(18,61,39,0.06);
+    border-bottom:
+        1px solid rgba(18,61,39,0.06) !important;
+
+    isolation: isolate;
 }
 
 /* =========================================================
-   PRODUCT IMAGE
+   HARD FIXED PRODUCT IMAGE
    ========================================================= */
 
-.product-image-frame .product-image {
-    display: block;
+.product-image-frame .product-image,
+.product-image {
+    position: absolute !important;
 
-    width: 100%;
-    height: 100%;
+    top: 10px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    left: 10px !important;
 
-    min-width: 0;
-    min-height: 0;
+    display: block !important;
 
-    object-fit: cover;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
 
-    object-position: center;
+    min-width: 0 !important;
+    min-height: 0 !important;
 
-    border-radius: 10px;
+    max-width: none !important;
+    max-height: none !important;
 
-    background: #ffffff;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    object-fit: cover !important;
+    object-position: center center !important;
+
+    border: 0 !important;
+    border-radius: 10px !important;
+
+    background: #ffffff !important;
+
+    overflow: hidden !important;
+
+    transform: none;
 
     transition:
         transform 0.25s ease,
         opacity 0.25s ease;
 }
 
-/*
-   اگر image بہت بڑی یا بہت چوڑی ہو
-   تو frame سے باہر نہیں جائے گی۔
-*/
+/* =========================================================
+   PRODUCT IMAGE HOVER
+   ========================================================= */
 
-.product-card:hover .product-image-frame .product-image {
+.product-card:hover .product-image-frame .product-image,
+.product-card:hover .product-image {
     transform: scale(1.025);
 }
 
@@ -831,9 +857,21 @@ button {
    ========================================================= */
 
 .product-image-placeholder {
-    position: absolute;
+    position: absolute !important;
 
-    inset: 10px;
+    top: 10px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    left: 10px !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    max-width: none !important;
+    max-height: none !important;
 
     display: flex;
 
@@ -841,6 +879,8 @@ button {
     justify-content: center;
 
     text-align: center;
+
+    box-sizing: border-box !important;
 
     border-radius: 10px;
 
@@ -854,6 +894,8 @@ button {
     font-weight: 800;
 
     pointer-events: none;
+
+    z-index: 1;
 }
 
 /* =========================================================
@@ -872,6 +914,8 @@ button {
     flex: 1;
 
     min-width: 0;
+
+    box-sizing: border-box;
 }
 
 /* =========================================================
@@ -1268,29 +1312,60 @@ button {
     }
 
     /* =====================================================
-       MOBILE FIXED IMAGE FRAME
+       MOBILE HARD FIXED IMAGE FRAME
        ===================================================== */
 
     .product-image-frame {
-        height: 145px;
+        width: 100% !important;
 
-        min-height: 145px;
-        max-height: 145px;
+        height: 145px !important;
+        min-height: 145px !important;
+        max-height: 145px !important;
 
-        flex-basis: 145px;
+        flex: 0 0 145px !important;
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
 
-        padding: 8px;
+        display: block !important;
+
+        padding: 0 !important;
+        margin: 0 !important;
+
+        overflow: hidden !important;
+
+        box-sizing: border-box !important;
     }
 
-    .product-image-frame .product-image {
-        width: 100%;
-        height: 100%;
+    .product-image-frame .product-image,
+    .product-image {
+        top: 8px !important;
+        right: 8px !important;
+        bottom: 8px !important;
+        left: 8px !important;
 
-        object-fit: cover;
+        width: calc(100% - 16px) !important;
+        height: calc(100% - 16px) !important;
+
+        min-width: 0 !important;
+        min-height: 0 !important;
+
+        max-width: none !important;
+        max-height: none !important;
+
+        object-fit: cover !important;
+        object-position: center center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        transform: none;
     }
 
     .product-image-placeholder {
-        inset: 8px;
+        top: 8px !important;
+        right: 8px !important;
+        bottom: 8px !important;
+        left: 8px !important;
 
         font-size: 10px;
     }
@@ -1406,22 +1481,61 @@ button {
         grid-template-columns: 1fr;
     }
 
-    /* SMALL PHONE FIXED IMAGE FRAME */
+    /* =====================================================
+       SMALL PHONE HARD FIXED IMAGE FRAME
+       ===================================================== */
 
     .product-image-frame {
-        height: 190px;
+        width: 100% !important;
 
-        min-height: 190px;
-        max-height: 190px;
+        height: 190px !important;
+        min-height: 190px !important;
+        max-height: 190px !important;
 
-        flex-basis: 190px;
+        flex: 0 0 190px !important;
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+
+        display: block !important;
+
+        padding: 0 !important;
+        margin: 0 !important;
+
+        overflow: hidden !important;
+
+        box-sizing: border-box !important;
     }
 
-    .product-image-frame .product-image {
-        width: 100%;
-        height: 100%;
+    .product-image-frame .product-image,
+    .product-image {
+        top: 10px !important;
+        right: 10px !important;
+        bottom: 10px !important;
+        left: 10px !important;
 
-        object-fit: cover;
+        width: calc(100% - 20px) !important;
+        height: calc(100% - 20px) !important;
+
+        min-width: 0 !important;
+        min-height: 0 !important;
+
+        max-width: none !important;
+        max-height: none !important;
+
+        object-fit: cover !important;
+        object-position: center center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        transform: none;
+    }
+
+    .product-image-placeholder {
+        top: 10px !important;
+        right: 10px !important;
+        bottom: 10px !important;
+        left: 10px !important;
     }
 
     .product-content,
