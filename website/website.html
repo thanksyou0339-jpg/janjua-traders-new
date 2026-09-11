@@ -1,106 +1,981 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="JANJUA TRADERS Online Shopping — معیاری مصنوعات اور آسان آن لائن آرڈر"
-    >
+    <meta name="description"
+          content="JANJUA TRADERS — آپ کی ضرورت، ہماری ذمہ داری۔">
 
-    <title>
-        JANJUA TRADERS — Online Shop
-    </title>
+    <title>JANJUA TRADERS | Official Website</title>
 
-    <link
-        rel="stylesheet"
-        href="./website-style.css"
-    >
+    <link rel="stylesheet" href="./website-style.css?v=20260911">
 
+    <style>
+        /* =========================================================
+           JANJUA TRADERS - SIMPLE INTRO WEBSITE
+           ========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                "Noto Nastaliq Urdu",
+                "Noto Sans Arabic",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 20% 10%,
+                    rgba(255, 190, 80, 0.15),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(80, 150, 255, 0.15),
+                    transparent 30%
+                ),
+                #07111f;
+
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           BACKGROUND
+           ========================================================= */
+
+        .background-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.25;
+            animation: floatingGlow 8s ease-in-out infinite alternate;
+        }
+
+        .glow-one {
+            width: 280px;
+            height: 280px;
+            background: #00b7ff;
+            top: 5%;
+            left: -80px;
+        }
+
+        .glow-two {
+            width: 350px;
+            height: 350px;
+            background: #ff8a00;
+            right: -120px;
+            top: 35%;
+            animation-delay: 2s;
+        }
+
+        .glow-three {
+            width: 250px;
+            height: 250px;
+            background: #8b5cf6;
+            left: 35%;
+            bottom: -100px;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatingGlow {
+            from {
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                transform: translateY(-35px) scale(1.15);
+            }
+        }
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        .site-header {
+            width: 100%;
+            padding: 18px 5%;
+            position: relative;
+            z-index: 20;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 14px 20px;
+
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffb347,
+                    #ff6b00
+                );
+
+            color: #111;
+            font-size: 22px;
+            font-weight: 900;
+
+            box-shadow:
+                0 8px 25px rgba(255, 130, 0, 0.3);
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-small {
+            font-size: 11px;
+            opacity: 0.65;
+            margin-top: 2px;
+        }
+
+        .header-shop-btn {
+            padding: 11px 19px;
+            border-radius: 14px;
+
+            background: #ffffff;
+            color: #08111d;
+
+            font-size: 14px;
+            font-weight: 900;
+
+            transition: 0.3s ease;
+        }
+
+        .header-shop-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.18);
+        }
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            max-width: 1050px;
+            margin: auto;
+
+            text-align: center;
+
+            padding:
+                70px 20px
+                45px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 15px;
+
+            border-radius: 50px;
+
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+
+            color: #ffd18b;
+
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 7vw, 78px);
+            line-height: 1.05;
+
+            font-weight: 1000;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #ffd27c,
+                    #ffffff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: clamp(22px, 4vw, 38px);
+            color: #ffcb78;
+            margin-bottom: 18px;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            margin: auto;
+
+            color: rgba(255,255,255,0.75);
+
+            font-size: 17px;
+            line-height: 2;
+
+            text-align: center;
+        }
+
+        /* =========================================================
+           PRODUCT ANIMATION AREA
+           ========================================================= */
+
+        .products-section {
+            max-width: 1250px;
+            margin: auto;
+            padding: 35px 20px 65px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-heading span {
+            display: block;
+
+            color: #ffca76;
+
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .section-heading h3 {
+            font-size: clamp(25px, 4vw, 38px);
+            font-weight: 900;
+        }
+
+        .section-heading p {
+            margin-top: 8px;
+            color: rgba(255,255,255,0.55);
+            font-size: 14px;
+        }
+
+        /* Product track */
+
+        .products-window {
+            width: 100%;
+            overflow: hidden;
+            padding: 15px 5px 35px;
+        }
+
+        .products-track {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 20px;
+
+            transition:
+                transform 0.8s cubic-bezier(.22,.61,.36,1),
+                opacity 0.45s ease;
+        }
+
+        .products-track.changing {
+            opacity: 0;
+            transform:
+                translateY(18px)
+                scale(0.97);
+        }
+
+        /* =========================================================
+           3D PRODUCT CARD
+           ========================================================= */
+
+        .product-card {
+            min-height: 220px;
+
+            position: relative;
+
+            padding: 24px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.14),
+                    rgba(255,255,255,0.035)
+                );
+
+            border: 1px solid rgba(255,255,255,0.14);
+
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 25px 50px rgba(0,0,0,0.22),
+                inset 0 1px 0 rgba(255,255,255,0.12);
+
+            overflow: hidden;
+
+            transform:
+                perspective(900px)
+                rotateX(0deg)
+                rotateY(0deg);
+
+            transition:
+                transform 0.45s ease,
+                box-shadow 0.45s ease,
+                border-color 0.45s ease;
+        }
+
+        .product-card:hover {
+            transform:
+                perspective(900px)
+                rotateX(4deg)
+                rotateY(-5deg)
+                translateY(-10px);
+
+            border-color:
+                rgba(255, 200, 100, 0.5);
+
+            box-shadow:
+                0 35px 65px rgba(0,0,0,0.35),
+                0 0 35px rgba(255,170,70,0.10);
+        }
+
+        .card-light {
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,194,94,0.28),
+                    transparent 70%
+                );
+
+            top: -55px;
+            right: -45px;
+
+            pointer-events: none;
+        }
+
+        .product-number {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffcf82,
+                    #ff7b00
+                );
+
+            color: #101010;
+
+            font-size: 15px;
+            font-weight: 1000;
+
+            margin-bottom: 28px;
+
+            box-shadow:
+                0 10px 25px rgba(255,126,0,0.20);
+        }
+
+        .product-name {
+            font-size: 21px;
+            font-weight: 900;
+
+            color: #ffffff;
+
+            margin-bottom: 10px;
+
+            line-height: 1.5;
+        }
+
+        .product-category {
+            color: #ffc873;
+            font-size: 13px;
+
+            min-height: 20px;
+        }
+
+        .product-shine {
+            position: absolute;
+
+            left: -100%;
+            top: 0;
+
+            width: 55%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.08),
+                    transparent
+                );
+
+            transform: skewX(-18deg);
+
+            animation:
+                cardShine 5s ease-in-out infinite;
+        }
+
+        @keyframes cardShine {
+            0% {
+                left: -100%;
+            }
+
+            45%,
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* =========================================================
+           SHOP NOW
+           ========================================================= */
+
+        .shop-section {
+            text-align: center;
+            padding: 20px 20px 75px;
+        }
+
+        .shop-box {
+            max-width: 850px;
+            margin: auto;
+
+            padding: 38px 25px;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,185,80,0.14),
+                    rgba(255,255,255,0.045)
+                );
+
+            border: 1px solid rgba(255,196,105,0.2);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.2);
+        }
+
+        .shop-box h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .shop-box p {
+            color: rgba(255,255,255,0.65);
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .shop-now {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            min-width: 190px;
+
+            padding: 15px 28px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd17f,
+                    #ff7a00
+                );
+
+            color: #111;
+
+            font-size: 16px;
+            font-weight: 1000;
+
+            box-shadow:
+                0 14px 35px rgba(255,125,0,0.25);
+
+            transition: 0.3s ease;
+        }
+
+        .shop-now:hover {
+            transform:
+                translateY(-5px)
+                scale(1.03);
+
+            box-shadow:
+                0 20px 45px rgba(255,125,0,0.35);
+        }
+
+        /* =========================================================
+           SELL WITH US
+           ========================================================= */
+
+        .seller-section {
+            max-width: 900px;
+            margin: auto;
+
+            padding: 0 20px 70px;
+
+            text-align: center;
+        }
+
+        .seller-box {
+            padding: 30px 25px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+        }
+
+        .seller-box h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .seller-box p {
+            color: rgba(255,255,255,0.65);
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .email-link {
+            display: inline-block;
+
+            margin-top: 17px;
+
+            padding: 11px 18px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,196,105,0.10);
+
+            border:
+                1px solid rgba(255,196,105,0.22);
+
+            color: #ffd18b;
+
+            direction: ltr;
+
+            font-family: Arial, sans-serif;
+
+            transition: 0.3s ease;
+        }
+
+        .email-link:hover {
+            background:
+                rgba(255,196,105,0.18);
+
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            text-align: center;
+
+            padding: 28px 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.08);
+
+            color: rgba(255,255,255,0.45);
+
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: #ffd18b;
+        }
+
+        /* =========================================================
+           EMPTY / LOADING
+           ========================================================= */
+
+        .products-message {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: rgba(255,255,255,0.55);
+
+            border:
+                1px dashed rgba(255,255,255,0.15);
+
+            border-radius: 25px;
+        }
+
+        .loading-dot {
+            display: inline-block;
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #ffbd67;
+
+            margin: 0 4px;
+
+            animation:
+                loadingPulse 0.9s infinite alternate;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.30s;
+        }
+
+        @keyframes loadingPulse {
+            from {
+                opacity: 0.25;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .products-track {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .product-card {
+                min-height: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .site-header {
+                padding: 12px;
+            }
+
+            .header-inner {
+                padding: 10px 12px;
+                border-radius: 17px;
+            }
+
+            .brand-logo {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+            }
+
+            .brand-name {
+                font-size: 15px;
+            }
+
+            .brand-small {
+                font-size: 9px;
+            }
+
+            .header-shop-btn {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding:
+                    45px 18px
+                    30px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+                line-height: 2;
+            }
+
+            .products-section {
+                padding:
+                    25px 13px
+                    45px;
+            }
+
+            .products-track {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 12px;
+            }
+
+            .product-card {
+                min-height: 175px;
+                padding: 17px;
+                border-radius: 21px;
+            }
+
+            .product-number {
+                width: 35px;
+                height: 35px;
+                border-radius: 11px;
+                margin-bottom: 20px;
+                font-size: 12px;
+            }
+
+            .product-name {
+                font-size: 16px;
+            }
+
+            .product-category {
+                font-size: 11px;
+            }
+
+            .shop-box {
+                padding: 30px 18px;
+                border-radius: 23px;
+            }
+
+            .shop-box h3 {
+                font-size: 23px;
+            }
+
+            .seller-box {
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .products-track {
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 9px;
+            }
+
+            .product-card {
+                padding: 14px;
+            }
+
+            .product-name {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
+<body>
 
-<body class="shop-page">
+    <!-- =========================================================
+         BACKGROUND
+         ========================================================= -->
+
+    <div class="background-glow">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="glow glow-three"></div>
+    </div>
 
 
-    <!-- =====================================================
+    <!-- =========================================================
          HEADER
-    ====================================================== -->
+         ========================================================= -->
 
     <header class="site-header">
 
         <div class="header-inner">
 
-            <a
-                href="./index.html"
-                class="brand"
-            >
+            <a href="./index.html" class="brand">
 
-                <span class="brand-icon">
+                <div class="brand-logo">
                     JT
-                </span>
+                </div>
 
-                <span class="brand-text">
-
-                    <strong>
+                <div>
+                    <div class="brand-name">
                         JANJUA TRADERS
-                    </strong>
+                    </div>
 
-                    <small>
-                        Online Shopping & Services
-                    </small>
-
-                </span>
+                    <div class="brand-small">
+                        آپ کی ضرورت، ہماری ذمہ داری
+                    </div>
+                </div>
 
             </a>
 
 
-            <div class="shop-header-actions">
+            <a
+                href="../shop.html"
+                class="header-shop-btn"
+            >
+                SHOP NOW
+            </a>
 
-                <a
-                    href="./index.html"
-                    class="header-home-btn"
-                >
-                    🏠 Home
-                </a>
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         HERO / INTRODUCTION
+         ========================================================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✦ JANJUA TRADERS ✦
+            </div>
+
+            <h1>
+                JANJUA TRADERS
+            </h1>
+
+            <h2>
+                آپ کی ضرورت، ہماری ذمہ داری
+            </h2>
+
+            <p class="hero-description">
+                JANJUA TRADERS ایک ایسا پلیٹ فارم ہے جہاں مختلف
+                ضروری مصنوعات اور خدمات کو آسان انداز میں آپ تک
+                پہنچانے کی کوشش کی جاتی ہے۔
+                ہماری کوشش ہے کہ آپ کو اپنی ضرورت کے لیے
+                ایک آسان اور قابلِ اعتماد راستہ فراہم کیا جائے۔
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             DYNAMIC PRODUCTS
+             ===================================================== -->
+
+        <section class="products-section">
+
+            <div class="section-heading">
+
+                <span>
+                    ہماری موجودہ مصنوعات
+                </span>
+
+                <h3>
+                    جو چیزیں اس وقت دستیاب ہیں
+                </h3>
+
+                <p>
+                    یہ فہرست Admin Panel میں شامل کی گئی مصنوعات سے
+                    خودکار طور پر تبدیل ہوتی رہے گی۔
+                </p>
+
+            </div>
+
+
+            <div class="products-window">
 
                 <div
-                    class="product-list-dropdown"
-                    id="productListDropdown"
+                    id="productsTrack"
+                    class="products-track"
                 >
 
-                    <button
-                        type="button"
-                        id="productListToggle"
-                        class="product-list-toggle"
-                        aria-expanded="false"
-                    >
+                    <div class="products-message">
 
-                        📦 Product List
-                        <span>⌄</span>
+                        مصنوعات لوڈ ہو رہی ہیں
 
-                    </button>
-
-
-                    <div
-                        class="product-list-menu"
-                        id="productListMenu"
-                    >
-
-                        <button
-                            type="button"
-                            class="product-list-item active"
-                            data-category="All"
-                        >
-                            🛍 All Products
-                        </button>
+                        <div style="margin-top:12px;">
+                            <span class="loading-dot"></span>
+                            <span class="loading-dot"></span>
+                            <span class="loading-dot"></span>
+                        </div>
 
                     </div>
 
@@ -108,319 +983,99 @@
 
             </div>
 
-        </div>
-
-    </header>
+        </section>
 
 
+        <!-- =====================================================
+             SHOP NOW
+             ===================================================== -->
 
-    <!-- =====================================================
-         PAGE STATUS
-    ====================================================== -->
+        <section class="shop-section">
 
-    <div
-        id="pageStatus"
-        class="status"
-        aria-live="polite"
-    ></div>
+            <div class="shop-box">
 
-
-
-    <!-- =====================================================
-         SHOP HERO
-    ====================================================== -->
-
-    <section class="shop-hero">
-
-        <div class="shop-hero-content">
-
-            <span class="shop-hero-badge">
-                🛍️ JANJUA TRADERS ONLINE SHOP
-            </span>
-
-
-            <h1>
-                اپنی ضرورت کی
-                <span>پروڈکٹ</span>
-                تلاش کریں
-            </h1>
-
-
-            <p>
-
-                معیاری مصنوعات، آسان browsing اور
-                آسان online ordering — سب کچھ ایک جگہ۔
-
-            </p>
-
-
-            <a
-                href="#productsSection"
-                class="shop-hero-btn"
-            >
-
-                🛒 Products دیکھیں
-
-            </a>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FEATURED PRODUCTS
-    ====================================================== -->
-
-    <section class="featured-section">
-
-        <div class="section-heading featured-heading">
-
-            <span>
-                ⭐ FEATURED PRODUCTS
-            </span>
-
-            <h2>
-                ہماری منتخب مصنوعات
-            </h2>
-
-            <p>
-                تازہ اور دستیاب products یہاں دیکھیں۔
-            </p>
-
-        </div>
-
-
-        <div
-            id="sliderLoading"
-            class="loading-box"
-        >
-
-            <div class="loading-spinner"></div>
-
-            <span>
-                Products load ہو رہے ہیں...
-            </span>
-
-        </div>
-
-
-        <div
-            id="slider"
-            class="slider-box"
-            style="display:none;"
-        >
-
-            <div
-                class="slider"
-                id="sliderViewport"
-            >
-
-                <div
-                    class="slider-track"
-                    id="sliderTrack"
-                ></div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         PRODUCTS
-    ====================================================== -->
-
-    <main
-        class="products-section"
-        id="productsSection"
-    >
-
-        <div class="products-heading">
-
-            <div>
-
-                <span class="section-small-label">
-                    🛍️ ONLINE STORE
-                </span>
-
-                <h2>
-                    تمام مصنوعات
-                </h2>
+                <h3>
+                    خریداری کرنی ہے؟
+                </h3>
 
                 <p>
-                    اپنی پسند کی product منتخب کریں اور آرڈر شروع کریں۔
+                    ہماری مکمل Shopping App میں داخل ہوں،
+                    اپنی مطلوبہ پروڈکٹ دیکھیں اور وہاں سے
+                    اپنی خریداری کا عمل مکمل کریں۔
                 </p>
 
-            </div>
-
-
-            <div
-                class="product-count-box"
-            >
-
-                <span>
-                    Available
-                </span>
-
-                <strong id="productCount">
-                    0 Products
-                </strong>
+                <a
+                    href="../shop.html"
+                    class="shop-now"
+                >
+                    🛒 SHOP NOW
+                </a>
 
             </div>
 
-        </div>
+        </section>
 
 
+        <!-- =====================================================
+             SELL WITH US
+             ===================================================== -->
 
-        <!-- Products Loading -->
+        <section class="seller-section">
 
-        <div
-            id="productsLoading"
-            class="loading-box"
-        >
+            <div class="seller-box">
 
-            <div class="loading-spinner"></div>
+                <h3>
+                    اپنی چیز آن لائن فروخت کروانا چاہتے ہیں؟
+                </h3>
 
-            <span>
-                Products load ہو رہے ہیں...
-            </span>
+                <p>
+                    اگر آپ اپنی مصنوعات یا کوئی چیز
+                    JANJUA TRADERS کے ذریعے آن لائن فروخت
+                    کروانا چاہتے ہیں تو ہماری Email پر
+                    رابطہ کریں۔
+                    ہماری ٹیم آپ کی درخواست کا جائزہ لے کر
+                    جلد از جلد آپ سے رابطہ کرنے کی کوشش کرے گی۔
+                </p>
 
-        </div>
+                <a
+                    href="mailto:info24.pk@gmail.com"
+                    class="email-link"
+                >
+                    info24.pk@gmail.com
+                </a>
 
+            </div>
 
-
-        <!-- Products Grid -->
-
-        <div
-            id="productsGrid"
-            class="products-grid"
-        ></div>
+        </section>
 
     </main>
 
 
-
-    <!-- =====================================================
-         SELLER CTA
-    ====================================================== -->
-
-    <section class="shop-seller-cta">
-
-        <div class="shop-seller-inner">
-
-            <div class="shop-seller-icon">
-                📦
-            </div>
-
-
-            <div>
-
-                <span>
-                    SELL WITH JANJUA TRADERS
-                </span>
-
-                <h2>
-                    اپنی پروڈکٹ بھی آن لائن فروخت کروائیں
-                </h2>
-
-                <p>
-
-                    اگر آپ اپنی product JANJUA TRADERS
-                    کے ذریعے online فروخت کروانا چاہتے ہیں
-                    تو ہم سے رابطہ کریں۔
-
-                </p>
-
-            </div>
-
-
-            <a
-                href="mailto:info24.pk@gmail.com?subject=Product%20Listing%20-%20JANJUA%20TRADERS"
-                class="seller-btn"
-            >
-
-                📩 رابطہ کریں
-
-            </a>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
+    <!-- =========================================================
          FOOTER
-    ====================================================== -->
+         ========================================================= -->
 
-    <footer class="site-footer">
+    <footer>
 
-        <div class="footer-inner">
+        <strong>
+            JANJUA TRADERS
+        </strong>
 
+        <br>
 
-            <div class="footer-brand">
-
-                <strong>
-                    JANJUA TRADERS
-                </strong>
-
-                <p>
-                    آپ کی ضرورت، ہماری ذمہ داری
-                </p>
-
-            </div>
-
-
-            <div class="footer-links">
-
-                <a href="./index.html">
-                    🏠 Home
-                </a>
-
-                <a href="./website.html">
-                    🛍️ Shop
-                </a>
-
-                <a href="mailto:info24.pk@gmail.com">
-                    📧 Contact
-                </a>
-
-            </div>
-
-
-        </div>
-
-
-        <div class="footer-bottom">
-
-            <span>
-                © 2026 JANJUA TRADERS
-            </span>
-
-            <span>
-                Quality Products • Easy Ordering • Better Service
-            </span>
-
-        </div>
+        © 2026 — All Rights Reserved
 
     </footer>
 
 
-
-    <!-- =====================================================
-         FIREBASE / WEBSITE SCRIPT
-    ====================================================== -->
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
 
     <script
         type="module"
         src="./website-script.js?v=20260911"
     ></script>
 
-
 </body>
-
 </html>
