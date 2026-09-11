@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SARGODHA HUB — Admin Panel</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>JANJUA — Admin Panel</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -139,11 +146,6 @@ button:disabled{
     margin-bottom:15px;
     font-weight:bold;
     display:none;
-
-    /* Firebase error کو نئی لائنوں کے ساتھ دکھانے کے لیے */
-    white-space:pre-wrap;
-    word-break:break-word;
-    overflow-wrap:anywhere;
 }
 
 .status.show{
@@ -291,28 +293,37 @@ th{
         transform:rotate(360deg);
     }
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-    <h1>SARGODHA HUB — ADMIN PANEL</h1>
+
+    <h1>JANJUA — ADMIN PANEL</h1>
+
     <p>
         DIGITAL MARKETING • PRODUCT MANAGEMENT
     </p>
+
 </header>
 
 
 <!-- LOGIN -->
+
 <section
     id="loginSection"
     class="container"
 >
+
     <div class="card login-box">
 
         <div class="login-logo">
-            SARGODHA HUB
+            JANJUA
         </div>
 
         <div class="login-sub">
@@ -323,6 +334,7 @@ th{
             id="loginStatus"
             class="status"
         ></div>
+
 
         <label>
             Email
@@ -335,6 +347,7 @@ th{
             autocomplete="username"
         >
 
+
         <label>
             Password
         </label>
@@ -346,6 +359,7 @@ th{
             autocomplete="current-password"
         >
 
+
         <button
             id="loginBtn"
             class="primary"
@@ -353,6 +367,7 @@ th{
         >
             LOGIN
         </button>
+
 
         <button
             id="forgotBtn"
@@ -363,14 +378,17 @@ th{
         </button>
 
     </div>
+
 </section>
 
 
 <!-- ADMIN -->
+
 <section
     id="adminSection"
     class="container hidden"
 >
+
 
     <div class="card">
 
@@ -379,7 +397,7 @@ th{
             <div>
 
                 <strong>
-                    SARGODHA HUB — Admin Panel
+                    Admin Panel
                 </strong>
 
                 <div
@@ -388,6 +406,7 @@ th{
                 ></div>
 
             </div>
+
 
             <button
                 id="logoutBtn"
@@ -408,11 +427,13 @@ th{
 
 
     <!-- PRODUCT FORM -->
+
     <div class="card">
 
         <h2>
             📦 Product Add / Edit
         </h2>
+
 
         <input
             type="hidden"
@@ -421,6 +442,7 @@ th{
 
 
         <div class="grid">
+
 
             <div>
 
@@ -448,57 +470,10 @@ th{
                     Category
                 </label>
 
-                <select id="category">
-
-                    <option value="All">
-                        All
-                    </option>
-
-                    <option value="Cars for Rent — کار رینٹ">
-                        Cars for Rent — کار رینٹ
-                    </option>
-
-                    <option value="Cars for Sale — کاریں سیل">
-                        Cars for Sale — کاریں سیل
-                    </option>
-
-                    <option value="House for Sale — مکان سیل">
-                        House for Sale — مکان سیل
-                    </option>
-
-                    <option value="Property for Rent — پراپرٹی رینٹ">
-                        Property for Rent — پراپرٹی رینٹ
-                    </option>
-
-                    <option value="Property for Sale — پراپرٹی سیل">
-                        Property for Sale — پراپرٹی سیل
-                    </option>
-
-                    <option value="Bricks — اینٹیں">
-                        Bricks — اینٹیں
-                    </option>
-
-                    <option value="Cement — سیمنٹ">
-                        Cement — سیمنٹ
-                    </option>
-
-                    <option value="Crush — کرش">
-                        Crush — کرش
-                    </option>
-
-                    <option value="Loader Crush — لوڈر کرش">
-                        Loader Crush — لوڈر کرش
-                    </option>
-
-                    <option value="Fish / Fish Farm — مچھلی">
-                        Fish / Fish Farm — مچھلی
-                    </option>
-
-                    <option value="Other Products — دیگر">
-                        Other Products — دیگر
-                    </option>
-
-                </select>
+                <input
+                    id="category"
+                    placeholder="مثلاً Shoes, Beauty, Clothes"
+                >
 
             </div>
 
@@ -605,6 +580,7 @@ th{
 
             </div>
 
+
         </div>
 
 
@@ -666,7 +642,7 @@ th{
 
 
         <label>
-            SARGODHA HUB Auto Link
+            JANJUA Auto Link
         </label>
 
         <div
@@ -677,7 +653,9 @@ th{
         </div>
 
 
-        <div class="action-buttons">
+        <div
+            class="action-buttons"
+        >
 
             <button
                 id="copyLinkBtn"
@@ -693,7 +671,9 @@ th{
         <hr style="border:0;border-top:1px solid #eee;margin:20px 0;">
 
 
-        <div class="action-buttons">
+        <div
+            class="action-buttons"
+        >
 
             <button
                 id="saveProductBtn"
@@ -702,6 +682,7 @@ th{
             >
                 SAVE PRODUCT
             </button>
+
 
             <button
                 id="newProductBtn"
@@ -717,6 +698,7 @@ th{
 
 
     <!-- PRODUCTS -->
+
     <div class="card">
 
         <div class="topbar">
@@ -761,8 +743,8 @@ th{
 </section>
 
 
-<script type="module">
 
+<script type="module">
 
 /* =========================================================
    FIREBASE CDN
@@ -770,8 +752,7 @@ th{
 
 import {
     initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
     getAuth,
@@ -779,8 +760,7 @@ import {
     sendPasswordResetEmail,
     signOut,
     onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
     getFirestore,
@@ -792,8 +772,7 @@ import {
     doc,
     query,
     orderBy
-}
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 /* =========================================================
@@ -803,7 +782,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyA8_4KXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
 
     authDomain:
         "janjua-traders.firebaseapp.com",
@@ -831,42 +810,22 @@ let app;
 let auth;
 let db;
 
-try{
+try {
 
-    app =
-        initializeApp(firebaseConfig);
+    app = initializeApp(firebaseConfig);
 
-    auth =
-        getAuth(app);
+    auth = getAuth(app);
 
-    db =
-        getFirestore(app);
-
-    console.log(
-        "Firebase initialized successfully."
-    );
-
-    console.log(
-        "Firebase Project:",
-        firebaseConfig.projectId
-    );
+    db = getFirestore(app);
 
 }
-
 catch(error){
 
-    console.error(
-        "FULL FIREBASE INITIALIZE ERROR:",
-        error
-    );
+    console.error(error);
 
     alert(
         "Firebase Initialize Error:\n\n" +
-        "Code: " +
-        (error?.code || "UNKNOWN") +
-        "\n\n" +
-        "Message: " +
-        (error?.message || "No message")
+        error.message
     );
 
 }
@@ -985,25 +944,18 @@ const editingDocId =
    STATUS
 ========================================================= */
 
-function showStatus(
-    element,
-    message,
-    type="info"
-){
+function showStatus(element,message,type="info"){
 
-    element.textContent =
-        message;
+    element.textContent = message;
 
     element.className =
         "status show " + type;
 
 }
 
-
 function clearStatus(element){
 
-    element.textContent =
-        "";
+    element.textContent = "";
 
     element.className =
         "status";
@@ -1013,112 +965,80 @@ function clearStatus(element){
 
 /* =========================================================
    FIREBASE ERROR
-   اصل Firebase Error Code + Message دکھائیں
 ========================================================= */
 
 function firebaseErrorMessage(error){
 
     console.error(
-        "FULL FIREBASE ERROR:",
+        "Firebase Error:",
         error
     );
 
     const code =
-        error?.code || "UNKNOWN";
+        error?.code || "";
 
     const message =
-        error?.message || "No message";
-
-    let extra = "";
-
+        error?.message || "";
 
     if(
         code.includes("api-key-not-valid")
     ){
 
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "Firebase API Key invalid/restricted ہے یا API Key کسی دوسرے Google/Firebase project سے متعلق ہے۔";
+        return (
+            "Firebase API KEY مسئلہ ہے۔ " +
+            "Firebase Console میں Project Settings > Your apps " +
+            "سے Web App کا Config دوبارہ چیک کریں۔"
+        );
 
     }
 
-
-    else if(
+    if(
         code.includes("invalid-credential") ||
         code.includes("wrong-password") ||
         code.includes("invalid-login-credentials")
     ){
 
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "Email یا Password غلط ہے۔";
+        return (
+            "Email یا Password غلط ہے۔ " +
+            "Firebase Authentication میں Admin user چیک کریں۔"
+        );
 
     }
 
-
-    else if(
+    if(
         code.includes("user-not-found")
     ){
 
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "یہ Email Firebase Authentication میں موجود نہیں ہے۔";
+        return (
+            "یہ Admin Email Firebase Authentication میں موجود نہیں ہے۔"
+        );
 
     }
 
-
-    else if(
-        code.includes("unauthorized-domain")
-    ){
-
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "GitHub Pages کا domain Firebase Authentication > Settings > Authorized domains میں شامل نہیں ہے۔";
-
-    }
-
-
-    else if(
+    if(
         code.includes("too-many-requests")
     ){
 
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "بہت زیادہ Login attempts ہوئی ہیں۔";
+        return (
+            "بہت زیادہ Login کوششیں ہوئیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔"
+        );
 
     }
 
-
-    else if(
-        code.includes("network-request-failed")
-    ){
-
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "Internet connection یا Firebase network request کا مسئلہ ہے۔";
-
-    }
-
-
-    else if(
+    if(
         code.includes("permission-denied")
     ){
 
-        extra =
-            "\n\nممکنہ وجہ:\n" +
-            "Firestore Rules نے request کو reject کیا ہے۔";
+        return (
+            "Firestore Permission Denied۔ " +
+            "Firestore Rules چیک کریں۔"
+        );
 
     }
 
-
     return (
-        "🔥 Firebase Error\n\n" +
-        "Error Code:\n" +
-        code +
-        "\n\n" +
-        "Error Message:\n" +
-        message +
-        extra
+        "Firebase Error: " +
+        message
     );
 
 }
@@ -1145,8 +1065,7 @@ if(auth){
                 );
 
                 userEmail.textContent =
-                    "Logged in: " +
-                    user.email;
+                    "Logged in: " + user.email;
 
                 showStatus(
                     adminStatus,
@@ -1157,7 +1076,6 @@ if(auth){
                 await loadProducts();
 
             }
-
             else{
 
                 loginSection.classList.remove(
@@ -1168,9 +1086,7 @@ if(auth){
                     "hidden"
                 );
 
-                clearStatus(
-                    adminStatus
-                );
+                clearStatus(adminStatus);
 
             }
 
@@ -1194,7 +1110,6 @@ loginBtn.addEventListener(
         const password =
             loginPassword.value;
 
-
         if(!email){
 
             showStatus(
@@ -1206,7 +1121,6 @@ loginBtn.addEventListener(
             return;
 
         }
-
 
         if(!password){
 
@@ -1220,26 +1134,10 @@ loginBtn.addEventListener(
 
         }
 
-
-        if(!auth){
-
-            showStatus(
-                loginStatus,
-                "Firebase Auth initialize نہیں ہوا۔\n\nPage Console میں Firebase Initialize Error چیک کریں۔",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        loginBtn.disabled =
-            true;
+        loginBtn.disabled = true;
 
         loginBtn.innerHTML =
             '<span class="loader"></span> LOGIN...';
-
 
         try{
 
@@ -1256,19 +1154,7 @@ loginBtn.addEventListener(
             );
 
         }
-
         catch(error){
-
-            /*
-             IMPORTANT:
-             اب custom "API KEY مسئلہ" نہیں آئے گا۔
-             اصل Firebase code/message سامنے آئے گا۔
-            */
-
-            console.error(
-                "FULL FIREBASE LOGIN ERROR:",
-                error
-            );
 
             showStatus(
                 loginStatus,
@@ -1277,11 +1163,9 @@ loginBtn.addEventListener(
             );
 
         }
-
         finally{
 
-            loginBtn.disabled =
-                false;
+            loginBtn.disabled = false;
 
             loginBtn.textContent =
                 "LOGIN";
@@ -1321,7 +1205,6 @@ forgotBtn.addEventListener(
         const email =
             loginEmail.value.trim();
 
-
         if(!email){
 
             showStatus(
@@ -1333,20 +1216,6 @@ forgotBtn.addEventListener(
             return;
 
         }
-
-
-        if(!auth){
-
-            showStatus(
-                loginStatus,
-                "Firebase Auth initialize نہیں ہوا۔",
-                "error"
-            );
-
-            return;
-
-        }
-
 
         try{
 
@@ -1362,7 +1231,6 @@ forgotBtn.addEventListener(
             );
 
         }
-
         catch(error){
 
             showStatus(
@@ -1390,7 +1258,6 @@ logoutBtn.addEventListener(
             await signOut(auth);
 
         }
-
         catch(error){
 
             showStatus(
@@ -1421,9 +1288,7 @@ async function generateProductId(){
                 )
             );
 
-
         let maxNumber = 0;
-
 
         snapshot.forEach(
             (item)=>{
@@ -1436,12 +1301,10 @@ async function generateProductId(){
                         data.Product_ID || ""
                     );
 
-
                 const match =
                     id.match(
                         /JT\.PRODUCT\.(\d+)/
                     );
-
 
                 if(match){
 
@@ -1450,7 +1313,6 @@ async function generateProductId(){
                             match[1],
                             10
                         );
-
 
                     if(
                         number > maxNumber
@@ -1466,10 +1328,8 @@ async function generateProductId(){
             }
         );
 
-
         const next =
             maxNumber + 1;
-
 
         return (
             "JT.PRODUCT." +
@@ -1477,7 +1337,6 @@ async function generateProductId(){
         );
 
     }
-
     catch(error){
 
         throw error;
@@ -1488,17 +1347,14 @@ async function generateProductId(){
 
 
 /* =========================================================
-   SARGODHA HUB LINK
+   JANJUA LINK
 ========================================================= */
 
 function getJanjuaLink(id){
 
     if(!id){
-
         return "";
-
     }
-
 
     return (
         window.location.origin +
@@ -1523,10 +1379,8 @@ function updateAutoLink(){
     const id =
         productId.value.trim();
 
-
     const link =
         getJanjuaLink(id);
-
 
     if(link){
 
@@ -1534,7 +1388,6 @@ function updateAutoLink(){
             link;
 
     }
-
     else{
 
         autoLinkBox.textContent =
@@ -1556,7 +1409,6 @@ imageFile.addEventListener(
         const file =
             imageFile.files[0];
 
-
         if(!file){
 
             imagePreview.style.display =
@@ -1566,18 +1418,13 @@ imageFile.addEventListener(
 
         }
 
-
-        if(
-            file.size >
-            5 * 1024 * 1024
-        ){
+        if(file.size > 5 * 1024 * 1024){
 
             alert(
                 "Image 5MB سے بڑی ہے۔"
             );
 
-            imageFile.value =
-                "";
+            imageFile.value = "";
 
             imagePreview.style.display =
                 "none";
@@ -1586,10 +1433,8 @@ imageFile.addEventListener(
 
         }
 
-
         const url =
             URL.createObjectURL(file);
-
 
         imagePreview.src =
             url;
@@ -1638,11 +1483,7 @@ async function uploadToCloudinary(file){
 
     }
 
-
-    if(
-        file.size >
-        5 * 1024 * 1024
-    ){
+    if(file.size > 5 * 1024 * 1024){
 
         throw new Error(
             "Image 5MB سے بڑی ہے۔"
@@ -1650,16 +1491,13 @@ async function uploadToCloudinary(file){
 
     }
 
-
     const formData =
         new FormData();
-
 
     formData.append(
         "file",
         file
     );
-
 
     formData.append(
         "upload_preset",
@@ -1709,7 +1547,6 @@ copyLinkBtn.addEventListener(
         const link =
             autoLinkBox.textContent.trim();
 
-
         if(
             !link ||
             link.includes("بننے")
@@ -1723,17 +1560,14 @@ copyLinkBtn.addEventListener(
 
         }
 
-
         try{
 
             await navigator.clipboard.writeText(
                 link
             );
 
-
             copyLinkBtn.textContent =
                 "COPIED ✓";
-
 
             setTimeout(
                 ()=>{
@@ -1746,7 +1580,6 @@ copyLinkBtn.addEventListener(
             );
 
         }
-
         catch(error){
 
             alert(
@@ -1787,10 +1620,8 @@ async function saveProduct(){
     const name =
         productName.value.trim();
 
-
     const productPrice =
         Number(price.value);
-
 
     if(!name){
 
@@ -1803,7 +1634,6 @@ async function saveProduct(){
         return;
 
     }
-
 
     if(
         !price.value ||
@@ -1824,7 +1654,6 @@ async function saveProduct(){
     saveProductBtn.disabled =
         true;
 
-
     saveProductBtn.innerHTML =
         '<span class="loader"></span> SAVING...';
 
@@ -1834,6 +1663,8 @@ async function saveProduct(){
         let id =
             productId.value.trim();
 
+
+        /* NEW PRODUCT ID */
 
         if(!id){
 
@@ -1847,6 +1678,8 @@ async function saveProduct(){
 
         }
 
+
+        /* IMAGE */
 
         let finalImageUrl =
             imageUrl.value.trim();
@@ -1862,18 +1695,18 @@ async function saveProduct(){
                 "info"
             );
 
-
             finalImageUrl =
                 await uploadToCloudinary(
                     imageFile.files[0]
                 );
-
 
             imageUrl.value =
                 finalImageUrl;
 
         }
 
+
+        /* DATA */
 
         const data = {
 
@@ -1898,7 +1731,7 @@ async function saveProduct(){
                     : 0,
 
             Category:
-                category.value ||
+                category.value.trim() ||
                 "All",
 
             Product_Image:
@@ -1936,6 +1769,8 @@ async function saveProduct(){
             editingDocId.value.trim();
 
 
+        /* UPDATE */
+
         if(existingDocId){
 
             await updateDoc(
@@ -1947,7 +1782,6 @@ async function saveProduct(){
                 data
             );
 
-
             showStatus(
                 adminStatus,
                 "Product successfully UPDATE ہو گیا۔",
@@ -1956,11 +1790,13 @@ async function saveProduct(){
 
         }
 
+
+        /* ADD */
+
         else{
 
             data.createdAt =
                 new Date().toISOString();
-
 
             await addDoc(
                 collection(
@@ -1969,7 +1805,6 @@ async function saveProduct(){
                 ),
                 data
             );
-
 
             showStatus(
                 adminStatus,
@@ -1985,15 +1820,12 @@ async function saveProduct(){
 
         setTimeout(
             ()=>{
-
                 resetProductForm();
-
             },
             700
         );
 
     }
-
     catch(error){
 
         showStatus(
@@ -2003,7 +1835,6 @@ async function saveProduct(){
         );
 
     }
-
     finally{
 
         saveProductBtn.disabled =
@@ -2081,11 +1912,14 @@ async function loadProducts(){
         );
 
     }
-
     catch(error){
 
         console.error(error);
 
+        /*
+          If orderBy fails because old documents
+          do not have Product_ID, load without order.
+        */
 
         try{
 
@@ -2142,18 +1976,14 @@ async function loadProducts(){
             );
 
         }
-
         catch(secondError){
 
             productTableWrap.innerHTML =
                 "<div class='status show error'>" +
-                escapeHtml(
-                    firebaseErrorMessage(
-                        secondError
-                    )
+                firebaseErrorMessage(
+                    secondError
                 ) +
                 "</div>";
-
 
             showStatus(
                 adminStatus,
@@ -2179,6 +2009,7 @@ function renderProducts(products){
     if(!products.length){
 
         productTableWrap.innerHTML =
+
             "<div class='note'>" +
             "ابھی کوئی Product موجود نہیں۔" +
             "</div>";
@@ -2224,17 +2055,14 @@ function renderProducts(products){
                 product.Product_Image ||
                 "";
 
-
             const name =
                 product.Product_Name ||
                 product.Product ||
                 "";
 
-
             const pId =
                 product.Product_ID ||
                 "";
-
 
             const p =
                 Number(
@@ -2337,6 +2165,8 @@ function renderProducts(products){
         html;
 
 
+    /* EDIT */
+
     document
         .querySelectorAll(".edit-btn")
         .forEach(
@@ -2356,6 +2186,8 @@ function renderProducts(products){
             }
         );
 
+
+    /* DELETE */
 
     document
         .querySelectorAll(".delete-btn")
@@ -2377,6 +2209,8 @@ function renderProducts(products){
         );
 
 
+    /* COPY */
+
     document
         .querySelectorAll(
             ".copy-product-link-btn"
@@ -2391,10 +2225,8 @@ function renderProducts(products){
                         const id =
                             button.dataset.productId;
 
-
                         const link =
                             getJanjuaLink(id);
-
 
                         try{
 
@@ -2402,23 +2234,18 @@ function renderProducts(products){
                                 link
                             );
 
-
                             button.textContent =
                                 "COPIED ✓";
 
-
                             setTimeout(
                                 ()=>{
-
                                     button.textContent =
                                         "COPY LINK";
-
                                 },
                                 1200
                             );
 
                         }
-
                         catch(error){
 
                             alert(link);
@@ -2461,84 +2288,48 @@ function editProduct(docId){
     editingDocId.value =
         docId;
 
-
     productId.value =
         product.Product_ID || "";
 
-
-    const existingCategory =
-        product.Category || "All";
-
-
-    const categoryExists =
-        Array.from(
-            category.options
-        ).some(
-            option =>
-                option.value === existingCategory
-        );
-
-
-    if(categoryExists){
-
-        category.value =
-            existingCategory;
-
-    }
-
-    else{
-
-        category.value =
-            "All";
-
-    }
-
+    category.value =
+        product.Category || "";
 
     productName.value =
         product.Product_Name ||
         product.Product ||
         "";
 
-
     price.value =
         product.Product_Price || "";
-
 
     oldPrice.value =
         product.Old_Price || "";
 
-
     deliveryCharges.value =
         product.Delivery_Charges || 0;
-
 
     deliveryType.value =
         product.Delivery_Type ||
         "Free Delivery";
 
-
     description.value =
         product.Product_Description ||
         "";
-
 
     imageUrl.value =
         product.Product_Image ||
         "";
 
-
     supplierLink.value =
         product.supplierLink ||
         "";
-
 
     socialLink.value =
         product.socialLink ||
         "";
 
 
-    imageFile.value =
-        "";
+    imageFile.value = "";
 
 
     if(product.Product_Image){
@@ -2550,7 +2341,6 @@ function editProduct(docId){
             "block";
 
     }
-
     else{
 
         imagePreview.style.display =
@@ -2567,11 +2357,8 @@ function editProduct(docId){
 
 
     window.scrollTo({
-
         top:0,
-
         behavior:"smooth"
-
     });
 
 
@@ -2646,7 +2433,6 @@ async function deleteProduct(docId){
         await loadProducts();
 
     }
-
     catch(error){
 
         showStatus(
@@ -2691,21 +2477,14 @@ productSearch.addEventListener(
 
                     const combined =
                         [
-
                             product.Product_ID,
-
                             product.Product_Name,
-
                             product.Product,
-
                             product.Category,
-
                             product.Product_Description
-
                         ]
                         .join(" ")
                         .toLowerCase();
-
 
                     return combined.includes(
                         text
@@ -2752,62 +2531,47 @@ function resetProductForm(){
     editingDocId.value =
         "";
 
-
     productId.value =
         "";
 
-
     category.value =
-        "All";
-
+        "";
 
     productName.value =
         "";
 
-
     price.value =
         "";
-
 
     oldPrice.value =
         "";
 
-
     deliveryCharges.value =
         "0";
-
 
     deliveryType.value =
         "Free Delivery";
 
-
     description.value =
         "";
-
 
     imageFile.value =
         "";
 
-
     imageUrl.value =
         "";
-
 
     supplierLink.value =
         "";
 
-
     socialLink.value =
         "";
-
 
     imagePreview.style.display =
         "none";
 
-
     autoLinkBox.textContent =
-        "Product ID بننے کے بعد Link یہاں آئے گا.";
-
+        "Product ID بننے کے بعد Link یہاں آئے گا۔";
 
     saveProductBtn.textContent =
         "SAVE PRODUCT";
@@ -2822,27 +2586,22 @@ function resetProductForm(){
 function escapeHtml(value){
 
     return String(value ?? "")
-
         .replace(
             /&/g,
             "&amp;"
         )
-
         .replace(
             /</g,
             "&lt;"
         )
-
         .replace(
             />/g,
             "&gt;"
         )
-
         .replace(
             /"/g,
             "&quot;"
         )
-
         .replace(
             /'/g,
             "&#039;"
@@ -2866,7 +2625,7 @@ productId.addEventListener(
 ========================================================= */
 
 console.log(
-    "SARGODHA HUB Admin Panel loaded."
+    "JANJUA Admin Panel loaded."
 );
 
 console.log(
@@ -2877,4 +2636,5 @@ console.log(
 </script>
 
 </body>
+
 </html>
