@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>JANJUA - Order Form</title>
 
 <!-- PDF LIBRARY -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -42,7 +37,6 @@ body{
 }
 
 /* HEADER */
-
 .header{
     width:100%;
     background:#111827;
@@ -67,7 +61,6 @@ body{
 }
 
 /* PRODUCT */
-
 .product-box{
     width:100%;
     background:#fff;
@@ -96,7 +89,6 @@ body{
 }
 
 /* PRODUCT INFO */
-
 .product-name{
     margin:0 0 8px;
     font-size:21px;
@@ -150,7 +142,6 @@ body{
 }
 
 /* FORM */
-
 .form-box{
     width:100%;
     background:#fff;
@@ -218,7 +209,6 @@ body{
 }
 
 /* RECEIPT */
-
 #receiptSection{
     width:100%;
     background:#fff;
@@ -290,7 +280,6 @@ body{
 }
 
 /* POLICY */
-
 .receipt-policy{
     margin-top:14px;
     padding:12px;
@@ -308,8 +297,39 @@ body{
     margin-bottom:5px;
 }
 
-/* ACTION BUTTONS */
+/* CUSTOMER SUPPORT CONTACT */
+.receipt-support{
+    margin-top:16px;
+    padding:16px 12px;
+    border:2px solid #111827;
+    background:#f8fafc;
+    border-radius:12px;
+    text-align:center;
+}
 
+.receipt-support-title{
+    font-size:19px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.receipt-support-email{
+    direction:ltr;
+    font-size:21px;
+    font-weight:900;
+    color:#111827;
+    word-break:break-word;
+}
+
+.receipt-support-note{
+    margin-top:7px;
+    font-size:13px;
+    line-height:1.6;
+    font-weight:bold;
+    color:#555;
+}
+
+/* ACTION BUTTONS */
 .receipt-actions{
     width:100%;
     display:grid;
@@ -345,7 +365,6 @@ body{
 }
 
 /* SUCCESS */
-
 .success-message{
     text-align:center;
     margin:0 0 12px;
@@ -357,7 +376,6 @@ body{
 }
 
 /* MOBILE */
-
 @media(max-width:600px){
 
     .page-wrap{
@@ -387,10 +405,13 @@ body{
         font-size:13px;
     }
 
+    .receipt-support-email{
+        font-size:18px;
+    }
+
 }
 
 /* PRINT */
-
 @media print{
 
     html,body{
@@ -441,16 +462,19 @@ body{
         background:#fff !important;
     }
 
+    .receipt-support{
+        display:block !important;
+        border:2px solid #111827 !important;
+        background:#fff !important;
+    }
+
 }
 
 /* PAGE TOP ANCHOR */
-
 #receiptTop{
     scroll-margin-top:8px;
 }
-
 </style>
-
 </head>
 
 <body>
@@ -471,7 +495,6 @@ body{
 
     </div>
 
-
     <!-- PRODUCT -->
 
     <div class="product-box">
@@ -488,28 +511,45 @@ body{
 
         <div class="product-info">
 
-            <h1 id="productName" class="product-name">
+            <h1
+                id="productName"
+                class="product-name"
+            >
                 Product
             </h1>
 
-            <p id="productDescription" class="product-description"></p>
+            <p
+                id="productDescription"
+                class="product-description"
+            ></p>
 
             <div class="price-row">
 
-                <span id="productPrice" class="price"></span>
+                <span
+                    id="productPrice"
+                    class="price"
+                ></span>
 
-                <span id="oldPrice" class="old-price"></span>
+                <span
+                    id="oldPrice"
+                    class="old-price"
+                ></span>
 
             </div>
 
-            <div id="deliveryBadge" class="delivery-badge"></div>
+            <div
+                id="deliveryBadge"
+                class="delivery-badge"
+            ></div>
 
-            <div id="deliveryNote" class="delivery-note"></div>
+            <div
+                id="deliveryNote"
+                class="delivery-note"
+            ></div>
 
         </div>
 
     </div>
-
 
     <!-- FORM -->
 
@@ -540,7 +580,6 @@ body{
 
             </div>
 
-
             <div class="form-group">
 
                 <label for="mobile">
@@ -556,7 +595,6 @@ body{
 
             </div>
 
-
             <div class="form-group">
 
                 <label for="address">
@@ -571,6 +609,23 @@ body{
 
             </div>
 
+            <!-- NEW CONTACT MOBILE -->
+
+            <div class="form-group">
+
+                <label for="contactMobile">
+                    رابطہ موبائل نمبر
+                </label>
+
+                <input
+                    type="tel"
+                    id="contactMobile"
+                    name="Contact_Mobile_Number"
+                    placeholder="اپنا رابطہ موبائل نمبر لکھیں"
+                    required
+                >
+
+            </div>
 
             <div class="form-group">
 
@@ -578,23 +633,54 @@ body{
                     Quantity
                 </label>
 
-                <select id="quantity" name="Quantity">
+                <select
+                    id="quantity"
+                    name="Quantity"
+                >
 
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
+                    <option value="1">
+                        1
+                    </option>
+
+                    <option value="2">
+                        2
+                    </option>
+
+                    <option value="3">
+                        3
+                    </option>
+
+                    <option value="4">
+                        4
+                    </option>
+
+                    <option value="5">
+                        5
+                    </option>
+
+                    <option value="6">
+                        6
+                    </option>
+
+                    <option value="7">
+                        7
+                    </option>
+
+                    <option value="8">
+                        8
+                    </option>
+
+                    <option value="9">
+                        9
+                    </option>
+
+                    <option value="10">
+                        10
+                    </option>
 
                 </select>
 
             </div>
-
 
             <div class="form-group">
 
@@ -602,17 +688,30 @@ body{
                     Order Platform
                 </label>
 
-                <select id="platform" name="Platform">
+                <select
+                    id="platform"
+                    name="Platform"
+                >
 
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="TikTok">TikTok</option>
-                    <option value="Website">Website</option>
+                    <option value="WhatsApp">
+                        WhatsApp
+                    </option>
+
+                    <option value="Facebook">
+                        Facebook
+                    </option>
+
+                    <option value="TikTok">
+                        TikTok
+                    </option>
+
+                    <option value="Website">
+                        Website
+                    </option>
 
                 </select>
 
             </div>
-
 
             <div class="form-group">
 
@@ -628,7 +727,6 @@ body{
 
             </div>
 
-
             <div class="form-group">
 
                 <label for="size">
@@ -643,86 +741,118 @@ body{
 
             </div>
 
-
             <!-- FORMSUBMIT -->
 
-            <input type="hidden" name="_subject"
-                   value="JANJUA — New Customer Order">
+            <input
+                type="hidden"
+                name="_subject"
+                value="JANJUA — New Customer Order"
+            >
 
-            <input type="hidden" name="_template"
-                   value="table">
+            <input
+                type="hidden"
+                name="_template"
+                value="table"
+            >
 
-            <input type="hidden" name="_captcha"
-                   value="false">
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false"
+            >
 
-            <input type="hidden"
-                   id="formUrl"
-                   name="_url"
-                   value="">
-
+            <input
+                type="hidden"
+                id="formUrl"
+                name="_url"
+                value=""
+            >
 
             <!-- ORDER -->
 
-            <input type="hidden"
-                   id="hiddenOrderId"
-                   name="Order_ID"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenOrderId"
+                name="Order_ID"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenProduct"
-                   name="Product"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenProduct"
+                name="Product"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenDescription"
-                   name="Product_Description"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenDescription"
+                name="Product_Description"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenPrice"
-                   name="Product_Price"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenPrice"
+                name="Product_Price"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenOldPrice"
-                   name="Old_Price"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenOldPrice"
+                name="Old_Price"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenProductId"
-                   name="Product_ID"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenProductId"
+                name="Product_ID"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenProductImage"
-                   name="Product_Image"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenProductImage"
+                name="Product_Image"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenDeliveryStatus"
-                   name="Delivery_Status"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenDeliveryStatus"
+                name="Delivery_Status"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenDeliveryCharges"
-                   name="Delivery_Charges"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenDeliveryCharges"
+                name="Delivery_Charges"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenTotal"
-                   name="Total_Amount"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenTotal"
+                name="Total_Amount"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenJanjuaLink"
-                   name="JANJUA_Order_Link"
-                   value="">
+            <input
+                type="hidden"
+                id="hiddenJanjuaLink"
+                name="JANJUA_Order_Link"
+                value=""
+            >
 
-            <input type="hidden"
-                   id="hiddenSupplierLink"
-                   name="Original_Supplier_Link"
-                   value="">
-
+            <input
+                type="hidden"
+                id="hiddenSupplierLink"
+                name="Original_Supplier_Link"
+                value=""
+            >
 
             <button
                 type="submit"
@@ -735,7 +865,6 @@ body{
 
     </div>
 
-
     <!-- RECEIPT -->
 
     <section
@@ -747,17 +876,21 @@ body{
 
         <div class="receipt-header">
 
-            <h2>JANJUA TRADERS</h2>
+            <h2>
+                JANJUA TRADERS
+            </h2>
 
-            <p>Order Confirmation Slip</p>
+            <p>
+                Order Confirmation Slip
+            </p>
 
         </div>
-
 
         <div class="success-message">
-            آپ کا آرڈر کامیابی سے موصول ہو گیا ہے۔
-        </div>
 
+            آپ کا آرڈر کامیابی سے موصول ہو گیا ہے۔
+
+        </div>
 
         <img
             id="receiptImage"
@@ -767,123 +900,135 @@ body{
             crossorigin="anonymous"
         >
 
-
         <div class="receipt-row">
 
-            <strong>Product</strong>
+            <strong>
+                Product
+            </strong>
 
             <span id="receiptProductName"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Date</strong>
+            <strong>
+                Date
+            </strong>
 
             <span id="receiptDate"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Order ID</strong>
+            <strong>
+                Order ID
+            </strong>
 
             <span id="receiptOrderId"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Customer</strong>
+            <strong>
+                Customer
+            </strong>
 
             <span id="receiptCustomer"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Mobile</strong>
+            <strong>
+                Mobile
+            </strong>
 
             <span id="receiptMobile"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Address</strong>
+            <strong>
+                Address
+            </strong>
 
             <span id="receiptAddress"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Quantity</strong>
+            <strong>
+                Quantity
+            </strong>
 
             <span id="receiptQuantity"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Price</strong>
+            <strong>
+                Price
+            </strong>
 
             <span id="receiptPrice"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Delivery</strong>
+            <strong>
+                Delivery
+            </strong>
 
             <span id="receiptDelivery"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Platform</strong>
+            <strong>
+                Platform
+            </strong>
 
             <span id="receiptPlatform"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Color</strong>
+            <strong>
+                Color
+            </strong>
 
             <span id="receiptColor"></span>
 
         </div>
 
-
         <div class="receipt-row">
 
-            <strong>Size</strong>
+            <strong>
+                Size
+            </strong>
 
             <span id="receiptSize"></span>
 
         </div>
 
-
         <div class="receipt-total">
 
-            <span>Total</span>
+            <span>
+                Total
+            </span>
 
             <span id="receiptTotal"></span>
 
         </div>
-
 
         <!-- POLICY -->
 
@@ -894,7 +1039,8 @@ body{
             </div>
 
             <div>
-                🚚 ڈیلیوری کا وقت: <strong>4–6 دن</strong>
+                🚚 ڈیلیوری کا وقت:
+                <strong>4–6 دن</strong>
             </div>
 
             <div>
@@ -909,11 +1055,37 @@ body{
 
             <div>
                 💰 Return منظور ہونے کے بعد رقم کی واپسی میں
-                <strong>7 دن تک</strong> لگ سکتے ہیں۔
+                <strong>7 دن تک</strong>
+                لگ سکتے ہیں۔
+            </div>
+
+            <div>
+                📞 آرڈر موصول ہونے کے بعد ہمارا نمائندہ آپ سے
+                <strong>جلد از جلد، ترجیحاً 6 گھنٹے کے اندر</strong>
+                رابطہ کرے گا۔ کسی خاص صورتحال میں زیادہ سے زیادہ
+                <strong>24 گھنٹے</strong>
+                تک کا وقت لگ سکتا ہے۔
             </div>
 
         </div>
 
+        <!-- CUSTOMER SUPPORT CONTACT -->
+
+        <div class="receipt-support">
+
+            <div class="receipt-support-title">
+                📞 Customer Support / رابطہ
+            </div>
+
+            <div class="receipt-support-email">
+                info24.pk@gmail.com
+            </div>
+
+            <div class="receipt-support-note">
+                کسی بھی دوبارہ رابطے یا Order سے متعلق معلومات کے لیے اس Gmail پر رابطہ کریں۔
+            </div>
+
+        </div>
 
         <!-- ACTIONS -->
 
@@ -942,7 +1114,6 @@ body{
 
         </div>
 
-
         <button
             type="button"
             id="newOrderBtn"
@@ -954,7 +1125,6 @@ body{
     </section>
 
 </div>
-
 
 <script
     type="module"
