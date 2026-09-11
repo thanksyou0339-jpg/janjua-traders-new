@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-          content="JANJUA TRADERS — آپ کی ضرورت، ہماری ذمہ داری۔">
+          content="JANJUA TRADERS — مختلف مصنوعات، کاروباری خدمات اور روزمرہ ضروریات کے لیے ایک آسان پلیٹ فارم۔">
 
     <title>JANJUA TRADERS | Official Website</title>
 
-    <link rel="stylesheet" href="./website-style.css?v=20260911">
+    <link rel="stylesheet"
+          href="./website-style.css?v=20260911">
 
     <style>
+
         /* =========================================================
-           JANJUA TRADERS - SIMPLE INTRO WEBSITE
+           JANJUA TRADERS
+           DYNAMIC BUSINESS LANDING PAGE
            ========================================================= */
 
         * {
@@ -29,28 +34,84 @@
         }
 
         body {
+
             font-family:
                 "Noto Nastaliq Urdu",
                 "Noto Sans Arabic",
                 Arial,
                 sans-serif;
 
+            color: #ffffff;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
             background:
                 radial-gradient(
-                    circle at 20% 10%,
-                    rgba(255, 190, 80, 0.15),
+                    circle at 10% 10%,
+                    rgba(0, 190, 255, 0.16),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 25%,
+                    rgba(255, 145, 0, 0.14),
                     transparent 30%
                 ),
                 radial-gradient(
-                    circle at 80% 20%,
-                    rgba(80, 150, 255, 0.15),
-                    transparent 30%
+                    circle at 50% 100%,
+                    rgba(120, 70, 255, 0.13),
+                    transparent 35%
                 ),
-                #07111f;
+                #050b15;
+        }
 
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: -8;
+
+            pointer-events: none;
+
+            opacity: 0.28;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.035) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            animation:
+                gridMove 18s linear infinite;
+        }
+
+        @keyframes gridMove {
+
+            from {
+                background-position:
+                    0 0,
+                    0 0;
+            }
+
+            to {
+                background-position:
+                    55px 55px,
+                    55px 55px;
+            }
         }
 
         a {
@@ -58,63 +119,243 @@
             color: inherit;
         }
 
-        button {
-            font-family: inherit;
+        /* =========================================================
+           DYNAMIC BACKGROUND
+           ========================================================= */
+
+        .dynamic-background {
+
+            position: fixed;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: -5;
+        }
+
+        .orb {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            filter: blur(2px);
+
+            opacity: 0.55;
+
+            mix-blend-mode: screen;
+
+            animation:
+                orbFloat 12s ease-in-out infinite alternate;
+        }
+
+        .orb-one {
+
+            width: 220px;
+            height: 220px;
+
+            left: -70px;
+            top: 15%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0,210,255,0.40),
+                    transparent 70%
+                );
+        }
+
+        .orb-two {
+
+            width: 300px;
+            height: 300px;
+
+            right: -100px;
+            top: 35%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,150,30,0.35),
+                    transparent 70%
+                );
+
+            animation-delay: -3s;
+        }
+
+        .orb-three {
+
+            width: 240px;
+            height: 240px;
+
+            left: 40%;
+            bottom: -100px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(130,80,255,0.35),
+                    transparent 70%
+                );
+
+            animation-delay: -6s;
+        }
+
+        .orb-four {
+
+            width: 160px;
+            height: 160px;
+
+            right: 28%;
+            top: 8%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0,255,180,0.20),
+                    transparent 70%
+                );
+
+            animation-delay: -8s;
+        }
+
+        @keyframes orbFloat {
+
+            0% {
+                transform:
+                    translate3d(0,0,0)
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    translate3d(35px,-30px,0)
+                    scale(1.12);
+            }
+
+            100% {
+                transform:
+                    translate3d(-25px,35px,0)
+                    scale(0.95);
+            }
         }
 
         /* =========================================================
-           BACKGROUND
+           FLOATING PARTICLES
            ========================================================= */
 
-        .background-glow {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
+        .particles {
 
-        .glow {
             position: absolute;
+
+            inset: 0;
+        }
+
+        .particle {
+
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
             border-radius: 50%;
-            filter: blur(70px);
-            opacity: 0.25;
-            animation: floatingGlow 8s ease-in-out infinite alternate;
+
+            background: rgba(255,255,255,0.65);
+
+            box-shadow:
+                0 0 10px rgba(255,255,255,0.5);
+
+            animation:
+                particleFloat 9s linear infinite;
         }
 
-        .glow-one {
-            width: 280px;
-            height: 280px;
-            background: #00b7ff;
-            top: 5%;
-            left: -80px;
+        .p1 {
+            left: 8%;
+            top: 22%;
+            animation-delay: 0s;
         }
 
-        .glow-two {
-            width: 350px;
-            height: 350px;
-            background: #ff8a00;
-            right: -120px;
+        .p2 {
+            left: 18%;
+            top: 70%;
+            animation-delay: -2s;
+        }
+
+        .p3 {
+            left: 31%;
             top: 35%;
-            animation-delay: 2s;
+            animation-delay: -5s;
         }
 
-        .glow-three {
-            width: 250px;
-            height: 250px;
-            background: #8b5cf6;
-            left: 35%;
-            bottom: -100px;
-            animation-delay: 4s;
+        .p4 {
+            left: 47%;
+            top: 18%;
+            animation-delay: -3s;
         }
 
-        @keyframes floatingGlow {
-            from {
-                transform: translateY(0) scale(1);
+        .p5 {
+            left: 59%;
+            top: 77%;
+            animation-delay: -7s;
+        }
+
+        .p6 {
+            left: 72%;
+            top: 31%;
+            animation-delay: -1s;
+        }
+
+        .p7 {
+            left: 83%;
+            top: 68%;
+            animation-delay: -4s;
+        }
+
+        .p8 {
+            left: 94%;
+            top: 15%;
+            animation-delay: -6s;
+        }
+
+        .p9 {
+            left: 25%;
+            top: 90%;
+            animation-delay: -8s;
+        }
+
+        .p10 {
+            left: 67%;
+            top: 52%;
+            animation-delay: -2s;
+        }
+
+        @keyframes particleFloat {
+
+            0% {
+                transform:
+                    translateY(30px)
+                    scale(0.5);
+
+                opacity: 0;
             }
 
-            to {
-                transform: translateY(-35px) scale(1.15);
+            20% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.7;
+            }
+
+            100% {
+                transform:
+                    translateY(-130px)
+                    scale(1.2);
+
+                opacity: 0;
             }
         }
 
@@ -123,92 +364,164 @@
            ========================================================= */
 
         .site-header {
-            width: 100%;
-            padding: 18px 5%;
+
             position: relative;
-            z-index: 20;
+
+            z-index: 30;
+
+            width: 100%;
+
+            padding:
+                18px 5%;
         }
 
         .header-inner {
-            max-width: 1200px;
+
+            max-width: 1250px;
+
             margin: auto;
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
-            padding: 14px 20px;
+            gap: 20px;
 
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            padding:
+                13px 17px;
 
             border-radius: 22px;
 
+            background:
+                rgba(8,18,32,0.62);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
+
             box-shadow:
-                0 15px 50px rgba(0, 0, 0, 0.25);
+                0 20px 70px
+                rgba(0,0,0,0.30);
         }
 
         .brand {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
         }
 
         .brand-logo {
-            width: 46px;
-            height: 46px;
+
+            width: 47px;
+            height: 47px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             border-radius: 15px;
 
+            color: #111;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 18px;
+
+            font-weight: 1000;
+
             background:
                 linear-gradient(
                     135deg,
-                    #ffb347,
-                    #ff6b00
+                    #ffe08e,
+                    #ff7300
                 );
 
-            color: #111;
-            font-size: 22px;
-            font-weight: 900;
-
             box-shadow:
-                0 8px 25px rgba(255, 130, 0, 0.3);
+                0 10px 30px
+                rgba(255,120,0,0.28);
+
+            animation:
+                logoPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(3deg);
+            }
         }
 
         .brand-name {
+
+            font-family: Arial, sans-serif;
+
             font-size: 19px;
-            font-weight: 900;
+
+            font-weight: 1000;
+
             letter-spacing: 0.5px;
         }
 
         .brand-small {
-            font-size: 11px;
-            opacity: 0.65;
-            margin-top: 2px;
+
+            margin-top: 3px;
+
+            font-size: 10px;
+
+            color:
+                rgba(255,255,255,0.58);
         }
 
         .header-shop-btn {
-            padding: 11px 19px;
+
+            padding:
+                11px 20px;
+
             border-radius: 14px;
 
-            background: #ffffff;
-            color: #08111d;
+            color: #101010;
 
-            font-size: 14px;
-            font-weight: 900;
+            background: #ffffff;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 1000;
 
             transition: 0.3s ease;
+
+            box-shadow:
+                0 8px 25px
+                rgba(255,255,255,0.08);
         }
 
         .header-shop-btn:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 30px rgba(255,255,255,0.18);
+
+            transform:
+                translateY(-3px)
+                scale(1.04);
+
+            box-shadow:
+                0 15px 35px
+                rgba(255,255,255,0.15);
         }
 
         /* =========================================================
@@ -216,171 +529,398 @@
            ========================================================= */
 
         .hero {
-            max-width: 1050px;
-            margin: auto;
 
-            text-align: center;
+            max-width: 1050px;
+
+            margin: auto;
 
             padding:
                 70px 20px
                 45px;
+
+            text-align: center;
         }
 
         .hero-badge {
+
             display: inline-flex;
+
             align-items: center;
+
             gap: 8px;
 
-            padding: 8px 15px;
+            padding:
+                8px 17px;
+
+            margin-bottom: 22px;
 
             border-radius: 50px;
 
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #ffd98f;
 
-            color: #ffd18b;
+            background:
+                rgba(255,196,90,0.08);
 
-            font-size: 13px;
-            margin-bottom: 22px;
+            border:
+                1px solid
+                rgba(255,196,90,0.20);
+
+            box-shadow:
+                0 0 30px
+                rgba(255,170,50,0.06);
         }
 
         .hero h1 {
-            font-size: clamp(38px, 7vw, 78px);
-            line-height: 1.05;
+
+            font-family: Arial, sans-serif;
+
+            font-size:
+                clamp(42px, 8vw, 86px);
+
+            line-height: 1;
 
             font-weight: 1000;
+
+            letter-spacing: -2px;
 
             background:
                 linear-gradient(
                     90deg,
                     #ffffff,
-                    #ffd27c,
+                    #ffd27a,
+                    #ffffff,
+                    #9edfff,
                     #ffffff
                 );
 
+            background-size: 250% auto;
+
             -webkit-background-clip: text;
+
             background-clip: text;
+
             color: transparent;
 
-            margin-bottom: 20px;
+            animation:
+                titleFlow 7s linear infinite;
+        }
+
+        @keyframes titleFlow {
+
+            to {
+                background-position:
+                    250% center;
+            }
         }
 
         .hero h2 {
-            font-size: clamp(22px, 4vw, 38px);
-            color: #ffcb78;
-            margin-bottom: 18px;
-        }
 
-        .hero-description {
-            max-width: 760px;
-            margin: auto;
+            margin-top: 18px;
 
-            color: rgba(255,255,255,0.75);
+            color: #ffca78;
 
-            font-size: 17px;
-            line-height: 2;
+            font-size:
+                clamp(22px, 4vw, 34px);
 
-            text-align: center;
-        }
-
-        /* =========================================================
-           PRODUCT ANIMATION AREA
-           ========================================================= */
-
-        .products-section {
-            max-width: 1250px;
-            margin: auto;
-            padding: 35px 20px 65px;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-heading span {
-            display: block;
-
-            color: #ffca76;
-
-            font-size: 13px;
-            margin-bottom: 7px;
-        }
-
-        .section-heading h3 {
-            font-size: clamp(25px, 4vw, 38px);
             font-weight: 900;
         }
 
-        .section-heading p {
+        .hero-description {
+
+            max-width: 760px;
+
+            margin:
+                20px auto 0;
+
+            color:
+                rgba(255,255,255,0.70);
+
+            font-size: 16px;
+
+            line-height: 2.1;
+        }
+
+        /* =========================================================
+           BUSINESS CATEGORIES
+           ========================================================= */
+
+        .business-section {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding:
+                25px 20px
+                55px;
+        }
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+        .section-title .small {
+
+            display: block;
+
+            color: #ffc976;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+        }
+
+        .section-title h3 {
+
+            font-size:
+                clamp(26px, 4vw, 38px);
+
+            font-weight: 1000;
+        }
+
+        .section-title p {
+
             margin-top: 8px;
-            color: rgba(255,255,255,0.55);
-            font-size: 14px;
+
+            color:
+                rgba(255,255,255,0.48);
+
+            font-size: 13px;
         }
 
-        /* Product track */
+        .business-grid {
 
-        .products-window {
-            width: 100%;
-            overflow: hidden;
-            padding: 15px 5px 35px;
-        }
-
-        .products-track {
             display: grid;
 
             grid-template-columns:
-                repeat(4, minmax(0, 1fr));
+                repeat(4, minmax(0,1fr));
 
-            gap: 20px;
+            gap: 17px;
+        }
+
+        .business-card {
+
+            position: relative;
+
+            min-height: 190px;
+
+            padding: 24px 20px;
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.105),
+                    rgba(255,255,255,0.025)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            backdrop-filter:
+                blur(16px);
+
+            -webkit-backdrop-filter:
+                blur(16px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,0.18);
 
             transition:
-                transform 0.8s cubic-bezier(.22,.61,.36,1),
-                opacity 0.45s ease;
+                transform 0.45s ease,
+                border-color 0.45s ease,
+                box-shadow 0.45s ease;
+        }
+
+        .business-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 120px;
+            height: 120px;
+
+            top: -60px;
+            right: -60px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,194,90,0.24),
+                    transparent 70%
+                );
+        }
+
+        .business-card:hover {
+
+            transform:
+                translateY(-9px)
+                rotateX(2deg);
+
+            border-color:
+                rgba(255,196,95,0.35);
+
+            box-shadow:
+                0 30px 65px
+                rgba(0,0,0,0.28),
+                0 0 30px
+                rgba(255,170,50,0.07);
+        }
+
+        .business-icon {
+
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            margin-bottom: 17px;
+
+            font-size: 23px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,207,125,0.22),
+                    rgba(255,117,0,0.12)
+                );
+
+            border:
+                1px solid
+                rgba(255,199,105,0.18);
+
+            box-shadow:
+                0 8px 25px
+                rgba(255,140,30,0.08);
+        }
+
+        .business-card h4 {
+
+            font-family: Arial, sans-serif;
+
+            font-size: 15px;
+
+            font-weight: 1000;
+
+            direction: ltr;
+
+            text-align: right;
+
+            margin-bottom: 9px;
+
+            color: #ffffff;
+        }
+
+        .business-card p {
+
+            color:
+                rgba(255,255,255,0.62);
+
+            font-size: 13px;
+
+            line-height: 1.9;
+        }
+
+        /* =========================================================
+           DYNAMIC PRODUCTS
+           ========================================================= */
+
+        .products-section {
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding:
+                25px 20px
+                60px;
+        }
+
+        .products-window {
+
+            width: 100%;
+
+            overflow: hidden;
+
+            padding:
+                15px 5px
+                30px;
+        }
+
+        .products-track {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4,minmax(0,1fr));
+
+            gap: 19px;
+
+            transition:
+                opacity 0.45s ease,
+                transform 0.65s ease;
         }
 
         .products-track.changing {
+
             opacity: 0;
+
             transform:
                 translateY(18px)
                 scale(0.97);
         }
 
-        /* =========================================================
-           3D PRODUCT CARD
-           ========================================================= */
-
         .product-card {
-            min-height: 220px;
 
             position: relative;
 
+            min-height: 230px;
+
             padding: 24px;
 
-            border-radius: 28px;
+            overflow: hidden;
+
+            border-radius: 27px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(255,255,255,0.14),
-                    rgba(255,255,255,0.035)
+                    rgba(255,255,255,0.13),
+                    rgba(255,255,255,0.025)
                 );
 
-            border: 1px solid rgba(255,255,255,0.14);
+            border:
+                1px solid
+                rgba(255,255,255,0.13);
 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter:
+                blur(16px);
+
+            -webkit-backdrop-filter:
+                blur(16px);
 
             box-shadow:
-                0 25px 50px rgba(0,0,0,0.22),
-                inset 0 1px 0 rgba(255,255,255,0.12);
-
-            overflow: hidden;
+                0 25px 55px
+                rgba(0,0,0,0.22);
 
             transform:
-                perspective(900px)
-                rotateX(0deg)
-                rotateY(0deg);
+                perspective(900px);
 
             transition:
                 transform 0.45s ease,
@@ -389,95 +929,109 @@
         }
 
         .product-card:hover {
+
             transform:
                 perspective(900px)
                 rotateX(4deg)
                 rotateY(-5deg)
-                translateY(-10px);
+                translateY(-9px);
 
             border-color:
-                rgba(255, 200, 100, 0.5);
+                rgba(255,201,110,0.40);
 
             box-shadow:
-                0 35px 65px rgba(0,0,0,0.35),
-                0 0 35px rgba(255,170,70,0.10);
+                0 35px 70px
+                rgba(0,0,0,0.35),
+                0 0 30px
+                rgba(255,170,70,0.08);
         }
 
         .card-light {
+
             position: absolute;
 
-            width: 130px;
-            height: 130px;
+            width: 150px;
+            height: 150px;
+
+            right: -65px;
+            top: -65px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(255,194,94,0.28),
+                    rgba(255,193,90,0.25),
                     transparent 70%
                 );
-
-            top: -55px;
-            right: -45px;
-
-            pointer-events: none;
         }
 
         .product-number {
+
             width: 44px;
             height: 44px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
             border-radius: 14px;
 
+            margin-bottom: 25px;
+
             background:
                 linear-gradient(
                     135deg,
-                    #ffcf82,
-                    #ff7b00
+                    #ffd484,
+                    #ff7600
                 );
 
-            color: #101010;
+            color: #111;
 
-            font-size: 15px;
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
             font-weight: 1000;
 
-            margin-bottom: 28px;
-
             box-shadow:
-                0 10px 25px rgba(255,126,0,0.20);
+                0 10px 25px
+                rgba(255,120,0,0.18);
         }
 
         .product-name {
-            font-size: 21px;
+
+            font-size: 20px;
+
             font-weight: 900;
 
-            color: #ffffff;
-
-            margin-bottom: 10px;
-
             line-height: 1.5;
+
+            margin-bottom: 8px;
         }
 
         .product-category {
-            color: #ffc873;
-            font-size: 13px;
 
-            min-height: 20px;
+            color: #ffc873;
+
+            font-size: 12px;
         }
 
         .product-shine {
+
             position: absolute;
 
-            left: -100%;
+            left: -110%;
+
             top: 0;
 
             width: 55%;
+
             height: 100%;
+
+            transform:
+                skewX(-18deg);
 
             background:
                 linear-gradient(
@@ -487,168 +1041,265 @@
                     transparent
                 );
 
-            transform: skewX(-18deg);
-
             animation:
-                cardShine 5s ease-in-out infinite;
+                shineMove 5.5s ease-in-out infinite;
         }
 
-        @keyframes cardShine {
+        @keyframes shineMove {
+
             0% {
-                left: -100%;
+                left: -110%;
             }
 
             45%,
             100% {
-                left: 150%;
+                left: 160%;
             }
         }
 
-        /* =========================================================
-           SHOP NOW
-           ========================================================= */
+        .products-message {
 
-        .shop-section {
+            grid-column: 1 / -1;
+
             text-align: center;
-            padding: 20px 20px 75px;
+
+            padding: 45px 20px;
+
+            border-radius: 25px;
+
+            border:
+                1px dashed
+                rgba(255,255,255,0.14);
+
+            color:
+                rgba(255,255,255,0.55);
         }
 
-        .shop-box {
-            max-width: 850px;
+        /* =========================================================
+           WHOLESALE / DEALERS
+           ========================================================= */
+
+        .wholesale-section {
+
+            max-width: 1050px;
+
             margin: auto;
 
-            padding: 38px 25px;
+            padding:
+                10px 20px
+                65px;
+        }
+
+        .wholesale-box {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding:
+                38px 30px;
 
             border-radius: 30px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255,185,80,0.14),
-                    rgba(255,255,255,0.045)
+                    rgba(255,188,77,0.13),
+                    rgba(255,255,255,0.035)
                 );
 
-            border: 1px solid rgba(255,196,105,0.2);
+            border:
+                1px solid
+                rgba(255,197,100,0.18);
 
             box-shadow:
-                0 25px 60px rgba(0,0,0,0.2);
+                0 25px 70px
+                rgba(0,0,0,0.22);
         }
 
-        .shop-box h3 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
+        .wholesale-box::after {
 
-        .shop-box p {
-            color: rgba(255,255,255,0.65);
-            line-height: 1.9;
-            margin-bottom: 25px;
-        }
+            content: "";
 
-        .shop-now {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
+            position: absolute;
 
-            min-width: 190px;
+            width: 220px;
+            height: 220px;
 
-            padding: 15px 28px;
+            left: -100px;
+            bottom: -120px;
 
-            border-radius: 17px;
+            border-radius: 50%;
 
             background:
-                linear-gradient(
-                    135deg,
-                    #ffd17f,
-                    #ff7a00
+                radial-gradient(
+                    circle,
+                    rgba(0,210,255,0.12),
+                    transparent 70%
                 );
+        }
 
-            color: #111;
+        .wholesale-box h3 {
 
-            font-size: 16px;
+            font-size:
+                clamp(24px,4vw,32px);
+
+            margin-bottom: 15px;
+
             font-weight: 1000;
+        }
 
-            box-shadow:
-                0 14px 35px rgba(255,125,0,0.25);
+        .wholesale-box p {
+
+            color:
+                rgba(255,255,255,0.67);
+
+            font-size: 14px;
+
+            line-height: 2;
+        }
+
+        .wholesale-email {
+
+            display: inline-flex;
+
+            direction: ltr;
+
+            margin-top: 20px;
+
+            padding:
+                12px 19px;
+
+            border-radius: 13px;
+
+            color: #ffd28a;
+
+            background:
+                rgba(255,194,90,0.08);
+
+            border:
+                1px solid
+                rgba(255,194,90,0.20);
+
+            font-family: Arial, sans-serif;
+
+            font-weight: 700;
 
             transition: 0.3s ease;
         }
 
-        .shop-now:hover {
-            transform:
-                translateY(-5px)
-                scale(1.03);
+        .wholesale-email:hover {
 
-            box-shadow:
-                0 20px 45px rgba(255,125,0,0.35);
+            transform:
+                translateY(-3px);
+
+            background:
+                rgba(255,194,90,0.14);
         }
 
         /* =========================================================
-           SELL WITH US
+           SHOP
            ========================================================= */
 
-        .seller-section {
-            max-width: 900px;
-            margin: auto;
-
-            padding: 0 20px 70px;
+        .shop-section {
 
             text-align: center;
+
+            padding:
+                10px 20px
+                75px;
         }
 
-        .seller-box {
-            padding: 30px 25px;
+        .shop-box {
 
-            border-radius: 25px;
+            max-width: 850px;
+
+            margin: auto;
+
+            padding:
+                40px 25px;
+
+            border-radius: 30px;
 
             background:
                 rgba(255,255,255,0.045);
 
             border:
-                1px solid rgba(255,255,255,0.10);
+                1px solid
+                rgba(255,255,255,0.10);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.20);
         }
 
-        .seller-box h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
+        .shop-box h3 {
+
+            font-size: 28px;
+
+            margin-bottom: 10px;
         }
 
-        .seller-box p {
-            color: rgba(255,255,255,0.65);
-            line-height: 2;
-            font-size: 15px;
+        .shop-box p {
+
+            color:
+                rgba(255,255,255,0.62);
+
+            line-height: 1.9;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
         }
 
-        .email-link {
-            display: inline-block;
+        .shop-now {
 
-            margin-top: 17px;
+            display: inline-flex;
 
-            padding: 11px 18px;
+            align-items: center;
 
-            border-radius: 12px;
+            justify-content: center;
+
+            gap: 9px;
+
+            min-width: 200px;
+
+            padding:
+                15px 28px;
+
+            border-radius: 17px;
+
+            color: #111;
 
             background:
-                rgba(255,196,105,0.10);
-
-            border:
-                1px solid rgba(255,196,105,0.22);
-
-            color: #ffd18b;
-
-            direction: ltr;
+                linear-gradient(
+                    135deg,
+                    #ffd37f,
+                    #ff7600
+                );
 
             font-family: Arial, sans-serif;
+
+            font-size: 15px;
+
+            font-weight: 1000;
+
+            box-shadow:
+                0 15px 35px
+                rgba(255,120,0,0.22);
 
             transition: 0.3s ease;
         }
 
-        .email-link:hover {
-            background:
-                rgba(255,196,105,0.18);
+        .shop-now:hover {
 
-            transform: translateY(-2px);
+            transform:
+                translateY(-5px)
+                scale(1.04);
+
+            box-shadow:
+                0 22px 45px
+                rgba(255,120,0,0.32);
         }
 
         /* =========================================================
@@ -656,55 +1307,52 @@
            ========================================================= */
 
         footer {
+
             text-align: center;
 
-            padding: 28px 20px;
+            padding:
+                30px 20px;
 
             border-top:
-                1px solid rgba(255,255,255,0.08);
+                1px solid
+                rgba(255,255,255,0.08);
 
-            color: rgba(255,255,255,0.45);
+            color:
+                rgba(255,255,255,0.42);
 
             font-size: 12px;
         }
 
         footer strong {
+
             color: #ffd18b;
+
+            font-family: Arial, sans-serif;
         }
 
         /* =========================================================
-           EMPTY / LOADING
+           LOADING
            ========================================================= */
 
-        .products-message {
-            grid-column: 1 / -1;
-
-            text-align: center;
-
-            padding: 45px 20px;
-
-            color: rgba(255,255,255,0.55);
-
-            border:
-                1px dashed rgba(255,255,255,0.15);
-
-            border-radius: 25px;
-        }
-
         .loading-dot {
+
             display: inline-block;
 
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
+
+            margin:
+                0 4px;
 
             border-radius: 50%;
 
             background: #ffbd67;
 
-            margin: 0 4px;
-
             animation:
-                loadingPulse 0.9s infinite alternate;
+                loadingPulse
+                0.9s
+                infinite
+                alternate;
         }
 
         .loading-dot:nth-child(2) {
@@ -716,6 +1364,7 @@
         }
 
         @keyframes loadingPulse {
+
             from {
                 opacity: 0.25;
                 transform: translateY(0);
@@ -731,15 +1380,18 @@
            RESPONSIVE
            ========================================================= */
 
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
 
-            .products-track {
+            .business-grid {
+
                 grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+                    repeat(2,minmax(0,1fr));
             }
 
-            .product-card {
-                min-height: 200px;
+            .products-track {
+
+                grid-template-columns:
+                    repeat(2,minmax(0,1fr));
             }
         }
 
@@ -750,13 +1402,18 @@
             }
 
             .header-inner {
-                padding: 10px 12px;
+
+                padding:
+                    10px 12px;
+
                 border-radius: 17px;
             }
 
             .brand-logo {
+
                 width: 40px;
                 height: 40px;
+
                 border-radius: 12px;
             }
 
@@ -769,100 +1426,220 @@
             }
 
             .header-shop-btn {
-                padding: 9px 12px;
-                font-size: 12px;
+
+                padding:
+                    9px 12px;
+
+                font-size: 11px;
             }
 
             .hero {
+
                 padding:
-                    45px 18px
-                    30px;
+                    48px 18px
+                    35px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
             }
 
             .hero-description {
+
                 font-size: 14px;
+
                 line-height: 2;
             }
 
+            .business-section,
             .products-section {
+
                 padding:
                     25px 13px
                     45px;
             }
 
-            .products-track {
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+            .business-grid {
 
-                gap: 12px;
+                grid-template-columns:
+                    repeat(2,minmax(0,1fr));
+
+                gap: 10px;
+            }
+
+            .business-card {
+
+                min-height: 175px;
+
+                padding:
+                    17px 14px;
+
+                border-radius: 20px;
+            }
+
+            .business-icon {
+
+                width: 42px;
+                height: 42px;
+
+                margin-bottom: 12px;
+            }
+
+            .business-card h4 {
+                font-size: 12px;
+            }
+
+            .business-card p {
+                font-size: 11px;
+                line-height: 1.8;
+            }
+
+            .products-track {
+
+                grid-template-columns:
+                    repeat(2,minmax(0,1fr));
+
+                gap: 10px;
             }
 
             .product-card {
-                min-height: 175px;
-                padding: 17px;
-                border-radius: 21px;
+
+                min-height: 180px;
+
+                padding: 16px;
+
+                border-radius: 20px;
             }
 
             .product-number {
-                width: 35px;
-                height: 35px;
+
+                width: 36px;
+                height: 36px;
+
                 border-radius: 11px;
-                margin-bottom: 20px;
+
+                margin-bottom: 18px;
+
                 font-size: 12px;
             }
 
             .product-name {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             .product-category {
-                font-size: 11px;
+                font-size: 10px;
+            }
+
+            .wholesale-section {
+
+                padding:
+                    5px 15px
+                    45px;
+            }
+
+            .wholesale-box {
+
+                padding:
+                    28px 20px;
+
+                border-radius: 23px;
+            }
+
+            .wholesale-box p {
+
+                font-size: 13px;
+
+                line-height: 2;
+            }
+
+            .shop-section {
+
+                padding:
+                    5px 15px
+                    55px;
             }
 
             .shop-box {
-                padding: 30px 18px;
+
+                padding:
+                    30px 18px;
+
                 border-radius: 23px;
             }
 
             .shop-box h3 {
                 font-size: 23px;
             }
-
-            .seller-box {
-                border-radius: 20px;
-            }
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 370px) {
 
+            .business-grid,
             .products-track {
-                grid-template-columns:
-                    1fr 1fr;
 
-                gap: 9px;
+                gap: 8px;
+            }
+
+            .business-card {
+                padding: 14px 11px;
+            }
+
+            .business-card h4 {
+                font-size: 11px;
+            }
+
+            .business-card p {
+                font-size: 10px;
             }
 
             .product-card {
-                padding: 14px;
+                padding: 13px;
             }
 
             .product-name {
-                font-size: 14px;
+                font-size: 13px;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
     <!-- =========================================================
-         BACKGROUND
+         DYNAMIC BACKGROUND
          ========================================================= -->
 
-    <div class="background-glow">
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
-        <div class="glow glow-three"></div>
+    <div class="dynamic-background">
+
+        <div class="orb orb-one"></div>
+
+        <div class="orb orb-two"></div>
+
+        <div class="orb orb-three"></div>
+
+        <div class="orb orb-four"></div>
+
+
+        <div class="particles">
+
+            <span class="particle p1"></span>
+            <span class="particle p2"></span>
+            <span class="particle p3"></span>
+            <span class="particle p4"></span>
+            <span class="particle p5"></span>
+            <span class="particle p6"></span>
+            <span class="particle p7"></span>
+            <span class="particle p8"></span>
+            <span class="particle p9"></span>
+            <span class="particle p10"></span>
+
+        </div>
+
     </div>
 
 
@@ -874,13 +1651,17 @@
 
         <div class="header-inner">
 
-            <a href="./index.html" class="brand">
+            <a
+                href="./index.html"
+                class="brand"
+            >
 
                 <div class="brand-logo">
                     JT
                 </div>
 
                 <div>
+
                     <div class="brand-name">
                         JANJUA TRADERS
                     </div>
@@ -888,6 +1669,7 @@
                     <div class="brand-small">
                         آپ کی ضرورت، ہماری ذمہ داری
                     </div>
+
                 </div>
 
             </a>
@@ -906,10 +1688,15 @@
 
 
     <!-- =========================================================
-         HERO / INTRODUCTION
+         MAIN
          ========================================================= -->
 
     <main>
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
 
         <section class="hero">
 
@@ -917,21 +1704,137 @@
                 ✦ JANJUA TRADERS ✦
             </div>
 
+
             <h1>
                 JANJUA TRADERS
             </h1>
+
 
             <h2>
                 آپ کی ضرورت، ہماری ذمہ داری
             </h2>
 
+
             <p class="hero-description">
-                JANJUA TRADERS ایک ایسا پلیٹ فارم ہے جہاں مختلف
-                ضروری مصنوعات اور خدمات کو آسان انداز میں آپ تک
-                پہنچانے کی کوشش کی جاتی ہے۔
-                ہماری کوشش ہے کہ آپ کو اپنی ضرورت کے لیے
-                ایک آسان اور قابلِ اعتماد راستہ فراہم کیا جائے۔
+
+                مختلف ضروریات، مصنوعات اور کاروباری خدمات
+                کو ایک ہی پلیٹ فارم کے تحت آسان انداز میں
+                دستیاب کرنے کی کوشش۔
+
             </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             BUSINESS CATEGORIES
+             ===================================================== -->
+
+        <section class="business-section">
+
+
+            <div class="section-title">
+
+                <span class="small">
+                    ہماری خدمات اور شعبے
+                </span>
+
+                <h3>
+                    ایک پلیٹ فارم، مختلف ضروریات
+                </h3>
+
+                <p>
+                    JANJUA TRADERS کے تحت مختلف شعبوں میں
+                    مصنوعات اور خدمات کو شامل کیا جا رہا ہے۔
+                </p>
+
+            </div>
+
+
+            <div class="business-grid">
+
+
+                <!-- Construction -->
+
+                <div class="business-card">
+
+                    <div class="business-icon">
+                        🏗️
+                    </div>
+
+                    <h4>
+                        CONSTRUCTION MATERIAL
+                    </h4>
+
+                    <p>
+                        ریت، بجری، کرش، اینٹ، سیمنٹ
+                        اور دیگر تعمیراتی سامان۔
+                    </p>
+
+                </div>
+
+
+                <!-- Vehicles -->
+
+                <div class="business-card">
+
+                    <div class="business-icon">
+                        🚗
+                    </div>
+
+                    <h4>
+                        VEHICLES & CAR RENTAL
+                    </h4>
+
+                    <p>
+                        گاڑیوں کی خرید و فروخت،
+                        Rent a Car اور ڈیلر سروسز۔
+                    </p>
+
+                </div>
+
+
+                <!-- Travel -->
+
+                <div class="business-card">
+
+                    <div class="business-icon">
+                        ✈️
+                    </div>
+
+                    <h4>
+                        TRAVEL & HOTEL SERVICES
+                    </h4>
+
+                    <p>
+                        Visa، Tickets، Hotel Booking
+                        اور دیگر سفری سہولیات۔
+                    </p>
+
+                </div>
+
+
+                <!-- Products -->
+
+                <div class="business-card">
+
+                    <div class="business-icon">
+                        🛍️
+                    </div>
+
+                    <h4>
+                        PRODUCTS
+                    </h4>
+
+                    <p>
+                        کھانے پینے کی اشیاء، روزمرہ استعمال
+                        کی مصنوعات اور دیگر دستیاب اشیاء۔
+                    </p>
+
+                </div>
+
+
+            </div>
 
         </section>
 
@@ -942,19 +1845,20 @@
 
         <section class="products-section">
 
-            <div class="section-heading">
 
-                <span>
+            <div class="section-title">
+
+                <span class="small">
                     ہماری موجودہ مصنوعات
                 </span>
 
                 <h3>
-                    جو چیزیں اس وقت دستیاب ہیں
+                    دستیاب مصنوعات
                 </h3>
 
                 <p>
-                    یہ فہرست Admin Panel میں شامل کی گئی مصنوعات سے
-                    خودکار طور پر تبدیل ہوتی رہے گی۔
+                    Admin Panel میں شامل مصنوعات یہاں
+                    خودکار طور پر ظاہر ہوتی رہیں گی۔
                 </p>
 
             </div>
@@ -972,9 +1876,11 @@
                         مصنوعات لوڈ ہو رہی ہیں
 
                         <div style="margin-top:12px;">
+
                             <span class="loading-dot"></span>
                             <span class="loading-dot"></span>
                             <span class="loading-dot"></span>
+
                         </div>
 
                     </div>
@@ -987,22 +1893,81 @@
 
 
         <!-- =====================================================
+             WHOLESALE / DEALERS
+             ===================================================== -->
+
+        <section class="wholesale-section">
+
+
+            <div class="wholesale-box">
+
+
+                <h3>
+                    WHOLESALE & DEALERS
+                </h3>
+
+
+                <p>
+
+                    اپنی مصنوعات یا روزمرہ استعمال کی اشیاء
+                    JANJUA TRADERS کے ذریعے فروخت کروانا چاہتے ہیں؟
+
+                    <br>
+
+                    تعمیراتی سامان، روزمرہ استعمال کی مصنوعات،
+                    خوراک، کاروباری اشیاء، مویشی اور دیگر
+                    قانونی طور پر قابلِ فروخت اشیاء کے لیے
+                    ہم سے رابطہ کریں۔
+
+                    <br>
+
+                    اپنی پروڈکٹ، قیمت اور کمیشن / سروس فیس
+                    کی تفصیل Email پر بھیجیں۔
+
+                    <br>
+
+                    ہماری ٹیم مناسب قیمت اور شرائط کے ساتھ
+                    درخواست کا جائزہ لے کر آپ سے رابطہ کرے گی۔
+
+                </p>
+
+
+                <a
+                    href="mailto:info24.pk@gmail.com"
+                    class="wholesale-email"
+                >
+                    info24.pk@gmail.com
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
              SHOP NOW
              ===================================================== -->
 
         <section class="shop-section">
 
+
             <div class="shop-box">
+
 
                 <h3>
                     خریداری کرنی ہے؟
                 </h3>
 
+
                 <p>
+
                     ہماری مکمل Shopping App میں داخل ہوں،
-                    اپنی مطلوبہ پروڈکٹ دیکھیں اور وہاں سے
-                    اپنی خریداری کا عمل مکمل کریں۔
+                    دستیاب مصنوعات دیکھیں اور اپنی خریداری
+                    کا عمل وہاں سے مکمل کریں۔
+
                 </p>
+
 
                 <a
                     href="../shop.html"
@@ -1011,42 +1976,11 @@
                     🛒 SHOP NOW
                 </a>
 
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             SELL WITH US
-             ===================================================== -->
-
-        <section class="seller-section">
-
-            <div class="seller-box">
-
-                <h3>
-                    اپنی چیز آن لائن فروخت کروانا چاہتے ہیں؟
-                </h3>
-
-                <p>
-                    اگر آپ اپنی مصنوعات یا کوئی چیز
-                    JANJUA TRADERS کے ذریعے آن لائن فروخت
-                    کروانا چاہتے ہیں تو ہماری Email پر
-                    رابطہ کریں۔
-                    ہماری ٹیم آپ کی درخواست کا جائزہ لے کر
-                    جلد از جلد آپ سے رابطہ کرنے کی کوشش کرے گی۔
-                </p>
-
-                <a
-                    href="mailto:info24.pk@gmail.com"
-                    class="email-link"
-                >
-                    info24.pk@gmail.com
-                </a>
 
             </div>
 
         </section>
+
 
     </main>
 
@@ -1077,5 +2011,7 @@
         src="./website-script.js?v=20260911"
     ></script>
 
+
 </body>
+
 </html>
