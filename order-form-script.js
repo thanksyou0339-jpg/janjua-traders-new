@@ -12,33 +12,16 @@ import {
 // =====================================================
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyA8_4KXKAdfKWZ5mi5DaT9qiayL3h_Yzw",
-
-    authDomain:
-        "janjua-traders.firebaseapp.com",
-
-    projectId:
-        "janjua-traders",
-
-    storageBucket:
-        "janjua-traders.firebasestorage.app",
-
-    messagingSenderId:
-        "154904774188",
-
-    appId:
-        "1:154904774188:web:1830f9d533e77dae6a7389"
-
+    apiKey: "AIzaSyA8_4KXKAdfKWZ5mi5DaT9qiayL3h_Yzw",
+    authDomain: "janjua-traders.firebaseapp.com",
+    projectId: "janjua-traders",
+    storageBucket: "janjua-traders.firebasestorage.app",
+    messagingSenderId: "154904774188",
+    appId: "1:154904774188:web:1830f9d533e77dae6a7389"
 };
 
-
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 
 // =====================================================
@@ -46,84 +29,52 @@ const db =
 // =====================================================
 
 const productImageEl =
-    document.getElementById(
-        "productImage"
-    );
+    document.getElementById("productImage");
 
 const productNameEl =
-    document.getElementById(
-        "productName"
-    );
+    document.getElementById("productName");
 
 const productDescriptionEl =
-    document.getElementById(
-        "productDescription"
-    );
+    document.getElementById("productDescription");
 
 const productPriceEl =
-    document.getElementById(
-        "productPrice"
-    );
+    document.getElementById("productPrice");
 
 const oldPriceEl =
-    document.getElementById(
-        "oldPrice"
-    );
+    document.getElementById("oldPrice");
 
 const deliveryBadgeEl =
-    document.getElementById(
-        "deliveryBadge"
-    );
+    document.getElementById("deliveryBadge");
 
 const deliveryNoteEl =
-    document.getElementById(
-        "deliveryNote"
-    );
+    document.getElementById("deliveryNote");
 
 const form =
-    document.getElementById(
-        "orderForm"
-    );
+    document.getElementById("orderForm");
 
 const customerName =
-    document.getElementById(
-        "customerName"
-    );
+    document.getElementById("customerName");
 
 const mobile =
-    document.getElementById(
-        "mobile"
-    );
+    document.getElementById("mobile");
 
 const address =
-    document.getElementById(
-        "address"
-    );
+    document.getElementById("address");
 
 const quantity =
-    document.getElementById(
-        "quantity"
-    );
+    document.getElementById("quantity");
 
 const platform =
-    document.getElementById(
-        "platform"
-    );
+    document.getElementById("platform");
 
 const color =
-    document.getElementById(
-        "color"
-    );
+    document.getElementById("color");
 
 const size =
-    document.getElementById(
-        "size"
-    );
+    document.getElementById("size");
 
 const receiptSection =
-    document.getElementById(
-        "receiptSection"
-    );
+    document.getElementById("receiptSection");
 
 
 // =====================================================
@@ -131,64 +82,40 @@ const receiptSection =
 // =====================================================
 
 const hiddenOrderId =
-    document.getElementById(
-        "hiddenOrderId"
-    );
+    document.getElementById("hiddenOrderId");
 
 const hiddenProduct =
-    document.getElementById(
-        "hiddenProduct"
-    );
+    document.getElementById("hiddenProduct");
 
 const hiddenDescription =
-    document.getElementById(
-        "hiddenDescription"
-    );
+    document.getElementById("hiddenDescription");
 
 const hiddenPrice =
-    document.getElementById(
-        "hiddenPrice"
-    );
+    document.getElementById("hiddenPrice");
 
 const hiddenOldPrice =
-    document.getElementById(
-        "hiddenOldPrice"
-    );
+    document.getElementById("hiddenOldPrice");
 
 const hiddenProductId =
-    document.getElementById(
-        "hiddenProductId"
-    );
+    document.getElementById("hiddenProductId");
 
 const hiddenProductImage =
-    document.getElementById(
-        "hiddenProductImage"
-    );
+    document.getElementById("hiddenProductImage");
 
 const hiddenDeliveryStatus =
-    document.getElementById(
-        "hiddenDeliveryStatus"
-    );
+    document.getElementById("hiddenDeliveryStatus");
 
 const hiddenDeliveryCharges =
-    document.getElementById(
-        "hiddenDeliveryCharges"
-    );
+    document.getElementById("hiddenDeliveryCharges");
 
 const hiddenTotal =
-    document.getElementById(
-        "hiddenTotal"
-    );
+    document.getElementById("hiddenTotal");
 
 const hiddenJanjuaLink =
-    document.getElementById(
-        "hiddenJanjuaLink"
-    );
+    document.getElementById("hiddenJanjuaLink");
 
 const hiddenSupplierLink =
-    document.getElementById(
-        "hiddenSupplierLink"
-    );
+    document.getElementById("hiddenSupplierLink");
 
 
 // =====================================================
@@ -196,16 +123,12 @@ const hiddenSupplierLink =
 // =====================================================
 
 const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
+    new URLSearchParams(window.location.search);
 
 const productIdFromURL =
     params.get("Product_ID") ||
     params.get("productId") ||
     "";
-
 
 const supplierLinkFromURL =
     params.get("Supplier_Link") ||
@@ -219,50 +142,40 @@ const supplierLinkFromURL =
 
 let productData = {
 
-    id:
-        productIdFromURL,
+    id: productIdFromURL,
 
     name:
-        params.get("Product") ||
-        "",
+        params.get("Product") || "",
 
     description:
-        params.get("Product_Description") ||
-        "",
+        params.get("Product_Description") || "",
 
     price:
         Number(
-            params.get("Product_Price") ||
-            0
+            params.get("Product_Price") || 0
         ),
 
     oldPrice:
         Number(
-            params.get("Old_Price") ||
-            0
+            params.get("Old_Price") || 0
         ),
 
     category:
-        params.get("Category") ||
-        "",
+        params.get("Category") || "",
 
     image:
-        params.get("Product_Image") ||
-        "",
+        params.get("Product_Image") || "",
 
     deliveryType:
-        params.get("Delivery_Type") ||
-        "",
+        params.get("Delivery_Type") || "",
 
     deliveryCharges:
         Number(
-            params.get("Delivery_Charges") ||
-            0
+            params.get("Delivery_Charges") || 0
         ),
 
     supplierLink:
-        supplierLinkFromURL ||
-        ""
+        supplierLinkFromURL || ""
 
 };
 
@@ -274,29 +187,17 @@ let productData = {
 function optimizeImage(url) {
 
     if (!url) {
-
         return "";
-
     }
 
-    url =
-        String(url).trim();
-
+    url = String(url).trim();
 
     if (
-        url.includes(
-            "res.cloudinary.com"
-        ) &&
-        url.includes(
-            "/image/upload/"
-        )
+        url.includes("res.cloudinary.com") &&
+        url.includes("/image/upload/")
     ) {
 
-        if (
-            !url.includes(
-                "f_auto"
-            )
-        ) {
+        if (!url.includes("f_auto")) {
 
             return url.replace(
                 "/image/upload/",
@@ -322,10 +223,9 @@ function money(value) {
 
     return (
         "Rs. " +
-        number.toLocaleString(
-            "en-PK"
-        )
+        number.toLocaleString("en-PK")
     );
+
 }
 
 
@@ -338,54 +238,31 @@ function generateOrderId() {
     const now =
         new Date();
 
-
     const datePart =
         now.getFullYear().toString() +
-
         String(
             now.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        ) +
-
+        ).padStart(2, "0") +
         String(
             now.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
+        ).padStart(2, "0");
 
     const timePart =
         String(
             now.getHours()
-        ).padStart(
-            2,
-            "0"
-        ) +
-
+        ).padStart(2, "0") +
         String(
             now.getMinutes()
-        ).padStart(
-            2,
-            "0"
-        ) +
-
+        ).padStart(2, "0") +
         String(
             now.getSeconds()
-        ).padStart(
-            2,
-            "0"
-        );
-
+        ).padStart(2, "0");
 
     const randomPart =
         Math.floor(
             1000 +
             Math.random() * 9000
         );
-
 
     return (
         "JT-" +
@@ -395,6 +272,7 @@ function generateOrderId() {
         "-" +
         randomPart
     );
+
 }
 
 
@@ -410,159 +288,14 @@ function getJanjuaOrderLink() {
 
 
 // =====================================================
-// CATEGORY NORMALIZATION
-// =====================================================
-//
-// اس function کا مقصد یہ ہے کہ:
-//
-// Cars — Rent
-// Cars - Rent
-// Cars–Rent
-// cars — rent
-//
-// سب کو ایک ہی category سمجھا جائے۔
-// =====================================================
-
-function normalizeCategory(category) {
-
-    return String(
-        category || ""
-    )
-
-    .trim()
-
-    .toLowerCase()
-
-    // مختلف dash کو ایک dash بنائیں
-    .replace(
-        /[‐-‒–—―]/g,
-        "-"
-    )
-
-    // spaces کو normalize کریں
-    .replace(
-        /\s+/g,
-        " "
-    )
-
-    // dash کے دونوں طرف spaces ختم کریں
-    .replace(
-        /\s*-\s*/g,
-        "-"
-    )
-
-    .trim();
-}
-
-
-// =====================================================
-// CATEGORY CHECK
-// =====================================================
-
-function isCarsRentCategory() {
-
-    const category =
-        normalizeCategory(
-            productData.category
-        );
-
-    return (
-
-        category ===
-            "cars-rent"
-
-        ||
-
-        category.includes(
-            "cars-rent"
-        )
-
-        ||
-
-        (
-            category.includes("cars") &&
-            category.includes("rent")
-        )
-
-    );
-}
-
-
-function isPropertyRentCategory() {
-
-    const category =
-        normalizeCategory(
-            productData.category
-        );
-
-    return (
-
-        category ===
-            "property-rent"
-
-        ||
-
-        category.includes(
-            "property-rent"
-        )
-
-        ||
-
-        (
-            category.includes("property") &&
-            category.includes("rent")
-        )
-
-    );
-}
-
-
-function isConstructionCategory() {
-
-    const category =
-        normalizeCategory(
-            productData.category
-        );
-
-    return (
-
-        category ===
-            "construction-material"
-
-        ||
-
-        category.includes(
-            "construction-material"
-        )
-
-        ||
-
-        category.includes(
-            "construction"
-        )
-
-        ||
-
-        category.includes(
-            "construction material"
-        )
-
-    );
-}
-
-
-// =====================================================
-// LOAD PRODUCT FROM FIRESTORE
+// LOAD PRODUCT
 // =====================================================
 
 async function loadProductFromFirestore() {
 
     if (!productIdFromURL) {
-
         return;
-
     }
-
 
     try {
 
@@ -574,7 +307,6 @@ async function loadProductFromFirestore() {
                 )
             );
 
-
         let foundProduct =
             null;
 
@@ -585,28 +317,21 @@ async function loadProductFromFirestore() {
                 const data =
                     doc.data();
 
-
                 const id =
                     data.Product_ID ||
                     data.productId ||
                     data.id ||
                     "";
 
-
                 if (
                     String(id) ===
-                    String(
-                        productIdFromURL
-                    )
+                    String(productIdFromURL)
                 ) {
 
                     foundProduct = {
-
                         firestoreId:
                             doc.id,
-
                         ...data
-
                     };
 
                 }
@@ -624,13 +349,6 @@ async function loadProductFromFirestore() {
             return;
 
         }
-
-
-        productData.id =
-            foundProduct.Product_ID ||
-            foundProduct.productId ||
-            productData.id ||
-            productIdFromURL;
 
 
         productData.name =
@@ -662,21 +380,10 @@ async function loadProductFromFirestore() {
             );
 
 
-        // =================================================
-        // CATEGORY
-        // =================================================
-
         productData.category =
             foundProduct.Category ||
-            foundProduct.category ||
             productData.category ||
             "";
-
-
-        console.log(
-            "PRODUCT CATEGORY:",
-            productData.category
-        );
 
 
         productData.image =
@@ -701,9 +408,7 @@ async function loadProductFromFirestore() {
             );
 
 
-        // =================================================
         // SUPPLIER LINK — DO NOT REMOVE
-        // =================================================
 
         productData.supplierLink =
             foundProduct.supplierLink ||
@@ -954,20 +659,16 @@ function updateHiddenFields() {
 
     const qty =
         Number(
-            quantity?.value ||
-            1
+            quantity?.value || 1
         );
 
 
     const total =
         (
             Number(
-                productData.price ||
-                0
-            ) *
-            qty
+                productData.price || 0
+            ) * qty
         ) +
-
         Number(
             productData.deliveryCharges ||
             0
@@ -1003,7 +704,6 @@ function updateHiddenFields() {
             "formUrl"
         );
 
-
     if (formUrl) {
 
         formUrl.value =
@@ -1025,298 +725,9 @@ if (quantity) {
         updateHiddenFields
     );
 
-
     quantity.addEventListener(
         "input",
         updateHiddenFields
-    );
-
-}
-
-
-// =====================================================
-// RECEIPT POLICY — CATEGORY BASED
-// =====================================================
-
-function getReceiptPolicyHtml() {
-
-    const category =
-        normalizeCategory(
-            productData.category
-        );
-
-
-    console.log(
-        "RECEIPT POLICY CATEGORY:",
-        category
-    );
-
-
-    // =================================================
-    // CARS RENT
-    // =================================================
-
-    if (
-        isCarsRentCategory()
-    ) {
-
-        return `
-
-            <div class="receipt-policy-title">
-                اہم شرائط — Cars Rent Service
-            </div>
-
-            <div>
-                📞 آپ کی درخواست کامیابی سے موصول ہو گئی ہے۔
-            </div>
-
-            <div>
-                👤 ہمارا نمائندہ جلد از جلد،
-                عموماً <strong>ایک ورکنگ ڈے کے اندر</strong>
-                آپ کے Contact Mobile Number / WhatsApp Number
-                پر رابطہ کرے گا۔
-            </div>
-
-            <div>
-                🚗 گاڑی کی دستیابی، کرایہ، مدتِ کرایہ،
-                شرائط اور دیگر ضروری تفصیلات رابطے کے دوران
-                تصدیق کی جائیں گی۔
-            </div>
-
-            <div class="policy-divider">
-                ★ ★ ★ ★ ★
-            </div>
-
-            <div>
-                ℹ️ حتمی کرایہ، دستیابی اور شرائط کی
-                تصدیق نمائندے سے رابطے کے بعد ہوگی۔
-            </div>
-
-        `;
-
-    }
-
-
-    // =================================================
-    // PROPERTY RENT
-    // =================================================
-
-    if (
-        isPropertyRentCategory()
-    ) {
-
-        return `
-
-            <div class="receipt-policy-title">
-                اہم شرائط — Property Rent Service
-            </div>
-
-            <div>
-                📞 آپ کی درخواست کامیابی سے موصول ہو گئی ہے۔
-            </div>
-
-            <div>
-                👤 ہمارا نمائندہ جلد از جلد،
-                عموماً <strong>ایک ورکنگ ڈے کے اندر</strong>
-                آپ کے Contact Mobile Number / WhatsApp Number
-                پر رابطہ کرے گا۔
-            </div>
-
-            <div>
-                🏠 پراپرٹی کی دستیابی، کرایہ، مقام،
-                شرائط اور دیگر ضروری تفصیلات رابطے کے دوران
-                تصدیق کی جائیں گی۔
-            </div>
-
-            <div class="policy-divider">
-                ★ ★ ★ ★ ★
-            </div>
-
-            <div>
-                ℹ️ حتمی کرایہ، دستیابی اور شرائط کی
-                تصدیق نمائندے سے رابطے کے بعد ہوگی۔
-            </div>
-
-        `;
-
-    }
-
-
-    // =================================================
-    // CONSTRUCTION MATERIAL
-    // =================================================
-
-    if (
-        isConstructionCategory()
-    ) {
-
-        return `
-
-            <div class="receipt-policy-title">
-                اہم شرائط — Construction Material
-            </div>
-
-            <div>
-                📞 آپ کی درخواست کامیابی سے موصول ہو گئی ہے۔
-            </div>
-
-            <div>
-                👤 ہمارا نمائندہ جلد از جلد،
-                عموماً <strong>ایک ورکنگ ڈے کے اندر</strong>
-                آپ کے Contact Mobile Number / WhatsApp Number
-                پر رابطہ کرے گا۔
-            </div>
-
-            <div>
-                🧱 ریت، بجری، اینٹ، سیمنٹ وغیرہ کی
-                دستیابی، مطلوبہ مقدار، موجودہ ریٹ،
-                ڈلیوری اور دیگر تفصیلات کی تصدیق کی جائے گی۔
-            </div>
-
-            <div class="policy-divider">
-                ★ ★ ★ ★ ★
-            </div>
-
-            <div>
-                ℹ️ حتمی ریٹ، مقدار اور ڈلیوری کی
-                تصدیق نمائندے سے رابطے کے بعد ہوگی۔
-            </div>
-
-        `;
-
-    }
-
-
-    // =================================================
-    // NORMAL PRODUCTS
-    // =================================================
-
-    return `
-
-        <div class="receipt-policy-title">
-            اہم شرائط و معلومات
-        </div>
-
-        <div>
-            🚚 ڈیلیوری کا وقت:
-            <strong>4–6 دن</strong>
-        </div>
-
-        <div>
-            🔄 Return / Backup Request:
-            <strong>5 دن کے اندر</strong>
-        </div>
-
-        <div>
-            💵 ادائیگی کا طریقہ:
-            <strong>Cash on Delivery (COD)</strong>
-        </div>
-
-        <div>
-            💰 Return منظور ہونے کے بعد رقم کی واپسی میں
-            <strong>7 دن تک</strong> لگ سکتے ہیں۔
-        </div>
-
-    `;
-
-}
-
-
-// =====================================================
-// SHARE POLICY TEXT
-// =====================================================
-
-function getSharePolicyText() {
-
-    // =================================================
-    // CARS RENT
-    // =================================================
-
-    if (
-        isCarsRentCategory()
-    ) {
-
-        return (
-
-            "اہم شرائط — Cars Rent Service\n" +
-
-            "آپ کی درخواست موصول ہو گئی ہے۔\n" +
-
-            "ہمارا نمائندہ جلد از جلد، عموماً ایک ورکنگ ڈے کے اندر، Contact Mobile Number / WhatsApp Number پر رابطہ کرے گا۔\n" +
-
-            "گاڑی کی دستیابی، کرایہ، مدتِ کرایہ، شرائط اور دیگر تفصیلات رابطے کے دوران تصدیق کی جائیں گی۔\n" +
-
-            "حتمی کرایہ، دستیابی اور شرائط نمائندے سے رابطے کے بعد تصدیق ہوں گی۔"
-
-        );
-
-    }
-
-
-    // =================================================
-    // PROPERTY RENT
-    // =================================================
-
-    if (
-        isPropertyRentCategory()
-    ) {
-
-        return (
-
-            "اہم شرائط — Property Rent Service\n" +
-
-            "آپ کی درخواست موصول ہو گئی ہے۔\n" +
-
-            "ہمارا نمائندہ جلد از جلد، عموماً ایک ورکنگ ڈے کے اندر، Contact Mobile Number / WhatsApp Number پر رابطہ کرے گا۔\n" +
-
-            "پراپرٹی کی دستیابی، کرایہ، مقام، شرائط اور دیگر تفصیلات رابطے کے دوران تصدیق کی جائیں گی۔\n" +
-
-            "حتمی کرایہ، دستیابی اور شرائط نمائندے سے رابطے کے بعد تصدیق ہوں گی۔"
-
-        );
-
-    }
-
-
-    // =================================================
-    // CONSTRUCTION
-    // =================================================
-
-    if (
-        isConstructionCategory()
-    ) {
-
-        return (
-
-            "اہم شرائط — Construction Material\n" +
-
-            "آپ کی درخواست موصول ہو گئی ہے۔\n" +
-
-            "ہمارا نمائندہ جلد از جلد، عموماً ایک ورکنگ ڈے کے اندر، Contact Mobile Number / WhatsApp Number پر رابطہ کرے گا۔\n" +
-
-            "ریت، بجری، اینٹ، سیمنٹ وغیرہ کی دستیابی، مقدار، موجودہ ریٹ، ڈلیوری اور دیگر تفصیلات کی تصدیق کی جائے گی۔\n" +
-
-            "حتمی ریٹ، مقدار اور ڈلیوری نمائندے سے رابطے کے بعد تصدیق ہوگی۔"
-
-        );
-
-    }
-
-
-    // =================================================
-    // NORMAL PRODUCTS
-    // =================================================
-
-    return (
-
-        "Delivery: 4–6 days\n" +
-
-        "Return Request: within 5 days\n" +
-
-        "Payment: Cash on Delivery (COD)\n" +
-
-        "Refund after approved return: up to 7 days."
-
     );
 
 }
@@ -1372,7 +783,6 @@ function waitForImage(image) {
             image.onload =
                 () => resolve();
 
-
             image.onerror =
                 () => resolve();
 
@@ -1389,9 +799,7 @@ function waitForImage(image) {
 async function showReceipt(orderId) {
 
     if (!receiptSection) {
-
         return;
-
     }
 
 
@@ -1466,9 +874,7 @@ async function showReceipt(orderId) {
         );
 
 
-    // =================================================
     // BASIC DATA
-    // =================================================
 
     if (receiptOrderId) {
 
@@ -1518,24 +924,22 @@ async function showReceipt(orderId) {
 
         receiptDate.textContent =
             new Date()
-                .toLocaleString(
-                    "en-PK",
-                    {
-                        dateStyle:
-                            "medium",
-
-                        timeStyle:
-                            "short"
-                    }
-                );
+            .toLocaleString(
+                "en-PK",
+                {
+                    dateStyle:
+                        "medium",
+                    timeStyle:
+                        "short"
+                }
+            );
 
     }
 
 
     const qty =
         Number(
-            quantity?.value ||
-            1
+            quantity?.value || 1
         );
 
 
@@ -1559,11 +963,9 @@ async function showReceipt(orderId) {
 
     const deliveryText =
         productData.deliveryCharges > 0
-
             ? money(
                 productData.deliveryCharges
-            )
-
+              )
             : "Free Delivery";
 
 
@@ -1605,12 +1007,9 @@ async function showReceipt(orderId) {
     const total =
         (
             Number(
-                productData.price ||
-                0
-            ) *
-            qty
+                productData.price || 0
+            ) * qty
         ) +
-
         Number(
             productData.deliveryCharges ||
             0
@@ -1625,9 +1024,7 @@ async function showReceipt(orderId) {
     }
 
 
-    // =================================================
     // RECEIPT IMAGE
-    // =================================================
 
     const imageUrl =
         optimizeImage(
@@ -1648,7 +1045,6 @@ async function showReceipt(orderId) {
             receiptImage.style.display =
                 "block";
 
-
             await waitForImage(
                 receiptImage
             );
@@ -1663,35 +1059,13 @@ async function showReceipt(orderId) {
     }
 
 
-    // =================================================
-    // RECEIPT POLICY
-    // =================================================
-
-    const receiptPolicy =
-        document.getElementById(
-            "receiptPolicy"
-        );
-
-
-    if (receiptPolicy) {
-
-        receiptPolicy.innerHTML =
-            getReceiptPolicyHtml();
-
-    }
-
-
-    // =================================================
     // SHOW RECEIPT
-    // =================================================
 
     receiptSection.style.display =
         "block";
 
 
-    // =================================================
     // HIDE FORM
-    // =================================================
 
     if (form) {
 
@@ -1701,21 +1075,16 @@ async function showReceipt(orderId) {
     }
 
 
-    // =================================================
     // MOVE USER TO RECEIPT
-    // =================================================
 
     setTimeout(
         () => {
 
             receiptSection.scrollIntoView({
-
                 behavior:
                     "smooth",
-
                 block:
                     "start"
-
             });
 
         },
@@ -1766,45 +1135,35 @@ if (form) {
             try {
 
                 const formData =
-                    new FormData(
-                        form
-                    );
+                    new FormData(form);
 
 
                 const response =
                     await fetch(
-
                         "https://formsubmit.co/ajax/thanksyou0339@gmail.com",
-
                         {
-
                             method:
                                 "POST",
 
                             body:
                                 formData,
 
-                            headers: {
-
+                            headers:{
                                 Accept:
                                     "application/json"
-
                             }
-
                         }
-
                     );
 
 
                 let result = {};
-
 
                 try {
 
                     result =
                         await response.json();
 
-                } catch (error) {
+                } catch(error) {
 
                     console.log(
                         "Response was not JSON."
@@ -1816,25 +1175,21 @@ if (form) {
                 if (!response.ok) {
 
                     throw new Error(
-
                         result.message ||
                         "Order submission failed."
-
                     );
 
                 }
 
 
-                // =================================================
                 // SHOW RECEIPT
-                // =================================================
 
                 await showReceipt(
                     orderId
                 );
 
 
-            } catch (error) {
+            } catch(error) {
 
                 console.error(
                     "Order submission error:",
@@ -1888,9 +1243,7 @@ if (downloadButton) {
 
 
             if (!receipt) {
-
                 return;
-
             }
 
 
@@ -1911,7 +1264,6 @@ if (downloadButton) {
             downloadButton.disabled =
                 true;
 
-
             downloadButton.textContent =
                 "PDF بن رہی ہے...";
 
@@ -1931,27 +1283,21 @@ if (downloadButton) {
 
                 const options = {
 
-                    margin:
-                        5,
+                    margin: 5,
 
                     filename:
                         "JANJUA-Order-" +
-
                         (
                             hiddenOrderId?.value ||
                             "Receipt"
                         ) +
-
                         ".pdf",
 
                     image: {
-
                         type:
                             "jpeg",
-
                         quality:
                             0.95
-
                     },
 
                     html2canvas: {
@@ -1987,15 +1333,12 @@ if (downloadButton) {
 
 
                 await html2pdf()
-
                     .set(options)
-
                     .from(receipt)
-
                     .save();
 
 
-            } catch (error) {
+            } catch(error) {
 
                 console.error(
                     "PDF error:",
@@ -2012,7 +1355,6 @@ if (downloadButton) {
 
             downloadButton.disabled =
                 false;
-
 
             downloadButton.textContent =
                 "📥 Download PDF";
@@ -2043,81 +1385,47 @@ if (shareButton) {
                 hiddenOrderId?.value ||
                 "";
 
-
-            const policyText =
-                getSharePolicyText();
-
-
             const text =
-
                 "JANJUA TRADERS\n" +
-
                 "Order Confirmation\n\n" +
-
                 "Order ID: " +
-
                 orderId +
-
                 "\n" +
-
                 "Product: " +
-
                 productData.name +
-
                 "\n" +
-
-                "Category: " +
-
-                (
-                    productData.category ||
-                    "-"
-                ) +
-
-                "\n" +
-
                 "Quantity: " +
-
                 (
                     quantity?.value ||
                     1
                 ) +
-
                 "\n" +
-
                 "Total: " +
-
                 money(
-
                     (
                         Number(
                             productData.price ||
                             0
                         ) *
-
                         Number(
                             quantity?.value ||
                             1
                         )
-
                     ) +
-
                     Number(
                         productData.deliveryCharges ||
                         0
                     )
-
                 ) +
-
                 "\n\n" +
-
-                policyText;
+                "Delivery: 4–6 days\n" +
+                "Return Request: within 5 days\n" +
+                "Payment: Cash on Delivery (COD)";
 
 
             try {
 
-                // =================================================
                 // TRY SHARE PDF FIRST
-                // =================================================
 
                 if (
                     typeof html2pdf !==
@@ -2132,51 +1440,38 @@ if (shareButton) {
 
                     const options = {
 
-                        margin:
-                            5,
+                        margin:5,
 
                         filename:
                             "JANJUA-Order-" +
                             orderId +
                             ".pdf",
 
-                        image: {
-
+                        image:{
                             type:
                                 "jpeg",
-
                             quality:
                                 0.95
-
                         },
 
-                        html2canvas: {
-
+                        html2canvas:{
                             scale:
                                 2,
-
                             useCORS:
                                 true,
-
                             allowTaint:
                                 false,
-
                             backgroundColor:
                                 "#ffffff"
-
                         },
 
-                        jsPDF: {
-
+                        jsPDF:{
                             unit:
                                 "mm",
-
                             format:
                                 "a4",
-
                             orientation:
                                 "portrait"
-
                         }
 
                     };
@@ -2184,11 +1479,8 @@ if (shareButton) {
 
                     const pdfBlob =
                         await html2pdf()
-
                             .set(options)
-
                             .from(receipt)
-
                             .outputPdf(
                                 "blob"
                             );
@@ -2196,39 +1488,27 @@ if (shareButton) {
 
                     const file =
                         new File(
-
                             [
                                 pdfBlob
                             ],
-
                             "JANJUA-Order-" +
                             orderId +
                             ".pdf",
-
                             {
-
                                 type:
                                     "application/pdf"
-
                             }
-
                         );
 
 
                     if (
-
                         navigator.share &&
-
                         navigator.canShare &&
-
                         navigator.canShare({
-
-                            files: [
+                            files:[
                                 file
                             ]
-
                         })
-
                     ) {
 
                         await navigator.share({
@@ -2239,12 +1519,11 @@ if (shareButton) {
                             text:
                                 text,
 
-                            files: [
+                            files:[
                                 file
                             ]
 
                         });
-
 
                         return;
 
@@ -2253,9 +1532,7 @@ if (shareButton) {
                 }
 
 
-                // =================================================
                 // NORMAL SHARE
-                // =================================================
 
                 if (
                     navigator.share
@@ -2271,15 +1548,12 @@ if (shareButton) {
 
                     });
 
-
                     return;
 
                 }
 
 
-                // =================================================
                 // CLIPBOARD FALLBACK
-                // =================================================
 
                 if (
                     navigator.clipboard
@@ -2289,43 +1563,34 @@ if (shareButton) {
                         text
                     );
 
-
                     alert(
                         "Order details copy ہو گئے ہیں۔"
                     );
-
 
                     return;
 
                 }
 
 
-                alert(
-                    text
-                );
+                alert(text);
 
 
-            } catch (error) {
+            } catch(error) {
 
                 if (
-
                     error &&
-
                     error.name ===
                     "AbortError"
-
                 ) {
 
                     return;
 
                 }
 
-
                 console.error(
                     "Share error:",
                     error
                 );
-
 
                 alert(
                     "Share نہیں ہو سکا۔ براہِ کرم Download PDF کرکے WhatsApp پر share کریں۔"
@@ -2362,11 +1627,11 @@ if (printButton) {
 
 
             if (!receipt) {
-
                 return;
-
             }
 
+
+            // Make sure image has loaded
 
             const image =
                 document.getElementById(
