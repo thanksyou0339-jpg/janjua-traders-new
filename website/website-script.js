@@ -4,6 +4,10 @@
 
    یہ website صرف introduction + dynamic product display ہے۔
    اصل shopping کے لیے ../shop.html کھولا جائے گا۔
+
+   IMAGE SYSTEM:
+   Admin/Firebase میں product کے ساتھ مختلف ممکنہ
+   image fields میں سے image خود detect کی جائے گی۔
    ========================================================= */
 
 import {
@@ -100,6 +104,196 @@ function escapeHtml(value) {
 
 
 /* =========================================================
+   IMAGE VALUE HELPER
+   ========================================================= */
+
+function getImageValue(value) {
+
+    /*
+       اگر image field سیدھا string ہو۔
+    */
+
+    if (
+        typeof value === "string" ||
+        typeof value === "number"
+    ) {
+
+        return cleanValue(value);
+
+    }
+
+
+    /*
+       اگر Firebase میں image array ہو
+       تو پہلی usable image لی جائے۔
+    */
+
+    if (Array.isArray(value)) {
+
+        for (const item of value) {
+
+            const result =
+                getImageValue(item);
+
+            if (result) {
+                return result;
+            }
+
+        }
+
+        return "";
+
+    }
+
+
+    /*
+       اگر image ایک object کی شکل میں ہو
+       تو عام URL fields check کی جائیں۔
+    */
+
+    if (
+        value &&
+        typeof value === "object"
+    ) {
+
+        const possibleUrl =
+            value.url ??
+            value.URL ??
+            value.downloadURL ??
+            value.downloadUrl ??
+            value.imageUrl ??
+            value.imageURL ??
+            value.src ??
+            value.href ??
+            value.path ??
+            "";
+
+        return cleanValue(
+            possibleUrl
+        );
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   IMAGE URL
+   ========================================================= */
+
+function getProductImage(data) {
+
+    const possibleImages = [
+
+        data.Image_URL,
+        data.imageUrl,
+        data.imageURL,
+        data.image,
+        data.Image,
+
+        data.Product_Image,
+        data.Product_Image_URL,
+        data.productImage,
+        data.productImageUrl,
+
+        data.photo,
+        data.Photo,
+
+        data.thumbnail,
+        data.Thumbnail,
+
+        data.imagePath,
+        data.Image_Path,
+
+        data.productPhoto,
+        data.productPhotoUrl
+
+    ];
+
+
+    for (
+        const value of possibleImages
+    ) {
+
+        const image =
+            getImageValue(value);
+
+
+        if (image) {
+
+            return image;
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   IMAGE URL SAFETY
+   ========================================================= */
+
+function isUsableImageUrl(url) {
+
+    const value =
+        cleanValue(url);
+
+
+    if (!value) {
+        return false;
+    }
+
+
+    /*
+       Firebase Storage / normal web images
+    */
+
+    if (
+        value.startsWith("https://") ||
+        value.startsWith("http://")
+    ) {
+
+        return true;
+
+    }
+
+
+    /*
+       Local/data images بھی allow
+       کیے جا سکتے ہیں۔
+    */
+
+    if (
+        value.startsWith("data:image/")
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        value.startsWith("blob:")
+    ) {
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================================================
    PRODUCT NAME
    ========================================================= */
 
@@ -155,7 +349,10 @@ function getProductId(data, documentId) {
    NORMALIZE PRODUCT
    ========================================================= */
 
-function normalizeProduct(data, documentId) {
+function normalizeProduct(
+    data,
+    documentId
+) {
 
     return {
 
@@ -169,9 +366,13 @@ function normalizeProduct(data, documentId) {
             getProductName(data),
 
         category:
-            getProductCategory(data)
+            getProductCategory(data),
+
+        image:
+            getProductImage(data)
 
     };
+
 }
 
 
@@ -182,12 +383,15 @@ function normalizeProduct(data, documentId) {
 async function loadProducts() {
 
     if (!productsTrack) {
+
         console.error(
             "productsTrack element not found."
         );
 
         return;
+
     }
+
 
     try {
 
@@ -203,34 +407,39 @@ async function loadProducts() {
         const loadedProducts = [];
 
 
-        snapshot.forEach((doc) => {
+        snapshot.forEach(
+            (doc) => {
 
-            const data = doc.data();
-
-            const product =
-                normalizeProduct(
-                    data,
-                    doc.id
-                );
+                const data =
+                    doc.data();
 
 
-            /*
-               خالی یا غیرضروری records
-               website پر نہیں دکھانے۔
-            */
+                const product =
+                    normalizeProduct(
+                        data,
+                        doc.id
+                    );
 
-            if (
-                product.name &&
-                product.name !== "Unnamed Product"
-            ) {
 
-                loadedProducts.push(
-                    product
-                );
+                /*
+                   خالی یا غیرضروری records
+                   website پر نہیں دکھانے۔
+                */
+
+                if (
+                    product.name &&
+                    product.name !==
+                    "Unnamed Product"
+                ) {
+
+                    loadedProducts.push(
+                        product
+                    );
+
+                }
 
             }
-
-        });
+        );
 
 
         /*
@@ -264,14 +473,18 @@ async function loadProducts() {
             showEmptyMessage();
 
             return;
+
         }
 
 
         currentStart = 0;
 
+
         renderCurrentProducts();
 
+
         startAutomaticAnimation();
+
 
     } catch (error) {
 
@@ -279,6 +492,7 @@ async function loadProducts() {
             "JANJUA TRADERS products loading error:",
             error
         );
+
 
         showErrorMessage();
 
@@ -294,14 +508,11 @@ async function loadProducts() {
 function getCurrentProducts() {
 
     if (!allProducts.length) {
+
         return [];
+
     }
 
-
-    /*
-       اگر products چار سے کم ہوں
-       تو جتنی available ہیں وہ دکھائی جائیں گی۔
-    */
 
     const result = [];
 
@@ -312,8 +523,12 @@ function getCurrentProducts() {
         i++
     ) {
 
-        if (allProducts.length === 0) {
+        if (
+            allProducts.length === 0
+        ) {
+
             break;
+
         }
 
 
@@ -338,7 +553,9 @@ function getCurrentProducts() {
                 index >=
                 allProducts.length
             ) {
+
                 break;
+
             }
 
         }
@@ -352,6 +569,7 @@ function getCurrentProducts() {
 
 
     return result;
+
 }
 
 
@@ -364,7 +582,9 @@ function renderCurrentProducts(
 ) {
 
     if (!productsTrack) {
+
         return;
+
     }
 
 
@@ -377,6 +597,7 @@ function renderCurrentProducts(
         showEmptyMessage();
 
         return;
+
     }
 
 
@@ -393,6 +614,7 @@ function renderCurrentProducts(
                 drawProducts(
                     products
                 );
+
 
                 productsTrack.classList.remove(
                     "changing"
@@ -447,25 +669,142 @@ function drawProducts(products) {
             );
 
 
+            /*
+               محفوظ image URL
+            */
+
+            const imageUrl =
+                isUsableImageUrl(
+                    product.image
+                )
+                    ? product.image
+                    : "";
+
+
+            /*
+               اگر image موجود ہے تو image card میں آئے گی۔
+               اگر image موجود نہیں تو placeholder رہے گا۔
+            */
+
+            const imageHtml =
+                imageUrl
+                    ? `
+                        <div class="product-image-frame">
+
+                            <img
+                                class="product-image"
+                                src="${escapeHtml(imageUrl)}"
+                                alt="${escapeHtml(product.name)}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+
+                            <div
+                                class="product-image-placeholder"
+                                aria-hidden="true"
+                            >
+                                تصویر دستیاب نہیں
+                            </div>
+
+                        </div>
+                      `
+                    : `
+                        <div class="product-image-frame">
+
+                            <div
+                                class="product-image-placeholder"
+                            >
+                                تصویر دستیاب نہیں
+                            </div>
+
+                        </div>
+                      `;
+
+
             card.innerHTML = `
 
                 <div class="card-light"></div>
 
                 <div class="product-shine"></div>
 
-                <div class="product-number">
-                    ${String(index + 1).padStart(2, "0")}
-                </div>
+                ${imageHtml}
 
-                <div class="product-name">
-                    ${escapeHtml(product.name)}
-                </div>
+                <div class="product-card-content">
 
-                <div class="product-category">
-                    ${escapeHtml(product.category)}
+                    <div class="product-number">
+                        ${String(index + 1).padStart(2, "0")}
+                    </div>
+
+                    <div class="product-name">
+                        ${escapeHtml(product.name)}
+                    </div>
+
+                    <div class="product-category">
+                        ${escapeHtml(product.category)}
+                    </div>
+
                 </div>
 
             `;
+
+
+            /*
+               Image load ہونے میں مسئلہ ہو تو
+               placeholder دکھایا جائے۔
+            */
+
+            const image =
+                card.querySelector(
+                    ".product-image"
+                );
+
+
+            const placeholder =
+                card.querySelector(
+                    ".product-image-placeholder"
+                );
+
+
+            if (image) {
+
+                image.addEventListener(
+                    "load",
+                    () => {
+
+                        image.classList.add(
+                            "loaded"
+                        );
+
+                        if (placeholder) {
+
+                            placeholder.style.display =
+                                "none";
+
+                        }
+
+                    }
+                );
+
+
+                image.addEventListener(
+                    "error",
+                    () => {
+
+                        image.style.display =
+                            "none";
+
+
+                        if (placeholder) {
+
+                            placeholder.style.display =
+                                "flex";
+
+                        }
+
+                    }
+                );
+
+            }
 
 
             productsTrack.appendChild(
@@ -498,6 +837,7 @@ function startAutomaticAnimation() {
     ) {
 
         return;
+
     }
 
 
@@ -526,6 +866,7 @@ function moveToNextProducts() {
     ) {
 
         return;
+
     }
 
 
