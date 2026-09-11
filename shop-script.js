@@ -1,7 +1,8 @@
 /* =========================================================
    JANJUA TRADERS — CUSTOMER SHOP
-   Firebase + Products + Search + Categories
+   Firebase + Products + Search
    Smooth Continuous Featured Product Slider
+   Categories Hidden — Search Based Product Discovery
 ========================================================= */
 
 import {
@@ -22,7 +23,7 @@ import {
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyA8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
+        "AIzaSyC8_4ArKXAdfKWZ5mi5DaT9qiayL3h_Yzw",
 
     authDomain:
         "janjua-traders.firebaseapp.com",
@@ -692,126 +693,41 @@ async function loadProducts(){
 
 /* =========================================================
    CATEGORIES
+   HIDDEN — SEARCH IS THE MAIN DISCOVERY METHOD
 ========================================================= */
 
 function renderCategories(){
 
     if(!categoriesBox){
+
         return;
+
     }
 
 
-    const set =
-        new Set();
+    /*
+       Category buttons are intentionally hidden.
 
-
-    allProducts.forEach(
-        product => {
-
-            if(
-                product.Category &&
-                product.Category !== "All"
-            ){
-
-                set.add(
-                    product.Category
-                );
-
-            }
-
-        }
-    );
-
-
-    const categories =
-        Array.from(set)
-            .sort(
-                (a,b)=>
-                    a.localeCompare(
-                        b
-                    )
-            );
-
-
-    let html = `
-
-        <button
-            class="category-btn active"
-            data-category="All"
-        >
-            All
-        </button>
-
-    `;
-
-
-    categories.forEach(
-        category => {
-
-            html += `
-
-                <button
-                    class="category-btn"
-                    data-category="${escapeHtml(category)}"
-                >
-                    ${escapeHtml(category)}
-                </button>
-
-            `;
-
-        }
-    );
-
+       Customers will use the main Search Box
+       to find products.
+    */
 
     categoriesBox.innerHTML =
-        html;
+        "";
+
+    categoriesBox.style.display =
+        "none";
 
 
-    categoriesBox
-        .querySelectorAll(
-            ".category-btn"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    ()=>{
-
-                        categoriesBox
-                            .querySelectorAll(
-                                ".category-btn"
-                            )
-                            .forEach(
-                                btn =>
-                                    btn.classList.remove(
-                                        "active"
-                                    )
-                            );
-
-
-                        button.classList.add(
-                            "active"
-                        );
-
-
-                        currentCategory =
-                            button.dataset.category;
-
-
-                        renderProducts();
-
-                    }
-                );
-
-            }
-        );
+    currentCategory =
+        "All";
 
 }
 
 
 /* =========================================================
    FILTER PRODUCTS
+   SEARCH ACROSS ALL PRODUCTS
 ========================================================= */
 
 function getFilteredProducts(){
@@ -819,19 +735,15 @@ function getFilteredProducts(){
     return allProducts.filter(
         product => {
 
-            const categoryMatch =
-                currentCategory ===
-                "All" ||
-                product.Category ===
-                currentCategory;
+            /*
+               No category filtering.
 
-
-            if(!categoryMatch){
-
-                return false;
-
-            }
-
+               Search works across:
+               Product ID
+               Product Name
+               Category
+               Description
+            */
 
             if(!searchText){
 
@@ -907,7 +819,7 @@ function getOrderLink(product){
 
 /* =========================================================
    FEATURED SLIDER
-   CONTINUOUS AUTOMATIC MOVEMENT
+   ALL PRODUCTS — CONTINUOUS MOVEMENT
 ========================================================= */
 
 function renderSlider(){
@@ -941,11 +853,9 @@ function renderSlider(){
 
 
     /*
-       Show ALL products in the featured
-       moving slider.
+       ALL Firestore products are used.
 
-       We duplicate the products so that
-       the movement can continue smoothly.
+       Nothing is limited to only 2 products.
     */
 
     const featured =
@@ -957,8 +867,8 @@ function renderSlider(){
 
 
     /*
-       Two complete copies are required
-       for seamless looping.
+       Duplicate the complete product list
+       for seamless continuous looping.
     */
 
     const sliderProducts =
@@ -1062,8 +972,8 @@ function renderSlider(){
 
 
     /*
-       Give the browser time to
-       calculate the real card width.
+       Give browser time to calculate
+       actual card dimensions.
     */
 
     requestAnimationFrame(
@@ -1071,7 +981,9 @@ function renderSlider(){
 
             requestAnimationFrame(
                 ()=>{
+
                     startSlider();
+
                 }
             );
 
@@ -1088,7 +1000,9 @@ function renderSlider(){
 function calculateSliderWidth(){
 
     if(!sliderTrack){
+
         return 0;
+
     }
 
 
@@ -1099,7 +1013,9 @@ function calculateSliderWidth(){
 
 
     if(!card){
+
         return 0;
+
     }
 
 
@@ -1136,7 +1052,7 @@ function startSlider(){
 
     if(
         !sliderTrack ||
-        sliderOriginalCount < 2
+        sliderOriginalCount < 1
     ){
 
         return;
@@ -1167,17 +1083,17 @@ function startSlider(){
 
 
     /*
-       Smooth continuous movement.
+       Faster smooth movement.
 
-       Smaller number =
-       slower movement.
+       Previous:
+       35 pixels / second
 
-       Current speed:
-       approximately 35 pixels per second.
+       New:
+       60 pixels / second
     */
 
     const speed =
-        35;
+        60;
 
 
     let lastTime =
@@ -1226,13 +1142,7 @@ function startSlider(){
 
 
         /*
-           Once the first complete set
-           has passed, instantly reset the
-           hidden position.
-
-           Because the second identical
-           set is directly behind it,
-           the user sees a seamless loop.
+           Seamless loop.
         */
 
         if(
@@ -1269,38 +1179,21 @@ function startSlider(){
 
 
     /*
-       Pause while user touches
-       or places the pointer over slider.
+       Use DOM event properties instead of
+       repeatedly adding duplicate listeners.
     */
 
-    slider.addEventListener(
-        "mouseenter",
-        pauseSlider
-    );
+    slider.onmouseenter =
+        pauseSlider;
 
+    slider.onmouseleave =
+        resumeSlider;
 
-    slider.addEventListener(
-        "mouseleave",
-        resumeSlider
-    );
+    slider.ontouchstart =
+        pauseSlider;
 
-
-    slider.addEventListener(
-        "touchstart",
-        pauseSlider,
-        {
-            passive:true
-        }
-    );
-
-
-    slider.addEventListener(
-        "touchend",
-        resumeSlider,
-        {
-            passive:true
-        }
-    );
+    slider.ontouchend =
+        resumeSlider;
 
 }
 
@@ -1374,7 +1267,7 @@ window.addEventListener(
     ()=>{
 
         if(
-            sliderOriginalCount >= 2
+            sliderOriginalCount >= 1
         ){
 
             sliderCardWidth =
@@ -1393,7 +1286,9 @@ window.addEventListener(
 function renderProducts(){
 
     if(!productsGrid){
+
         return;
+
     }
 
 
